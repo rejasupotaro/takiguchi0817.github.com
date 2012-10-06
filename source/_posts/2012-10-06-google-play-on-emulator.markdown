@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "エミュレータにGoogle Playにあるapkを入れたい"
+title: "エミュレータにGoogle Playにあるapkを入れる"
 date: 2012-10-06 13:41
 comments: true
 categories: 
