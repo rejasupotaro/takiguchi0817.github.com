@@ -33,11 +33,11 @@ apkをダウンロードしたら、以下のオプションでchromeを起動�
 ## エミュレータにインストールする
 実際にapkをダウンロードしてエミュレータにインストールする。
 
-## Google Playからapkをダウンロードする。
+### Google Playからapkをダウンロードする。
 Google Playに行ってインストールしたいアプリのインストールページに行く。  
 アドレスバーのところにAPK Downloaderのアイコンが出るので、クリックしてダウンロード。  
 
-## エミュレータにインストールする
+### エミュレータにインストールする
     $ emulator -avd device_name
     $ adb install ~/Downloads/HelloGooglePlay.apk
 
