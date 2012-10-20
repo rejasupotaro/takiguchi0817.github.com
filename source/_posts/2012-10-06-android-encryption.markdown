@@ -2,7 +2,7 @@
 layout: post
 title: "Androidの画像の暗号化"
 date: 2012-10-06 17:05
-comments: true
+comments: false
 categories: 
 ---
 

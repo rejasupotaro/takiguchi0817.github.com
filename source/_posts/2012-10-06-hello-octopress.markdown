@@ -2,7 +2,7 @@
 layout: post
 title: "Hello Octopress"
 date: 2012-10-06 13:09
-comments: true
+comments: false
 categories: 
 ---
 某ブログから移転しました。  
