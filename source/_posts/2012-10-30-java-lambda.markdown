@@ -20,7 +20,7 @@ amachanさんの[Yコンビネータってなに？](http://d.hatena.ne.jp/amach
       public GInterface execute(FInterface fi) {
         return new GInterface() {
           public int g(int m) {
-            return fi.f(this).gib(m);
+            return fi.f(this).fib(m);
           }
         };
       }
