@@ -12,7 +12,7 @@ categories:
 ## かわいみコート買った
 ![かわいみコート買った](http://dl.dropbox.com/u/54255753/blog/201211/1351951130405-1.jpg)  
 
-## Yコンビネータ書いてた  
+## Yコンビネータみたいなの書いてた  
 
 ### case of ruby
     puts lambda { |y|
