@@ -17,31 +17,31 @@ amachanさんの[Yコンビネータってなに？](http://d.hatena.ne.jp/amach
 まだ途中だけど、  
 
     System.out.println((new LambdaInterface() {
-      public GInterface execute(FInterface fi) {
+      public GInterface exec(FInterface f) {
         return new GInterface() {
-          public int g(int m) {
-            return fi.f(this).fib(m);
+          public int exec(int m) {
+            return f.exec(this).fib(m);
           }
         };
       }
     }).execute(new FInterface() {
-      public FibInterface f(GInterface gi) {
+      public FibInterface exec(GInterface g) {
         return new FibInterface() {
           public int fib(int n) {
             return (n <= 2) ? 1 : fib(n - 1) + fib(n - 2);
           }
         };
       }
-    }).g(10));
+    }).exec(10));
 
 計算は出来ているが、この時点でかなりつらい。  
 というか書いてて思ったけどこれ実装してもラムダにしようと思ったら、  
 
-    GInterface gi = (int m) -> return fi.f(this).fib(m);
+    GInterface g = (int m) -> return f.exec(this).fib(m);
 
 ってイコール使っちゃうからだめだし、でももしかしたらと思って  
 
-    return (GInterface) ((int m) -> return fi.f(this).fib(m);
+    return (GInterface) ((int m) -> return f.exec(this).fib(m);
 
 って書いたけどやっぱり動かなかったし、無名関数の数だけ関数型インタフェースを用意しないといけないし、ジャバ8のラムダってふつうの糖衣構文だなって思いました(公式にもそう書いてあるのだけど)。  
 
