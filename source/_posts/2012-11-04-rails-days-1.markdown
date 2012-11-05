@@ -1,0 +1,99 @@
+---
+layout: post
+title: "Rails Days 1"
+date: 2012-11-04 19:49
+comments: false
+categories: 
+---
+
+# Railsを始めるまで
+
+## さくらのVPSのOS再インストール
+
+### カスタムインストール(Ubuntu)
+VNCコンソールはかなり厄介。  
+Macを10.8.02にしたらJava Preferencesがなくなってた＆Ubuntuだとよく分からないけど動かなかった。  
+しかたなくWindowsを持ってきてなんとか起動した。Windowsがなかったら詰んでた。  
+  
+VNCコンソールさえ起動できれば問題なくインストールできた。  
+
+## サーバーの設定
+
+### rootのパスワードの設定
+    $ sudo passwd root
+
+### 必要なパッケージ集める
+    $ aptitude install gcc
+    $ aptitude install build-essential g++
+    $ aptitude install make
+    $ aptitude install vim
+    $ aptitude install git
+    $ aptitude install curl
+
+## Rails関連のインストール
+
+### RVM
+    $ curl -L https://get.rvm.io | bash -s stable --ruby --trace
+    $ source .bashrc
+
+### Bundler
+    $ gem install bundler --pre
+
+### Rails
+    $ gem install rails↲
+
+## Railsをちょっとやる
+
+### プロジェクトの作成
+    $ rails new MyProject
+
+### ControllerとActionとViewの作成
+    $ rails generate controller info index
+rails generate controller コントローラー名 アクション名  
+コントローラーを作成するとビューもできる。  
+
+### ルーティングの設定
+rootをindexに向ける。  
+    $ vim config/routes.rb
+    MyProject::Application.routes.draw do
+      root :to => "info#index"
+      get "info/index""
+    end
+
+### ルーティングの確認
+    $ rake routes
+      info_index GET /info/index(.:format)         info#index
+      root           /                             info#index
+
+### サーバー起動時に何か処理をさせる
+    $ vim lib/init.rb
+    module Initializer
+      def init
+        puts 'Now Initializing...'
+      end
+    end
+
+    $ vim config/boot.rb
+    require 'rubygems'
+    
+    # Set up gems listed in the Gemfile.
+    ENV['BUNDLE_GEMFILE'] ||= FILE.expand_path('../../Gemfile', __FILE__)
+    
+    require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
+    
+    require File.expand_path('../../lib/init', __FILE__)
+    include Initializer
+    init()
+
+### autoloadを有効にする
+config/application.rbに、
+    # Custom directories with classes and modules you want to be autoloadable.
+    # config.autoload_paths += %W(#{config.root}/extras)
+って書いてあったので、
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+追加した。
+
+### サーバーの起動
+    $ rails s
+
