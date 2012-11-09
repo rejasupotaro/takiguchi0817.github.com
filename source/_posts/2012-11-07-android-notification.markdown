@@ -6,8 +6,6 @@ comments: false
 categories: 
 ---
 
-# AndroidのNotification
-
 ## ステータスバー
 
 NotificationManagerを介してステータスバーに通知を出したり消したりする。  
