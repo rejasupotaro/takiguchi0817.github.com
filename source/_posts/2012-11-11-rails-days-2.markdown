@@ -1,0 +1,72 @@
+---
+layout: post
+title: "Rails Days 2"
+date: 2012-11-11 14:02
+comments: false
+categories: 
+---
+
+## DBとかモデルとかいじる
+
+### MySQLのインストール
+
+    $ sudo aptitude update
+    $ aptitude install mysql-server
+    $ aptitude install libmysqlclient-dev
+    $ mysqladmin ping -u root -p
+    Enter password: ****
+    mysqld is alive
+
+インストール中にrootのパスワード聞かれた。  
+そのパスワードでpingして存命確認した。  
+
+### ユーザーの作成
+
+作成する。  
+
+    $ mysql -u root -p
+    mysql> CREATE USER betterflow@localhost IDENTIFIED BY 'hogehoge';
+    mysql> GRAND ALL ON *.* TO betterflow@localhost;
+    mysql> FLUSH PRIVILEGES;
+
+確認する。  
+
+    mysql> use mysql;
+    mysql> SELECT Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv FROM user;
+
+### RailsでMySQLを使えるようにする
+
+Gemfileで gem 'sqlite3' を gem 'mysql2' に変えた。  
+
+    $ bundle install --path vender/bundle
+    $ vim config/database.yml
+    development:
+      adapter: mysql2
+      database: betterflow
+      username: betterflow
+      password: hogehoge
+      pool: 5
+      timeout: 5000
+    $ rake db:create
+
+DBにアクセスできるようにした。  
+
+### モデルを作る
+
+    $ rails generate model track track_name:string artist_name:string release_date:date preview_url:string jacket_image_url:string track_view_url:string
+    $ rake db:migrate
+
+### モデルの型の変更
+
+release_dateをdate型にしたけどstring型の方が都合が良かった、変えたい。  
+
+    $ rails generate migration change_release_date_type
+    $ vim db/migrate/20121111051853_change_release_date_type.rb
+    class ChangeReleaseDateType < ActiveRecord::Migration
+      def change
+        change_column :tracks, :release_date, :string
+      end
+    end
+    $ rake db:migrate
+
+すごい。  
