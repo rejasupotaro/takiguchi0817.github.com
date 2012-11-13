@@ -3,7 +3,7 @@ layout: post
 title: アプリのデータはどこに保存されるの
 date: 2012-10-09 22:02
 comments: false 
-categories: 
+categories: Android
 ---
 ## 内部ストレージ /data/data/package.name
 - cache

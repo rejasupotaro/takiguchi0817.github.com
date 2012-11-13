@@ -3,7 +3,7 @@ layout: post
 title: "Rails Days 2"
 date: 2012-11-11 14:02
 comments: false
-categories: 
+categories: Ruby Rails MySQL
 ---
 
 ## DBとかモデルとかいじる

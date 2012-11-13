@@ -3,7 +3,7 @@ layout: post
 title: "Androidでconsole.log()を見る"
 date: 2012-10-19 19:07
 comments: false
-categories: 
+categories: Android
 ---
 ## おもにWindowsの方からつらいという声聞こえた
 スマートフォン向けのウェブサイトのデバッグ、console.log()を見る方法いくつかある。  

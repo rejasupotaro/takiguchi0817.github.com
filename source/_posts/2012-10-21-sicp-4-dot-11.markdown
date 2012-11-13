@@ -3,7 +3,7 @@ layout: post
 title: "SICP 4.11 - 4.15"
 date: 2012-10-21 07:24
 comments: fakse
-categories: 
+categories: Lisp SICP
 ---
 
     (define apply-in-underlying-scheme apply)

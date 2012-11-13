@@ -3,7 +3,7 @@ layout: post
 title: "ペアプログラミングについて学ぶ"
 date: 2012-10-21 11:57
 comments: false
-categories: 
+categories: Agile PairProgramming
 ---
 
 ## プロローグ

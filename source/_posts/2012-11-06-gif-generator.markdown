@@ -3,7 +3,7 @@ layout: post
 title: "GIFの流れ感じる"
 date: 2012-11-06 00:16
 comments: false
-categories: 
+categories: GIF
 ---
 
 ![冷蔵庫](http://dl.dropbox.com/u/54255753/blog/201211/gif1.gif)  

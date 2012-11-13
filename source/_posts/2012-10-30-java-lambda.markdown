@@ -3,7 +3,7 @@ layout: post
 title: "ジャバ8のラムダでYコンビネータが書きたかった…"
 date: 2012-10-30 04:50
 comments: false
-categories: 
+categories: Java Lambda
 ---
 
 今日のSICP読書会でLazyKanがちょっとした話題になった。  

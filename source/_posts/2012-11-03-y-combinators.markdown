@@ -3,7 +3,7 @@ layout: post
 title: "文化の日"
 date: 2012-11-03 14:15
 comments: false
-categories: 
+categories: Ruby CoffeeScript Lambda
 ---
 
 ## わかりやすかった  

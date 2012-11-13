@@ -3,7 +3,7 @@ layout: post
 title: "イスコン各位のパフォーマンスチューニング"
 date: 2012-11-06 23:59
 comments: false
-categories: 
+categories: Server Isucon
 ---
 
 [#isucon2](http://blog.livedoor.jp/techblog/archives/67726806.html)、周りでも結構話題になった。  

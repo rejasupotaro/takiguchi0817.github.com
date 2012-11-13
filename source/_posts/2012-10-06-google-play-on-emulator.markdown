@@ -3,7 +3,7 @@ layout: post
 title: "エミュレータにGoogle Playにあるapkを入れる"
 date: 2012-10-06 13:41
 comments: false
-categories: 
+categories: Android
 ---
 方法は2つ。  
 
