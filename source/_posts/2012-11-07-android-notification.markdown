@@ -3,7 +3,7 @@ layout: post
 title: "Androidの通知周り"
 date: 2012-11-07 23:19
 comments: false
-categories: 
+categories: Android
 ---
 
 ## ステータスバー
@@ -34,12 +34,27 @@ Notification.Builderを使って生成する(〜API Level 11)
         .setContentInfo("ちょっとした情報") // 4に対応
         .setSmallIcon(R.drawable.small_icon) // 5に対応
         .setWhen(System.currentTimeMillis()) // 6に対応
-        .setTicker("通知なう", remoteView) // 通知を最初に受け取ったときに表示するテキスト
+        .setTicker("通知なう", remoteView) // 通知を最初に受け取ったときに表示テキスト
         .setContentIntent(pendingIntent) // 通知をタップしたときに呼ばれるIntent
         .setSound(uri) // 音を鳴らす
         .setLights(argb, onMs, offMs) // ピカピカさせる
         .setVibrate(Notification.DEFAULT_VIBRATE) // バイブ設定
         .getNotification();
+
+FLAGがたくさんあると思うけど、なんとなくの理解で、  
+
+|フラグの種類            |内容                                   |
+|------------------------|---------------------------------------|
+|FLAG_AUTO_CANCEL        |タップしたら消える                     
+|FLAG_FOREGROUND_SERVICE |現在実行中のサービスを表す？？？       
+|FLAG_HIGH_PRIORITY      |ステータスバーが非表示でも通知が出せる 
+|FLAG_INSISTENT          |通知が消されるまで音が繰り返しなる     
+|FLAG_NO_CLEAR           |タップとかで消せないようにする         
+|FLAG_ONGOING_EVENT      |現在進行形のイベントを表す？？？       
+|FLAG_ONLY_ALERT_ONCE    |通知が来る度に音とか振動とか出す       
+|FLAG_SHOW_LIGHTS        |ピカピカさせる                         
+
+こんな感じな気がする。  
 
 ## プッシュ通知(C2DM)
 
