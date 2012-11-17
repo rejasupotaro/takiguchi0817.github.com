@@ -3,7 +3,7 @@ layout: post
 title: "JavaScriptの名前空間"
 date: 2012-11-16 01:28
 comments: false
-categories: JavaScript brook
+categories: JavaScript Namespace.js
 ---
 
 ## 大規模JavaScript案件
@@ -26,7 +26,7 @@ categories: JavaScript brook
 
 はーよくわからん。  
 
-## [Namespace.js読んでみた](https://github.com/hirokidaichi/namespace-js/blob/master/src/namespace.js)
+## [Namespace.js](https://github.com/hirokidaichi/namespace-js/blob/master/src/namespace.js)読んでみた
 
 #### 一番最初のmerge関数  
 
