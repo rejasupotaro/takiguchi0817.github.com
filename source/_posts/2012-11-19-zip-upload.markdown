@@ -123,6 +123,8 @@ outFilePathはどこでもいいんだけど、
             new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
     reqEntity.addPart(titleNameValuePair.getName(),
             new StringBody(titleNameValuePair.getValue(), DEFAULT_CHARSET));
+    reqEntity.addPart(delayNameValuePair.getName(),
+            new StringBody(delayNameValuePair.getValue(), DEFAULT_CHARSET));
     final File file = new File(fileNameValuePair.getValue());
     reqEntity.addPart(fileNameValuePair.getName(),
             new FileBody(file, CONTENTTYPE_BINARY));
