@@ -1,0 +1,122 @@
+---
+layout: post
+title: "ハイブリッドの機運"
+date: 2012-11-29 22:15
+comments: false
+categories: Android WebView
+---
+
+## [ネイティブでもHTML5でもない「ハイブリッドアプリ」の価値](http://el.jibun.atmarkit.co.jp/rails/2012/10/html5-d1ba.html)  
+
+ハイブリッドの流れある。  
+ネイティブのアプリが書ける人がまだそんなに多くない(ネイティブアプリ縛りの社内ハッカソンも人が集まらなくて大変だった)ので、Webアプリケーションのようにネイティブが書けると都合が良いのだと思う。  
+
+弊社にもネイティブとブラウザを連携させるフレームワークはあって、  
+
+- WebView Bridge (ネイティブとブラウザの相互呼び出し機能)
+- Injector (DIコンテナ、A/Bテスト等に使用できる、動的な環境変数によってInjectするインスタンスを切り替える機能)
+- Dynamic Loading (バイトコードを動的に読み込んで実行する機能)
+
+の3つの機能がある。  
+
+## ハッカソンでアプリ作った
+
+社内フレームワークは結構大きいので今回のハッカソンでは使わなかった(のでフレームワークの話は後日ブログに書くかもしれない)。  
+それで今回は簡易的なネイティブ・ブラウザ間の呼び出しのしくみを自分で書いた。  
+
+### ジャバ側
+
+    public class JavaScriptInterface {
+        private static final String TAG = JavaScriptInterface.class.getSimpleName();
+    
+        private static final String INTERFACE_NAME = "Device";
+    
+        private WebView mWebView;
+        private JavaScriptInterface.Receiver mReceiver;
+    
+        public JavaScriptInterface(WebView webView, Receiver receiver) {
+            mWebView = webView;
+            mReceiver = receiver;
+    
+            mWebView.addJavascriptInterface(this, INTERFACE_NAME);
+        }
+    
+        public void call(String data) {
+            if (mReceiver == null) return;
+    
+            try {
+                mReceiver.receive(new JSONObject(data));
+            } catch (JSONException e) {
+                Log.e(TAG, data, e);
+            }
+        }
+    
+        public void callBrowserMethod(String jsMethodName) {
+            mWebView.loadUrl("javascript:" + jsMethodName + "()");
+        }
+    
+        public interface Receiver {
+            public void receive(JSONObject jsonObject);
+        }
+    }
+
+### JS側
+
+    callDeviceMethod = function(json) {
+      try {
+        Device.call(JSON.stringify(json));
+      } catch (e) {
+        console.log("本来であればアプリ内ブラウザでみるもの: " + e);
+      }
+    };
+
+### 呼び方
+
+ネイティブからブラウザはメソッド名で呼び出す(今回はパラメータを渡す必要がなかったので)。  
+
+    mJavaScriptInterface.call("reload");
+
+ブラウザからネイティブはJSON渡して呼ぶ。  
+
+    callDeviceMethod({
+        method: "download.image",
+        body: { image_url: image_url }
+    });
+
+ネイティブ側でメソッドをディスパッチするみたいな感じにした。  
+JSONRPCみたいになってると良かった。コールバック？そんなものはない。  
+
+### セキュリティ的な話
+
+WebViewヤバイ。  
+
+    var classLoader = Device.getClass().getClassLoader();
+    var Runtime = classLoader.loadClass("java.lang.Runtime");
+    var getRuntimeMethod = Runtime.getMethod("getRuntime", {});
+    var runtime = getRuntimeMethod.invoke(null, {});
+
+クラスローダーが使えるし、リフレクション出来るし、Runtimeとってコマンドが実行出来る。  
+JSからジャバのすべてが見えるし、プライベートもあったもんじゃない。  
+
+だから実際に使うときには、
+
+    webView.setWebViewClient(new WebViewClient(){
+      @Override
+      public void onPageStarted(WebView view, String url, Bitmap favicon) {
+          Uri uri = Uri.parse(url);
+          if (Constants.PRODUCTION && !UriUtils.compareDomain(uri, Constants.DOMAIN)) {
+              throw new SecurityException();
+          }
+
+みたいにする。  
+
+## やってみたけど
+
+ハッカソンではWebViewでユーザーインタフェースを書いてたけど、ビルドしなくても変更が反映されるの嬉しい。  
+しかもWebViewは何もしなくても勝手にキャッシュされるのも嬉しい。  
+
+しかし僕はHTMLとCSSはあんまり書かないのでレイアウトうまく行かなくて深夜につらまってたし、端末ごとにCSS切り替えるのにMedia Queriesとやらを使ったけど全然言うこと聞かないし、サムスンの端末のキャッシュの挙動おかしいし(キャッシュ見にいくのに失敗してしかもサーバーからデータを取り直そうとしない)、サムスンの端末はGIFが動かなかったりするし、自分にWebViewのデバッグのノウハウがまったくないので、つらかった。  
+
+## 感想
+
+ハイブリッドは万能じゃない、社会は厳しい、負けるな、開発者。  
