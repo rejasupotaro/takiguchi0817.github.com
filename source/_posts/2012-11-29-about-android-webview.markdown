@@ -28,62 +28,70 @@ GIFを再生するためにメインのビューはWebViewにした。
 
 ### ジャバ側
 
-    public class JavaScriptInterface {
-        private static final String TAG = JavaScriptInterface.class.getSimpleName();
-    
-        private static final String INTERFACE_NAME = "Device";
-    
-        private WebView mWebView;
-        private JavaScriptInterface.Receiver mReceiver;
-    
-        public JavaScriptInterface(WebView webView, Receiver receiver) {
-            mWebView = webView;
-            mReceiver = receiver;
-    
-            mWebView.addJavascriptInterface(this, INTERFACE_NAME);
-        }
-    
-        public void call(String data) {
-            if (mReceiver == null) return;
-    
-            try {
-                mReceiver.receive(new JSONObject(data));
-            } catch (JSONException e) {
-                Log.e(TAG, data, e);
-            }
-        }
-    
-        public void callBrowserMethod(String jsMethodName) {
-            mWebView.loadUrl("javascript:" + jsMethodName + "()");
-        }
-    
-        public interface Receiver {
-            public void receive(JSONObject jsonObject);
+{% codeblock lang:java %}
+public class JavaScriptInterface {
+    private static final String TAG = JavaScriptInterface.class.getSimpleName();
+
+    private static final String INTERFACE_NAME = "Device";
+
+    private WebView mWebView;
+    private JavaScriptInterface.Receiver mReceiver;
+
+    public JavaScriptInterface(WebView webView, Receiver receiver) {
+        mWebView = webView;
+        mReceiver = receiver;
+
+        mWebView.addJavascriptInterface(this, INTERFACE_NAME);
+    }
+
+    public void call(String data) {
+        if (mReceiver == null) return;
+
+        try {
+            mReceiver.receive(new JSONObject(data));
+        } catch (JSONException e) {
+            Log.e(TAG, data, e);
         }
     }
 
+    public void callBrowserMethod(String jsMethodName) {
+        mWebView.loadUrl("javascript:" + jsMethodName + "()");
+    }
+
+    public interface Receiver {
+        public void receive(JSONObject jsonObject);
+    }
+}
+{% endcodeblock %}
+
 ### JS側
 
-    callDeviceMethod = function(json) {
-      try {
-        Device.call(JSON.stringify(json));
-      } catch (e) {
-        console.log("本来であればアプリ内ブラウザでみるもの: " + e);
-      }
-    };
+{% codeblock lang:javascript %}
+callDeviceMethod = function(json) {
+  try {
+    Device.call(JSON.stringify(json));
+  } catch (e) {
+    console.log("本来であればアプリ内ブラウザでみるもの: " + e);
+  }
+};
+{% endcodeblock %}
 
 ### 呼び方
 
 ネイティブからブラウザはメソッド名で呼び出す(今回はパラメータを渡す必要がなかったので)。  
 
-    mJavaScriptInterface.callBrowserMethod("reload");
+{% codeblock lang:java %}
+mJavaScriptInterface.callBrowserMethod("reload");
+{% endcodeblock %}
 
 ブラウザからネイティブはJSON渡して呼ぶ。  
 
-    callDeviceMethod({
-        method: "download.image",
-        body: { image_url: image_url }
-    });
+{% codeblock lang:javascript %}
+callDeviceMethod({
+    method: "download.image",
+    body: { image_url: image_url }
+});
+{% endcodeblock %}
 
 ネイティブ側でメソッドをディスパッチするみたいな感じにした。  
 JSONRPCみたいになってると良かった。コールバック？そんなものはない。  
@@ -92,23 +100,27 @@ JSONRPCみたいになってると良かった。コールバック？そんな�
 
 WebViewヤバイ。  
 
-    var classLoader = Device.getClass().getClassLoader();
-    var Runtime = classLoader.loadClass("java.lang.Runtime");
-    var getRuntimeMethod = Runtime.getMethod("getRuntime", {});
-    var runtime = getRuntimeMethod.invoke(null, {});
+{% codeblock lang:javascript %}
+var classLoader = Device.getClass().getClassLoader();
+var Runtime = classLoader.loadClass("java.lang.Runtime");
+var getRuntimeMethod = Runtime.getMethod("getRuntime", {});
+var runtime = getRuntimeMethod.invoke(null, {});
+{% endcodeblock %}
 
 クラスローダーが使えるし、リフレクション出来るし、Runtimeとってコマンドが実行出来る。  
 JSからジャバのすべてが見えるし、プライベートもあったもんじゃない。  
 
 だから実際に使うときには、
 
-    webView.setWebViewClient(new WebViewClient(){
-      @Override
-      public void onPageStarted(WebView view, String url, Bitmap favicon) {
-          Uri uri = Uri.parse(url);
-          if (Constants.PRODUCTION && !UriUtils.compareDomain(uri, Constants.DOMAIN)) {
-              throw new SecurityException();
-          }
+{% codeblock lang:java %}
+webView.setWebViewClient(new WebViewClient(){
+    @Override
+    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        Uri uri = Uri.parse(url);
+        if (Constants.PRODUCTION && !UriUtils.compareDomain(uri, Constants.DOMAIN)) {
+            throw new SecurityException();
+        }
+{% endcodeblock %}
 
 みたいにする。  
 危険だけどうまく使うとJSからJNI呼ぶみたいな、NaClみたいなこと出来て面白そう。  

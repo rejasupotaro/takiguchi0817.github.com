@@ -6,7 +6,9 @@ comments: false
 categories: 
 ---
 
-    ( *´ω｀*)  /path/to/project $ find . -name *.xml | xargs cat | wc -l
-        36741
+{% codeblock lang:java %}
+( *´ω｀*)  /path/to/project $ find . -name *.xml | xargs cat | wc -l
+    36741
+{% endcodeblock %}
 
 ![ウワーッ](http://dl.dropbox.com/u/54255753/blog/201212/blue.gif)
