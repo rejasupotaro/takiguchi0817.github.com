@@ -16,32 +16,38 @@ amachanさんの[Yコンビネータってなに？](http://d.hatena.ne.jp/amach
 
 まだ途中だけど、  
 
-    System.out.println((new LambdaInterface() {
-      public GInterface exec(FInterface f) {
-        return new GInterface() {
-          public int exec(int m) {
-            return f.exec(this).fib(m);
-          }
-        };
+{% codeblock lang:java %}
+System.out.println((new LambdaInterface() {
+  public GInterface exec(FInterface f) {
+    return new GInterface() {
+      public int exec(int m) {
+        return f.exec(this).fib(m);
       }
-    }).execute(new FInterface() {
-      public FibInterface exec(GInterface g) {
-        return new FibInterface() {
-          public int fib(int n) {
-            return (n <= 2) ? 1 : fib(n - 1) + fib(n - 2);
-          }
-        };
+    };
+  }
+}).execute(new FInterface() {
+  public FibInterface exec(GInterface g) {
+    return new FibInterface() {
+      public int fib(int n) {
+        return (n <= 2) ? 1 : fib(n - 1) + fib(n - 2);
       }
-    }).exec(10));
+    };
+  }
+}).exec(10));
+{% endcodeblock %}
 
 計算は出来ているが、この時点でかなりつらい。  
 というか書いてて思ったけどこれ実装してもラムダにしようと思ったら、  
 
-    GInterface g = (int m) -> return f.exec(this).fib(m);
+{% codeblock lang:java %}
+GInterface g = (int m) -> return f.exec(this).fib(m);
+{% endcodeblock %}
 
 ってイコール使っちゃうからだめだし、でももしかしたらと思って  
 
-    return (GInterface) ((int m) -> return f.exec(this).fib(m);
+{% codeblock lang:java %}
+return (GInterface) ((int m) -> return f.exec(this).fib(m);
+{% endcodeblock %}
 
 って書いたけどやっぱり動かなかったし、無名関数の数だけ関数型インタフェースを用意しないといけないし、ジャバ8のラムダってふつうの糖衣構文だなって思いました(公式にもそう書いてあるのだけど)。  
 

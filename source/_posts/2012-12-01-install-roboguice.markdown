@@ -48,7 +48,7 @@ maven使ってないので [Installation for Non-Maven Projects](http://code.goo
 
 javaxのinjectがないって言ってる。  
 調べたらRoboGuiceを使うのにGoogle Guiceが必要で、Google Guiceは[javax.inject](http://code.google.com/p/atinject/downloads/list)が必要とのこと。  
-libsにコピペしたら動くようになった。  
+ダウンロードしてlibsに入れたら動くようになった。  
 
 ググっても全然ブログ出てこないのでちょっと不安になってきた。  
 　  
