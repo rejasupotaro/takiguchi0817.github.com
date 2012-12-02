@@ -44,7 +44,6 @@ categories: Android Ruby GIF
 　  
 　  
 　  
-# DailyMotion
 # 2012.11.28 待望のDailyMotion Android版 配信開始(しません)！
 # ダウンロードは[どちら](http://rejasupotaro.com:3000)から？
 　  
@@ -95,6 +94,6 @@ categories: Android Ruby GIF
 
 経過: [Category: GIF](http://takiguchi0817.github.com/blog/categories/gif/)  
 
-ちょうどいいタイミングでハッカソンがあったので作った。  
-アプリ名はいつも悩むけど今回は「日常…動き…DailyMotionだ」と感じで決まった。  
-優勝は出来なかったけど、作るの楽しかった。  
+最近GIFにはまってる。ちょうどいいタイミングでハッカソンがあったので作った。  
+アプリ名はいつも悩むけど今回は「日常…動き…DailyMotionだ」という感じで決まった。  
+優勝は出来なかったけど、[作るの楽しかった。](http://takiguchi0817.github.com/blog/2012/11/29/about-android-webview/)  

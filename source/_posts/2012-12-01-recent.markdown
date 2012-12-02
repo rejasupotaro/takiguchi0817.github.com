@@ -1,0 +1,12 @@
+---
+layout: post
+title: "近況"
+date: 2012-12-01 13:17
+comments: false
+categories: 
+---
+
+    ( *´ω｀*)  /path/to/project $ find . -name *.xml | xargs cat | wc -l
+        36741
+
+![ウワーッ](http://dl.dropbox.com/u/54255753/blog/201212/blue.gif)
