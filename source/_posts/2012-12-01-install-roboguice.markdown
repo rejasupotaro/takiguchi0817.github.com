@@ -1,21 +1,22 @@
 ---
 layout: post
-title: "RoboGuice 2.0、入れた"
+title: "RoboGuice 2.0 で Dependency を Injection しました"
 date: 2012-12-01 16:07
 comments: false
 categories: Android RoboGuice
 ---
 
+Androidアプリの開発はだるい。これが人間が行うべき作業なのかと思うこともある。  
+人間はだるくない開発がしたい。  
+　  
+　  
+そこで、DIフレームワークを使うことにした。  
 [Deep dive into RoboGuice beyond "Hello World apps"](http://www.blog.project13.pl/wp-content/uploads/2011/12/presentation.html#slide1)  
 
 ![微妙に可愛くないキャラクター](http://dl.dropbox.com/u/54255753/blog/201212/roboguice.png)
 
-RoboGuiceはDIフレームワークで、入れるとContextとかViewとかExtraとかをインジェクションしてくれるらしい。  
-
 ["RoboGuice 2 smoothes out some of the wrinkles in your Android development experience and makes things simple and fun!"](http://code.google.com/p/roboguice/)  
-
 ということらしいので、RoboGuice入れてみた。  
-　  
 　  
 　  
 ## インストール
@@ -46,7 +47,6 @@ javaxのinjectがないって言ってる。なんだそれは。
 libsにコピペしたら動くようになった。  
 
 ググっても全然ブログ出てこないのでちょっと不安になってきた。  
-　  
 　  
 　  
 ## 使い方
@@ -192,7 +192,6 @@ RoboGuice 2.0からはRoboApplicationは継承しなくてよくなった。
             mMainActivityHelper.launchGallarey();
 
 みたいにいきなりメソッドが呼べてかっこいい。  
-　  
 　  
 　  
 何も考えずにAndroidアプリ書いてるとコントローラがどんどん太るから、コントローラにはなるべく処理は書かずにジュースを使ってどんどんヘルパーにデリゲートしよう。  
