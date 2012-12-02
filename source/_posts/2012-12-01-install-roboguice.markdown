@@ -6,7 +6,9 @@ comments: false
 categories: Android RoboGuice
 ---
 
-Androidアプリの開発はだるい。これが人間が行うべき作業なのかと思うこともある。  
+{% oembed https://twitter.com/mizchi/status/274790220988297216 %}
+{% oembed https://twitter.com/mizchi/status/274790200465555456 %}
+
 人間はだるくない開発がしたい。  
 　  
 　  
