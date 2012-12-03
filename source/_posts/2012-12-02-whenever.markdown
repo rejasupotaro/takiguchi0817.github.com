@@ -1,0 +1,145 @@
+---
+layout: post
+title: "Railsでcronを設定するときに良いやつ"
+date: 2012-12-02 10:59
+comments: false
+categories: Ruby Rails cron
+---
+
+Railsアプリで定期的にDBの情報を更新したかった。なにか良い方法ないか調べたらwheneverというもの見つけた。  
+
+"[Whenever](https://github.com/javan/whenever) is a Ruby gem that provides a clear syntax for writing and deploying cron jobs."  
+
+crontabの設定が分かりやすく書けるというのと、Railsの読み込みしてくれるのが便利そうだったので入れてみた。  
+　  
+　  
+## wheneverのインストール
+
+{% codeblock lang:bash %}
+gem 'whenever', :requrire => false
+{% endcodeblock %}
+
+Gemfileに追記してbundle instal  
+
+wheneverizeすると設定ファイルのひな形を作ってくれる。  
+
+{% codeblock lang:bash %}
+$ bundle exec wheneverize .
+{% endcodeblock %}
+　  
+　  
+## 設定方法
+
+setでいろいろセットできる。  
+
+{% codeblock ログの出力先 lang:ruby %}
+log_path = Whenever.path + '/log/cron.log'
+error_log_path = Whenever.path + '/log/error.log'
+set :output, {standard => log_path, :error => error_log_path}
+{% endcodeblock %}
+
+Rails.root使えなかったけどwheneverのソース見てたらself.pathあったのでそっちを使ったらいけた。  
+
+　  
+
+時間の指定が直感的で分かりやすいのが良い。  
+
+{% codeblock lang:ruby %}
+# 3時間おきに実行
+every 3.hours do
+  runner "MyModel.some_process"
+  rake "my:rake:task"
+  command "/usr/bin/my_great_command"
+end
+
+# 1日1回、4:30に実行
+every 1.day, :at => '4:30 am' do
+  runner "MyModel.task_to_run_at_four_thirty_in_the_morning"
+end
+
+# 日曜日の24:00に実行
+every :sunday, :at => '12pm' do # Use any day of the week or :weekend, :weekday
+  runner "Task.do_something_great"
+end
+
+# ふつうのcronの時間指定もできる
+every '0 0 27-31 * *' do
+  command "echo 'you can use raw cron syntax too'"
+end
+{% endcodeblock %}
+
+社会は厳しいが、wheneverは人間に優しい。  
+　  
+　  
+## 定期実行する処理
+
+railsはrunnerコマンドっていうのがあって、モデルとかautoloadのパスに指定したファイルをロードした上でスクリプトを実行できたりする。  
+autoload、書いてなかったらconfig/application.rbに
+
+{% codeblock lang:ruby %}
+config.autoload_paths += %W(#{config.root}/lib)
+{% endcodeblock %}
+
+って書いとく。それから、実行する処理を書く。  
+
+{% codeblock lib/batch_update.rb %}
+require 'open-uri'
+require 'kconv'
+
+class BatchUpdate
+  
+  SC_OK = "200"
+
+  def self.execute
+    update_track
+  end
+
+  def self.update_track
+    puts("==== " + Time.now.to_s + " ====")
+
+    not_found_id_list = Array.new
+    track_list = Track.find(:all)
+    track_list.each do |track|
+      p track
+      if !exist?(track.preview_url)
+        not_found_id_list.push(track.id)
+      end
+    end
+
+    not_found_id_list.each do |id|
+      Track.delete(id)
+      assert_raise(ActiveRecord::RecordNotFound) do
+        Track.find(id)
+      end
+    end
+
+    puts("==== update done!!! ====")
+  end
+
+  def self.exist?(url)
+    result = false
+
+    open(url) do |file|
+      status_code = file.status[0]
+      p status_code
+      if file.status[0] == SC_OK
+        result = true
+      end
+    end
+
+    return result
+  end
+end
+{% endcodeblock %}
+
+トラックの生存確認を行う処理を、runnerで毎日4:05に呼ぶようにした。  
+
+{% codeblock config/schedule.rb lang:ruby %}
+set :output, Whenever.path + "/log/cron.log"
+
+every 1.day, :at => '4:05 am' do
+  runner "BatchUpdate.execute"
+end
+{% endcodeblock %}
+
+良い。  
