@@ -96,6 +96,8 @@ callDeviceMethod({
 ネイティブ側でメソッドをディスパッチするみたいな感じにした。  
 JSONRPCみたいになってると良かった。コールバック？そんなものはない。  
 
+![WebViewなのにタップするとトーストが出る](http://dl.dropbox.com/u/54255753/blog/201211/summer_hackathon.png)  
+
 ### セキュリティ的な話
 
 WebViewヤバイ。  
