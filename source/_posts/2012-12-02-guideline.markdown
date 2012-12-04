@@ -13,7 +13,7 @@ categories: Git
 綺麗かどうかどころか、デバッグコードとかそのままプッシュしてしまって、後でレビューツールでdiff見ててアッてなるので書いた。  
 
 {% codeblock .git/hooks/pre-commit lang:bash %}
-#!/bin/sh
+#!/bin/bash
 
 ax_code=$(find . -name *.java | xargs cat | grep -n -e TODO -e FIXME -e XXX -e DEBUG)
 
@@ -38,3 +38,30 @@ fi
 
 
 でも人間は許せる生き物だから。  
+　  
+　  
+　  
+#### 追記
+
+あまりにアレだったのでアレした。  
+
+{% codeblock lang:bash %}
+#!/bin/bash
+
+readonly MESSAGE="まさかこのままプッシュする気じゃないよね？"
+
+has_ax_code=false
+file_list=$(find . -name *.java)
+for file in ${file_list[@]}; do
+  ax_code=$(cat $file | grep -n -e TODO -e FIXME -e XXX -e DEBUG)
+  if [ -n "$ax_code" ]; then
+    echo $file
+    echo "$ax_code"
+    has_ax_code=true
+  fi
+done
+
+if [ $has_ax_code ]; then
+  echo $MESSAGE
+fi
+{% endcodeblock %}
