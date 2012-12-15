@@ -6,6 +6,7 @@ comments: false
 categories: Jenkins Android
 ---
 
+![jenktocat](http://dl.dropbox.com/u/54255753/blog/201212/jenktocat.jpg)
 GitHubにあるAndroidプロジェクトにプッシュしたらJenkinsがビルドしてテストするというのを実現したかった。  
 
 ## 手順
@@ -30,14 +31,7 @@ $ sudo service jenkins start
 http://yourhost:8080にアクセスするとJenkinsさん動いてるの確認できる。  
 新規ジョブ作って定期実行するだけで、  
 
-{% codeblock %}
-Started by timer
-Building in workspace /var/lib/jenkins/workspace/Test
-[Test] $ /bin/sh -xe /tmp/hudson4214505998237671009.sh
-+ echo Hello rejasupotaro
-Hello rejasupotaro
-Finished: SUCCESS
-{% endcodeblock %}
+![Hello rejasupotaro](http://dl.dropbox.com/u/54255753/blog/201212/success.png)  
 
 1分毎にハローって言うかわいい。  
 これだけでもカンタンにcronの管理が出来そうな感じ。  
@@ -108,6 +102,9 @@ Failed to load libEGL_translator.so #=> なんか読めてない
 {% endcodeblock %}
 
 でlibEGLを入れるとまたlibX11.soがないと言われ、libX11.soを入れると（ryの無限ループになった。  
+
+![failed...](http://dl.dropbox.com/u/54255753/blog/201212/failed.png)  
+
 うーん。わからん。  
 
 ### GitHubにプッシュしたらビルドを行う
