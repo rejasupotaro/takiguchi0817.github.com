@@ -13,7 +13,7 @@ categories: Git
 綺麗かどうかどころか、デバッグコードとかそのままプッシュしてしまって、後でレビューツールでdiff見ててアッてなるので書いた。  
 
 {% codeblock lang:bash %}
-#!/bin/bash
+#!/bin/sh
 
 readonly MESSAGE="まさかこのままプッシュする気じゃないよね？"
 
