@@ -112,6 +112,8 @@ Failed to load libEGL_translator.so #=> なんか読めてない
 GitHubに鍵を登録する。  
 
 {% codeblock %}
+$ sudo -u jenkins -H git config --global user.emal "jenkins@rejasupotaro.com"
+$ sudo -u jenkins -H git config --global user.name "jenkins"
 $ sudo -u jenkins -H ssh-keygen -t rsa -C jenkins@rejasupotaro.com
 [sudo] password for rejasupotaro:
 Generating public/private rsa key pair.
