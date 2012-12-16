@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
 
 {% codeblock lang:java %}
 @ContentView(R.layout.activity_main)
-public class MainActivity extends Activity {
+public class MainActivity extends RoboActivity {
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,7 @@ public class MainActivity extends Activity {
 
 {% codeblock lang:java %}
 @ContentView(R.layout.activity_main)
-public class MainActivity extends Activity {
+public class MainActivity extends RoboActivity {
     
     private Button mPostButton;
     private Button mCloseButton;
@@ -112,7 +112,7 @@ public class MainActivity extends Activity {
 
 {% codeblock lang:java %}
 @ContentView(R.layout.activity_main)
-public class MainActivity extends Activity {
+public class MainActivity extends RoboActivity {
     
     @InjectView(R.id.button_post)
     private Button mPostButton;
@@ -198,7 +198,7 @@ public class MainActivityHelper extends AbstractActivityHelper {
 こんな感じでコンストラクタなしでどんどんメソッド書ける。  
 
 {% codeblock lang:java %}
-public class MainActivity extends Activity {
+public class MainActivity extends RoboActivity {
     
     @Inject
     private MainActivityHelper mActivityHelper;
