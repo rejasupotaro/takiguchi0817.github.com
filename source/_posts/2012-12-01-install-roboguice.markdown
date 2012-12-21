@@ -143,7 +143,7 @@ public class MainActivity extends RoboActivity {
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="roboguice_modules">
-        <item>com.rejasupotaro.roboguicesample.RoboGuiceTestModule</item>
+        <item>com.rejasupotaro.roboguicesample.RoboGuiceSampleModule</item>
     </string-array>
 </resources>
 {% endcodeblock %}
