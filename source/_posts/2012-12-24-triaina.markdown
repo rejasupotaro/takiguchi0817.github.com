@@ -1,0 +1,216 @@
+---
+layout: post
+title: トリアイナってなに？
+date: 2012-12-24 21:55
+comments: false
+categories: Android Triaina
+---
+
+## はじめに
+
+[Titanium? いいえ、Triainaです。](http://alpha.mixi.co.jp/2012/11576/)
+
+トリアイナは、先端が三つに分かれた漁具あるいは武器の一種。ギリシア神話の海神ポセイドンが持つ三叉の矛として知られる。 [wikipediaより](http://ja.wikipedia.org/wiki/%E3%83%88%E3%83%AA%E3%82%A2%E3%82%A4%E3%83%8A)  
+
+
+![ポセイドーンの肖像画](http://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Angelo_Bronzino_048.jpg/220px-Angelo_Bronzino_048.jpg)  
+
+ギリシャ神話詳しく知らないけど、ポセイドンがトライデント(Triaina)でタイタン(Titanium)を倒した話に掛けてるのかも。  
+　  
+　  
+## トリアイナ概要
+
+Triainaはhnakagawa氏が中心になって作ったスマートフォンアプリ開発のフレームワークです。  
+ハイブリッドアプリ開発のフレームワークの中でもネイティブ寄りかなって思います。  
+
+Androidが提供するネイティブとWebViewの連携のしくみは、以前に[ブログに書いた](http://takiguchi0817.github.com/blog/2012/11/29/about-android-webview/)通りです。  
+
+Androidが提供するしくみでハイブリッドアプリを作ろうと思うと、  
+
+- プロトコルを考えて
+- プロトコルに従ったのパーサーを書いて
+- コールバックのしくみを作る
+
+必要があります。  
+
+公式ブログの画像を引用すると、  
+![Triaina概要](http://alpha.mixi.co.jp/images/triaina3.png)  
+このように、メソッド名を指定することでコールバックまで含めてよろしくやってくれるみたいです。  
+　  
+　  
+[mixi-inc / triaina](https://github.com/mixi-inc/triaina)
+　  
+　  
+## JavaScriptの実装
+
+サンプルにあるとおりですが、  
+
+{% codeblock lang:javascript %}
+WebBridge.call('form.media.click', {
+    filter: ["jpeg", "png"],
+    max: 1
+}, function(response){
+    // response data
+    // {
+    //     bridge: "1.1",
+    //     dest: "form.media.click",
+    //     result: [{
+    //         id: "xxxxxxx",
+    //         filename: "",
+    //     }]
+    // }
+    // create input data & added input value
+    fileStoreElement.appendChild(input);
+});
+{% endcodeblock %}
+
+destとjsonとcallbackを引数にWebBridgeのcallを呼ぶみたいですね。callの実装は、  
+
+{% codeblock triaina/javascript/bridge.js lang:javascript %}
+this.call = function(dest, params, callback){
+    var request = {
+        bridge: BRIDGE_VERSION,
+        dest: dest,
+        params: params,
+        id: this.getId()
+    };
+    this.execute(request, callback);
+};
+this.execute = function(request, callback){
+    this.log(request);
+    var requestJSON = JSON.stringify(request);
+    if(callback && request.id){
+        this._callbackTable[request.id] = callback;
+    }
+    if(existsDeviceBridge()){
+        window.DeviceBridge.notifyToDevice(encodeURIComponent(requestJSON));
+        return true;
+    }else{
+        this.onStart(function(){
+            window.DeviceBridge.notifyToDevice(encodeURIComponent(requestJSON));
+        });
+        if(!this._isEnableBridge) this._buildBridge();
+        console.error("not found DeviceBridge JavaScriptInterface");
+        console.error("stack DeviceBridge notity");
+        console.error(requestJSON);
+    }
+};
+{% endcodeblock %}
+
+こんな感じになってます。callbackはJSONRPCでいうところのIDをキーにハッシュで管理されているようです。  
+JavaScriptが実行できるタイミングになったらネイティブ側に通知したり、逆にネイティブ側が実行できるようになったタイミングでメソッドを遅延呼び出ししたり、そういう細かい制御をしてくれてるようです。  
+　  
+　  
+## Javaの実装
+
+前にも書きましたが、Java側には、  
+
+- インジェクト
+- バイナリのダイナミックローディング
+- ネイティブ・ブラウザ間のメソッドの相互呼び出し
+
+の3つの機能があります(って聞きました)。  
+
+インジェクトは2012年12月24日現在は、RoboGuiceをベースに作ってあります。(DIコンテナは、RoboGuice自体がGuiceのラップしたもので重いので、[Dagger](https://github.com/square/Dagger)をベースに書き直したいと聞きました)。  
+なので、トリアイナはハイブリッドアプリ開発のフレームワークとして公開されてますが、トリアイナのjarを入れればインジェクトでアプリが書けるようになります。  
+
+それはそれで、ネイティブ・ブラウザ間のメソッド呼び出しのしくみです。  
+まず、Activityです。  
+
+{% codeblock lang:java %}
+@Layout(R.layout.mywebview)    // 使用するlayoutのリソース
+@WebViewBridge(R.id.mywebview) // 使用するWebViewBridgeのリソース
+@Domain({ "rejasupotaro.com", "rejamotion.com" }) // 許可するドメイン
+public class MyWebViewActivity extends AbstractWebViewBridgeActivity {
+  ....
+}
+{% endcodeblock %}
+
+DomainアノテーションでJavaScriptを実行するドメインを指定します。じゃないとWebViewはJavaのクラスローダーが呼べたりJNIが使えたりして危険だからです。  
+
+ブラウザから呼び出すメソッドは、Bridgeアノテーションを付けて宣言します。  
+
+{% codeblock lang:java %}
+@Bridge("hoge.action.method")
+public void hogeActionMethod(HogeActionParams params, Callback<HogeActionResult> callback) {
+  ....
+}
+{% endcodeblock %}
+
+Parcerableなtriaina.webview.entity.Paramsを継承したクラスと、Parcerableなtriaina.webview.entity.Resultを継承したクラスをジェネリクス型に持つtriaina.webview.Callbackを引数に取ります。  
+JavaScript側からJSON形式で値が渡せば、自動的に値がエンティティにバインドされます。  
+
+呼び出される仕組みを見てみます。  
+
+{% codeblock triaina/android/WebViewBridge/src/triaina/webview/WebViewBridge.java  lang:java %}
+public String call(String dest, Params params, Callback<?> callback) {
+    if (isDestroyed)
+        return null;
+
+    String id = mSeq.incrementAndGet() + "";
+    String js = notifyToWebInternal(id, dest, "params", params);
+    if (js != null)
+        callbacks.put(id, callback);
+
+    return js;
+}
+
+private String notifyToWebInternal(String id, String dest, String container, Object data) {
+    try {
+        JSONObject json = new JSONObject();
+        JSONObjectUtils.put(json, "bridge", VERSION + "");
+        JSONObjectUtils.put(json, "id", id);
+
+        if (dest != null)
+            JSONObjectUtils.put(json, "dest", dest);
+
+        JSONObject jsonData = JSONConverter.toJSON(data);
+        JSONObjectUtils.put(json, container, jsonData);
+
+        String s = json.toString();
+        Log.d(TAG, "Notify to Web with " + s);
+
+        String js = mHelper.makeJavaScript("WebBridge.notifyToWeb", URLEncoder.encode(s, "UTF-8"));
+
+        loadUrl(js);
+        return js;// for test
+    } catch (Exception exp) {
+        Log.e(TAG, exp.getMessage() + "", exp);
+    }
+    return null;
+}
+{% endcodeblock %}
+
+[triaina.commons.json.JSONConverter](https://github.com/mixi-inc/triaina/blob/master/android/Commons/src/triaina/commons/json/JSONConverter.java)でParamsオブジェクトをJSONに変換しているみたいです。  
+
+どのようにJSONに変換しているかというと、  
+
+{% codeblock lang:java %}
+public static JSONObject toJSON(Bundle bundle) throws JSONConvertException {
+    if (bundle == null) {
+      return null;
+    }
+
+    JSONObject json = new JSONObject();
+    Set<String> keySet = bundle.keySet();
+    for (String key : keySet) {
+      put(json, key, bundle.get(key));
+    }
+
+    return json;
+}
+{% endcodeblock %}
+
+こんな感じで、Bundleとして処理して変換していますね。  
+逆にブラウザから受け取ったJSONは、JSONConverter内で再帰的にリフレクションを使ったりして、Javaのオブジェクトに変換しているようです。  
+　  
+　  
+## iOSの実装
+
+わからん。  
+　  
+　  
+## まとめ
+
+今時のアプリはハイブリッド！みたいな声を良く聞きますが、ハイブリッドって言ってもいろんなタイプがあるし、どういうのが最適なのか僕も分かりません。  
+いろんな実装を見ながら僕だけのハイブリッドを見つけていきたいです。  
