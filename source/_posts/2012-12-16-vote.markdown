@@ -16,4 +16,4 @@ categories: Jenkins Git Octopress
 
 戻ってきたらJenkinsがfetchしてgenerateしてdeployという一連の流れをひたすら反復してて、そのさまを見てひとしきり笑ったあと真顔でローカルのコミットにhookするように修正した。  
 　  
-何が起こったかというと、Octopressはページをgenerateしたあと成果物をGitHubにpushする(じゃないとブログ反映されないし)ので、それをhookしてJenkinsがまたリポジトリをfetchしてgenerateしてpushして…を繰り返してた。  
+何が起こったかというと、Octopressはページを生成したあと成果物をGitHubにプッシュする(じゃないとブログ反映されないし)ので、そうするとそれをhookしてJenkinsがまたリポジトリを見に行ってしてページを生成してしてプッシュして…を繰り返してた。  

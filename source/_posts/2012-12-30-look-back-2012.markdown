@@ -1,0 +1,86 @@
+---
+layout: post
+title: "今年やったこと・やらなかったこと"
+date: 2012-12-30 22:28
+comments: false
+categories: 
+---
+
+## 今年やったこと
+
+仕事のことは書いていいのかよく分からないので、プライベートでやってたことを書きます。
+
+### 分散フレームワーク作った
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/15800939" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/rejasupotaro/ss-15800939" title="対宇宙人用フレームワーク" target="_blank">対宇宙人用フレームワーク</a> </strong> from <strong><a href="http://www.slideshare.net/rejasupotaro" target="_blank">rejasupotaro</a></strong> </div>
+
+Node + WebSocket + WebWorkersで作ってた。
+結論としては、宇宙人は捕まえられなかった。というかそこまでいかなかった。
+今やってることとかけ離れてるのでまったくメンテとかはしてないけど、ユニークな経験ができて良かったとは思う。
+　  
+　  
+### git-助けてにプルリク送った
+
+とりあえずプルリクを送ってみたくなって、git-助けてに「git-このコード書いたの誰？」を追加した。
+社内のコード読んでて分からないところがあったときに、即座に誰に聞いたらいいかを教えてくれるような、そんなコマンドを作りたかった。
+　  
+　  
+### 今ドコ？というアプリ作った
+
+社内ハッカソンで待ち合わせに特化したアプリを作った。
+iOSチームの人と組んで、僕はサーバーサイドを担当してRackhub + Node + Redisで組んだ。
+残念ながらアプリのスクリーンショットなどはありませんが、優勝できたのは良かった。  
+![](http://dl.dropbox.com/u/54255753/blog/201212/goyu.jpg)
+優勝賞金で豪遊しました。
+　  
+　  
+### ブログの移行
+
+![](http://dl.dropbox.com/u/54255753/blog/201212/design.png)  
+前ははてなブログを使っていたけど、
+##### もっと自由にカスタマイズしたい + ターミナルで日記を書きたい
+って思うようになって、GitHubページで運用できてコマンドでデプロイするOctopressに移行した。
+テーマを変えたりプラグインを入れたり、またOctopress自体がRubyで書かれてるので、ブログを書くだけじゃなくて自分で拡張したりするのも楽しめてお得感あります。
+　  
+　  
+### サーバの運用
+
+ちょっとしたものはGAEとかHerokuとかRackhubに置いてたけど、自分で管理したくてさくらのVPSを使うようになった。
+ムームードメイン + Dozens + Nginxって感じにしてます。
+　  
+　  
+### Jenkins
+
+僕たちはただ顧客に価値を届ければいいんじゃない、顧客に"継続的"に価値を届けなければならないんだ！ということに気がついてプライベートでもJenkinsを入れた。
+サービスを置いてるさくらのVPSで動かしてたので、のちに自宅マシンにJenkinsさんを引っ越しさせることになった。
+でも正直まだそんなに有効活用されてない気がするのでもっと勉強したい。
+　  
+　  
+### [Betterflow](http://rejasupotaro.com)
+
+![](http://dl.dropbox.com/u/54255753/blog/201212/betterflow.png)
+##### インターネットに自分の居場所が欲しい + 家でプログラム書いてるときに適当に音楽流してほしい
+という欲求から生まれた。結構気に入ってて部屋でよく流してる。  
+　  
+　  
+### [DailyMotion](http://rejamotion.com)
+
+![](http://dl.dropbox.com/u/54255753/blog/201212/dailymotion.png)
+今年はGIFは流行ったような気がするけど、自分もGIFアニメーションで生きた証を残したいなと思って作った。
+ハイブリッドアプリとして作ったけど、HTMLはPCのブラウザから見ても見れるようにした。
+作ってみたら案外おもしろかったし、画像フィルタの実装したりとかして機能どんどん追加してきたいっていうモチベーションもあります。
+　  
+　  
+　  
+ほかにもハッカソンとかツールとか、使い捨てなコードを書いたりもしたけど、主にこんな感じです。  
+
+## 今年やらなかったこと
+
+振り返ってみると、今年は自分のためにコードを書いていたなあと思った。
+来年はもっと作ったツール公開するとかオープンソースにコミットするとか、外向きな活動を増やしていきたい。  
+それと美しい設計とかコードが書けるようになりたいので、もっとフレームワークのソースを読むというのと、自分のコードのメトリクスを計測できるような状態にしたいです。  
+あと早く若手状態を脱したいです。
+　  
+　  
+　  
+来年はもっと尖っていきたい。
