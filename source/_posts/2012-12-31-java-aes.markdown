@@ -1,0 +1,68 @@
+---
+layout: post
+title: "続・Androidの画像の暗号化"
+date: 2012-12-31 23:30
+comments: true
+categories: Java Encrypto AES
+---
+
+前にベンチ取ったときは遅くて使えないって思ったけど、「いやそんなに遅くないでしょう」と言われたので、一からやり直した。
+
+## AES暗号とは
+
+AES暗号はアメリカ合衆国の新暗号規格 (Advanced Encryption Standard) として規格化された共通鍵暗号方式である。1977年に発行された暗号規格DESの安全性が技術進歩により低下したため、新たな暗号方式の公募を行い、2001年3月に FIPS PUB 197 として公表され、米軍主導のネットワーク秘匿化オープンソースプロジェクトであるTorなどに採用された。 〜wikipediaより〜  
+
+とりあえずAESは、「ブロック暗号」で「ブロック長が128ビット」で「鍵長が128・192・256ビットの3つが利用できる」ということみたいです。
+
+## AESによる暗号化・復号化
+
+[AESによる暗号化・復号化](http://www.ne.jp/asahi/hishidama/home/tech/java/aes.html)  
+今回はAndroidで画像をストレージに保存する際の暗号化について考えます。
+
+#### コード
+
+ENCRYPT_ALGORYTHM = "AES/CBC/PKCS5Padding"
+とありますが、これはAESを[CBCモード](http://www.triplefalcon.com/Lexicon/Encryption-Block-Mode-1.htm)で[PKCS#5](http://pentan.info/doc/block_cipher.html#anc_padding)というパディング方式で暗号化するということです。
+
+![CBC Encryption](http://upload.wikimedia.org/wikipedia/commons/d/d3/Cbc_encryption.png)
+
+- encrypt: 保存先のファイルと画像を引数にして、画像を暗号化して保存する
+- decrypt: ファイル名を引数にして、復号した画像を返す
+
+<script src="https://gist.github.com/4432651.js"></script>
+
+## ベンチマーク
+
+![](http://dl.dropbox.com/u/54255753/blog/201212/madoka.jpg)
+うちに届いた年賀状の画像の暗号化にどれくらい時間がかかるのか計測してみました。
+
+- サイズ: 864px * 480px
+- 端末スペック: Xperia arc
+  - OS  Google Android 2.3
+  - CPU: Snapdragon 1GHz(MSM8255)
+  - RAM: 512MB
+
+{% codeblock 検証コード lang:java %}
+long start = System.currentTimeMillis();
+ImageEncryptor.encrypt(filePath, bitmap, password);
+ImageEncryptor.decrypt(filePath, password);
+long stop = System.currentTimeMillis();
+Log.d("DEBUG", "実行にかかった時間は " + (stop - start) + " ミリ秒です。");
+{% endcodeblock %}
+
+
+{% codeblock 結果 lang:java %}
+01-02 14:41:02.026: D/DEBUG(26043): 実行にかかった時間は 1177 ミリ秒です。
+01-02 14:40:17.496: D/DEBUG(26043): 実行にかかった時間は 1149 ミリ秒です。
+01-02 14:40:38.406: D/DEBUG(26043): 実行にかかった時間は 1233 ミリ秒です。
+{% endcodeblock %}
+
+traceviewでも確認
+
+![](http://dl.dropbox.com/u/54255753/blog/201212/trace.png)
+
+AESFastEngine.encryptBlockが7割、AESFastEngine.decryptBlockが3割くらいですね。
+
+## まとめ
+
+暗号化にどれくらい時間かかるのかなと思ったけど、あまりサイズが大きくなければわりと実用的っぽい！

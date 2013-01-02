@@ -111,7 +111,7 @@ Androidで使用出来る暗号化手法一覧：Security.getAlgorithms("Cipher"
 ### 検証
 500 * 500 の画像10枚の暗号化と復号にかかった時間を測定…しようと思って実行したらアプリが応答しなかった。  
 
-traceviewで画像1枚の処理時間を調べたら、全体で6800msec掛かっていた。encryptが80%、decryptが20%で、generateKeyにかなりの時間がかかっていた。  
+traceviewで画像1枚の処理時間を調べたら、全体で6800msec掛かっていた。encrypt(generateKey込み)が80%、decryptが20%で、generateKeyにかなりの時間がかかっていた。  
 なのでsecretKeyを外で生成して暗号化・復号に掛かる時間を計測してみたら2800msecになった。  
 
 ### 感想
