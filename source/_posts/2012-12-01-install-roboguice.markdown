@@ -133,9 +133,9 @@ public class MainActivity extends RoboActivity {
 
 いきなりイベントをセットしたりできるようになる。キャストも不要でかっこいい。  
 
-### @Injection
+### @Inject
 
-いろいろ使えるけど、ヘルパーをインジェクトするのはすごく具合が良かった。  
+アクティビティのヘルパーを作ってインジェクトするのはすごく具合が良かった。  
 
 モジュールを定義する  
 
@@ -159,7 +159,8 @@ public class RoboGuiceSampleModule extends AbstractModule {
 }
 {% endcodeblock %}
 
-ヘルパーを定義する  
+コンテキストシングルトンにしておけばアクティビティとヘルパーでちがうモデルを見ちゃうことはなくなりそう。  
+次にヘルパーを定義する  
 
 {% codeblock lang:java %}
 public class AbstractActivityHelper {
