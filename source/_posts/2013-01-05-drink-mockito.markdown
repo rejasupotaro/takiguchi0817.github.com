@@ -126,6 +126,6 @@ public void testShouldBuyBread() throws Exception {
     Goods goods = shop.buyBread();
 
     //then
-    //assertThat(goods, containBread());
+    assertThat(goods, containBread());
 }
 {% endcodeblock %}

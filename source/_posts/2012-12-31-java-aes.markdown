@@ -35,10 +35,13 @@ public class ImageEncryptor {
     private static final String TAG = ImageEncryptor.class.getSimpleName();
     private static final String ENCRYPT_ALGORYTHM = "AES/CBC/PKCS5Padding";
     private static final int DEFAULT_KEY_LENGTH = 16;
+    private static String mPassword = null;
 
     // アプリ固有の情報ということでアプリをインストールした時間をもとに、
     // getByte()したときにデフォルトの鍵長の128ビットになるStringを返す
     public static String getPassword(Context context) {
+        if (mPassword != null) return mPassword;
+
         PackageInfo packageInfo = null;
         try {
             packageInfo = context.getPackageManager()
@@ -49,7 +52,8 @@ public class ImageEncryptor {
         }
 
         long installTime = packageInfo.firstInstallTime;
-        return formatValidPassword(String.valueOf(installTime));
+        mPassword = formatValidPassword(String.valueOf(installTime));
+        return mPassword;
     }
 
     private static String formatValidPassword(String password) {
@@ -98,7 +102,6 @@ public class ImageEncryptor {
         } catch (InvalidKeyException e) {
             Log.e(TAG, e.toString());
         } finally {
-            CloseableUtils.close(fos);
             CloseableUtils.close(cos);
         }
     }
