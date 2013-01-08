@@ -182,4 +182,10 @@ AESFastEngine.encryptBlockが7割、AESFastEngine.decryptBlockが3割くらい�
 
 暗号化にどれくらい時間かかるのかなと思ったけど、あまりサイズが大きくなければわりと実用的っぽい！
 
+## 追記
+
+パスワードの生成でアプリのインストール時間を見ていましたが、firstInstallTimeがAPI level 9からだったので、Androidバージョン2.1と2.2で使えなかった。
+なので別の方法を考えようと思っていたら、[書籍「Android Security」の暗号鍵生成方法には課題がある](http://d.hatena.ne.jp/ockeghem/20120213/p1) という記事を見つけた。
+というわけで乱数を生成してSharedPreferencesに書き込むようにしました(おわり)
+
 <link href="http://fonts.googleapis.com/css?family=Cantarell" rel="stylesheet" type="text/css">
