@@ -60,7 +60,9 @@ javaxのinjectがないって言ってる。
 ActivityとかFragmentActivityは、RoboActivityとかRoboFragmentActivityとかを継承するようにする。  
 RoboGuice 2.0からはRoboApplicationは継承しなくてよくなった。  
 
-### @ContentView
+### レイアウトをインジェクトする
+
+@ContentViewでレイアウトをインジェクトする。
 
 {% codeblock lang:java %}
 public class MainActivity extends Activity {
@@ -85,7 +87,9 @@ public class MainActivity extends RoboActivity {
 
 ってなる。  
 
-### @InjectView
+### ビューをインジェクトする
+
+@InjectViewでビューをインジェクトする。
 
 {% codeblock lang:java %}
 @ContentView(R.layout.activity_main)
@@ -133,11 +137,12 @@ public class MainActivity extends RoboActivity {
 
 いきなりイベントをセットしたりできるようになる。キャストも不要でかっこいい。  
 
-### @Inject
+### インジェクト
 
+@Injectでオブジェクトをインジェクトする。
 アクティビティのヘルパーを作ってインジェクトするのはすごく具合が良かった。  
 
-モジュールを定義する  
+まず、モジュールを定義する  
 
 {% codeblock res/values/roboguice.xml lang:xml %}
 <?xml version="1.0" encoding="utf-8"?>
@@ -159,7 +164,11 @@ public class RoboGuiceSampleModule extends AbstractModule {
 }
 {% endcodeblock %}
 
+モジュールに定義しなくてもクラス宣言に@ContextSingletonとアノテーションをつけておけばコンテキストシングルトンになる。
 コンテキストシングルトンにしておけばアクティビティとヘルパーでちがうモデルを見ちゃうことはなくなりそう。  
+
+追記：しかしこのあとスコープで[喧嘩](http://takiguchi0817.github.com/blog/2012/12/29/end-of-the-day/)になる  
+
 次にヘルパーを定義する  
 
 {% codeblock lang:java %}

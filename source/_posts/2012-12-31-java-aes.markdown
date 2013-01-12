@@ -21,8 +21,8 @@ AES暗号はアメリカ合衆国の新暗号規格 (Advanced Encryption Standar
 
 #### コード
 
-ENCRYPT_ALGORYTHM = "AES/CBC/PKCS5Padding"
-とありますが、これはAESを[CBCモード](http://www.triplefalcon.com/Lexicon/Encryption-Block-Mode-1.htm)で[PKCS#5](http://pentan.info/doc/block_cipher.html#anc_padding)というパディング方式で暗号化するということです。
+ENCRYPT_ALGORYTHM_MODE が "AES/CBC/PKCS5Padding" となっていますが、
+これはAESをCBCモードで[PKCS#5](http://pentan.info/doc/block_cipher.html#anc_padding)というパディング方式で暗号化するということです。
 
 ![CBC Encryption](http://upload.wikimedia.org/wikipedia/commons/d/d3/Cbc_encryption.png)
 
@@ -30,15 +30,48 @@ ENCRYPT_ALGORYTHM = "AES/CBC/PKCS5Padding"
 - decrypt: ファイル名を引数にして、復号した画像を返す
 
 {% codeblock lang:java %}
+package com.rejasupotaro.sampleapp.encrypt;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+
+import com.rejasupotaro.sampleapp.utils.CloseableUtils;
+
 public class ImageEncryptor {
 
     private static final String TAG = ImageEncryptor.class.getSimpleName();
-    private static final String ENCRYPT_ALGORYTHM = "AES/CBC/PKCS5Padding";
+    private static final String ENCRYPT_ALGORYTHM = "AES";
+    private static final String ENCRYPT_ALGORYTHM_MODE = ENCRYPT_ALGORYTHM + "/CTR/PKCS5Padding";
     private static final int DEFAULT_KEY_LENGTH = 16;
     private static String mPassword = null;
 
     // アプリ固有の情報ということでアプリをインストールした時間をもとに、
     // getByte()したときにデフォルトの鍵長の128ビットになるStringを返す
+    // !!!!このやり方には問題があります。追記を参照!!!!
     public static String getPassword(Context context) {
         if (mPassword != null) return mPassword;
 
@@ -68,83 +101,98 @@ public class ImageEncryptor {
         encrypt(new File(filePath), bitmap, password);
     }
     
-    public static void encrypt(File file, Bitmap bitmap, String password) 
+    public static void encrypt(File file, Bitmap bitmap, String password, byte[] iv) 
             throws FileNotFoundException, IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(CompressFormat.JPEG, 100, baos);
         byte[] bin = baos.toByteArray();
 
-        encrypt(file, bin, password);
+        encrypt(file, bin, password, iv);
     }
 
-    public static void encrypt(String filePath, byte[] content, String password) 
+    public static void encrypt(String filePath, byte[] content, String password, byte[] iv) 
             throws FileNotFoundException, IOException {
         encrypt(new File(filePath), content, password);
     }
     
-    public static void encrypt(File file, byte[] content, String password) 
+    public static void encrypt(File file, byte[] content, String password, byte[] iv) 
             throws FileNotFoundException, IOException {
 
         FileOutputStream fos = null;
-        CipherOutputStream cos = null;
         try {
             Cipher cipher = Cipher.getInstance(ENCRYPT_ALGORYTHM);
-            cipher.init(Cipher.ENCRYPT_MODE, getKey(password));
+            cipher.init(Cipher.ENCRYPT_MODE, getKey(password), new IvParameterSpec(iv));
             fos = new FileOutputStream(file);
-            cos = new CipherOutputStream(fos, cipher);
-            fos.write(cipher.getIV());
-            cos.write(content);
-            cos.flush();
+            fos.write(cipher.doFinal(content));
         } catch (NoSuchAlgorithmException e) {
-            Log.e(TAG, e.toString());
+            Log.v(TAG, e.toString());
         } catch (NoSuchPaddingException e) {
-            Log.e(TAG, e.toString());
+            Log.v(TAG, e.toString());
         } catch (InvalidKeyException e) {
-            Log.e(TAG, e.toString());
+            Log.v(TAG, e.toString());
+        } catch (InvalidAlgorithmParameterException e) {
+            Log.v(TAG, e.toString());
+        } catch (IllegalBlockSizeException e) {
+            Log.v(TAG, e.toString());
+        } catch (BadPaddingException e) {
+            Log.v(TAG, e.toString());
         } finally {
-            CloseableUtils.close(cos);
+            CloseableUtils.close(fos);
         }
     }
 
-    public static Bitmap decrypt(String filePath, String password) {
+    public static Bitmap decrypt(String filePath, String password, byte[] iv) {
+        FileInputStream fis = null;
         CipherInputStream cis = null;
-        try {
-            FileInputStream fis = new FileInputStream(filePath);
-            byte[] iv = new byte[DEFAULT_KEY_LENGTH];
-            fis.read(iv);
-            Cipher cipher = Cipher.getInstance(ENCRYPT_ALGORYTHM);
-            IvParameterSpec ivspec = new IvParameterSpec(iv);
-            cipher.init(Cipher.DECRYPT_MODE, getKey(password), ivspec);
-            cis = new CipherInputStream(fis, cipher);
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, e.toString());
-        } catch (IOException e) {
-            Log.e(TAG, e.toString());
-        } catch (NoSuchAlgorithmException e) {
-            Log.e(TAG, e.toString());
-        } catch (NoSuchPaddingException e) {
-            Log.e(TAG, e.toString());
-        } catch (InvalidKeyException e) {
-            Log.e(TAG, e.toString());
-        } catch (InvalidAlgorithmParameterException e) {
-            Log.e(TAG, e.toString());
-        }
-        if (cis == null) return null;
-
         Bitmap bitmap = null;
         try {
+            fis = new FileInputStream(filePath);
+            Cipher cipher = Cipher.getInstance(ENCRYPT_ALGORYTHM_MODE);
+            IvParameterSpec ivspec = new IvParameterSpec(initialVector);
+            cipher.init(Cipher.DECRYPT_MODE, getKey(password), ivspec);
+            cis = new CipherInputStream(fis, cipher);
+ 
             bitmap = BitmapFactory.decodeStream(cis, null, null);
+        } catch (FileNotFoundException e) {
+            Log.v(TAG, e.toString());
+        } catch (IOException e) {
+            Log.v(TAG, e.toString());
+        } catch (NoSuchAlgorithmException e) {
+            Log.v(TAG, e.toString());
+        } catch (NoSuchPaddingException e) {
+            Log.v(TAG, e.toString());
+        } catch (InvalidKeyException e) {
+            Log.v(TAG, e.toString());
+        } catch (InvalidAlgorithmParameterException e) {
+            Log.v(TAG, e.toString());
         } finally {
+            CloseableUtils.close(fis);
             CloseableUtils.close(cis);
         }
+ 
         return bitmap;
     }
 
     private static Key getKey(String password) {
-        return new SecretKeySpec(password.getBytes(), "AES");
+        return new SecretKeySpec(password.getBytes(), ENCRYPT_ALGORYTHM);
     }
 }
 {% endcodeblock %}_
+
+動作モードについて補足すると、  
+
+- ECB(Electronic CodeBook)電子符号表モード
+  - 単純にブロックごとに暗号化する。安全でなく使うべきでない。
+- CTR(Counter)カウンターモード
+  - 各ブロックを初期値から1ずつ増加するカウンタの暗号化との排他的論理和で暗号化する。各ブロックを並列に処理できる。
+- CBC(Cipher Block Chaining)暗号ブロック連鎖モード
+  - ブロックを前ブロックの暗号化結果と排他的論理和を取ってから暗号化する。最初のブロックは初期ベクタという乱数と排他的論理和を取る。
+- CFB(Cipher Feed Back)暗号フィードバックモード
+  - 前ブロックを暗号化してブロックとの排他的論理和をとって暗号文とする。最初のブロックは初期ベクタの暗号化との排他的論理和で暗号化する。
+- OFB(Output Feed Back)出力フィードバックモード
+  - 初期ベクタに繰り返し暗号化処理して乱数ストリームを作り、これと平文との排他的論理和を暗号文とする。
+
+ということらしいです。詳しくは[こちら](http://akademeia.info/index.php?%A5%D6%A5%ED%A5%C3%A5%AF%B0%C5%B9%E6%A4%CE%CD%F8%CD%D1%A5%E2%A1%BC%A5%C9#pdc05fdd)
 
 ## ベンチマーク
 
@@ -186,6 +234,16 @@ AESFastEngine.encryptBlockが7割、AESFastEngine.decryptBlockが3割くらい�
 
 パスワードの生成でアプリのインストール時間を見ていましたが、firstInstallTimeがAPI level 9からだったので、Androidバージョン2.1と2.2で使えなかった。
 なので別の方法を考えようと思っていたら、[書籍「Android Security」の暗号鍵生成方法には課題がある](http://d.hatena.ne.jp/ockeghem/20120213/p1) という記事を見つけた。
-というわけで乱数を生成してSharedPreferencesに書き込むようにしました(おわり)
+というわけでランダムなbyte列を16個生成して128bitにすることにした。
+
+{% codeblock lang:java %}
+byte[] bytes = new byte[16];
+SecureRandom rand = new SecureRandom();
+rand.nextBytes(bytes);
+{% endcodeblock %}_
+
+こんなコードだった気がする。
+RandomじゃなくてSecureRandomを使うとのこと。
+SQLiteに保存するならBLOBで、SharedPreferenceならbase64にエンコードして書き込むようにします。
 
 <link href="http://fonts.googleapis.com/css?family=Cantarell" rel="stylesheet" type="text/css">
