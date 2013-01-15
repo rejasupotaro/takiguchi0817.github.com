@@ -6,7 +6,7 @@ comments: true
 categories: Java Encrypto AES
 ---
 
-前にベンチ取ったときは遅くて使えないって思ったけど、「いやそんなに遅くないでしょう」と言われたので、一からやり直した。
+前にベンチ取ったときは遅くて使えないって思ったけど、「いやそんなに遅くないでしょう」と言われたので、一からやり直しました。
 
 ## AES暗号とは
 
@@ -21,13 +21,15 @@ AES暗号はアメリカ合衆国の新暗号規格 (Advanced Encryption Standar
 
 #### コード
 
-ENCRYPT_ALGORYTHM_MODE が "AES/CBC/PKCS5Padding" となっていますが、
-これはAESをCBCモードで[PKCS#5](http://pentan.info/doc/block_cipher.html#anc_padding)というパディング方式で暗号化するということです。
+ENCRYPT_ALGORYTHM_MODE が "AES/CTR/PKCS5Padding" となっていますが、
+これはAESをCTRモードで[PKCS#5](http://pentan.info/doc/block_cipher.html#anc_padding)というパディング方式で暗号化するということです。
 
 ![CBC Encryption](http://upload.wikimedia.org/wikipedia/commons/d/d3/Cbc_encryption.png)
 
 - encrypt: 保存先のファイルと画像を引数にして、画像を暗号化して保存する
 - decrypt: ファイル名を引数にして、復号した画像を返す
+
+※追記：このコードはそのまま使えません！パスワードの生成については一番最後をお読みください。
 
 {% codeblock lang:java %}
 package com.rejasupotaro.sampleapp.encrypt;
@@ -232,8 +234,8 @@ AESFastEngine.encryptBlockが7割、AESFastEngine.decryptBlockが3割くらい�
 
 ## 追記
 
-パスワードの生成でアプリのインストール時間を見ていましたが、firstInstallTimeがAPI level 9からだったので、Androidバージョン2.1と2.2で使えなかった。
-なので別の方法を考えようと思っていたら、[書籍「Android Security」の暗号鍵生成方法には課題がある](http://d.hatena.ne.jp/ockeghem/20120213/p1) という記事を見つけた。
+パスワードの生成でアプリのインストール時間を見ていましたが、firstInstallTimeがAPI level 9からだったので、Androidバージョン2.1と2.2で使えませんでした。
+なので別の方法を考えようと思っていたら、[書籍「Android Security」の暗号鍵生成方法には課題がある](http://d.hatena.ne.jp/ockeghem/20120213/p1) という記事を見つけました。
 というわけでランダムなbyte列を16個生成して128bitにすることにした。
 
 {% codeblock lang:java %}
@@ -242,8 +244,9 @@ SecureRandom rand = new SecureRandom();
 rand.nextBytes(bytes);
 {% endcodeblock %}_
 
-こんなコードだった気がする。
-RandomじゃなくてSecureRandomを使うとのこと。
+このようにパスワードを生成します。
+RandomじゃなくてSecureRandomを使った方が良いです。
+またパスワードはStringで持つのではなくbyte[]で持っていた方が良いです。
 SQLiteに保存するならBLOBで、SharedPreferenceならbase64にエンコードして書き込むようにします。
 
 <link href="http://fonts.googleapis.com/css?family=Cantarell" rel="stylesheet" type="text/css">
