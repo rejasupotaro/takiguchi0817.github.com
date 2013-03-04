@@ -22,7 +22,7 @@ JavaScriptInterfaceからクラスローダーが取得できたりJNIが呼べ�
 コンテントプロバイダはデフォルトで公開されているので注意が必要です。
 また2.2以前だと[exportedをfalseにしていても](http://www.taosoftware.co.jp/blog/2011/10/android_contentproviderexport.html)外部アプリから情報が読めてしまいます。
 
-#### <input type="checkbox">BroadCastのパーミッションは適切か？
+#### <input type="checkbox">Broadcastのパーミッションは適切か？
 パーミッションを付け忘れると外に情報が出てしまいます。
 またStickyブロードキャストはパーミッションが指定できないので個人情報を入れてはいけません。
 
