@@ -3,7 +3,7 @@ layout: post
 title: "この前飲み会で話したS式の話"
 date: 2013-03-07 22:53
 comments: true
-categories: 
+categories: Java LISP
 ---
 
 {% oembed https://twitter.com/hito_asa/status/309606049814560769 %}

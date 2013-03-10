@@ -3,7 +3,7 @@ layout: post
 title: "モヒートの飲み方"
 date: 2013-01-05 12:41
 comments: true
-categories: 
+categories: Android Mockito
 ---
 
 # mojito
