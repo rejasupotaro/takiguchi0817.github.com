@@ -32,7 +32,7 @@ NamingPolicyやDeserializerの使い方を覚えれば、手でjsonのパーサ�
 
     json => api entity => model
 
-ってしたいなと思います。
+ってしたい感じです。
 
 ## ORM => [ActiveAndroid](https://www.activeandroid.com/) or [greenDAO](http://greendao-orm.com/)
 
@@ -49,7 +49,7 @@ SQL文をHelperに記述してるときは人間らしい心を失いそうに�
 ## DI => [RoboGuice](https://github.com/roboguice/roboguice) or [Proton](https://github.com/hnakagawa/proton) or [Dagger](http://square.github.com/dagger/)
 
 Fragmentのイベントを別のFragmentで作用させたいときに、interfaceを定義してActivity経由でlistenerを登録とかするとすぐにlistener地獄になってしまってつらいです。
-そういうときにContextSingletonなヘルパーをインジェクトして使うとめちゃ便利で、コードの見通しが良くなって、仕様変更に強くなって心が豊かになってモテ始めたりすると思います。
+そういうときにContextSingletonなヘルパーをインジェクトして使うとめちゃ便利で、コードの見通しが良くなって仕様変更に強くなって心が豊かになってモテ始めたりすると思います。
 他にもテスト実行時にインジェクトするオブジェクトを切り替えられるとか、記述が楽になる以外にもメリットはたくさんあると思います。  
 
 有名なのはRoboGuiceです。これはサーバーサイドのDIフレームワークのGuiceを、Androidでも使えるようにラップしたものです。
@@ -60,7 +60,7 @@ Fragmentのイベントを別のFragmentで作用させたいときに、interfa
 と言って作られたのがProtonです。いらない機能を削ってAndroidに最適化した結果、サイズもメモリ使用量も圧倒的に少なくなったとのことです。
 ただドキュメントがないので使うならRoboGuiceの知識が必須で、ソースコードを読みながらになると思います。
 
-RoboActivityとかProtonActivityとか継承したくない、かつコンテキストシングルトンとかいらない！というケースであれば、単純にインジェクトだけをしたいのならDagger良いです。
+RoboActivityとかProtonActivityとか継承したくない、かつコンテキストシングルトンとかいらない！というケースであれば、単純にインジェクトだけが出来るDagger良いです。
 
 # おわりに
 
