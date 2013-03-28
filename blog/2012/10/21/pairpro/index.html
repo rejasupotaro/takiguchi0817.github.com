@@ -1,0 +1,292 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ペアプログラミングについて学ぶ - Just posted a blog</title>
+    <meta name="author" content="rejasupotaro">
+    
+	<meta name="description" content="プロローグ 僕の所属しているチームではスクラムで開発していますが、今まで レビュー時に設計の間違いが発見されてかなりの手戻りが発生した
+仕様の細かいところをその開発者自身しか把握していない
+レビューにとても時間がかかり、レビュワーにとっての大きな負担になる といった問題がありました。
+そこで、 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36257112-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        rejasupotaro
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">ペアプログラミングについて学ぶ</h2>
+	<div class="entry-content"><h2>プロローグ</h2>
+
+<p>僕の所属しているチームではスクラムで開発していますが、今まで</p>
+
+<ul>
+<li>レビュー時に設計の間違いが発見されてかなりの手戻りが発生した</li>
+<li>仕様の細かいところをその開発者自身しか把握していない</li>
+<li>レビューにとても時間がかかり、レビュワーにとっての大きな負担になる</li>
+</ul>
+
+
+<p>といった問題がありました。<br/>
+そこで、品質を保ったまま開発スピードを上げるための施策として、試験的にペアプロを導入してみることにしました。</p>
+
+<h2>ペアプロやってみました</h2>
+
+<p>試しに1スプリントの期間、すべてペアプロで作業してみました。</p>
+
+<p>そうしたら、</p>
+
+<ul>
+<li>レビューをしなくてよくなった</li>
+<li>見積もりの半分の時間ですべてのタスクが終わった</li>
+<li>IDEやデバッガの効果的な使い方をパートナーから学ぶことができた</li>
+<li>メンバーと仲良くなった</li>
+</ul>
+
+
+<p>ということがあり、ペアプロは僕らが抱えている問題の解決になるかもしれないと思いました。</p>
+
+<p>ただ今回やったのはペアプロというよりペア作業みたいな感じで、PCを2台並べて雑談しながらプログラムを書いていました。<br/>
+まだ社内でペアプロをやっているチームはいないしノウハウもないので、やり方がよく分かりませんでした。<br/>
+そこで、もっとペアプロについて学ぶことにしました。</p>
+
+<p>(以下、「ペアプログラミング―エンジニアとしての指南書」という本の読んで勉強した内容と経験の話になります)</p>
+
+<h2>ペアプロの基本</h2>
+
+<ul>
+<li>ドライバー：プログラムを書く人</li>
+<li>ナビゲーター：設計を考える人</li>
+</ul>
+
+
+<p>ドライバーとナビゲーターの役割を適度に交代しながらタスクを遂行します。</p>
+
+<h2>ペアプロをするための環境(物理)</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201210/pairpro.jpeg" alt="一般的なペアプログラミングの光景" /><br/>
+ペアプログラミングをするにはまず、大きなテーブルと大きなディスプレイが必要です。<br/>
+ナビゲーターが適切にモニターが見えてドライバーに手が貸せるように物を配置した方が良いです。<br/>
+かと言って、ナビゲーターがドライバーの首に息がかかるような位置に座るのは、理想とはほど遠いです。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201210/begentle.jpg" alt="Be Gentle..." /><br/>
+<a href="http://developers.slashdot.jp/story/12/08/30/0933235/%E3%80%8C%E3%83%9A%E3%82%A2%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%80%8D%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%80%8C%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%95%8F%E9%A1%8C%E3%80%8D">「ペアプログラミング」における「コミュニケーション問題」</a></p>
+
+<p>クルーズ＆アトラスは快適ですが、二人の距離が少し遠くなってしまいます。<br/>
+そこで、もっとコミュニケーションが取りやすいように、ディスプレイを2枚用意した横並びのペアプロ専用席を新たに用意しました。<br/>
+また、チームには男性しかおらず、お互いにあまり近付きたくないとのことで、画面をクロスするようにミラーリングして適度な距離を保てるように配慮しました。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201210/pairproseat.jpg" alt="イメージ図" /></p>
+
+<h2>ペアプロをするための環境(物理じゃない方)</h2>
+
+<p>たとえばエディタ、ドライバーがvimmerでナビゲーターがemacserだと、ナビゲーターはドライバーの作業に割り込みづらくなってしまいます。
+それに同じ流派の人であってもショートカットが奇妙なキーに割り当てられていたり、職人芸的キーバインドに設定されていることもあるでしょう。<br/>
+エンジニアは、開発環境やデバッガに強いこだわりを持っていることがあり、開発者を無理に他人の環境に合わせようとすると、ペアプロに嫌悪感を持つようになるかもしれないので、強制的に環境を統一するのはあまり良くないかもしれません。</p>
+
+<h2>ペアプロのパターン</h2>
+
+<p>専門家、新人、外交的、内向的、男女…と、プログラマを分類していくと、さまざまなタイプの組み合わせが考えられます。<br/>
+プログラマのタイプによってペアプロのやり方は変わってきますが、とりあえず「専門家-新人」と「専門家-専門家」について取り上げます。</p>
+
+<h3>専門家-新人</h3>
+
+<ul>
+<li><p>目的：新人プログラマをトレーニングしながら、比較的用意な作業を成し遂げる<br/>
+(新人プログラマとは僕のことです。)</p></li>
+<li><p>感じている問題点<br/>
+ドライバーとナビゲーターは数十分ごとに交代するものだが、新人(僕)から専門家に対してナビゲートするのがむずかしい。
+新人(僕)は教えてもらうばかりで、専門家は退屈になってしまうような気がする。</p></li>
+</ul>
+
+
+<p>というところで悩んでいましたが、「ペアプロをした方が新人の成長速度は早く、また専門家は他人に教えることでより一層理解が深まる」らしいので、それを信じて頑張ります。</p>
+
+<h3>専門家-専門家</h3>
+
+<ul>
+<li><p>目的：最も複雑な作業を成功させる</p></li>
+<li><p>感じている問題点<br/>
+ペアプロするより各々で作業する方が効率が良いような気がする。<br/>
+どちらもプロフェッショナルなので、思想の違いから設計で揉めることがある。</p></li>
+</ul>
+
+
+<p>本には「もし、そういう問題を感じたら、もっと心を開いてみましょう。リラックスして、自尊心をドアの外に置いて、偉大になるための知的旅行を楽しんでください。」と書いてありました。</p>
+
+<h2>まとめ</h2>
+
+<p>ペアプロのやり方といっても、「どんなタスク」を「どんなペア」でやるかによって様々なパターンがあるのでむずかしいのですが、</p>
+
+<ul>
+<li>複雑なタスクはペアプロを行う</li>
+<li>ペアプロで書いたコードはレビューを行わなくても良い</li>
+<li>スプリントの最初にペアプロを行うタスクを決める</li>
+</ul>
+
+
+<p>これくらいのルールを決めて、もう少し様子を見ようと思います。</p>
+
+<p>しかしペアプログラミングは数十年前から提唱されているにもかかわらず、あまり普及している感じがしません。<br/>
+グーグルで「ペアプロ」と検索窓にいれると「合コン」がサジェストされるのが現代です。<br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201210/ppgoogle.png" alt="ペアプロ 合コン" />
+ペアプロ自体に問題があるのでしょうか。</p>
+
+<p>ペアプロをしている方、いらっしゃいましたらノウハウなどを共有したいです。</p>
+
+<hr />
+
+<h2>追記：ク社の人と話した</h2>
+
+<p>r7kamuraくんとちょっと話しました。</p>
+
+<p><a href="http://r7kamura.hatenablog.com/entry/2012/10/10/205927">ペアプロ - ✘╹◡╹✘</a></p>
+
+<p>「あるタスクに対して詳しい人と詳しくない人でペアプロをすると効率が上がった。」<br/>
+「あるタスクに対して同じくらいの詳しさの人とやると、あまり意味がなかった。」<br/>
+とのことです。<br/>
+本には「専門家同士のペアはIQが40上昇〜〜」と書いてありましたが、タスク次第ですかね。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    rejasupotaro
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

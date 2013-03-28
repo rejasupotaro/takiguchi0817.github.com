@@ -1,0 +1,197 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Androidアプリを作るときに気を付けること(セキュリティ) - Just posted a blog</title>
+    <meta name="author" content="rejasupotaro">
+    
+	<meta name="description" content="Androidセキュリティあるあるをまとめてみました。 　 アプリケーションデータディレクトリの外に個人情報を置いていないか？ 基本的に個人情報はSDカードや他のディレクトリに置いてはいけません。
+どうしても置きたい場合は暗号化します。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36257112-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        rejasupotaro
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Androidアプリを作るときに気を付けること(セキュリティ)</h2>
+	<div class="entry-content"><h3>Androidセキュリティあるあるをまとめてみました。</h3>
+
+<p>　</p>
+
+<h4><input type="checkbox">アプリケーションデータディレクトリの外に個人情報を置いていないか？</h4>
+
+<p>基本的に個人情報はSDカードや他のディレクトリに置いてはいけません。
+どうしても置きたい場合は<a href="http://takiguchi0817.github.com/blog/2012/12/31/java-aes/">暗号化</a>します。</p>
+
+<h4><input type="checkbox">WebViewでGETパラメータでCookieやトークンを渡していないか？</h4>
+
+<p>LogCatに出てしまいます。ただし、Jelly Beanからは<a href="http://blog.2maru.com/archives/1700">LogCatが読めなくなりました</a>。</p>
+
+<h4><input type="checkbox">WebViewで許可されたドメイン以外にJavaScriptInterfaceが公開されていないか？</h4>
+
+<p>JavaScriptInterfaceからクラスローダーが取得できたりJNIが呼べたりしてしまうので<a href="https://www.google.co.jp/#hl=ja&amp;q=Android+WebView+%E5%8D%B1%E9%99%BA&amp;fp=1">たいへん危険</a>です。</p>
+
+<h4><input type="checkbox">ContentProviderのパーミッションは適切か？</h4>
+
+<p>コンテントプロバイダはデフォルトで公開されているので注意が必要です。
+また2.2以前だと<a href="http://www.taosoftware.co.jp/blog/2011/10/android_contentproviderexport.html">exportedをfalseにしていても</a>外部アプリから情報が読めてしまいます。</p>
+
+<h4><input type="checkbox">Broadcastのパーミッションは適切か？</h4>
+
+<p>パーミッションを付け忘れると外に情報が出てしまいます。
+またStickyブロードキャストはパーミッションが指定できないので個人情報を入れてはいけません。</p>
+
+<h4><input type="checkbox">端末固有の識別子をサーバ側でIDとして使っていないか？</h4>
+
+<p><a href="http://news.mynavi.jp/articles/2012/03/28/abc2012_06/index.html">怖い人</a>が飛んでくるおそれがあります。
+　<br/>
+　</p>
+
+<h3>まとめ</h3>
+
+<p>脆弱性のあるアプリを一度世に出してしまったら、いくらセキュリティパッチをあてたところで、ユーザにアップデートをしてもらえなければそれまでです。
+ちょっとした注意で防げるものもあるので、外部からの攻撃ならまだしも、こちら側で防げるものは確実に防いでおきたいですね。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    rejasupotaro
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

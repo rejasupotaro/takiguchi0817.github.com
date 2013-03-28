@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Encryption | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/encryption/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Androidの画像の暗号化]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/10/06/android-encryption/"/>
+    <updated>2012-10-06T17:05:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/10/06/android-encryption</id>
+    <content type="html"><![CDATA[<h2>SDカードに保存する画像を暗号化したい</h2>
+
+<h3>Androidの暗号化手法</h3>
+
+<p>Androidで使用出来る暗号化手法一覧：Security.getAlgorithms("Cipher")</p>
+
+<pre><code>PBEWITHSHAAND192BITAES-CBC-BC
+PBEWITHSHAAND40BITRC4
+PBEWITHSHAAND128BITRC2-CBC
+PBEWITHSHA256AND256BITAES-CBC-BC
+PBEWITHSHAAND128BITAES-CBC-BC
+PBEWITHSHAAND40BITRC2-CBC
+PBEWITHSHA1ANDDES
+AESWRAP
+DES
+AES
+DESEDEWRAP
+PBEWITHSHAAND256BITAES-CBC-BC
+PBEWITHSHA256AND192BITAES-CBC-BC
+PBEWITHMD5AND128BITAES-CBC-OPENSSL
+PBEWITHMD5AND256BITAES-CBC-OPENSSL
+BLOWFISH
+PBEWITHSHAAND2-KEYTRIPLEDES-CBC
+PBEWITHSHA1ANDRC2
+PBEWITHMD5AND192BITAES-CBC-OPENSSL
+ARC4
+PBEWITHMD5ANDDES
+RSA
+PBEWITHSHA256AND128BITAES-CBC-BC
+PBEWITHSHAAND3-KEYTRIPLEDES-CBC
+DESEDE
+PBEWITHSHAANDTWOFISH-CBC
+PBEWITHSHAAND128BITRC4
+PBEWITHMD5ANDRC2
+</code></pre>
+
+<p>色々あるが、今回はAESを検証した。</p>
+
+<h3>コード</h3>
+
+<p>定数</p>
+
+<pre><code>private static final byte[] SALT = new byte[] {
+    -47, 66, 32, -127, -102, -51, 79, -69, 57, 85, -91, -42, 74, -116 };
+private static final byte[] INITAIL_VECTOR = {
+    16, 74, 71, -80, 32, 101, -47, 72, 117, -14, 0, -29, 70, 65, -12, 74 };
+private static final String CIPHER_ALGORITM = "AES/CBC/PKCS5Padding";
+</code></pre>
+
+<p>鍵の生成</p>
+
+<pre><code>private static SecretKey generateKey()
+        throws  NoSuchAlgorithmException, InvalidKeySpecException {  
+
+    // ここでは"password"を与えているが実際にやってはいけない
+    char[] password = "password".toCharArray();
+
+    // ソルト、イテレーションカウント1024回、鍵の長さ256ビットを指定
+    KeySpec keySpec = new PBEKeySpec(password, SALT, 1024, 256);  
+    SecretKeyFactory factory = SecretKeyFactory.getInstance("PBEWITHSHAAND256BITAES-CBC-BC");  
+    SecretKey secretKey = factory.generateSecret(keySpec);  
+
+    return secretKey;  
+}
+</code></pre>
+
+<p>暗号化</p>
+
+<pre><code>public static byte[] encrypt(Bitmap bitmap)
+        throws
+        NoSuchAlgorithmException, InvalidKeySpecException, NameNotFoundException,
+        InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException,
+        IllegalBlockSizeException, BadPaddingException {
+
+    SecretKey secretKey = generateKey();
+
+    // 暗号アルゴリズムにAESを指定
+    Cipher cipher = Cipher.getInstance(CIPHER_ALGORITM);
+
+    // 暗号化モードに設定し、キーを指定
+    cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(INITAIL_VECTOR));
+
+    // 暗号化の実行
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    bitmap.compress(CompressFormat.JPEG, 100, bos);
+    return cipher.doFinal(bos.toByteArray());
+}
+</code></pre>
+
+<p>復号</p>
+
+<pre><code>public static Bitmap decrypt(byte[] crypted)
+        throws
+        NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException,
+        InvalidKeyException, InvalidAlgorithmParameterException,
+        IllegalBlockSizeException, BadPaddingException {
+
+    SecretKey secretKey = generateKey();
+
+    // 暗号アルゴリズムにAESを指定
+    Cipher cipher = Cipher.getInstance(CIPHER_ALGORITM);
+
+    // 暗号化モードに設定し、キーを指定
+    cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(INITAIL_VECTOR));
+
+    // 復号の実行
+    byte[] decrypted = cipher.doFinal(crypted);
+    BitmapFactory.Options options = new BitmapFactory.Options();
+    return BitmapFactory.decodeByteArray(decrypted, 0, decrypted.length, options);
+}
+</code></pre>
+
+<h3>検証</h3>
+
+<p>500 * 500 の画像10枚の暗号化と復号にかかった時間を測定…しようと思って実行したらアプリが応答しなかった。</p>
+
+<p>traceviewで画像1枚の処理時間を調べたら、全体で6800msec掛かっていた。encrypt(generateKey込み)が80%、decryptが20%で、generateKeyにかなりの時間がかかっていた。<br/>
+なのでsecretKeyを外で生成して暗号化・復号に掛かる時間を計測してみたら2800msecになった。</p>
+
+<h3>感想</h3>
+
+<p>画像を暗号化するなら、ローカルに置くよりサーバに置いた方が速いし楽な気がする。<br/>
+絶対に見られてはならない機密情報ってほどでもないが、あんまり見られたくないという画像は、<a href="http://www.kk.iij4u.or.jp/~kondo/bmp/">ヘッダ</a>をいじるのが良いのだろうか。</p>
+
+<p>画像に関してはあれだが、アクセストークンくらいなら速いししばらくメモリに乗ってそうだし、良さそう。<br/>
+注意する点として、SharedPreferenceにはStringしか保存できないので、暗号化と復号の処理の間にBase64化処理が必要になる。<br/>
+しかもAndroidのBase64クラスが使えるのは2.2以降なので、そういうのをうまくやる必要がある。</p>
+]]></content>
+  </entry>
+  
+</feed>

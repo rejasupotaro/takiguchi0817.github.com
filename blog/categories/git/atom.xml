@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Git | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[無限デプロイ]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/12/16/vote/"/>
+    <updated>2012-12-16T13:05:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/12/16/vote</id>
+    <content type="html"><![CDATA[<p>ブログのデザインを可愛くしました。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/top.png" alt="TOP" /></p>
+
+<p>ついでにGitHubへのpushをhookにしてブログを自動デプロイするようにして、選挙に行った。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/sampo.gif" alt="近所" /></p>
+
+<p>戻ってきたらJenkinsがfetchしてgenerateしてdeployという一連の流れをひたすら反復してて、そのさまを見てひとしきり笑ったあと真顔でローカルのコミットにhookするように修正した。<br/>
+　<br/>
+何が起こったかというと、Octopressはページを生成したあと成果物をGitHubにプッシュする(じゃないとブログ反映されないし)ので、そうするとそれをhookしてJenkinsがまたリポジトリを見に行ってしてページを生成してしてプッシュして…を繰り返してた。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[まさかこのままプッシュする気じゃないよね？]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/12/02/guideline/"/>
+    <updated>2012-12-02T16:17:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/12/02/guideline</id>
+    <content type="html"><![CDATA[<p><blockquote class="twitter-tweet" lang="ja"><p>自分のコード綺麗って思ってんの？ - ✘╹◡╹✘ <a href="http://t.co/AeZFbpL9" title="http://r7kamura.hatenablog.com/entry/2012/11/30/223412">r7kamura.hatenablog.com/entry/2012/11/…</a></p>&mdash; 人月さん (@r7kamura) <a href="https://twitter.com/r7kamura/status/275064946759454720" data-datetime="2012-12-02T02:32:48+00:00">12月 2, 2012</a></blockquote>
+<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+　<br/>
+　<br/>
+　<br/>
+綺麗かどうかどころか、デバッグコードとかそのままプッシュしてしまって、後でレビューツールでdiff見ててアッてなるので書いた。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;!/bin/sh&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;readonly <span class="nv">MESSAGE</span><span class="o">=</span><span class="s2">&quot;まさかこのままプッシュする気じゃないよね？&quot;</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;has_ax_code<span class="o">=</span><span class="nb">false</span>
+</span><span class='line'><span class="nv">file_list</span><span class="o">=</span><span class="k">$(</span>find . -name *.java<span class="k">)</span>
+</span><span class='line'><span class="k">for </span>file in <span class="k">${</span><span class="nv">file_list</span><span class="p">[@]</span><span class="k">}</span>; <span class="k">do</span>
+</span><span class='line'><span class="k">  </span><span class="nv">ax_code</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$file</span> | grep -n -e TODO -e FIXME -e XXX -e DEBUG<span class="k">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;$ax_code&quot;</span> <span class="o">]</span>; <span class="k">then</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;echo <span class="nv">$file</span>
+</span><span class='line'><span class="nb">echo</span> <span class="s2">&quot;$ax_code&quot;</span>
+</span><span class='line'><span class="nv">has_ax_code</span><span class="o">=</span><span class="nb">true</span>
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;  <span class="k">fi</span>
+</span><span class='line'><span class="k">done</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;if <span class="o">[</span> <span class="nv">$has_ax_code</span> <span class="o">]</span>; <span class="k">then</span>
+</span><span class='line'><span class="k">  </span><span class="nb">echo</span> <span class="nv">$MESSAGE</span>
+</span><span class='line'><span class="k">fi</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>コミットする。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">(</span> &lt;em&gt;´ω｀&lt;/em&gt;<span class="o">)</span>  ~/develop/projects/Betterflow <span class="nv">$ </span>git commit
+</span><span class='line'>548:        // TODO: この名前はおかしいので後で変える
+</span><span class='line'>572:        // FIXME: 読み込む前にリサイズしないと余裕でOOMする
+</span><span class='line'>752:        // XXX: よくわからないけど動いてる
+</span><span class='line'>まさかこのままプッシュする気じゃないよね？
+</span><span class='line'><span class="o">[</span>master 98c0487<span class="o">]</span> コメント書いた
+</span><span class='line'> 2 files changed, 3 insertions<span class="o">(</span>+<span class="o">)</span>
+</span><span class='line'><span class="o">(</span> &lt;em&gt;´ω｀&lt;/em&gt;<span class="o">)</span>  ~/develop/projects/Betterflow <span class="err">$</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>でも人間は許せる生き物だから。</p>
+]]></content>
+  </entry>
+  
+</feed>

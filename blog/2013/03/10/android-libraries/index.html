@@ -1,0 +1,235 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>2013年 Androidアプリ開発で使いたいライブラリ - Just posted a blog</title>
+    <meta name="author" content="rejasupotaro">
+    
+	<meta name="description" content="30億のデバイスのみなさん、こんにちは、ジャバです。 何の前触れもなく、2013年 Androidアプリ開発で使いたいライブラリを発表します。 JsonConverter => gson JSONRPCでサーバーサイドと通信を行うときに、毎回パーサーを書くのは面倒なので、 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36257112-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        rejasupotaro
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">2013年 Androidアプリ開発で使いたいライブラリ</h2>
+	<div class="entry-content"><p>30億のデバイスのみなさん、こんにちは、ジャバです。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201303/javamonster.gif" alt="迫り来るジャバモンスター" /></p>
+
+<p>何の前触れもなく、2013年 Androidアプリ開発で使いたいライブラリを発表します。</p>
+
+<h2>JsonConverter => <a href="https://code.google.com/p/google-gson/">gson</a></h2>
+
+<p>JSONRPCでサーバーサイドと通信を行うときに、毎回パーサーを書くのは面倒なので、JsonConverterを使いたくなります。
+そこで開発ではgoogleが開発しているgsonを使っていました。
+NamingPolicyやDeserializerの使い方を覚えれば、手でjsonのパーサーを書くより圧倒的に楽で、</p>
+
+<pre><code>Person person = gson.fromJson(json, Person.class);
+</code></pre>
+
+<p>このように一行でjsonからオブジェクトに変換できるようになり、</p>
+
+<pre><code>String json = gson.toJson(person);
+</code></pre>
+
+<p>一行でオブジェクトからStringに変換することも出来ます。
+なので、preferenceに保存 => 復旧もすごく便利になります。もうSerializableはやめましょう！</p>
+
+<p>ただ、gsonは各々の型の変換のためにTypeAdapterを保持しているというのと、変換にはリフレクションを使っているので、パフォーマンスはあまり良くないです。
+また、レスポンスのjsonの構造がクラスになってしまうので、変換したクラスをそのままモデルとして使おうとすると柔軟性が下がってしまいます。なので、使うのであれば</p>
+
+<pre><code>json =&gt; api entity =&gt; model
+</code></pre>
+
+<p>ってしたい感じです。</p>
+
+<h2>ORM => <a href="https://www.activeandroid.com/">ActiveAndroid</a> or <a href="http://greendao-orm.com/">greenDAO</a></h2>
+
+<p>SQL文をHelperに記述してるときは人間らしい心を失いそうになります。そして、人間はtypoする生き物なのでDBのバージョンアップで死んだりすることもあります。<br/>
+そこでORMということになるのですが、AndroidのORMでは、RailsのAndroid版であるActiveAndroidというのがあります。
+ただし、Active Recordパターンの欠点もそのままなので、&#8221;構築が容易であり理解もしやすい&#8221;代償としてそのままでは複雑なロジックを扱いづらくなります。
+ドメイン層とパーシステンス層が一緒になったのがActive Recordパターンなので、Rubyみたいにmixinができる言語は良いけど、ジャバだとテストが書きづらくなるので、あまりオススメしない、って某氏が言ってました。
+データアクセスに関しては <a href="http://www.oracle.com/technetwork/jp/articles/index-087873-ja.html">データアクセスことはじめ</a> が勉強になりました。</p>
+
+<p>あまり規模が大きくないならActiveAndroidは記述量が減るし読みやすいしで、良い選択肢だと思います。
+それ以上なら、ORMLiteを高速化したgreenDAOを使うのが良いかもしれません。</p>
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/12321475" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
+
+
+<p> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/droidcon/green-dao" title="Green dao" target="_blank">Green dao</a> </strong> from <strong><a href="http://www.slideshare.net/droidcon" target="_blank">Droidcon Berlin</a></strong> </div></p>
+
+<h2>DI => <a href="https://github.com/roboguice/roboguice">RoboGuice</a> or <a href="https://github.com/hnakagawa/proton">Proton</a> or <a href="http://square.github.com/dagger/">Dagger</a></h2>
+
+<p>Fragmentのイベントを別のFragmentで作用させたいときに、interfaceを定義してActivity経由でlistenerを登録とかするとすぐにlistener地獄になってしまってつらいです。
+そういうときにContextSingletonなヘルパーをインジェクトして使うとめちゃ便利で、コードの見通しが良くなって仕様変更に強くなって心が豊かになってモテ始めたりすると思います。
+他にもテスト実行時にインジェクトするオブジェクトを切り替えられるとか、記述が楽になる以外にもメリットはたくさんあると思います。</p>
+
+<p>有名なのはRoboGuiceです。これはサーバーサイドのDIフレームワークのGuiceを、Androidでも使えるようにラップしたものです。
+サーバーサイドを想定して作られたものなので、無駄が多かったりするのですが、それなりにドキュメントがあって実績もあります。</p>
+
+<p>そんなRoboGuiceを見て後述のTriainaフレームワークの開発者の人が、
+「RoboGuice無駄に大きしTypeListenerとかいらんし、もっと早くて軽いのをフルスクラッチで書く」
+と言って作られたのがProtonです。いらない機能を削ってAndroidに最適化した結果、サイズもメモリ使用量も圧倒的に少なくなったとのことです。
+ただドキュメントがないので使うならRoboGuiceの知識が必須で、ソースコードを読みながらになると思います。</p>
+
+<p>RoboActivityとかProtonActivityとか継承したくない、かつコンテキストシングルトンとかいらない！というケースであれば、単純にインジェクトだけが出来るDagger良いです。</p>
+
+<h1>おわりに</h1>
+
+<p>もうちょっと書こうと思ったのですが意外と書くのがたいへんだったので突然ブログは終わります。他にも、</p>
+
+<ul>
+<li>event busの<a href="http://square.github.com/otto/">Otto</a></li>
+<li>WebView Bridgeの<a href="https://github.com/mixi-inc/triaina">Triaina</a></li>
+<li>Code Dietが出来る<a href="http://androidannotations.org/">AndroidAnnotations</a></li>
+<li>jQueryのAndroid版の<a href="https://code.google.com/p/android-query/">android-query</a></li>
+</ul>
+
+
+<p>とかあるので、また検証をしたら個別に記事を書こうと思います。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    rejasupotaro
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

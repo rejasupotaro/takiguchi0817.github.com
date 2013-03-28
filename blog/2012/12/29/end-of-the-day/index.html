@@ -1,0 +1,287 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>仕事納め - Just posted a blog</title>
+    <meta name="author" content="rejasupotaro">
+    
+	<meta name="description" content="年の瀬とディペンデンシーインジェクション 穏便に2012年の仕事を終わらせたかったけど、ディペンデンシーフレームワークで殴り合いになった。 本体のコードはインジェクトで書いてるのに、テストではモックをインジェクトで書けるようにしてなかったので // for test &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36257112-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        rejasupotaro
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">仕事納め</h2>
+	<div class="entry-content"><h3>年の瀬とディペンデンシーインジェクション</h3>
+
+<p>穏便に2012年の仕事を終わらせたかったけど、ディペンデンシーフレームワークで殴り合いになった。</p>
+
+<p>本体のコードはインジェクトで書いてるのに、テストではモックをインジェクトで書けるようにしてなかったので // for test と書いてsetterを作っていたということで、某氏がコンストラクタインジェクションを使って書き直したことが発端となって、そのあとインジェクトされるオブジェクトのスコープの話にまで広がって、たいへんなことになった。<br/>
+　<br/>
+　</p>
+
+<h3>どこに依存性を注入すべきか</h3>
+
+<p>ProGuardでコンストラクタを消されないような設定を書く必要があるとか、設定をコンストラクタに書くようにするとラージコンストラクタになるので嫌だとか、そういう理由であまりコンストラクタインジェクションは使わないようにしていた。</p>
+
+<p style="background-color:#FFFFFF;border:1px solid #999999;padding:5px;font-size:14px">
+A:なぜコンストラクタインジェクションを使ってテストを書き直したのですか？<br>
+B:テストのためにsetterを付けるのは間違ってると思う。本体の実装にテストのためのコードを入れるのも良くない。<br>
+A:setterはProGuardで消されるし、ラージコンストラクタになることは避けたいです。<br>
+B:ProGuardで消されるからってテストのためのコードを書いていい理由にはなりませんよね？本体のコードがテストがある前提で書かれるのはおかしいと思います。<br>
+A:僕はおかしいとは思いません。そもそもテストコードがないという状態はありえませんし。コンストラクタインジェクションだと、ProGuardに消されないように設定を書く必要がありますよね。<br>
+B:いや、しかし…<br>
+</p>
+
+
+<p>〜20分経過〜</p>
+
+<h3>結論</h3>
+
+<p style="background-color:#FFFFFF;border:1px solid #999999;padding:5px;font-size:14px">
+A:分かりました。じゃあセッターインジェクションにしましょう。それなら僕も大丈夫です。<br>
+B:それも完全には良いと思わないですけどね。<br>
+</p>
+
+
+<p>　<br/>
+　</p>
+
+<h3>オブジェクトのスコープをどうするか</h3>
+
+<p><span style="color:red">Androidのコンテキストのライフサイクルに合わせてオブジェクトを保持したいので、デフォルトのスコープをコンテキストシングルトンにしたい</span> VS <span style="color:blue">すべてのオブジェクトがコンテキストのライフサイクルに結びついているわけじゃないのでその都度生成するようにしたい</span></p>
+
+<p style="background-color:#FFFFFF;border:1px solid #999999;padding:5px;font-size:14px">
+A:コンテキストシングルトンで生成されたオブジェクトはDIコンテナが持ってるのでアクティビティが消えると消えます。結局入出力なので、ユーザーでもフレームワークでもコンテキストが一意に定まって、その中で動くからコンテキストシングルトンが良いんじゃないですかね。<br>
+B:まず、コンテキストシングルトンは事故を少なくするものじゃなくて、無駄をなくそうってものという認識は合ってますか？<br>
+A:アプリケーションシングルトンとコンテキストシングルトンだったら、コンテキストシングルトンを使おうっていうのはいいですよね。<br>
+B:それも場合によると思います。<br>
+A:都度生成だと、アクティビティとアクティビティのヘルパーでモデルを操作するときに、そのモデルが別のオブジェクトになって事故が起こったりしますよね。<br>
+B:事故るってなんですか？事故が起こると思わない。都度生成が一番事故が起こらないんですよね？<br>
+A:僕はそうは思わない。データの不整合が起こるケースと、どういったメリット・デメリットがあるか整理されてますかね。永続化するかどうかの話が混ざってますよね。<br>
+B:永続化するかではないです。<br>
+C:コンテキストシングルトンとノースコープが混ざっても事故は起こりませんっていうのは大丈夫ですか？<br>
+B:さっきの話とちがって、アプリケーションシングルトンが混ざると変わってくるんですよね。<br>
+C:ステートフルなものが混ざってくると変わってきますね。<br>
+A:全部がステートレスならいいのですが、それはありえませんよね。モデルが都度生成されてオブジェクトが変わってしまうと困りますよね。<br>
+B:でもモデルはDBなりファイルなりに入ってるので大丈夫ですよね。<br>
+A:モデルはキャッシュとかクライアントの接続とかを持ってます。そいつらのリソースをディプリケートして整合性を持たせるのは難しいですよね。だったらコンテキストシングルトンにしましょうよ。<br>
+B:キャッシュはコンテキストに依存してないですよね。コンテキストに依存してないものは…<br>
+A:ちょっと今モデル層にあるものを見てみてくださいよ。<br>
+B:クライアントってステートフルですか？<br>
+A:モデルはステーフルにならざるを得ない。<br>
+B:そのケースだけではない。<br>
+</p>
+
+
+<p>〜議論が白熱〜</p>
+
+<p style="background-color:#FFFFFF;border:1px solid #999999;padding:5px;font-size:14px">
+A:アクティビティとヘルパーで保持するステートフルなモデルが違うオブジェクトだと困りますよね？<br>
+B:DBからとってくるときはだいじょうぶですよね。あとサーバーから取ってきたり。<br>
+A:キャッシュに関してはキャッシュ機構の話ですよね。キャッシュ機構を変えるべきですが、現実問題として今それはできません。<br>
+B:でもデフォルトでコンテキストスコープなのは良くない。<br>
+A:だから…<br>
+B:デフォルトでコンテキストシングルトンはふさわしくない。<br>
+C:スコープが混ざると広い方のスコープが適用されてオブジェクトを保持し続けてメモリリークが起こったりカオスになるので、デフォルトはコンテキストシングルトンにしてそれ以外のスコープを定義するときは話し合うようにしませんか？禁止じゃなくてやるなら話し合いましょうということです。<br>
+B:でもデフォルトはコンテキストシングルトンにするんですよね。<br>
+A:すべてのケースをカバー出来るスコープなんてありません。なので一番マジョリティなケースに合わせましょう。<br>
+B:ケースを考えないでデフォルトを設定するのは「publicにしとけばどこからでもアクセスできるし値を書き換えなきゃ安全なのでとりあえずpublicにしましょう」みたいなものじゃないですか？<br>
+A:でもべつにコンテキストシングルトンだったらメモリ使用量も節約できるし、悪いことないじゃないですか。<br>
+B:デフォルトでコンテキストシングルトンはない。Guiceではgetterより生成のコストが低いと書いてあったし、わざわざコンテキストシングルトンにはしたくない。<br>
+A:それに関して言うとGuiceはサーバーサイドで使われていたので、getterより生成のコストが低いっていうのは、何千ものリクエストが同時に走るような状況では、リクエストシングルトン、つまりリクエストごとにオブジェクトを生成した方が速いということではないですか？<br>
+B:Guiceはサーバーサイドを前提に作られたわけではない。<br>
+C:ではなにをデフォルトにしますか？<br>
+B:デフォルトをとりあえず動くものにするのは良くない。どっちでも動けば問題ないということにはしたくない。ステートのスコープに合わせてオブジェクトを定義しないといけない。<br>
+C:ステートフルのときは考えないといけないよねって話ですよね。<br>
+B:大多数でルールを決めるのはあほらしい。青信号の時間が長いので確認しないで渡りましょうみたいなものじゃないですか。<br>
+A:コンテキストシングルトンは自分の判断で使っていいけど、それ以外は話そうで良いんじゃないですか。<br>
+</p>
+
+
+<p>〜さらに議論が白熱〜
+　<br/>
+　</p>
+
+<h3>結論</h3>
+
+<p>う、うーん…。<br/>
+　<br/>
+　</p>
+
+<h3>僕は思った</h3>
+
+<p>デフォルトをどちらのスコープにしても、レビューを通して適切なスコープでオブジェクトが管理されるようになると思ったけど、それとは別に開発のしやすさでいうと、</p>
+
+<ul>
+<li>デフォルトでコンテキストシングルトン ＞ その都度生成</li>
+</ul>
+
+
+<p>ってなって、事故の起こりやすさが</p>
+
+<ul>
+<li>デフォルトでコンテキストシングルトン ＜ その都度生成</li>
+</ul>
+
+
+<p>となるのかなとって思った。なのでみんなの意識が高まっている状態ならば、デフォルトはコンテキストシングルトンでいいんじゃないかって思った。</p>
+
+<blockquote class="twitter-tweet" lang="ja"><p>なぜ人は争うのか</p>&mdash; レジャスポ太郎さん (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/status/284507403934896128" data-datetime="2012-12-28T03:53:45+00:00">12月 28, 2012</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>そんな、2012年の最終出社日でした。<br/>
+　<br/>
+　<br/>
+　</p>
+
+<p>そのあとなぜかピープパポの忘年会行ってた。<br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201212/party.gif" alt="" /></p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    rejasupotaro
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

@@ -1,0 +1,482 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>トリアイナってなに？ - Just posted a blog</title>
+    <meta name="author" content="rejasupotaro">
+    
+	<meta name="description" content="はじめに Titanium? いいえ、Triainaです。 トリアイナは、先端が三つに分かれた漁具あるいは武器の一種。ギリシア神話の海神ポセイドンが持つ三叉の矛として知られる。 wikipediaより ギリシャ神話詳しく知らないけど、ポセイドンがトライデント(Triaina)でタイタン( &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36257112-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        rejasupotaro
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">トリアイナってなに？</h2>
+	<div class="entry-content"><h2>はじめに</h2>
+
+<p><a href="http://alpha.mixi.co.jp/2012/11576/">Titanium? いいえ、Triainaです。</a></p>
+
+<p>トリアイナは、先端が三つに分かれた漁具あるいは武器の一種。ギリシア神話の海神ポセイドンが持つ三叉の矛として知られる。 <a href="http://ja.wikipedia.org/wiki/%E3%83%88%E3%83%AA%E3%82%A2%E3%82%A4%E3%83%8A">wikipediaより</a></p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Angelo_Bronzino_048.jpg/220px-Angelo_Bronzino_048.jpg" alt="ポセイドーンの肖像画" /></p>
+
+<p>ギリシャ神話詳しく知らないけど、ポセイドンがトライデント(Triaina)でタイタン(Titanium)を倒した話に掛けてるのかも。<br/>
+　<br/>
+　</p>
+
+<h2>トリアイナ概要</h2>
+
+<p>Triainaはhnakagawa氏が中心になって作ったスマートフォンアプリ開発のフレームワークです。<br/>
+ハイブリッドアプリ開発のフレームワークの中でもネイティブ寄りかなって思います。</p>
+
+<p>Androidが提供するネイティブとWebViewの連携のしくみは、以前に<a href="http://takiguchi0817.github.com/blog/2012/11/29/about-android-webview/">ブログに書いた</a>通りです。</p>
+
+<p>Androidが提供するしくみでハイブリッドアプリを作ろうと思うと、</p>
+
+<ul>
+<li>プロトコルを考えて</li>
+<li>プロトコルに従ったのパーサーを書いて</li>
+<li>コールバックのしくみを作る</li>
+</ul>
+
+
+<p>必要があります。</p>
+
+<p>公式ブログの画像を引用すると、<br/>
+<img src="http://alpha.mixi.co.jp/images/triaina3.png" alt="Triaina概要" /><br/>
+このように、メソッド名を指定することでコールバックまで含めてよろしくやってくれるみたいです。<br/>
+　<br/>
+　<br/>
+<a href="https://github.com/mixi-inc/triaina">mixi-inc / triaina</a>
+　<br/>
+　</p>
+
+<h2>JavaScriptの実装</h2>
+
+<p>サンプルにあるとおりですが、</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">WebBridge</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="s1">&#39;form.media.click&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">filter</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;jpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">],</span>
+</span><span class='line'>    <span class="nx">max</span><span class="o">:</span> <span class="mi">1</span>
+</span><span class='line'><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">){</span>
+</span><span class='line'>    <span class="c1">// response data</span>
+</span><span class='line'>    <span class="c1">// {</span>
+</span><span class='line'>    <span class="c1">//     bridge: &quot;1.1&quot;,</span>
+</span><span class='line'>    <span class="c1">//     dest: &quot;form.media.click&quot;,</span>
+</span><span class='line'>    <span class="c1">//     result: [{</span>
+</span><span class='line'>    <span class="c1">//         id: &quot;xxxxxxx&quot;,</span>
+</span><span class='line'>    <span class="c1">//         filename: &quot;&quot;,</span>
+</span><span class='line'>    <span class="c1">//     }]</span>
+</span><span class='line'>    <span class="c1">// }</span>
+</span><span class='line'>    <span class="c1">// create input data &amp; added input value</span>
+</span><span class='line'>    <span class="nx">fileStoreElement</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>destとjsonとcallbackを引数にWebBridgeのcallを呼ぶみたいですね。callの実装は、</p>
+
+<figure class='code'><figcaption><span>triaina/javascript/bridge.js  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">call</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dest</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">bridge</span><span class="o">:</span> <span class="nx">BRIDGE_VERSION</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">dest</span><span class="o">:</span> <span class="nx">dest</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">params</span><span class="o">:</span> <span class="nx">params</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">getId</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">execute</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">execute</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">requestJSON</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">callback</span> <span class="o">&amp;&amp;</span> <span class="nx">request</span><span class="p">.</span><span class="nx">id</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">_callbackTable</span><span class="p">[</span><span class="nx">request</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">callback</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">existsDeviceBridge</span><span class="p">()){</span>
+</span><span class='line'>        <span class="nb">window</span><span class="p">.</span><span class="nx">DeviceBridge</span><span class="p">.</span><span class="nx">notifyToDevice</span><span class="p">(</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">requestJSON</span><span class="p">));</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">onStart</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>            <span class="nb">window</span><span class="p">.</span><span class="nx">DeviceBridge</span><span class="p">.</span><span class="nx">notifyToDevice</span><span class="p">(</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">requestJSON</span><span class="p">));</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">_isEnableBridge</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">_buildBridge</span><span class="p">();</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;not found DeviceBridge JavaScriptInterface&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;stack DeviceBridge notity&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">requestJSON</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こんな感じになってます。callbackはJSONRPCでいうところのIDをキーにハッシュで管理されているようです。<br/>
+JavaScriptが実行できるタイミングになったらネイティブ側に通知したり、逆にネイティブ側が実行できるようになったタイミングでメソッドを遅延呼び出ししたり、そういう細かい制御をしてくれてるようです。<br/>
+　<br/>
+　</p>
+
+<h2>Javaの実装</h2>
+
+<p>前にも書きましたが、Java側には、</p>
+
+<ul>
+<li>インジェクト</li>
+<li>バイナリのダイナミックローディング</li>
+<li>ネイティブ・ブラウザ間のメソッドの相互呼び出し</li>
+</ul>
+
+
+<p>の3つの機能があります(って聞きました)。</p>
+
+<p>インジェクトは2012年12月24日現在は、RoboGuiceをベースに作ってあります。(DIコンテナは、RoboGuice自体がGuiceのラップしたもので重いので、<a href="https://github.com/square/Dagger">Dagger</a>をベースに書き直したいと聞きました)。<br/>
+なので、トリアイナはハイブリッドアプリ開発のフレームワークとして公開されてますが、トリアイナのjarを入れればインジェクトでアプリが書けるようになります。</p>
+
+<p>それはそれで、ネイティブ・ブラウザ間のメソッド呼び出しのしくみです。<br/>
+まず、Activityです。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Layout</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">mywebview</span><span class="o">)</span>    <span class="c1">// 使用するlayoutのリソース</span>
+</span><span class='line'><span class="nd">@WebViewBridge</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">mywebview</span><span class="o">)</span> <span class="c1">// 使用するWebViewBridgeのリソース</span>
+</span><span class='line'><span class="nd">@Domain</span><span class="o">({</span> <span class="s">&quot;rejasupotaro.com&quot;</span><span class="o">,</span> <span class="s">&quot;rejamotion.com&quot;</span> <span class="o">})</span> <span class="c1">// 許可するドメイン</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyWebViewActivity</span> <span class="kd">extends</span> <span class="n">AbstractWebViewBridgeActivity</span> <span class="o">{</span>
+</span><span class='line'>  <span class="o">....</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>DomainアノテーションでJavaScriptを実行するドメインを指定します。じゃないとWebViewはJavaのクラスローダーが呼べたりJNIが使えたりして危険だからです。</p>
+
+<p>ブラウザから呼び出すメソッドは、Bridgeアノテーションを付けて宣言します。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Bridge</span><span class="o">(</span><span class="s">&quot;hoge.action.method&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">hogeActionMethod</span><span class="o">(</span><span class="n">HogeActionParams</span> <span class="n">params</span><span class="o">,</span> <span class="n">Callback</span><span class="o">&lt;</span><span class="n">HogeActionResult</span><span class="o">&gt;</span> <span class="n">callback</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="o">....</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Parcerableなtriaina.webview.entity.Paramsを継承したクラスと、Parcerableなtriaina.webview.entity.Resultを継承したクラスをジェネリクス型に持つtriaina.webview.Callbackを引数に取ります。<br/>
+JavaScript側からJSON形式で値が渡せば、自動的に値がエンティティにバインドされます。</p>
+
+<p>呼び出される仕組みを見てみます。</p>
+
+<figure class='code'><figcaption><span>triaina/android/WebViewBridge/src/triaina/webview/WebViewBridge.java   </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">call</span><span class="o">(</span><span class="n">String</span> <span class="n">dest</span><span class="o">,</span> <span class="n">Params</span> <span class="n">params</span><span class="o">,</span> <span class="n">Callback</span><span class="o">&lt;?&gt;</span> <span class="n">callback</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">isDestroyed</span><span class="o">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">mSeq</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">String</span> <span class="n">js</span> <span class="o">=</span> <span class="n">notifyToWebInternal</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">dest</span><span class="o">,</span> <span class="s">&quot;params&quot;</span><span class="o">,</span> <span class="n">params</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">js</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class='line'>        <span class="n">callbacks</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">callback</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">js</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">private</span> <span class="n">String</span> <span class="nf">notifyToWebInternal</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">dest</span><span class="o">,</span> <span class="n">String</span> <span class="n">container</span><span class="o">,</span> <span class="n">Object</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">JSONObject</span> <span class="n">json</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">JSONObjectUtils</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="s">&quot;bridge&quot;</span><span class="o">,</span> <span class="n">VERSION</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">JSONObjectUtils</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">dest</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class='line'>            <span class="n">JSONObjectUtils</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="s">&quot;dest&quot;</span><span class="o">,</span> <span class="n">dest</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">JSONObject</span> <span class="n">jsonData</span> <span class="o">=</span> <span class="n">JSONConverter</span><span class="o">.</span><span class="na">toJSON</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">JSONObjectUtils</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="n">container</span><span class="o">,</span> <span class="n">jsonData</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Notify to Web with &quot;</span> <span class="o">+</span> <span class="n">s</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">String</span> <span class="n">js</span> <span class="o">=</span> <span class="n">mHelper</span><span class="o">.</span><span class="na">makeJavaScript</span><span class="o">(</span><span class="s">&quot;WebBridge.notifyToWeb&quot;</span><span class="o">,</span> <span class="n">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">s</span><span class="o">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">loadUrl</span><span class="o">(</span><span class="n">js</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">js</span><span class="o">;</span><span class="c1">// for test</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">exp</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">exp</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="n">exp</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://github.com/mixi-inc/triaina/blob/master/android/Commons/src/triaina/commons/json/JSONConverter.java">triaina.commons.json.JSONConverter</a>でParamsオブジェクトをJSONに変換しているみたいです。</p>
+
+<p>どのようにJSONに変換しているかというと、</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="n">JSONObject</span> <span class="nf">toJSON</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">bundle</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">JSONConvertException</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">bundle</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">JSONObject</span> <span class="n">json</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="o">();</span>
+</span><span class='line'>    <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">keySet</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">key</span> <span class="o">:</span> <span class="n">keySet</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">bundle</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">json</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こんな感じで、Bundleとして処理して変換していますね。<br/>
+逆にブラウザから受け取ったJSONは、JSONConverter内で再帰的にリフレクションを使ったりして、Javaのオブジェクトに変換しているようです。<br/>
+　<br/>
+　</p>
+
+<h2>iOSの実装</h2>
+
+<p>わからん。<br/>
+　<br/>
+　</p>
+
+<h2>まとめ</h2>
+
+<p>今時のアプリはハイブリッド！みたいな声を良く聞きますが、ハイブリッドって言ってもいろんなタイプがあるし、どういうのが最適なのか僕も分かりません。<br/>
+いろんな実装を見ながら僕だけのハイブリッドを見つけていきたいです。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    rejasupotaro
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

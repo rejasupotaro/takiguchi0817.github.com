@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: CoffeeScript | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/coffeescript/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[文化の日]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/11/03/y-combinators/"/>
+    <updated>2012-11-03T14:15:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/11/03/y-combinators</id>
+    <content type="html"><![CDATA[<h2>わかりやすかった</h2>
+
+<p><a href="http://d.hatena.ne.jp/r-west/20090417/1239972722">おとうさんにもわかるYコンビネータ！(絵解き解説編)</a></p>
+
+<h2>かわいみコート買った</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/1351951130405-1.jpg" alt="かわいみコート買った" /></p>
+
+<h2>Yコンビネータみたいなの書いてた</h2>
+
+<h3>case of ruby</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">y</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">y</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;lambda { |n|</span>
+</span><span class='line'><span class="sr">  n &amp;lt;= 2 ? 1 : f.call(n - 1) + f.call(n - 2)</span>
+</span><span class='line'><span class="sr">}</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  }).call(10)</span>
+</span><span class='line'><span class="sr">}.call(lambda { |f|</span>
+</span><span class='line'><span class="sr">  lambda { |g|&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="p">))</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="p">}</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">g</span><span class="o">|&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;lambda { |m|</span>
+</span><span class='line'><span class="sr">  f.call(g.call(g)).call(m)</span>
+</span><span class='line'><span class="sr">}</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  })</span>
+</span><span class='line'><span class="sr">})</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>case of coffeescript</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="p">(</span><span class="nf">(Y) -&gt;</span> <span class="nx">Y</span><span class="p">(</span><span class="nf">(f) -&gt;</span> <span class="nf">(n) -&gt;</span> <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="k">then</span> <span class="mi">1</span> <span class="k">else</span> <span class="nx">f</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">f</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="p">)(</span><span class="mi">10</span><span class="p">))</span> <span class="nf">(f) -&gt;</span> <span class="p">(</span><span class="nf">(g) -&gt;</span> <span class="nf">(m) -&gt;</span> <span class="nx">f</span><span class="p">(</span><span class="nx">g</span> <span class="nx">g</span><span class="p">)</span> <span class="nx">m</span><span class="p">)</span> <span class="nf">(g) -&gt;</span> <span class="nf">(m) -&gt;</span> <span class="nx">f</span><span class="p">(</span><span class="nx">g</span> <span class="nx">g</span><span class="p">)</span> <span class="nx">m</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>夕食</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/1351934736127.jpg" alt="鶏肉焼いてパスタ茹でた" /></p>
+]]></content>
+  </entry>
+  
+</feed>

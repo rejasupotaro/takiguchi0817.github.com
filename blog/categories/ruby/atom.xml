@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ruby | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Railsでcronを設定するときに良いやつ]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/12/02/whenever/"/>
+    <updated>2012-12-02T10:59:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/12/02/whenever</id>
+    <content type="html"><![CDATA[<p>Railsアプリで定期的にDBの情報を更新したかった。なにか良い方法ないか調べたらwheneverというもの見つけた。</p>
+
+<p>"<a href="https://github.com/javan/whenever">Whenever</a> is a Ruby gem that provides a clear syntax for writing and deploying cron jobs."</p>
+
+<p>crontabの設定が分かりやすく書けるというのと、Railsの読み込みしてくれるのが便利そうだったので入れてみた。<br/>
+　<br/>
+　</p>
+
+<h2>wheneverのインストール</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem <span class="s1">&#39;whenever&#39;</span>, :requrire <span class="o">=</span>&gt; <span class="nb">false</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Gemfileに追記してbundle instal</p>
+
+<p>wheneverizeすると設定ファイルのひな形を作ってくれる。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>wheneverize .
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+　<br/>
+　</p>
+
+<h2>設定方法</h2>
+
+<p>setでいろいろセットできる。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>ログの出力先  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">log_path</span> <span class="o">=</span> <span class="no">Whenever</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/log/cron.log&#39;</span>
+</span><span class='line'><span class="n">error_log_path</span> <span class="o">=</span> <span class="no">Whenever</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/log/error.log&#39;</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:output</span><span class="p">,</span> <span class="p">{</span><span class="n">standard</span> <span class="o">=&gt;</span> <span class="n">log_path</span><span class="p">,</span> <span class="ss">:error</span> <span class="o">=&gt;</span> <span class="n">error_log_path</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Rails.root使えなかったけどwheneverのソース見てたらself.pathあったのでそっちを使ったらいけた。</p>
+
+<p>　</p>
+
+<p>時間の指定が直感的で分かりやすいのが良い。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;3時間おきに実行&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">every</span> <span class="mi">3</span><span class="o">.</span><span class="n">hours</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">runner</span> <span class="s2">&quot;MyModel.some_process&quot;</span>
+</span><span class='line'>  <span class="n">rake</span> <span class="s2">&quot;my:rake:task&quot;</span>
+</span><span class='line'>  <span class="n">command</span> <span class="s2">&quot;/usr/bin/my_great_command&quot;</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;1日1回、4:30に実行&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">every</span> <span class="mi">1</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="ss">:at</span> <span class="o">=&gt;</span> <span class="s1">&#39;4:30 am&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">runner</span> <span class="s2">&quot;MyModel.task_to_run_at_four_thirty_in_the_morning&quot;</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;日曜日の24:00に実行&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">every</span> <span class="ss">:sunday</span><span class="p">,</span> <span class="ss">:at</span> <span class="o">=&gt;</span> <span class="s1">&#39;12pm&#39;</span> <span class="k">do</span> <span class="c1"># Use any day of the week or :weekend, :weekday</span>
+</span><span class='line'>  <span class="n">runner</span> <span class="s2">&quot;Task.do_something_great&quot;</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;ふつうのcronの時間指定もできる&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">every</span> <span class="s1">&#39;0 0 27-31 * *&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">command</span> <span class="s2">&quot;echo &#39;you can use raw cron syntax too&#39;&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>社会は厳しいが、wheneverは人間に優しい。<br/>
+　<br/>
+　</p>
+
+<h2>定期実行する処理</h2>
+
+<p>railsはrunnerコマンドっていうのがあって、モデルとかautoloadのパスに指定したファイルをロードした上でスクリプトを実行できたりする。<br/>
+autoload、書いてなかったらconfig/application.rbに</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">autoload_paths</span> <span class="o">+=</span> <span class="sx">%W(</span><span class="si">#{</span><span class="n">config</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="sx">/lib)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>って書いとく。それから、実行する処理を書く。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>lib/batch_update.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;open-uri&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;kconv&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;class BatchUpdate&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="no">SC_OK</span> <span class="o">=</span> <span class="s2">&quot;200&quot;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  def self.execute&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">update_track</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  def self.update_track&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nb">puts</span><span class="p">(</span><span class="s2">&quot;==== &quot;</span> <span class="o">+</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot; ====&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">not_found_id_list</span> <span class="o">=</span> <span class="nb">Array</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">track_list</span> <span class="o">=</span> <span class="no">Track</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="ss">:all</span><span class="p">)</span>
+</span><span class='line'><span class="n">track_list</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">track</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">p</span> <span class="n">track</span>
+</span><span class='line'>  <span class="k">if</span> <span class="o">!</span><span class="n">exist?</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">preview_url</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">not_found_id_list</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">not_found_id_list</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">id</span><span class="o">|</span>
+</span><span class='line'>  <span class="no">Track</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">assert_raise</span><span class="p">(</span><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">RecordNotFound</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>    <span class="no">Track</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span><span class="p">(</span><span class="s2">&quot;==== update done!!! ====&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  def self.exist?(url)&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">result</span> <span class="o">=</span> <span class="kp">false</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">open</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">status_code</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">status</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'>  <span class="nb">p</span> <span class="n">status_code</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">status</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">==</span> <span class="no">SC_OK</span>
+</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="kp">true</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span> <span class="n">result</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>トラックの生存確認を行う処理を、runnerで毎日4:05に呼ぶようにした。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>config/schedule.rb  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">set</span> <span class="ss">:output</span><span class="p">,</span> <span class="no">Whenever</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/log/cron.log&quot;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;every 1.day, :at =&gt; &#39;4:05 am&#39; do</span>
+</span><span class='line'><span class="sr">  runner &quot;BatchUpdate.execute&quot;</span>
+</span><span class='line'><span class="sr">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>良い。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[GifがBoomだったので]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/11/24/save-dailymotion/"/>
+    <updated>2012-11-24T22:48:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/11/24/save-dailymotion</id>
+    <content type="html"><![CDATA[<h1><img src="http://dl.dropbox.com/u/54255753/blog/201211/live.jpg" alt="ライブに行きました！" /></h1>
+
+<p>　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h3>and...</h3>
+
+<p>　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h1><img src="http://dl.dropbox.com/u/54255753/blog/201211/live.gif" alt="!!!!ライブに行きました!!!!" /></h1>
+
+<p>　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h3>How do you feel?</h3>
+
+<p>　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h3>日常が動く　イズ　エキサイティング</h3>
+
+<p>　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h1>日常をアニメーションにするAndroidアプリ</h1>
+
+<h1>"DailyMotion" を作りました</h1>
+
+<p>某動画サイトと名前がかぶりましたが一切関係ありません。<br/>
+　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h1>2012.11.28 待望のDailyMotion Android版 配信開始(しません)！</h1>
+
+<h1>ダウンロードは<a href="http://rejasupotaro.com:3000">どちら</a>から？</h1>
+
+<p>　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h1>操作はカンタン</h1>
+
+<h3><img src="http://dl.dropbox.com/u/54255753/blog/201211/gallery.png" alt="ギャラリーから選んで共有" /></h3>
+
+<p>　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h3><img src="http://dl.dropbox.com/u/54255753/blog/201211/edit.png" alt="速度の調整とタイトルの入力" /></h3>
+
+<p>　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h3><img src="http://dl.dropbox.com/u/54255753/blog/201211/gif_sample.gif" alt="アニメーションになって投稿されます" /></h3>
+
+<p>　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h3><img src="http://dl.dropbox.com/u/54255753/blog/201211/gif_demo.gif" alt="Very Cool" /></h3>
+
+<p>　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h1>あなたの日常を、アニメーションに</h1>
+
+<h3><img src="http://dl.dropbox.com/u/54255753/blog/201211/google_play.png" alt="今すぐ、DailyMotionを無料でダウンロード" /></h3>
+
+<p>　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h3><img src="http://dl.dropbox.com/u/54255753/blog/201211/gifboom1.gif" alt="イイネ！" /></h3>
+
+<p>　<br/>
+　<br/>
+　<br/>
+　<br/>
+　</p>
+
+<h1>あとがき</h1>
+
+<p>発端: <a href="http://r7kamura.hatenablog.com/entry/2012/10/22/232524">近況 - ✘╹◡╹✘</a></p>
+
+<p>経過: <a href="http://takiguchi0817.github.com/blog/categories/gif/">Category: GIF</a></p>
+
+<p>最近GIFにはまってる。ちょうどいいタイミングでハッカソンがあったので作った。<br/>
+今流行りの<a href="http://takiguchi0817.github.com/blog/2012/11/29/about-android-webview/">ハイブリッドな感じ</a>にした。
+そこそこウケたので良かった。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Androidで複数画像をzipにしてmultipart/form-dataで送ってRubyで受け取る]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/11/19/zip-upload/"/>
+    <updated>2012-11-19T01:08:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/11/19/zip-upload</id>
+    <content type="html"><![CDATA[<h2>Androidで送る</h2>
+
+<p>事情があって一回のリクエストで複数画像を送りたかった。</p>
+
+<h3>UriからStringの変換</h3>
+
+<p>画像のパスが必要になるので、ContentResolverに問い合わせてパスもらう。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="n">String</span> <span class="nf">getPath</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">)</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">ContentResolver</span> <span class="n">contentResolver</span> <span class="o">=</span> <span class="n">mContext</span><span class="o">.</span><span class="na">getContentResolver</span><span class="o">();</span>
+</span><span class='line'><span class="n">String</span><span class="o">[]</span> <span class="n">columns</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MediaStore</span><span class="o">.</span><span class="na">Images</span><span class="o">.</span><span class="na">Media</span><span class="o">.</span><span class="na">DATA</span> <span class="o">};</span>
+</span><span class='line'><span class="n">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'><span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'><span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">cursor</span> <span class="o">=</span> <span class="n">contentResolver</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">columns</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">cursor</span><span class="o">.</span><span class="na">moveToFirst</span><span class="o">();</span>
+</span><span class='line'>    <span class="n">path</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">cursor</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">cursor</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="k">return</span> <span class="n">path</span><span class="o">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Closableを閉じる</h3>
+
+<p>finallyで閉じてもいいけどtryが入れ子になるのなんか嫌なのでメソッド作る。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">(</span><span class="n">Closeable</span> <span class="n">closeable</span><span class="o">)</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="k">if</span> <span class="o">(</span><span class="n">closeable</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">closeable</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;An error occurred in CloseableUtils.close()&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h4>before:</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">}</span> <span class="k">finally</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="o">(</span><span class="n">hogeStream</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">hogeStream</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;omg!!&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h4>after:</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">}</span> <span class="k">finally</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">hogeStream</span><span class="o">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>すっきりした。</p>
+
+<h3>zipにする</h3>
+
+<p>HTTPに画像を配列にしてポストする、みたいなのなかったように思える。なのでzipにした。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="n">File</span> <span class="nf">toZip</span><span class="o">(</span><span class="n">String</span> <span class="n">outputFilePath</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Uri</span><span class="o">&gt;</span> <span class="n">inputFileUriList</span><span class="o">)</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">File</span> <span class="n">oldFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">outputFilePath</span><span class="o">);</span>
+</span><span class='line'><span class="k">if</span> <span class="o">(</span><span class="n">oldFile</span><span class="o">.</span><span class="na">isFile</span><span class="o">())</span> <span class="n">oldFile</span><span class="o">.</span><span class="na">delete</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">ZipOutputStream</span> <span class="n">zipOutputStream</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'><span class="n">BufferedInputStream</span> <span class="n">bufferedInputStream</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'><span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">zipOutputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZipOutputStream</span><span class="o">(</span>
+</span><span class='line'>            <span class="k">new</span> <span class="nf">BufferedOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">outputFilePath</span><span class="o">)));</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">BUFFER_SIZE</span><span class="o">];</span>
+</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="o">;</span> <span class="n">inputFileUriList</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="n">getPath</span><span class="o">(</span><span class="n">inputFileUriList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+</span><span class='line'>        <span class="n">bufferedInputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedInputStream</span><span class="o">(</span>
+</span><span class='line'>                <span class="k">new</span> <span class="nf">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">filePath</span><span class="o">)),</span> <span class="n">BUFFER_SIZE</span><span class="o">);</span>
+</span><span class='line'>        <span class="kd">final</span> <span class="n">ZipEntry</span> <span class="n">entry</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZipEntry</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span>  <span class="s">&quot;.jpg&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">zipOutputStream</span><span class="o">.</span><span class="na">putNextEntry</span><span class="o">(</span><span class="n">entry</span><span class="o">);</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">while</span> <span class="o">((</span><span class="n">len</span> <span class="o">=</span> <span class="n">bufferedInputStream</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">BUFFER_SIZE</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">zipOutputStream</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">len</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="n">zipOutputStream</span><span class="o">.</span><span class="na">closeEntry</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">FileNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+</span><span class='line'><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+</span><span class='line'><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">zipOutputStream</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">bufferedInputStream</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">File</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">outputFilePath</span><span class="o">);</span>
+</span><span class='line'><span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>これでout.zipが作られて解凍すると1.jpg、2.jpg ... みたいにファイルできる。<br/>
+outFilePathはどこでもいいんだけど、</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">context</span><span class="o">.</span><span class="na">getExternalCacheDir</span><span class="o">().</span><span class="na">getPath</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;/out.zip&quot;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>とかしてSDカードのキャッシュに保存した。</p>
+
+<h3>multipart/form-dataで送る</h3>
+
+<p>ライブラリとして<br/>
+* Apache Mime4J<br/>
+* httpmime<br/>
+追加した。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">HttpPost</span> <span class="n">httpPost</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpPost</span><span class="o">(</span><span class="n">url</span><span class="o">);&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kd">final</span> <span class="n">MultipartEntity</span> <span class="n">reqEntity</span> <span class="o">=&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="k">new</span> <span class="n">MultipartEntity</span><span class="o">(</span><span class="n">HttpMultipartMode</span><span class="o">.</span><span class="na">BROWSER_COMPATIBLE</span><span class="o">);</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">reqEntity</span><span class="o">.</span><span class="na">addPart</span><span class="o">(</span><span class="n">titleNameValuePair</span><span class="o">.</span><span class="na">getName</span><span class="o">(),&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="k">new</span> <span class="n">StringBody</span><span class="o">(</span><span class="n">titleNameValuePair</span><span class="o">.</span><span class="na">getValue</span><span class="o">(),</span> <span class="n">DEFAULT_CHARSET</span><span class="o">));</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">reqEntity</span><span class="o">.</span><span class="na">addPart</span><span class="o">(</span><span class="n">delayNameValuePair</span><span class="o">.</span><span class="na">getName</span><span class="o">(),&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="k">new</span> <span class="n">StringBody</span><span class="o">(</span><span class="n">delayNameValuePair</span><span class="o">.</span><span class="na">getValue</span><span class="o">(),</span> <span class="n">DEFAULT_CHARSET</span><span class="o">));</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kd">final</span> <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">fileNameValuePair</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+</span><span class='line'><span class="n">reqEntity</span><span class="o">.</span><span class="na">addPart</span><span class="o">(</span><span class="n">fileNameValuePair</span><span class="o">.</span><span class="na">getName</span><span class="o">(),&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span>    <span class="k">new</span> <span class="n">FileBody</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="n">CONTENTTYPE_BINARY</span><span class="o">));</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">httpPost</span><span class="o">.</span><span class="na">setEntity</span><span class="o">(</span><span class="n">reqEntity</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>こんな感じでエンティティ〜作ってHttpClientでポストする。</p>
+
+<h2>Rubyで受け取る</h2>
+
+<p>Sinatraだったら</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;set :public, File.dirname(&lt;strong&gt;FILE&lt;/s</span><span class="n">trong</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/public&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;post &#39;/</span><span class="s1">&#39; do</span>
+</span><span class='line'><span class="s1">  zipfile = params[&#39;</span><span class="n">zipfile</span><span class="s1">&#39;]</span>
+</span><span class='line'><span class="s1">  File.binwrite(&#39;</span><span class="kp">public</span><span class="o">/</span><span class="err">&#39;</span> <span class="o">+</span> <span class="n">zipfile</span><span class="o">[</span><span class="ss">:filename</span><span class="o">]</span><span class="p">,</span> <span class="n">zipfile</span><span class="o">[</span><span class="ss">:tempfile</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>とかするといける。</p>
+
+<h2>このプログラムはフォンデュしながら書きました</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/fondue.gif" alt="チョコフォンデュ" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ライブに行った。感化された。]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/11/11/betterflow/"/>
+    <updated>2012-11-11T18:10:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/11/11/betterflow</id>
+    <content type="html"><![CDATA[<h2>ライブに行った</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/live1.jpg" alt="さいたまスーパーアリーナ付近" /><br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201211/live2.jpg" alt="会場で待機" /><br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201211/live3.jpg" alt="レディーガガ" /></p>
+
+<h2>kosugeさんのサイトに感化された</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/kosuge.png" alt="kosugeさん" />
+<a href="https://twitter.com/9m">kosugeさん</a>が作ったサイト、<a href="http://kksg.net/">kksg.net</a></p>
+
+<h2>作った</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/screenshot1.png" alt="音が鳴る" /><br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201211/screenshot2.png" alt="30秒ぐらいで音と背景が変わる" /></p>
+
+<p><a href="http://rejasupotaro.com">rejasupotaro.com</a></p>
+
+<p>Chromeのことしか考えずに作った。<br/>
+Firefox他ではコーデック対応してないっぽいので音鳴らない。</p>
+
+<p>iTunes Search APIで適当な音持ってきてる。かわいみGIFはネットで探した。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails Days 2]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/11/11/rails-days-2/"/>
+    <updated>2012-11-11T14:02:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/11/11/rails-days-2</id>
+    <content type="html"><![CDATA[<h2>DBとかモデルとかいじる</h2>
+
+<h3>MySQLのインストール</h3>
+
+<pre><code>$ sudo aptitude update
+$ aptitude install mysql-server
+$ aptitude install libmysqlclient-dev
+$ mysqladmin ping -u root -p
+Enter password: ****
+mysqld is alive
+</code></pre>
+
+<p>インストール中にrootのパスワード聞かれた。<br/>
+そのパスワードでpingして存命確認した。</p>
+
+<h3>ユーザーの作成</h3>
+
+<p>作成する。</p>
+
+<pre><code>$ mysql -u root -p
+mysql&gt; CREATE USER betterflow@localhost IDENTIFIED BY 'hogehoge';
+mysql&gt; GRAND ALL ON *.* TO betterflow@localhost;
+mysql&gt; FLUSH PRIVILEGES;
+</code></pre>
+
+<p>確認する。</p>
+
+<pre><code>mysql&gt; use mysql;
+mysql&gt; SELECT Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv FROM user;
+</code></pre>
+
+<h3>RailsでMySQLを使えるようにする</h3>
+
+<p>Gemfileで gem 'sqlite3' を gem 'mysql2' に変えた。</p>
+
+<pre><code>$ bundle install --path vender/bundle
+$ vim config/database.yml
+development:
+  adapter: mysql2
+  database: betterflow
+  username: betterflow
+  password: hogehoge
+  pool: 5
+  timeout: 5000
+$ rake db:create
+</code></pre>
+
+<p>DBにアクセスできるようにした。</p>
+
+<h3>モデルを作る</h3>
+
+<pre><code>$ rails generate model track track_name:string artist_name:string release_date:date preview_url:string jacket_image_url:string track_view_url:string
+$ rake db:migrate
+</code></pre>
+
+<h3>モデルの型の変更</h3>
+
+<p>release_dateをdate型にしたけどstring型の方が都合が良かった、変えたい。</p>
+
+<pre><code>$ rails generate migration change_release_date_type
+$ vim db/migrate/20121111051853_change_release_date_type.rb
+class ChangeReleaseDateType &lt; ActiveRecord::Migration
+  def change
+    change_column :tracks, :release_date, :string
+  end
+end
+$ rake db:migrate
+</code></pre>
+
+<p>すごい。</p>
+]]></content>
+  </entry>
+  
+</feed>

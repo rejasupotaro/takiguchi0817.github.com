@@ -1,0 +1,345 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>はじめてのRspec on Rails(コントローラ編) - Just posted a blog</title>
+    <meta name="author" content="rejasupotaro">
+    
+	<meta name="description" content="はじめてのRspec on Rails セットアップ 1
+2
+3
+4
+5
+6
+$ gem install rspec-rails $ rails g rspec:controller "テスト対象のコントローラ名" create spec/controllers/ &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36257112-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        rejasupotaro
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">はじめてのRspec on Rails(コントローラ編)</h2>
+	<div class="entry-content"><p>はじめてのRspec on Rails</p>
+
+<h2>セットアップ</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ gem install rspec-rails
+</span><span class='line'>
+</span><span class='line'>$ rails g rspec:controller "テスト対象のコントローラ名"
+</span><span class='line'>      create  spec/controllers/foo_controller_spec.rb
+</span><span class='line'>
+</span><span class='line'>$ rake spec</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Railsのコントローラやモデルをテストするためにrspec-railsを入れて、rake specするまで。
+この時点では何も起こりません。</p>
+
+<p>続いてDBの設定をします。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vim config/database.yml
+</span><span class='line'>
+</span><span class='line'>test:
+</span><span class='line'>  adapter: mysql2
+</span><span class='line'>  encoding: utf8
+</span><span class='line'>  reconnect: false
+</span><span class='line'>  database: app_database_test
+</span><span class='line'>  pool: 5
+</span><span class='line'>  username: username
+</span><span class='line'>  password: password
+</span><span class='line'>  host: localhost
+</span><span class='line'>
+</span><span class='line'>$ rake db:create RAILS_ENV=test</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>コントローラのテスト</h2>
+
+<p>あまり良い例じゃありませんが</p>
+
+<figure class='code'><figcaption><span>spec/controllers/images_controller_spec.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">describe</span> <span class="no">ImagesController</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">fixtures</span> <span class="ss">:images</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">describe</span> <span class="s1">&#39;GET #index&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">context</span> <span class="s1">&#39;when access to route&#39;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">before</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">get</span> <span class="ss">:index</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">it</span> <span class="s1">&#39;responds successfully with an HTTP 200 status code&#39;</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_success</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">it</span> <span class="s1">&#39;renders the index template&#39;</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">it</span> <span class="s1">&#39;loads all of the images into @image_list&#39;</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">image1</span><span class="p">,</span> <span class="n">image2</span> <span class="o">=</span> <span class="no">Image</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="ss">:all</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">assigns</span><span class="p">(</span><span class="ss">:image_list</span><span class="p">))</span><span class="o">.</span><span class="n">to</span> <span class="n">match_array</span><span class="p">(</span><span class="o">[</span><span class="n">image1</span><span class="p">,</span> <span class="n">image2</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">describe</span> <span class="s1">&#39;GET #show&#39;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">context</span> <span class="s1">&#39;when access to exsting image id&#39;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">before</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">1</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">it</span> <span class="s2">&quot;responds successfully with an HTTP 200 status code&quot;</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_success</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">it</span> <span class="s2">&quot;renders the show templage&quot;</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;show&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">context</span> <span class="s2">&quot;when access to not exsting image id&quot;</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">before</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">9999</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>      <span class="n">it</span> <span class="s2">&quot;renders the notfound template&quot;</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;notfound&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とりあえず expect(object).to あるいは not_to に</p>
+
+<ul>
+<li>be_success</li>
+<li>eq</li>
+<li>match_array</li>
+<li>be_a_new</li>
+<li>render_template</li>
+<li>redirect_to</li>
+<li>route_to</li>
+<li>be_routable</li>
+<li>have_selector</li>
+<li>include</li>
+<li>match</li>
+</ul>
+
+
+<p>などなど、期待する値を書いていく感じですね。
+(ちなみにshouldはdeprecatedになったとのことです)</p>
+
+<h2>link</h2>
+
+<ul>
+<li><a href="https://github.com/rspec/rspec-rails">rspec-rails</a></li>
+<li><a href="https://github.com/rspec/rspec-expectations">rails-expectations</a></li>
+</ul>
+
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    rejasupotaro
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

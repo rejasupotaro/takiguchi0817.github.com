@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ubuntu | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/ubuntu/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MySQL、文字化けた]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/11/23/mysql-character-set/"/>
+    <updated>2012-11-23T19:21:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/11/23/mysql-character-set</id>
+    <content type="html"><![CDATA[<p>デプロイしておーエラー出なかったーって思ってブラウザで開いたら文字化けしてた。</p>
+
+<pre><code>mysql&gt; STATUS
+</code></pre>
+
+<p>アーMacBookはutf8だったけどサーバーはlatin1のままだった。<br/>
+文字コード変えるためにmysql止めようとしたら、いつの間にか/etc/init.d/mysqlを使うんじゃなくてservice mysqlを使うことになってた。</p>
+
+<p>まあ、それはそれで、/etc/mysql/conf.d/charset.confに</p>
+
+<pre><code>[client]
+default-character-set=utf8
+
+[mysqld]
+character-set-server=utf8
+skip-character-set-client-handshake
+
+[mysqldump]
+default-character-set=utf8
+</code></pre>
+
+<p>って書いてオルターテーブルしたら文字化け直った、良かった。<br/>
+mysql5.5でmysqldのdefault-character-setなくなってたの知らなくてちょっと困ったりした。</p>
+]]></content>
+  </entry>
+  
+</feed>

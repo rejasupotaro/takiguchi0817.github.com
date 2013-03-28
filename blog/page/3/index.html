@@ -1,0 +1,1628 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Just posted a blog</title>
+    <meta name="author" content="rejasupotaro">
+    
+	<meta name="description" content="Published on: Nov 19th, 2012 Tags: Android, Ruby Androidで送る 事情があって一回のリクエストで複数画像を送りたかった。 UriからStringの変換 画像のパスが必要になるので、ContentResolverに問い合わせてパスもらう。 1 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36257112-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        rejasupotaro
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/19/zip-upload/">
+		
+			Androidで複数画像をzipにしてmultipart/form-dataで送ってRubyで受け取る</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-19T01:08:00+09:00" pubdate data-updated="true">Nov 19<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/android/'>Android</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+
+
+</div>
+    </div>
+		<h2>Androidで送る</h2>
+
+<p>事情があって一回のリクエストで複数画像を送りたかった。</p>
+
+<h3>UriからStringの変換</h3>
+
+<p>画像のパスが必要になるので、ContentResolverに問い合わせてパスもらう。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="n">String</span> <span class="nf">getPath</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">ContentResolver</span> <span class="n">contentResolver</span> <span class="o">=</span> <span class="n">mContext</span><span class="o">.</span><span class="na">getContentResolver</span><span class="o">();</span>
+</span><span class='line'>    <span class="n">String</span><span class="o">[]</span> <span class="n">columns</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MediaStore</span><span class="o">.</span><span class="na">Images</span><span class="o">.</span><span class="na">Media</span><span class="o">.</span><span class="na">DATA</span> <span class="o">};</span>
+</span><span class='line'>    <span class="n">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">contentResolver</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">columns</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">cursor</span><span class="o">.</span><span class="na">moveToFirst</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">path</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">cursor</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">cursor</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">path</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Closableを閉じる</h3>
+
+<p>finallyで閉じてもいいけどtryが入れ子になるのなんか嫌なのでメソッド作る。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">(</span><span class="n">Closeable</span> <span class="n">closeable</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">closeable</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">closeable</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;An error occurred in CloseableUtils.close()&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>before:</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">hogeStream</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">hogeStream</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;omg!!&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>after:</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">hogeStream</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すっきりした。</p>
+
+<h3>zipにする</h3>
+
+<p>HTTPに画像を配列にしてポストする、みたいなのなかったように思える。なのでzipにした。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="n">File</span> <span class="nf">toZip</span><span class="o">(</span><span class="n">String</span> <span class="n">outputFilePath</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Uri</span><span class="o">&gt;</span> <span class="n">inputFileUriList</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">File</span> <span class="n">oldFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">outputFilePath</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">oldFile</span><span class="o">.</span><span class="na">isFile</span><span class="o">())</span> <span class="n">oldFile</span><span class="o">.</span><span class="na">delete</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">ZipOutputStream</span> <span class="n">zipOutputStream</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">BufferedInputStream</span> <span class="n">bufferedInputStream</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">zipOutputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZipOutputStream</span><span class="o">(</span>
+</span><span class='line'>                <span class="k">new</span> <span class="nf">BufferedOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">outputFilePath</span><span class="o">)));</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">BUFFER_SIZE</span><span class="o">];</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">inputFileUriList</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="n">getPath</span><span class="o">(</span><span class="n">inputFileUriList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+</span><span class='line'>            <span class="n">bufferedInputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedInputStream</span><span class="o">(</span>
+</span><span class='line'>                    <span class="k">new</span> <span class="nf">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">filePath</span><span class="o">)),</span> <span class="n">BUFFER_SIZE</span><span class="o">);</span>
+</span><span class='line'>            <span class="kd">final</span> <span class="n">ZipEntry</span> <span class="n">entry</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZipEntry</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span>  <span class="s">&quot;.jpg&quot;</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">zipOutputStream</span><span class="o">.</span><span class="na">putNextEntry</span><span class="o">(</span><span class="n">entry</span><span class="o">);</span>
+</span><span class='line'>            <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span><span class='line'>            <span class="k">while</span> <span class="o">((</span><span class="n">len</span> <span class="o">=</span> <span class="n">bufferedInputStream</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">BUFFER_SIZE</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">zipOutputStream</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">len</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>            <span class="n">zipOutputStream</span><span class="o">.</span><span class="na">closeEntry</span><span class="o">();</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">FileNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">zipOutputStream</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">bufferedInputStream</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">File</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">outputFilePath</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これでout.zipが作られて解凍すると1.jpg、2.jpg &#8230; みたいにファイルできる。<br/>
+outFilePathはどこでもいいんだけど、</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">context</span><span class="o">.</span><span class="na">getExternalCacheDir</span><span class="o">().</span><span class="na">getPath</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;/out.zip&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とかしてSDカードのキャッシュに保存した。</p>
+
+<h3>multipart/form-dataで送る</h3>
+
+<p>ライブラリとして<br/>
+* Apache Mime4J<br/>
+* httpmime<br/>
+追加した。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">HttpPost</span> <span class="n">httpPost</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpPost</span><span class="o">(</span><span class="n">url</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">final</span> <span class="n">MultipartEntity</span> <span class="n">reqEntity</span> <span class="o">=</span>
+</span><span class='line'>        <span class="k">new</span> <span class="nf">MultipartEntity</span><span class="o">(</span><span class="n">HttpMultipartMode</span><span class="o">.</span><span class="na">BROWSER_COMPATIBLE</span><span class="o">);</span>
+</span><span class='line'><span class="n">reqEntity</span><span class="o">.</span><span class="na">addPart</span><span class="o">(</span><span class="n">titleNameValuePair</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
+</span><span class='line'>        <span class="k">new</span> <span class="nf">StringBody</span><span class="o">(</span><span class="n">titleNameValuePair</span><span class="o">.</span><span class="na">getValue</span><span class="o">(),</span> <span class="n">DEFAULT_CHARSET</span><span class="o">));</span>
+</span><span class='line'><span class="n">reqEntity</span><span class="o">.</span><span class="na">addPart</span><span class="o">(</span><span class="n">delayNameValuePair</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
+</span><span class='line'>        <span class="k">new</span> <span class="nf">StringBody</span><span class="o">(</span><span class="n">delayNameValuePair</span><span class="o">.</span><span class="na">getValue</span><span class="o">(),</span> <span class="n">DEFAULT_CHARSET</span><span class="o">));</span>
+</span><span class='line'><span class="kd">final</span> <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">fileNameValuePair</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+</span><span class='line'><span class="n">reqEntity</span><span class="o">.</span><span class="na">addPart</span><span class="o">(</span><span class="n">fileNameValuePair</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
+</span><span class='line'>        <span class="k">new</span> <span class="nf">FileBody</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="n">CONTENTTYPE_BINARY</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">httpPost</span><span class="o">.</span><span class="na">setEntity</span><span class="o">(</span><span class="n">reqEntity</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こんな感じでエンティティ〜作ってHttpClientでポストする。</p>
+
+<h2>Rubyで受け取る</h2>
+
+<p>Sinatraだったら</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">set</span> <span class="ss">:public</span><span class="p">,</span> <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/public&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">post</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">zipfile</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="s1">&#39;zipfile&#39;</span><span class="o">]</span>
+</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">binwrite</span><span class="p">(</span><span class="s1">&#39;public/&#39;</span> <span class="o">+</span> <span class="n">zipfile</span><span class="o">[</span><span class="ss">:filename</span><span class="o">]</span><span class="p">,</span> <span class="n">zipfile</span><span class="o">[</span><span class="ss">:tempfile</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とかするといける。</p>
+
+<h2>このプログラムはフォンデュしながら書きました</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/fondue.gif" alt="チョコフォンデュ" /></p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/17/beautiful-gifs/">
+		
+			Beautiful GIFs</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-17T09:08:00+09:00" pubdate data-updated="true">Nov 17<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/gif/'>GIF</a>
+
+
+</div>
+    </div>
+		<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/boy.gif" alt="GIFは動く" /></p>
+
+<p><a href="http://www.buzzfeed.com/thegeshow/the-60-most-beautiful-cinemagraph-gifs">The 60 Most Beautiful Cinemagraph GIFs</a></p>
+
+<h3>GIFサービス</h3>
+
+<ul>
+<li><a href="http://jp.techcrunch.com/archives/20120209cinemagram-turns-iphone-photos-into-animated-gifs-in-secondsgrcc33333z98/">Cinemagram</a></li>
+<li><a href="http://appllio.com/android-tool-app/20120216-1625-gifboom-animation-camera">GIFBoom</a></li>
+<li><a href="http://www.gifsoup.com/">gifsoup</a></li>
+</ul>
+
+
+<h3>お役立ちサイト</h3>
+
+<p><img src="http://24.media.tumblr.com/tumblr_mbtisnNTzE1rvaveio1_400.gif" alt="サイケデリックGIFアニメーション入門" /></p>
+
+<p><a href="http://diary.mirakui.com/post/33481148217">わくわくパンダさん日記</a></p>
+
+<h3>convertコマンド</h3>
+
+<pre><code>$ convert [ options ... ] input output
+</code></pre>
+
+<p>よく使いそうなオプション</p>
+
+<pre><code>-resize  =&gt; リサイズ
+-delay   =&gt; 静止画の切り替え感覚
+-unsharp =&gt; シャープネスする
+-font    =&gt; 文字入れる
+</code></pre>
+
+<p>And More&#8230; <a href="http://www5a.biglobe.ne.jp/~nkgwtty/njaLinuxImageMagick.html">ImageMagick convert option</a></p>
+
+<h3>AndroidネイティブでGIF再生</h3>
+
+<p><a href="http://d.hatena.ne.jp/tomorrowkey/20100426/1272267480">AndroidでGIFアニメーションが動いたんだもんね</a></p>
+
+<p>GifView作った人がいた。<br/>
+ふつうにWebViewに表示させてもいい気がする。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/16/into-brook/">
+		
+			JavaScriptの名前空間</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-16T01:28:00+09:00" pubdate data-updated="true">Nov 16<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/namespace-dot-js/'>Namespace.js</a>
+
+
+</div>
+    </div>
+		<h2>大規模JavaScript案件</h2>
+
+<p>僕はあまりJavaScript書かないけど、大規模JavaScript案件すると変数とかかぶって滅ぶらしい。<br/>
+<a href="https://github.com/hirokidaichi/namespace-js">Namespace.js</a>とかいうの使うとパッケージ的なもの作れるらしいと聞いた。</p>
+
+<h2>使い方</h2>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Namespace</span><span class="p">(</span><span class="s2">&quot;sample.widget&quot;</span><span class="p">)</span> <span class="c1">// 名前空間を定義</span>
+</span><span class='line'><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&quot;brook *&quot;</span><span class="p">)</span>            <span class="c1">// requireとかimport的ななにか</span>
+</span><span class='line'><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&quot;brook.model *&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&quot;brook.util *&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">ns</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// この中にメソッドとか書く</span>
+</span><span class='line'>  <span class="nx">ns</span><span class="p">.</span><span class="nx">provide</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">// オブジェクト入れる</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>はーよくわからん。</p>
+
+<h2><a href="https://github.com/hirokidaichi/namespace-js/blob/master/src/namespace.js">Namespace.js</a>読んでみた</h2>
+
+<h4>一番最初のmerge関数</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">merge</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">p</span> <span class="k">in</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">source</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">p</span><span class="p">))</span> <span class="nx">target</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">=</span> <span class="nx">source</span><span class="p">[</span><span class="nx">p</span><span class="p">];</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ターゲットにソースのプロパティが追加される。</p>
+
+<h4>次にProcedureの定義</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">Procedure</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_Private_Class_Of_Proc</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">merge</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">state</span><span class="o">:</span> <span class="p">{},</span>
+</span><span class='line'>    <span class="nx">steps</span><span class="o">:</span> <span class="p">[],</span>
+</span><span class='line'>    <span class="nx">_status</span><span class="o">:</span> <span class="s1">&#39;init&#39;</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>windowオブジェクト + state + steps みたいな感じだ。そのあとnext、isRunning、enqueue、dequeue、call、_invokeが追加されてる。<br/>
+処理的なものsteps配列に追加されて、実行状態が init -> running -> finished と変化するようだ。</p>
+
+<h4>次にNamespaceObjectの定義</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">NamespaceObject</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_Private_Class_Of_NamespaceObject</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">merge</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">stash</span><span class="o">:</span> <span class="p">{</span> <span class="nx">CURRENT_NAMESPACE</span><span class="o">:</span> <span class="nx">fqn</span> <span class="p">},</span>
+</span><span class='line'>    <span class="nx">fqn</span><span class="o">:</span> <span class="nx">fqn</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">proc</span><span class="o">:</span> <span class="nx">createProcedure</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>windowオブジェクト + fqn + Procedure みたいな感じ。そのあとプロパティに色々追加されてる。</p>
+
+<h4>次、NamespaceObjectfactoryの定義</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">NamespaceObjectFactory</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">cache</span> <span class="o">=</span> <span class="p">{};</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">create</span> <span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">fqn</span><span class="p">){</span>
+</span><span class='line'>            <span class="nx">_assertValidFQN</span><span class="p">(</span><span class="nx">fqn</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">return</span> <span class="p">(</span><span class="nx">cache</span><span class="p">[</span><span class="nx">fqn</span><span class="p">]</span> <span class="o">||</span> <span class="p">(</span><span class="nx">cache</span><span class="p">[</span><span class="nx">fqn</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NamespaceObject</span><span class="p">(</span><span class="nx">fqn</span><span class="p">)));</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="p">})();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>fqnを引数に取って、NamespaceObjectを生成してる。cacheがクロージャなので、同じfqnからは同じNamespaceObjectを返すようになってる。<br/>
+NamespaceObjectはファクトリーで生成するっぽい。</p>
+
+<h4>最後、NamespaceDefinition</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">NamespaceDefinition</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_Private_Class_Of_NamespaceDefinition</span><span class="p">(</span><span class="nx">nsObj</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">merge</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">namespaceObject</span><span class="o">:</span> <span class="nx">nsObj</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">requires</span>       <span class="o">:</span> <span class="p">[],</span>
+</span><span class='line'>        <span class="nx">useList</span>        <span class="o">:</span> <span class="p">[],</span>
+</span><span class='line'>        <span class="nx">stash</span>          <span class="o">:</span> <span class="p">{},</span>
+</span><span class='line'>        <span class="nx">defineCallback</span> <span class="o">:</span> <span class="kc">undefined</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">_self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">nsObj</span><span class="p">.</span><span class="nx">enqueue</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$c</span><span class="p">){</span> <span class="nx">_self</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">$c</span><span class="p">);</span> <span class="p">});</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>なんというか、NamespaceObjectを渡してuse的な、require的な機能を追加している。useするとファクトリーが適切なNamespaceObjectを取得して、requiresに貯める感じだ。<br/>
+あとdefine、こいつに関数を渡してやると色々マージされたnsを引数にコールバックしてくれる。<br/>
+渡してやる関数の中でns.provideにオブジェクト渡すとNamespaceObjectにマージされて、いわゆるパブリック状態になるっぽい。</p>
+
+<h4>returnされるのは</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">createNamespace</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fqn</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nx">NamespaceDefinition</span><span class="p">(</span>
+</span><span class='line'>        <span class="nx">NamespaceObjectFactory</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">fqn</span> <span class="o">||</span> <span class="s1">&#39;main&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="nx">merge</span><span class="p">(</span><span class="nx">createNamespace</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s1">&#39;Object&#39;</span>  <span class="o">:</span> <span class="nx">NamespaceObjectFactory</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">Definition</span><span class="o">:</span> <span class="nx">NamespaceDefinition</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">Proc</span>      <span class="o">:</span> <span class="nx">createProcedure</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="k">return</span> <span class="nx">createNamespace</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>createNamespaceで、fqnを渡してやってNamespace受け取って、useしたりdefineしたりするみたい。</p>
+
+<p>眠たいので流し読みしたけど、なんとなく雰囲気だけわかった。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/11/betterflow/">
+		
+			ライブに行った。感化された。</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-11T18:10:00+09:00" pubdate data-updated="true">Nov 11<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/gif/'>GIF</a>, <a class='category' href='/blog/categories/ladygaga/'>LadyGaga</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+
+
+</div>
+    </div>
+		<h2>ライブに行った</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/live1.jpg" alt="さいたまスーパーアリーナ付近" /><br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201211/live2.jpg" alt="会場で待機" /><br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201211/live3.jpg" alt="レディーガガ" /></p>
+
+<h2>kosugeさんのサイトに感化された</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/kosuge.png" alt="kosugeさん" />
+<a href="https://twitter.com/9m">kosugeさん</a>が作ったサイト、<a href="http://kksg.net/">kksg.net</a></p>
+
+<h2>作った</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/screenshot1.png" alt="音が鳴る" /><br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201211/screenshot2.png" alt="30秒ぐらいで音と背景が変わる" /></p>
+
+<p><a href="http://rejasupotaro.com">rejasupotaro.com</a></p>
+
+<p>Chromeのことしか考えずに作った。<br/>
+Firefox他ではコーデック対応してないっぽいので音鳴らない。</p>
+
+<p>iTunes Search APIで適当な音持ってきてる。かわいみGIFはネットで探した。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/11/rails-days-2/">
+		
+			Rails Days 2</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-11T14:02:00+09:00" pubdate data-updated="true">Nov 11<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/mysql/'>MySQL</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+
+
+</div>
+    </div>
+		<h2>DBとかモデルとかいじる</h2>
+
+<h3>MySQLのインストール</h3>
+
+<pre><code>$ sudo aptitude update
+$ aptitude install mysql-server
+$ aptitude install libmysqlclient-dev
+$ mysqladmin ping -u root -p
+Enter password: ****
+mysqld is alive
+</code></pre>
+
+<p>インストール中にrootのパスワード聞かれた。<br/>
+そのパスワードでpingして存命確認した。</p>
+
+<h3>ユーザーの作成</h3>
+
+<p>作成する。</p>
+
+<pre><code>$ mysql -u root -p
+mysql&gt; CREATE USER betterflow@localhost IDENTIFIED BY 'hogehoge';
+mysql&gt; GRAND ALL ON *.* TO betterflow@localhost;
+mysql&gt; FLUSH PRIVILEGES;
+</code></pre>
+
+<p>確認する。</p>
+
+<pre><code>mysql&gt; use mysql;
+mysql&gt; SELECT Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv FROM user;
+</code></pre>
+
+<h3>RailsでMySQLを使えるようにする</h3>
+
+<p>Gemfileで gem &#8216;sqlite3&#8217; を gem &#8216;mysql2&#8217; に変えた。</p>
+
+<pre><code>$ bundle install --path vender/bundle
+$ vim config/database.yml
+development:
+  adapter: mysql2
+  database: betterflow
+  username: betterflow
+  password: hogehoge
+  pool: 5
+  timeout: 5000
+$ rake db:create
+</code></pre>
+
+<p>DBにアクセスできるようにした。</p>
+
+<h3>モデルを作る</h3>
+
+<pre><code>$ rails generate model track track_name:string artist_name:string release_date:date preview_url:string jacket_image_url:string track_view_url:string
+$ rake db:migrate
+</code></pre>
+
+<h3>モデルの型の変更</h3>
+
+<p>release_dateをdate型にしたけどstring型の方が都合が良かった、変えたい。</p>
+
+<pre><code>$ rails generate migration change_release_date_type
+$ vim db/migrate/20121111051853_change_release_date_type.rb
+class ChangeReleaseDateType &lt; ActiveRecord::Migration
+  def change
+    change_column :tracks, :release_date, :string
+  end
+end
+$ rake db:migrate
+</code></pre>
+
+<p>すごい。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/07/android-notification/">
+		
+			Androidの通知周り</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-07T23:19:00+09:00" pubdate data-updated="true">Nov 7<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/android/'>Android</a>
+
+
+</div>
+    </div>
+		<h2>ステータスバー</h2>
+
+<p>NotificationManagerを介してステータスバーに通知を出したり消したりする。<br/>
+<a href="http://developer.android.com/reference/android/app/NotificationManager.html">NotificationManagerドキュメント</a></p>
+
+<h3>通知を出す・消す</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">NotificationManager</span> <span class="n">notificationManager</span> <span class="o">=</span>
+</span><span class='line'>    <span class="o">(</span><span class="n">NotificationManager</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">NOTIFICATION_SERVICE</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>通知を出す：notify(id, notification)</li>
+<li>通知を消す：cancel(id)</li>
+</ul>
+
+
+<p>イッツシンプル</p>
+
+<h3>表示するNotificationについて</h3>
+
+<p>Notification.Builderを使って生成する(〜API Level 11)</p>
+
+<p><img src="http://developer.android.com/images/ui/notifications/normal_notification_callouts.png" alt="ステータスバーの対応表" /></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Notification</span> <span class="n">notification</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Notification</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">context</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setContentTitle</span><span class="o">(</span><span class="s">&quot;通知のタイトル&quot;</span><span class="o">)</span> <span class="mi">1</span><span class="err">に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setLargeIcon</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">large_icon</span><span class="o">)</span> <span class="c1">// 2に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setContentText</span><span class="o">(</span><span class="s">&quot;テキスト&quot;</span><span class="o">)</span> <span class="c1">// 3に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setContentInfo</span><span class="o">(</span><span class="s">&quot;ちょっとした情報&quot;</span><span class="o">)</span> <span class="c1">// 4に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setSmallIcon</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">small_icon</span><span class="o">)</span> <span class="c1">// 5に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setWhen</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">())</span> <span class="c1">// 6に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setTicker</span><span class="o">(</span><span class="s">&quot;通知なう&quot;</span><span class="o">,</span> <span class="n">remoteView</span><span class="o">)</span> <span class="c1">// 通知を最初に受け取ったときに表示テキスト</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setContentIntent</span><span class="o">(</span><span class="n">pendingIntent</span><span class="o">)</span> <span class="c1">// 通知をタップしたときに呼ばれるIntent</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setSound</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span> <span class="c1">// 音を鳴らす</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setLights</span><span class="o">(</span><span class="n">argb</span><span class="o">,</span> <span class="n">onMs</span><span class="o">,</span> <span class="n">offMs</span><span class="o">)</span> <span class="c1">// ピカピカさせる</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setVibrate</span><span class="o">(</span><span class="n">Notification</span><span class="o">.</span><span class="na">DEFAULT_VIBRATE</span><span class="o">)</span> <span class="c1">// バイブ設定</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">getNotification</span><span class="o">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>FLAGがたくさんあると思うけど、なんとなくの理解で、</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>フラグの種類            </th>
+<th>内容                                   </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>FLAG_AUTO_CANCEL        </td>
+<td>タップしたら消える                     </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_FOREGROUND_SERVICE </td>
+<td>現在実行中のサービスを表す？？？       </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_HIGH_PRIORITY      </td>
+<td>ステータスバーが非表示でも通知が出せる </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_INSISTENT          </td>
+<td>通知が消されるまで音が繰り返しなる     </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_NO_CLEAR           </td>
+<td>タップとかで消せないようにする         </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_ONGOING_EVENT      </td>
+<td>現在進行形のイベントを表す？？？       </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_ONLY_ALERT_ONCE    </td>
+<td>通知が来る度に音とか振動とか出す       </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_SHOW_LIGHTS        </td>
+<td>ピカピカさせる                         </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>こんな感じな気がする。</p>
+
+<h2>プッシュ通知(C2DM)</h2>
+
+<p>なんでC2DMかって、2.1はGCMに対応していない。</p>
+
+<p><a href="http://www.techdoctranslator.com/code-google-com/android-c2dm">Android C2DM - ソフトウェア技術ドキュメントを勝手に翻訳</a></p>
+
+<p>まず、アプリケーションの登録</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="s">&quot;com.google.android.c2dm.intent.REGISTER&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;app&quot;</span><span class="o">,</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getBroadcast</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(),</span> <span class="mi">0</span><span class="o">));</span>
+</span><span class='line'><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;sender&quot;</span><span class="o">,</span> <span class="n">emailOfSender</span><span class="o">);</span>
+</span><span class='line'><span class="n">context</span><span class="o">.</span><span class="na">startService</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>アプリケーションの登録解除</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="s">&quot;com.google.android.c2dm.intent.UNREGISTER&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">Intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;app&quot;</span><span class="o">,</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getBroadcast</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(),</span> <span class="mi">0</span><span class="o">));</span>
+</span><span class='line'><span class="n">startService</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>BroadcastReceiverを継承したPushNotificationReceiverクラスを作る。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Override</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">intent</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">();</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">ACTION_REGISTER</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">action</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>            <span class="c1">// アーアアー</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">ACTION_RECEIVE</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">action</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>            <span class="c1">// アーアアー</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>C2DMからRegistration IDを受信したときの処理は</p>
+
+<ul>
+<li>SyncManagerを動かす</li>
+<li>サーバーに登録IDを送る</li>
+<li>SharedPreferenceにIDを保存する</li>
+</ul>
+
+
+<p>とか。その他なんらかのメッセージを受信したときの処理は定型なのでリンク先を参照されたし。</p>
+
+<p>Manifestには以下のように記述しておく。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="c">&lt;!-- このアプリケーションだけがメッセージの受信と登録の結果の受信が可能 --&gt;</span>
+</span><span class='line'><span class="nt">&lt;permission</span> <span class="na">android:name=</span><span class="s">&quot;com.rejasupotaro.permission.C2D_MESSAGE&quot;</span> <span class="na">android:protectionLevel=</span><span class="s">&quot;signature&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;com.rejasupotaro.permission.C2D_MESSAGE&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- このアプリケーションは登録とメッセージ受信の許可がある --&gt;</span>
+</span><span class='line'><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.permission.RECEIVE&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- 登録 ID をサーバに送信する --&gt;</span>
+</span><span class='line'><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;android.permission.INTERNET&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- C2DM サーバのみがアプリにメッセージを送信できる。許可がセットされないと、他のどのアプリでもこれを生成できてしまう --&gt;</span>
+</span><span class='line'><span class="nt">&lt;receiver</span> <span class="na">android:permission=</span><span class="s">&quot;com.google.android.c2dm.permission.SEND&quot;</span>
+</span><span class='line'>    <span class="na">android:name=</span><span class="s">&quot;.PushNotificationReceiver&quot;</span> <span class="nt">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">&lt;!-- 実際のメッセージの受信 --&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;intent-filter</span> <span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.intent.RECEIVE&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;com.rejasupotaro&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">&lt;!-- 登録 ID の受信 --&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;intent-filter</span> <span class="nt">&gt;</span>
+</span><span class='line'>         <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.intent.REGISTRATION&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>         <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;com.rejasupotaro&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>     <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class='line'><span class="nt">&lt;/receiver&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>だいたいそんな感じ。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/06/isucon2/">
+		
+			イスコン各位のパフォーマンスチューニング</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-06T23:59:00+09:00" pubdate data-updated="true">Nov 6<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/isucon/'>Isucon</a>, <a class='category' href='/blog/categories/server/'>Server</a>
+
+
+</div>
+    </div>
+		<p><a href="http://blog.livedoor.jp/techblog/archives/67726806.html">#isucon2</a>、周りでも結構話題になった。<br/>
+「同期でもやりたいねー。」みたいな話になって、僕はパフォーマンスチューニングとかよくわからなかったので、各チームが何をしたのか調べた。</p>
+
+<h2>言語</h2>
+
+<ul>
+<li>「なんとなくはやそう」みたいな曖昧な理由でnodeは選ばない。</li>
+<li>使い慣れた言語(RubyとかPerlとか)でやった方が良い。</li>
+</ul>
+
+
+<h2>デプロイ</h2>
+
+<ul>
+<li>コードはGitHubに置いて、Capistranoでデプロイ出来るようにしたら良かった。</li>
+</ul>
+
+
+<h2>データベース</h2>
+
+<ul>
+<li>スロークエリのチェックと設定パラメータを見た。</li>
+<li>インデックス張ったりクエリを試行錯誤した。</li>
+<li>サーバーのメモリサイズが16GBだったのに、innodb_buffer_pool_size 2Gだったので、メモリを増やそうと思ったけど、データサイズが小さかったので、DBサーバーでAPPを動かした。</li>
+<li>Redisを使うように書き直した。</li>
+</ul>
+
+
+<h2>アプリケーション</h2>
+
+<ul>
+<li>http_loadでベンチ。各リクエストのレスポンスタイムを確認した。</li>
+<li>最適なワーカー数を二分探索で調べた。</li>
+<li>リバースプロキシ先をHostnameからIPアドレスに変えた(DNSルックアップが遅い罠を警戒)</li>
+<li>Rubyのあるパッチを当てたらRailsアプリが20〜30％高速化するらしいと聞いて、Rubyをビルドし直してみたらスコアが上がった。</li>
+<li>nginxで静的ファイルを配信した。</li>
+<li>VarnishでESIを使った。</li>
+<li>リバースプロキシやDBにもAPP入れた。</li>
+<li>ページ数が少ないので事前にHTMLを書き出して、1秒以内にすべて更新するようにしたら速くなる。</li>
+<li>配信時にgzip圧縮をするのでは遅いので、事前にgzipで圧縮しておくと速くなる。</li>
+</ul>
+
+
+<h2>プロファイリング</h2>
+
+<ul>
+<li>PerlならDevel::KYTProfで丸裸にできる。</li>
+<li>Text::Xslate->renderを計測したら、テンプレートのレンダリングで50〜100ms程度かかることが分かった。</li>
+<li>負荷はテンプレートレンダリングのCPU boundだった。そこでworkerにレンダリング処理を独立した。</li>
+</ul>
+
+
+<h2>まとめ</h2>
+
+<ol>
+<li>とりあえず環境を整えて、ベンチマークを取ること。</li>
+<li>まずSQLチューニングして、負荷がAPPに移ったらそっちに取りかかる。</li>
+<li>キャッシュとかリバースプロキシをいじってみる。</li>
+</ol>
+
+
+<p>これらをうまく分担して行う、みたいな？</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/06/gif-generator/">
+		
+			GIFの流れ感じる</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-06T00:16:00+09:00" pubdate data-updated="true">Nov 6<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/gif/'>GIF</a>
+
+
+</div>
+    </div>
+		<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/gif1.gif" alt="冷蔵庫" /></p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/gif2.gif" alt="レディーガガ" /></p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/gif3.gif" alt="くま" /></p>
+
+<p>夜中にカメラパシャパシャ撮ってせこせこconvertした。<br/>
+なんか日常が動くの面白いし、タイムラインに流れてきたら賑やかになるし、GIFを作るAndroidアプリ作りたいかもしれない。</p>
+
+<p>convertコマンドをarm用にstaticビルドしてassetsとかに置いてruntime.execするとか、画像変換のライブラリ使ったりして簡単に出来たりしないですかね。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/04/rails-days-1/">
+		
+			Rails Days 1</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-04T19:49:00+09:00" pubdate data-updated="true">Nov 4<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+
+
+</div>
+    </div>
+		<h1>Railsを始めるまで</h1>
+
+<h2>さくらのVPSのOS再インストール</h2>
+
+<h3>カスタムインストール(Ubuntu)</h3>
+
+<p>VNCコンソールはかなり厄介。<br/>
+Macを10.8.02にしたらJava Preferencesがなくなってた＆Ubuntuだとよく分からないけど動かなかった。<br/>
+しかたなくWindowsを持ってきてなんとか起動した。Windowsがなかったら詰んでた。</p>
+
+<p>VNCコンソールさえ起動できれば問題なくインストールできた。</p>
+
+<h2>サーバーの設定</h2>
+
+<h3>rootのパスワードの設定</h3>
+
+<pre><code>$ sudo passwd root
+</code></pre>
+
+<h3>必要なパッケージ集める</h3>
+
+<pre><code>$ aptitude install gcc
+$ aptitude install build-essential g++
+$ aptitude install make
+$ aptitude install vim
+$ aptitude install git
+$ aptitude install curl
+</code></pre>
+
+<h2>Rails関連のインストール</h2>
+
+<h3>RVM</h3>
+
+<pre><code>$ curl -L https://get.rvm.io | bash -s stable --ruby --trace
+$ source .bashrc
+</code></pre>
+
+<h3>Bundler</h3>
+
+<pre><code>$ gem install bundler --pre
+</code></pre>
+
+<h3>Rails</h3>
+
+<pre><code>$ gem install rails↲
+</code></pre>
+
+<h2>Railsをちょっとやる</h2>
+
+<h3>プロジェクトの作成</h3>
+
+<pre><code>$ rails new MyProject
+</code></pre>
+
+<h3>gemのインストール</h3>
+
+<pre><code>$ bundle install --path vendor/bundle
+</code></pre>
+
+<h3>ControllerとActionとViewの作成</h3>
+
+<pre><code>$ rails generate controller info index
+</code></pre>
+
+<p>rails generate controller コントローラー名 アクション名<br/>
+コントローラーを作成するとビューもできる。</p>
+
+<h3>ルーティングの設定</h3>
+
+<p>rootをindexに向ける。</p>
+
+<pre><code>$ vim config/routes.rb
+MyProject::Application.routes.draw do
+  root :to =&gt; "info#index"
+  get "info/index""
+end
+</code></pre>
+
+<h3>ルーティングの確認</h3>
+
+<pre><code>$ rake routes
+  info_index GET /info/index(.:format)         info#index
+  root           /                             info#index
+</code></pre>
+
+<h3>サーバー起動時に何か処理をさせる</h3>
+
+<pre><code>$ vim lib/init.rb
+module Initializer
+  def init
+    puts 'Now Initializing...'
+  end
+end
+
+$ vim config/boot.rb
+require 'rubygems'
+
+# Set up gems listed in the Gemfile.
+ENV['BUNDLE_GEMFILE'] ||= FILE.expand_path('../../Gemfile', __FILE__)
+
+require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
+
+require File.expand_path('../../lib/init', __FILE__)
+include Initializer
+init()
+</code></pre>
+
+<h3>autoloadを有効にする</h3>
+
+<p>config/application.rbに、</p>
+
+<pre><code># Custom directories with classes and modules you want to be autoloadable.
+# config.autoload_paths += %W(#{config.root}/extras)
+</code></pre>
+
+<p>って書いてあったので、</p>
+
+<pre><code>config.autoload_paths += %W(#{config.root}/lib)
+config.autoload_paths += Dir["#{config.root}/lib/**/"]
+</code></pre>
+
+<p>追加した。</p>
+
+<h3>サーバーの起動</h3>
+
+<pre><code>$ rails s
+</code></pre>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/03/y-combinators/">
+		
+			文化の日</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-03T14:15:00+09:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/coffeescript/'>CoffeeScript</a>, <a class='category' href='/blog/categories/lambda/'>Lambda</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+
+
+</div>
+    </div>
+		<h2>わかりやすかった</h2>
+
+<p><a href="http://d.hatena.ne.jp/r-west/20090417/1239972722">おとうさんにもわかるYコンビネータ！(絵解き解説編)</a></p>
+
+<h2>かわいみコート買った</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/1351951130405-1.jpg" alt="かわいみコート買った" /></p>
+
+<h2>Yコンビネータみたいなの書いてた</h2>
+
+<h3>case of ruby</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">y</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">y</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class='line'>    <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="o">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">})</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">g</span><span class="o">|</span>
+</span><span class='line'>    <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="p">))</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">g</span><span class="o">|</span>
+</span><span class='line'>    <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
+</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="p">))</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>case of coffeescript</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="p">(</span><span class="nf">(Y) -&gt;</span> <span class="nx">Y</span><span class="p">(</span><span class="nf">(f) -&gt;</span> <span class="nf">(n) -&gt;</span> <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">)</span> <span class="k">then</span> <span class="mi">1</span> <span class="k">else</span> <span class="nx">f</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">f</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+</span><span class='line'><span class="p">)(</span><span class="mi">10</span><span class="p">))</span> <span class="nf">(f) -&gt;</span> <span class="p">(</span><span class="nf">(g) -&gt;</span> <span class="nf">(m) -&gt;</span> <span class="nx">f</span><span class="p">(</span><span class="nx">g</span> <span class="nx">g</span><span class="p">)</span> <span class="nx">m</span><span class="p">)</span> <span class="nf">(g) -&gt;</span> <span class="nf">(m) -&gt;</span> <span class="nx">f</span><span class="p">(</span><span class="nx">g</span> <span class="nx">g</span><span class="p">)</span> <span class="nx">m</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>夕食</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/1351934736127.jpg" alt="鶏肉焼いてパスタ茹でた" /></p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+<nav id="pagenavi">
+    
+        <a href="/blog/page/2/" class="prev">Prev</a>
+    
+    
+        <a href="/blog/page/4/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav>
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    rejasupotaro
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

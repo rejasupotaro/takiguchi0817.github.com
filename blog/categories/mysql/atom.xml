@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: MySQL | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/mysql/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MySQL、文字化けた]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/11/23/mysql-character-set/"/>
+    <updated>2012-11-23T19:21:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/11/23/mysql-character-set</id>
+    <content type="html"><![CDATA[<p>デプロイしておーエラー出なかったーって思ってブラウザで開いたら文字化けしてた。</p>
+
+<pre><code>mysql&gt; STATUS
+</code></pre>
+
+<p>アーMacBookはutf8だったけどサーバーはlatin1のままだった。<br/>
+文字コード変えるためにmysql止めようとしたら、いつの間にか/etc/init.d/mysqlを使うんじゃなくてservice mysqlを使うことになってた。</p>
+
+<p>まあ、それはそれで、/etc/mysql/conf.d/charset.confに</p>
+
+<pre><code>[client]
+default-character-set=utf8
+
+[mysqld]
+character-set-server=utf8
+skip-character-set-client-handshake
+
+[mysqldump]
+default-character-set=utf8
+</code></pre>
+
+<p>って書いてオルターテーブルしたら文字化け直った、良かった。<br/>
+mysql5.5でmysqldのdefault-character-setなくなってたの知らなくてちょっと困ったりした。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails Days 2]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/11/11/rails-days-2/"/>
+    <updated>2012-11-11T14:02:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/11/11/rails-days-2</id>
+    <content type="html"><![CDATA[<h2>DBとかモデルとかいじる</h2>
+
+<h3>MySQLのインストール</h3>
+
+<pre><code>$ sudo aptitude update
+$ aptitude install mysql-server
+$ aptitude install libmysqlclient-dev
+$ mysqladmin ping -u root -p
+Enter password: ****
+mysqld is alive
+</code></pre>
+
+<p>インストール中にrootのパスワード聞かれた。<br/>
+そのパスワードでpingして存命確認した。</p>
+
+<h3>ユーザーの作成</h3>
+
+<p>作成する。</p>
+
+<pre><code>$ mysql -u root -p
+mysql&gt; CREATE USER betterflow@localhost IDENTIFIED BY 'hogehoge';
+mysql&gt; GRAND ALL ON *.* TO betterflow@localhost;
+mysql&gt; FLUSH PRIVILEGES;
+</code></pre>
+
+<p>確認する。</p>
+
+<pre><code>mysql&gt; use mysql;
+mysql&gt; SELECT Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv FROM user;
+</code></pre>
+
+<h3>RailsでMySQLを使えるようにする</h3>
+
+<p>Gemfileで gem 'sqlite3' を gem 'mysql2' に変えた。</p>
+
+<pre><code>$ bundle install --path vender/bundle
+$ vim config/database.yml
+development:
+  adapter: mysql2
+  database: betterflow
+  username: betterflow
+  password: hogehoge
+  pool: 5
+  timeout: 5000
+$ rake db:create
+</code></pre>
+
+<p>DBにアクセスできるようにした。</p>
+
+<h3>モデルを作る</h3>
+
+<pre><code>$ rails generate model track track_name:string artist_name:string release_date:date preview_url:string jacket_image_url:string track_view_url:string
+$ rake db:migrate
+</code></pre>
+
+<h3>モデルの型の変更</h3>
+
+<p>release_dateをdate型にしたけどstring型の方が都合が良かった、変えたい。</p>
+
+<pre><code>$ rails generate migration change_release_date_type
+$ vim db/migrate/20121111051853_change_release_date_type.rb
+class ChangeReleaseDateType &lt; ActiveRecord::Migration
+  def change
+    change_column :tracks, :release_date, :string
+  end
+end
+$ rake db:migrate
+</code></pre>
+
+<p>すごい。</p>
+]]></content>
+  </entry>
+  
+</feed>

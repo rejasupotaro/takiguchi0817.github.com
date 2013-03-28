@@ -1,0 +1,402 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Androidの通知周り - Just posted a blog</title>
+    <meta name="author" content="rejasupotaro">
+    
+	<meta name="description" content="ステータスバー NotificationManagerを介してステータスバーに通知を出したり消したりする。
+NotificationManagerドキュメント 通知を出す・消す 1
+2
+NotificationManager notificationManager = ( &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36257112-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        rejasupotaro
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Androidの通知周り</h2>
+	<div class="entry-content"><h2>ステータスバー</h2>
+
+<p>NotificationManagerを介してステータスバーに通知を出したり消したりする。<br/>
+<a href="http://developer.android.com/reference/android/app/NotificationManager.html">NotificationManagerドキュメント</a></p>
+
+<h3>通知を出す・消す</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">NotificationManager</span> <span class="n">notificationManager</span> <span class="o">=</span>
+</span><span class='line'>    <span class="o">(</span><span class="n">NotificationManager</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">NOTIFICATION_SERVICE</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>通知を出す：notify(id, notification)</li>
+<li>通知を消す：cancel(id)</li>
+</ul>
+
+
+<p>イッツシンプル</p>
+
+<h3>表示するNotificationについて</h3>
+
+<p>Notification.Builderを使って生成する(〜API Level 11)</p>
+
+<p><img src="http://developer.android.com/images/ui/notifications/normal_notification_callouts.png" alt="ステータスバーの対応表" /></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Notification</span> <span class="n">notification</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Notification</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">context</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setContentTitle</span><span class="o">(</span><span class="s">&quot;通知のタイトル&quot;</span><span class="o">)</span> <span class="mi">1</span><span class="err">に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setLargeIcon</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">large_icon</span><span class="o">)</span> <span class="c1">// 2に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setContentText</span><span class="o">(</span><span class="s">&quot;テキスト&quot;</span><span class="o">)</span> <span class="c1">// 3に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setContentInfo</span><span class="o">(</span><span class="s">&quot;ちょっとした情報&quot;</span><span class="o">)</span> <span class="c1">// 4に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setSmallIcon</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">small_icon</span><span class="o">)</span> <span class="c1">// 5に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setWhen</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">())</span> <span class="c1">// 6に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setTicker</span><span class="o">(</span><span class="s">&quot;通知なう&quot;</span><span class="o">,</span> <span class="n">remoteView</span><span class="o">)</span> <span class="c1">// 通知を最初に受け取ったときに表示テキスト</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setContentIntent</span><span class="o">(</span><span class="n">pendingIntent</span><span class="o">)</span> <span class="c1">// 通知をタップしたときに呼ばれるIntent</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setSound</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span> <span class="c1">// 音を鳴らす</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setLights</span><span class="o">(</span><span class="n">argb</span><span class="o">,</span> <span class="n">onMs</span><span class="o">,</span> <span class="n">offMs</span><span class="o">)</span> <span class="c1">// ピカピカさせる</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setVibrate</span><span class="o">(</span><span class="n">Notification</span><span class="o">.</span><span class="na">DEFAULT_VIBRATE</span><span class="o">)</span> <span class="c1">// バイブ設定</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">getNotification</span><span class="o">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>FLAGがたくさんあると思うけど、なんとなくの理解で、</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>フラグの種類            </th>
+<th>内容                                   </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>FLAG_AUTO_CANCEL        </td>
+<td>タップしたら消える                     </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_FOREGROUND_SERVICE </td>
+<td>現在実行中のサービスを表す？？？       </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_HIGH_PRIORITY      </td>
+<td>ステータスバーが非表示でも通知が出せる </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_INSISTENT          </td>
+<td>通知が消されるまで音が繰り返しなる     </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_NO_CLEAR           </td>
+<td>タップとかで消せないようにする         </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_ONGOING_EVENT      </td>
+<td>現在進行形のイベントを表す？？？       </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_ONLY_ALERT_ONCE    </td>
+<td>通知が来る度に音とか振動とか出す       </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_SHOW_LIGHTS        </td>
+<td>ピカピカさせる                         </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>こんな感じな気がする。</p>
+
+<h2>プッシュ通知(C2DM)</h2>
+
+<p>なんでC2DMかって、2.1はGCMに対応していない。</p>
+
+<p><a href="http://www.techdoctranslator.com/code-google-com/android-c2dm">Android C2DM - ソフトウェア技術ドキュメントを勝手に翻訳</a></p>
+
+<p>まず、アプリケーションの登録</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="s">&quot;com.google.android.c2dm.intent.REGISTER&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;app&quot;</span><span class="o">,</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getBroadcast</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(),</span> <span class="mi">0</span><span class="o">));</span>
+</span><span class='line'><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;sender&quot;</span><span class="o">,</span> <span class="n">emailOfSender</span><span class="o">);</span>
+</span><span class='line'><span class="n">context</span><span class="o">.</span><span class="na">startService</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>アプリケーションの登録解除</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="s">&quot;com.google.android.c2dm.intent.UNREGISTER&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">Intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;app&quot;</span><span class="o">,</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getBroadcast</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(),</span> <span class="mi">0</span><span class="o">));</span>
+</span><span class='line'><span class="n">startService</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>BroadcastReceiverを継承したPushNotificationReceiverクラスを作る。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Override</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">intent</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">();</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">ACTION_REGISTER</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">action</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>            <span class="c1">// アーアアー</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">ACTION_RECEIVE</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">action</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>            <span class="c1">// アーアアー</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>C2DMからRegistration IDを受信したときの処理は</p>
+
+<ul>
+<li>SyncManagerを動かす</li>
+<li>サーバーに登録IDを送る</li>
+<li>SharedPreferenceにIDを保存する</li>
+</ul>
+
+
+<p>とか。その他なんらかのメッセージを受信したときの処理は定型なのでリンク先を参照されたし。</p>
+
+<p>Manifestには以下のように記述しておく。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="c">&lt;!-- このアプリケーションだけがメッセージの受信と登録の結果の受信が可能 --&gt;</span>
+</span><span class='line'><span class="nt">&lt;permission</span> <span class="na">android:name=</span><span class="s">&quot;com.rejasupotaro.permission.C2D_MESSAGE&quot;</span> <span class="na">android:protectionLevel=</span><span class="s">&quot;signature&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;com.rejasupotaro.permission.C2D_MESSAGE&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- このアプリケーションは登録とメッセージ受信の許可がある --&gt;</span>
+</span><span class='line'><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.permission.RECEIVE&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- 登録 ID をサーバに送信する --&gt;</span>
+</span><span class='line'><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;android.permission.INTERNET&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- C2DM サーバのみがアプリにメッセージを送信できる。許可がセットされないと、他のどのアプリでもこれを生成できてしまう --&gt;</span>
+</span><span class='line'><span class="nt">&lt;receiver</span> <span class="na">android:permission=</span><span class="s">&quot;com.google.android.c2dm.permission.SEND&quot;</span>
+</span><span class='line'>    <span class="na">android:name=</span><span class="s">&quot;.PushNotificationReceiver&quot;</span> <span class="nt">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">&lt;!-- 実際のメッセージの受信 --&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;intent-filter</span> <span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.intent.RECEIVE&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;com.rejasupotaro&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">&lt;!-- 登録 ID の受信 --&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;intent-filter</span> <span class="nt">&gt;</span>
+</span><span class='line'>         <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.intent.REGISTRATION&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>         <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;com.rejasupotaro&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>     <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class='line'><span class="nt">&lt;/receiver&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>だいたいそんな感じ。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    rejasupotaro
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

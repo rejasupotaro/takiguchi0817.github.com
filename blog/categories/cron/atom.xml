@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: cron | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/cron/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Railsでcronを設定するときに良いやつ]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/12/02/whenever/"/>
+    <updated>2012-12-02T10:59:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/12/02/whenever</id>
+    <content type="html"><![CDATA[<p>Railsアプリで定期的にDBの情報を更新したかった。なにか良い方法ないか調べたらwheneverというもの見つけた。</p>
+
+<p>"<a href="https://github.com/javan/whenever">Whenever</a> is a Ruby gem that provides a clear syntax for writing and deploying cron jobs."</p>
+
+<p>crontabの設定が分かりやすく書けるというのと、Railsの読み込みしてくれるのが便利そうだったので入れてみた。<br/>
+　<br/>
+　</p>
+
+<h2>wheneverのインストール</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem <span class="s1">&#39;whenever&#39;</span>, :requrire <span class="o">=</span>&gt; <span class="nb">false</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Gemfileに追記してbundle instal</p>
+
+<p>wheneverizeすると設定ファイルのひな形を作ってくれる。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>wheneverize .
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+　<br/>
+　</p>
+
+<h2>設定方法</h2>
+
+<p>setでいろいろセットできる。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>ログの出力先  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">log_path</span> <span class="o">=</span> <span class="no">Whenever</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/log/cron.log&#39;</span>
+</span><span class='line'><span class="n">error_log_path</span> <span class="o">=</span> <span class="no">Whenever</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/log/error.log&#39;</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:output</span><span class="p">,</span> <span class="p">{</span><span class="n">standard</span> <span class="o">=&gt;</span> <span class="n">log_path</span><span class="p">,</span> <span class="ss">:error</span> <span class="o">=&gt;</span> <span class="n">error_log_path</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Rails.root使えなかったけどwheneverのソース見てたらself.pathあったのでそっちを使ったらいけた。</p>
+
+<p>　</p>
+
+<p>時間の指定が直感的で分かりやすいのが良い。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;3時間おきに実行&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">every</span> <span class="mi">3</span><span class="o">.</span><span class="n">hours</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">runner</span> <span class="s2">&quot;MyModel.some_process&quot;</span>
+</span><span class='line'>  <span class="n">rake</span> <span class="s2">&quot;my:rake:task&quot;</span>
+</span><span class='line'>  <span class="n">command</span> <span class="s2">&quot;/usr/bin/my_great_command&quot;</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;1日1回、4:30に実行&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">every</span> <span class="mi">1</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="ss">:at</span> <span class="o">=&gt;</span> <span class="s1">&#39;4:30 am&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">runner</span> <span class="s2">&quot;MyModel.task_to_run_at_four_thirty_in_the_morning&quot;</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;日曜日の24:00に実行&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">every</span> <span class="ss">:sunday</span><span class="p">,</span> <span class="ss">:at</span> <span class="o">=&gt;</span> <span class="s1">&#39;12pm&#39;</span> <span class="k">do</span> <span class="c1"># Use any day of the week or :weekend, :weekday</span>
+</span><span class='line'>  <span class="n">runner</span> <span class="s2">&quot;Task.do_something_great&quot;</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;ふつうのcronの時間指定もできる&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">every</span> <span class="s1">&#39;0 0 27-31 * *&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">command</span> <span class="s2">&quot;echo &#39;you can use raw cron syntax too&#39;&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>社会は厳しいが、wheneverは人間に優しい。<br/>
+　<br/>
+　</p>
+
+<h2>定期実行する処理</h2>
+
+<p>railsはrunnerコマンドっていうのがあって、モデルとかautoloadのパスに指定したファイルをロードした上でスクリプトを実行できたりする。<br/>
+autoload、書いてなかったらconfig/application.rbに</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">autoload_paths</span> <span class="o">+=</span> <span class="sx">%W(</span><span class="si">#{</span><span class="n">config</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="sx">/lib)</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>って書いとく。それから、実行する処理を書く。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>lib/batch_update.rb </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;open-uri&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;kconv&#39;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;class BatchUpdate&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="no">SC_OK</span> <span class="o">=</span> <span class="s2">&quot;200&quot;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  def self.execute&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">update_track</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  def self.update_track&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nb">puts</span><span class="p">(</span><span class="s2">&quot;==== &quot;</span> <span class="o">+</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot; ====&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">not_found_id_list</span> <span class="o">=</span> <span class="nb">Array</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">track_list</span> <span class="o">=</span> <span class="no">Track</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="ss">:all</span><span class="p">)</span>
+</span><span class='line'><span class="n">track_list</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">track</span><span class="o">|</span>
+</span><span class='line'>  <span class="nb">p</span> <span class="n">track</span>
+</span><span class='line'>  <span class="k">if</span> <span class="o">!</span><span class="n">exist?</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">preview_url</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">not_found_id_list</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">not_found_id_list</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">id</span><span class="o">|</span>
+</span><span class='line'>  <span class="no">Track</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">assert_raise</span><span class="p">(</span><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">RecordNotFound</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>    <span class="no">Track</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">puts</span><span class="p">(</span><span class="s2">&quot;==== update done!!! ====&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  def self.exist?(url)&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">result</span> <span class="o">=</span> <span class="kp">false</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">open</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">status_code</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">status</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'>  <span class="nb">p</span> <span class="n">status_code</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">status</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">==</span> <span class="no">SC_OK</span>
+</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="kp">true</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span> <span class="n">result</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>トラックの生存確認を行う処理を、runnerで毎日4:05に呼ぶようにした。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>config/schedule.rb  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">set</span> <span class="ss">:output</span><span class="p">,</span> <span class="no">Whenever</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/log/cron.log&quot;</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;every 1.day, :at =&gt; &#39;4:05 am&#39; do</span>
+</span><span class='line'><span class="sr">  runner &quot;BatchUpdate.execute&quot;</span>
+</span><span class='line'><span class="sr">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>良い。</p>
+]]></content>
+  </entry>
+  
+</feed>

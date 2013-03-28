@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: WebView | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/webview/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ハイブリッドの機運]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/11/29/about-android-webview/"/>
+    <updated>2012-11-29T22:15:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/11/29/about-android-webview</id>
+    <content type="html"><![CDATA[<h2><a href="http://el.jibun.atmarkit.co.jp/rails/2012/10/html5-d1ba.html">ネイティブでもHTML5でもない「ハイブリッドアプリ」の価値</a></h2>
+
+<p>ハイブリッドの流れある。<br/>
+ネイティブのアプリが書ける人がまだそんなに多くない(ネイティブアプリ縛りの社内ハッカソンも人が集まらなくて大変だった)ので、Webアプリケーションのようにネイティブが書けるの良いと思う。</p>
+
+<p>弊社にもネイティブとブラウザを連携させるフレームワーク(一応オープンソース)はあって、</p>
+
+<ul>
+<li>WebView Bridge (ネイティブとブラウザの相互呼び出し機能)</li>
+<li>Injector (DIコンテナ、A/Bテスト等に使用できる、動的な環境変数によってInjectするインスタンスを切り替える機能)</li>
+<li>Dynamic Loading (バイトコードを動的に読み込んで実行する機能)</li>
+</ul>
+
+
+<p>の3つの機能がある。<br/>
+　<br/>
+　</p>
+
+<h2><a href="http://takiguchi0817.github.com/blog/2012/11/24/save-dailymotion/">ハッカソンでアプリ作った</a></h2>
+
+<p>GIFを再生するためにメインのビューはWebViewにした。<br/>
+社内フレームワーク(一応オープンソース)は結構大きいので今回のハッカソンでは使わなかった(のでフレームワークの話は後日ブログに書くかもしれない)。<br/>
+それで、今回は簡易的なネイティブ・ブラウザ間の呼び出しのしくみを自分で書いた。</p>
+
+<h3>ジャバ側</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JavaScriptInterface</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">JavaScriptInterface</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">INTERFACE_NAME</span> <span class="o">=</span> <span class="s">&quot;Device&quot;</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">private</span> <span class="n">WebView</span> <span class="n">mWebView</span><span class="o">;</span>
+</span><span class='line'><span class="kd">private</span> <span class="n">JavaScriptInterface</span><span class="o">.</span><span class="na">Receiver</span> <span class="n">mReceiver</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="nf">JavaScriptInterface</span><span class="o">(</span><span class="n">WebView</span> <span class="n">webView</span><span class="o">,</span> <span class="n">Receiver</span> <span class="n">receiver</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">mWebView</span> <span class="o">=</span> <span class="n">webView</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">mReceiver</span> <span class="o">=</span> <span class="n">receiver</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">mWebView</span><span class="o">.</span><span class="na">addJavascriptInterface</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">INTERFACE_NAME</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">call</span><span class="o">(</span><span class="n">String</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">mReceiver</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">mReceiver</span><span class="o">.</span><span class="na">receive</span><span class="o">(</span><span class="k">new</span> <span class="n">JSONObject</span><span class="o">(</span><span class="n">data</span><span class="o">));</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">JSONException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">data</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">callBrowserMethod</span><span class="o">(</span><span class="n">String</span> <span class="n">jsMethodName</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">mWebView</span><span class="o">.</span><span class="na">loadUrl</span><span class="o">(</span><span class="s">&quot;javascript:&quot;</span> <span class="o">+</span> <span class="n">jsMethodName</span> <span class="o">+</span> <span class="s">&quot;()&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Receiver</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">receive</span><span class="o">(</span><span class="n">JSONObject</span> <span class="n">jsonObject</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>JS側</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">callDeviceMethod</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">try</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">Device</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">json</span><span class="p">));</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;本来であればアプリ内ブラウザでみるもの: &quot;</span> <span class="o">+</span> <span class="nx">e</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>呼び方</h3>
+
+<p>ネイティブからブラウザはメソッド名で呼び出す(今回はパラメータを渡す必要がなかったので)。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">mJavaScriptInterface</span><span class="o">.</span><span class="na">callBrowserMethod</span><span class="o">(</span><span class="s">&quot;reload&quot;</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>ブラウザからネイティブはJSON渡して呼ぶ。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">callDeviceMethod</span><span class="p">({</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">method</span><span class="o">:</span> <span class="s2">&quot;download.image&quot;</span><span class="p">,</span>
+</span><span class='line'><span class="nx">body</span><span class="o">:</span> <span class="p">{</span> <span class="nx">image_url</span><span class="o">:</span> <span class="nx">image_url</span> <span class="p">}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>ネイティブ側でメソッドをディスパッチするみたいな感じにした。<br/>
+JSONRPCみたいになってると良かった。コールバック？そんなものはない。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/summer_hackathon.png" alt="WebViewなのにタップするとトーストが出る" /></p>
+
+<h3>セキュリティ的な話</h3>
+
+<p>WebViewヤバイ。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">classLoader</span> <span class="o">=</span> <span class="nx">Device</span><span class="p">.</span><span class="nx">getClass</span><span class="p">().</span><span class="nx">getClassLoader</span><span class="p">();</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">Runtime</span> <span class="o">=</span> <span class="nx">classLoader</span><span class="p">.</span><span class="nx">loadClass</span><span class="p">(</span><span class="s2">&quot;java.lang.Runtime&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">getRuntimeMethod</span> <span class="o">=</span> <span class="nx">Runtime</span><span class="p">.</span><span class="nx">getMethod</span><span class="p">(</span><span class="s2">&quot;getRuntime&quot;</span><span class="p">,</span> <span class="p">{});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">runtime</span> <span class="o">=</span> <span class="nx">getRuntimeMethod</span><span class="p">.</span><span class="nx">invoke</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>クラスローダーが使えるし、リフレクション出来るし、Runtimeとってコマンドが実行出来る。<br/>
+JSからジャバのすべてが見えるし、プライベートもあったもんじゃない。</p>
+
+<p>だから実際に使うときには、</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">webView</span><span class="o">.</span><span class="na">setWebViewClient</span><span class="o">(</span><span class="k">new</span> <span class="n">WebViewClient</span><span class="o">(){&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nd">@Override</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onPageStarted</span><span class="o">(</span><span class="n">WebView</span> <span class="n">view</span><span class="o">,</span> <span class="n">String</span> <span class="n">url</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">favicon</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">url</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">PRODUCTION</span> <span class="o">&amp;</span><span class="n">amp</span><span class="o">;&amp;</span><span class="n">amp</span><span class="o">;</span> <span class="o">!</span><span class="n">UriUtils</span><span class="o">.</span><span class="na">compareDomain</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">Constants</span><span class="o">.</span><span class="na">DOMAIN</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="k">new</span> <span class="nf">SecurityException</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>みたいにする。<br/>
+危険だけどうまく使うとJSからJNI呼ぶみたいな、NaClみたいなこと出来て面白そう。<br/>
+　<br/>
+　</p>
+
+<h2>やってみたけど</h2>
+
+<p>ハッカソンではWebViewでユーザーインタフェースを書いてたけど、ビルドしなくても変更が反映されるの嬉しい。<br/>
+しかもWebViewは何もしなくても勝手にキャッシュされるのも嬉しい。</p>
+
+<p>しかし、僕はHTMLとCSSはあんまり書かないのでレイアウトうまく行かなくて深夜につらまってたし、端末ごとにCSS切り替えるのにMedia Queriesとやらを使ったけど全然言うこと聞かないし、サムスンの端末のキャッシュの挙動おかしいし(キャッシュ見にいくのに失敗してしかもサーバーからデータを取り直そうとしない)、サムスンの端末はGIFが動かなかったりするし、自分にWebViewのデバッグのノウハウがまったくないので、つらかった。<br/>
+　<br/>
+　</p>
+
+<h2>感想</h2>
+
+<p>ハイブリッドは万能じゃない、社会は厳しい。負けるな、開発者。</p>
+]]></content>
+  </entry>
+  
+</feed>

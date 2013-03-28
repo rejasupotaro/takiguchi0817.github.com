@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Namespace.js | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/namespace-dot-js/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[JavaScriptの名前空間]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/11/16/into-brook/"/>
+    <updated>2012-11-16T01:28:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/11/16/into-brook</id>
+    <content type="html"><![CDATA[<h2>大規模JavaScript案件</h2>
+
+<p>僕はあまりJavaScript書かないけど、大規模JavaScript案件すると変数とかかぶって滅ぶらしい。<br/>
+<a href="https://github.com/hirokidaichi/namespace-js">Namespace.js</a>とかいうの使うとパッケージ的なもの作れるらしいと聞いた。</p>
+
+<h2>使い方</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Namespace</span><span class="p">(</span><span class="s2">&quot;sample.widget&quot;</span><span class="p">)</span> <span class="c1">// 名前空間を定義</span>
+</span><span class='line'><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&quot;brook &lt;em&gt;&quot;</span><span class="p">)</span>            <span class="c1">// requireとかimport的ななにか</span>
+</span><span class='line'><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&quot;brook.model &lt;/em&gt;&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&quot;brook.util *&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">ns</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// この中にメソッドとか書く</span>
+</span><span class='line'>  <span class="nx">ns</span><span class="p">.</span><span class="nx">provide</span><span class="p">({</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="c1">// オブジェクト入れる</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>はーよくわからん。</p>
+
+<h2><a href="https://github.com/hirokidaichi/namespace-js/blob/master/src/namespace.js">Namespace.js</a>読んでみた</h2>
+
+<h4>一番最初のmerge関数</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">merge</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">p</span> <span class="k">in</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="p">(</span><span class="nx">source</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">p</span><span class="p">))</span> <span class="nx">target</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">=</span> <span class="nx">source</span><span class="p">[</span><span class="nx">p</span><span class="p">];</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>ターゲットにソースのプロパティが追加される。</p>
+
+<h4>次にProcedureの定義</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">Procedure</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_Private_Class_Of_Proc</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">merge</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">state</span><span class="o">:</span> <span class="p">{},</span>
+</span><span class='line'><span class="nx">steps</span><span class="o">:</span> <span class="p">[],</span>
+</span><span class='line'><span class="nx">_status</span><span class="o">:</span> <span class="s1">&#39;init&#39;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>windowオブジェクト + state + steps みたいな感じだ。そのあとnext、isRunning、enqueue、dequeue、call、_invokeが追加されてる。<br/>
+処理的なものsteps配列に追加されて、実行状態が init -> running -> finished と変化するようだ。</p>
+
+<h4>次にNamespaceObjectの定義</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">NamespaceObject</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_Private_Class_Of_NamespaceObject</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">merge</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">stash</span><span class="o">:</span> <span class="p">{</span> <span class="nx">CURRENT_NAMESPACE</span><span class="o">:</span> <span class="nx">fqn</span> <span class="p">},</span>
+</span><span class='line'><span class="nx">fqn</span><span class="o">:</span> <span class="nx">fqn</span><span class="p">,</span>
+</span><span class='line'><span class="nx">proc</span><span class="o">:</span> <span class="nx">createProcedure</span><span class="p">()</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>  <span class="p">})</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>windowオブジェクト + fqn + Procedure みたいな感じ。そのあとプロパティに色々追加されてる。</p>
+
+<h4>次、NamespaceObjectfactoryの定義</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">NamespaceObjectFactory</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">cache</span> <span class="o">=</span> <span class="p">{};</span>
+</span><span class='line'><span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">create</span> <span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">fqn</span><span class="p">){</span>
+</span><span class='line'>        <span class="nx">_assertValidFQN</span><span class="p">(</span><span class="nx">fqn</span><span class="p">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="p">(</span><span class="nx">cache</span><span class="p">[</span><span class="nx">fqn</span><span class="p">]</span> <span class="o">||</span> <span class="p">(</span><span class="nx">cache</span><span class="p">[</span><span class="nx">fqn</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NamespaceObject</span><span class="p">(</span><span class="nx">fqn</span><span class="p">)));</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">})();</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>fqnを引数に取って、NamespaceObjectを生成してる。cacheがクロージャなので、同じfqnからは同じNamespaceObjectを返すようになってる。<br/>
+NamespaceObjectはファクトリーで生成するっぽい。</p>
+
+<h4>最後、NamespaceDefinition</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">NamespaceDefinition</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_Private_Class_Of_NamespaceDefinition</span><span class="p">(</span><span class="nx">nsObj</span><span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">merge</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">namespaceObject</span><span class="o">:</span> <span class="nx">nsObj</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">requires</span>       <span class="o">:</span> <span class="p">[],</span>
+</span><span class='line'>    <span class="nx">useList</span>        <span class="o">:</span> <span class="p">[],</span>
+</span><span class='line'>    <span class="nx">stash</span>          <span class="o">:</span> <span class="p">{},</span>
+</span><span class='line'>    <span class="nx">defineCallback</span> <span class="o">:</span> <span class="kc">undefined</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">_self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'><span class="nx">nsObj</span><span class="p">.</span><span class="nx">enqueue</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$c</span><span class="p">){</span> <span class="nx">_self</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">$c</span><span class="p">);</span> <span class="p">});</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>なんというか、NamespaceObjectを渡してuse的な、require的な機能を追加している。useするとファクトリーが適切なNamespaceObjectを取得して、requiresに貯める感じだ。<br/>
+あとdefine、こいつに関数を渡してやると色々マージされたnsを引数にコールバックしてくれる。<br/>
+渡してやる関数の中でns.provideにオブジェクト渡すとNamespaceObjectにマージされて、いわゆるパブリック状態になるっぽい。</p>
+
+<h4>returnされるのは</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">createNamespace</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fqn</span><span class="p">){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">return</span> <span class="k">new</span> <span class="nx">NamespaceDefinition</span><span class="p">(</span>
+</span><span class='line'>    <span class="nx">NamespaceObjectFactory</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">fqn</span> <span class="o">||</span> <span class="s1">&#39;main&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">};</span>
+</span><span class='line'><span class="nx">merge</span><span class="p">(</span><span class="nx">createNamespace</span><span class="p">,</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="s1">&#39;Object&#39;</span>  <span class="o">:</span> <span class="nx">NamespaceObjectFactory</span><span class="p">,</span>
+</span><span class='line'><span class="nx">Definition</span><span class="o">:</span> <span class="nx">NamespaceDefinition</span><span class="p">,</span>
+</span><span class='line'><span class="nx">Proc</span>      <span class="o">:</span> <span class="nx">createProcedure</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span>
+</span><span class='line'><span class="k">return</span> <span class="nx">createNamespace</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>createNamespaceで、fqnを渡してやってNamespace受け取って、useしたりdefineしたりするみたい。</p>
+
+<p>眠たいので流し読みしたけど、なんとなく雰囲気だけわかった。</p>
+]]></content>
+  </entry>
+  
+</feed>

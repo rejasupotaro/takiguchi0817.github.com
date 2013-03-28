@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: LISP | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/lisp/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[この前飲み会で話したS式の話]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/03/07/sicp-hanseikai/"/>
+    <updated>2013-03-07T22:53:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/03/07/sicp-hanseikai</id>
+    <content type="html"><![CDATA[<p><blockquote class="twitter-tweet" lang="ja"><p>三四郎がちゃらい感じになってる件。 <a href="https://twitter.com/search/%23sicphansei">#sicphansei</a></p>&mdash; Hitoshi ASAIさん (@hito_asa) <a href="https://twitter.com/hito_asa/status/309606049814560769">2013年3月7日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" lang="ja"><p>チャラいとは... <a href="https://twitter.com/search/%23sicphansei">#sicphansei</a></p>&mdash; ねこはるさん (@halcat0x15a) <a href="https://twitter.com/halcat0x15a/status/309606266827862018">2013年3月7日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" lang="ja"><p>どきどきする。 <a href="https://twitter.com/search/%23sicphansei">#sicphansei</a></p>&mdash; Kanda Taikiさん (@konnyakmannan) <a href="https://twitter.com/konnyakmannan/status/309606337178898432">2013年3月7日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" lang="ja"><p>これまでの人生の全てを反省します <a href="https://twitter.com/search/%23sicphansei">#sicphansei</a></p>&mdash; ıɐɯɐu ıɥsoʇɐsさん (@ainame) <a href="https://twitter.com/ainame/status/309607801758560256">2013年3月7日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" lang="ja"><p>厳かな雰囲気で怖い <a href="https://twitter.com/search/%23sicphansei">#sicphansei</a></p>&mdash; レジャスポ太郎さん (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/status/309606522273558529">2013年3月7日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" lang="ja"><p>SICPを読むと年収が上がるらしい <a href="https://twitter.com/search/%23sicphansei">#sicphansei</a></p>&mdash; Akihiro Okunoさん (@choplin) <a href="https://twitter.com/choplin/status/309613209743130624">2013年3月7日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<p><a href="http://www.zusaar.com/event/535003">SICP読書会大反省会</a>でした。</p>
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/17005410" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
+
+
+<p> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/rejasupotaro/s-17005410" title="この前飲み会で話したS式の話" target="_blank">この前飲み会で話したS式の話</a> </strong> from <strong><a href="http://www.slideshare.net/rejasupotaro" target="_blank">rejasupotaro</a></strong> </div></p>
+
+<p>気がついたらLTをすることになってたのでLTをしました。渋谷近辺ではどの会社もだいたいSICP読書会をしているようですが、なかなか人が集まらなくて休止するところが多い中、一年で読み切った弊社はすごいんだなあと思いました。</p>
+
+<p>ちょっと僕はお酒に弱くすでにヘロヘロな状態でこの記事を書くのも限界なのですが、SICP読書会に参加してきた感想としては、世間で思われてるほどLISPは怖くないし、LISPerの方々もみんな優しくていい人ばかりでした。</p>
+
+<p>一年間ありがとうございました！</p>
+]]></content>
+  </entry>
+  
+</feed>

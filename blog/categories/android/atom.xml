@@ -1,0 +1,882 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Android | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[2013年 Androidアプリ開発で使いたいライブラリ]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/03/10/android-libraries/"/>
+    <updated>2013-03-10T22:35:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/03/10/android-libraries</id>
+    <content type="html"><![CDATA[<p>30億のデバイスのみなさん、こんにちは、ジャバです。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201303/javamonster.gif" alt="迫り来るジャバモンスター" /></p>
+
+<p>何の前触れもなく、2013年 Androidアプリ開発で使いたいライブラリを発表します。</p>
+
+<h2>JsonConverter => <a href="https://code.google.com/p/google-gson/">gson</a></h2>
+
+<p>JSONRPCでサーバーサイドと通信を行うときに、毎回パーサーを書くのは面倒なので、JsonConverterを使いたくなります。
+そこで開発ではgoogleが開発しているgsonを使っていました。
+NamingPolicyやDeserializerの使い方を覚えれば、手でjsonのパーサーを書くより圧倒的に楽で、</p>
+
+<pre><code>Person person = gson.fromJson(json, Person.class);
+</code></pre>
+
+<p>このように一行でjsonからオブジェクトに変換できるようになり、</p>
+
+<pre><code>String json = gson.toJson(person);
+</code></pre>
+
+<p>一行でオブジェクトからStringに変換することも出来ます。
+なので、preferenceに保存 => 復旧もすごく便利になります。もうSerializableはやめましょう！</p>
+
+<p>ただ、gsonは各々の型の変換のためにTypeAdapterを保持しているというのと、変換にはリフレクションを使っているので、パフォーマンスはあまり良くないです。
+また、レスポンスのjsonの構造がクラスになってしまうので、変換したクラスをそのままモデルとして使おうとすると柔軟性が下がってしまいます。なので、使うのであれば</p>
+
+<pre><code>json =&gt; api entity =&gt; model
+</code></pre>
+
+<p>ってしたい感じです。</p>
+
+<h2>ORM => <a href="https://www.activeandroid.com/">ActiveAndroid</a> or <a href="http://greendao-orm.com/">greenDAO</a></h2>
+
+<p>SQL文をHelperに記述してるときは人間らしい心を失いそうになります。そして、人間はtypoする生き物なのでDBのバージョンアップで死んだりすることもあります。<br/>
+そこでORMということになるのですが、AndroidのORMでは、RailsのAndroid版であるActiveAndroidというのがあります。
+ただし、Active Recordパターンの欠点もそのままなので、"構築が容易であり理解もしやすい"代償としてそのままでは複雑なロジックを扱いづらくなります。
+ドメイン層とパーシステンス層が一緒になったのがActive Recordパターンなので、Rubyみたいにmixinができる言語は良いけど、ジャバだとテストが書きづらくなるので、あまりオススメしない、って某氏が言ってました。
+データアクセスに関しては <a href="http://www.oracle.com/technetwork/jp/articles/index-087873-ja.html">データアクセスことはじめ</a> が勉強になりました。</p>
+
+<p>あまり規模が大きくないならActiveAndroidは記述量が減るし読みやすいしで、良い選択肢だと思います。
+それ以上なら、ORMLiteを高速化したgreenDAOを使うのが良いかもしれません。</p>
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/12321475" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
+
+
+<p> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/droidcon/green-dao" title="Green dao" target="_blank">Green dao</a> </strong> from <strong><a href="http://www.slideshare.net/droidcon" target="_blank">Droidcon Berlin</a></strong> </div></p>
+
+<h2>DI => <a href="https://github.com/roboguice/roboguice">RoboGuice</a> or <a href="https://github.com/hnakagawa/proton">Proton</a> or <a href="http://square.github.com/dagger/">Dagger</a></h2>
+
+<p>Fragmentのイベントを別のFragmentで作用させたいときに、interfaceを定義してActivity経由でlistenerを登録とかするとすぐにlistener地獄になってしまってつらいです。
+そういうときにContextSingletonなヘルパーをインジェクトして使うとめちゃ便利で、コードの見通しが良くなって仕様変更に強くなって心が豊かになってモテ始めたりすると思います。
+他にもテスト実行時にインジェクトするオブジェクトを切り替えられるとか、記述が楽になる以外にもメリットはたくさんあると思います。</p>
+
+<p>有名なのはRoboGuiceです。これはサーバーサイドのDIフレームワークのGuiceを、Androidでも使えるようにラップしたものです。
+サーバーサイドを想定して作られたものなので、無駄が多かったりするのですが、それなりにドキュメントがあって実績もあります。</p>
+
+<p>そんなRoboGuiceを見て後述のTriainaフレームワークの開発者の人が、
+「RoboGuice無駄に大きしTypeListenerとかいらんし、もっと早くて軽いのをフルスクラッチで書く」
+と言って作られたのがProtonです。いらない機能を削ってAndroidに最適化した結果、サイズもメモリ使用量も圧倒的に少なくなったとのことです。
+ただドキュメントがないので使うならRoboGuiceの知識が必須で、ソースコードを読みながらになると思います。</p>
+
+<p>RoboActivityとかProtonActivityとか継承したくない、かつコンテキストシングルトンとかいらない！というケースであれば、単純にインジェクトだけが出来るDagger良いです。</p>
+
+<h1>おわりに</h1>
+
+<p>もうちょっと書こうと思ったのですが意外と書くのがたいへんだったので突然ブログは終わります。他にも、</p>
+
+<ul>
+<li>event busの<a href="http://square.github.com/otto/">Otto</a></li>
+<li>WebView Bridgeの<a href="https://github.com/mixi-inc/triaina">Triaina</a></li>
+<li>Code Dietが出来る<a href="http://androidannotations.org/">AndroidAnnotations</a></li>
+<li>jQueryのAndroid版の<a href="https://code.google.com/p/android-query/">android-query</a></li>
+</ul>
+
+
+<p>とかあるので、また検証をしたら個別に記事を書こうと思います。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Androidアプリを作るときに気を付けること(セキュリティ)]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/01/15/android-security/"/>
+    <updated>2013-01-15T23:28:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/01/15/android-security</id>
+    <content type="html"><![CDATA[<h3>Androidセキュリティあるあるをまとめてみました。</h3>
+
+<p>　</p>
+
+<h4><input type="checkbox">アプリケーションデータディレクトリの外に個人情報を置いていないか？</h4>
+
+<p>基本的に個人情報はSDカードや他のディレクトリに置いてはいけません。
+どうしても置きたい場合は<a href="http://takiguchi0817.github.com/blog/2012/12/31/java-aes/">暗号化</a>します。</p>
+
+<h4><input type="checkbox">WebViewでGETパラメータでCookieやトークンを渡していないか？</h4>
+
+<p>LogCatに出てしまいます。ただし、Jelly Beanからは<a href="http://blog.2maru.com/archives/1700">LogCatが読めなくなりました</a>。</p>
+
+<h4><input type="checkbox">WebViewで許可されたドメイン以外にJavaScriptInterfaceが公開されていないか？</h4>
+
+<p>JavaScriptInterfaceからクラスローダーが取得できたりJNIが呼べたりしてしまうので<a href="https://www.google.co.jp/#hl=ja&amp;q=Android+WebView+%E5%8D%B1%E9%99%BA&amp;fp=1">たいへん危険</a>です。</p>
+
+<h4><input type="checkbox">ContentProviderのパーミッションは適切か？</h4>
+
+<p>コンテントプロバイダはデフォルトで公開されているので注意が必要です。
+また2.2以前だと<a href="http://www.taosoftware.co.jp/blog/2011/10/android_contentproviderexport.html">exportedをfalseにしていても</a>外部アプリから情報が読めてしまいます。</p>
+
+<h4><input type="checkbox">Broadcastのパーミッションは適切か？</h4>
+
+<p>パーミッションを付け忘れると外に情報が出てしまいます。
+またStickyブロードキャストはパーミッションが指定できないので個人情報を入れてはいけません。</p>
+
+<h4><input type="checkbox">端末固有の識別子をサーバ側でIDとして使っていないか？</h4>
+
+<p><a href="http://news.mynavi.jp/articles/2012/03/28/abc2012_06/index.html">怖い人</a>が飛んでくるおそれがあります。
+　<br/>
+　</p>
+
+<h3>まとめ</h3>
+
+<p>脆弱性のあるアプリを一度世に出してしまったら、いくらセキュリティパッチをあてたところで、ユーザにアップデートをしてもらえなければそれまでです。
+ちょっとした注意で防げるものもあるので、外部からの攻撃ならまだしも、こちら側で防げるものは確実に防いでおきたいですね。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[モヒートの飲み方]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/01/05/drink-mockito/"/>
+    <updated>2013-01-05T12:41:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/01/05/drink-mockito</id>
+    <content type="html"><![CDATA[<h1>mojito</h1>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201301/mojito.jpg" alt="" />
+モヒートは、キューバ・ハバナ発祥のカクテルの一つ。
+ラムをベースにソーダ、ライム、砂糖、ミントを加えたもの。
+ミントとソーダの清涼感が暑い夏にぴったりと、「夏と言えば」の定番カクテル。<br/>
+アーネスト・ヘミングウェイが好んで飲んでいた話は有名である。</p>
+
+<h1><a href="http://code.google.com/p/mockito/">mockito</a></h1>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201301/mockito.jpg" alt="" />
+Mockito is a mocking framework that tastes really good.</p>
+
+<p>ジャバのモックライブラリ。
+モックライブラリは他にもいろいろありますが<a href="http://code.google.com/p/mockito/wiki/MockitoVSEasyMock">EasyMockと比べても</a>、mockitoの方が簡潔に書けそう。
+というわけで、モヒートを飲んだあとのようにスカッとモックしたいので、どんなものか調べてみた。
+　<br/>
+　</p>
+
+<h2>導入</h2>
+
+<p>mockito本体と、Androidで動かすためにdexmakerとdexmaker-mockitoのjarをlibsに追加する。</p>
+
+<ul>
+<li><a href="http://code.google.com/p/mockito/downloads/list">mockitoのダウンロードはここから</a></li>
+<li><a href="http://code.google.com/p/dexmaker/downloads/list">dexmakerのダウンロードはここから</a></li>
+</ul>
+
+
+<p>またEclipseの設定に追加しておくとContent Assistが効くようになって良い。
+<img src="http://dl.dropbox.com/u/54255753/blog/201301/static_import.png" alt="" />
+　<br/>
+　</p>
+
+<h2>mockito使い方</h2>
+
+<ul>
+<li><a href="http://docs.mockito.googlecode.com/hg/org/mockito/Mockito.html">Mockito API</a></li>
+</ul>
+
+
+<p>良く使いそうなものだけをピックアップした。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDrinkMockito</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// mockでモックオブジェクトを作成する</span>
+</span><span class='line'><span class="n">List</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;</span><span class="n">String</span><span class="o">&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">mockedList</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="n">ArrayList</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="n">mockedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">mockedList</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// whenで引数ごとの返り値を決められる</span>
+</span><span class='line'><span class="n">when</span><span class="o">(</span><span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">)).</span><span class="na">thenReturn</span><span class="o">(</span><span class="s">&quot;first&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">when</span><span class="o">(</span><span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="na">thenThrow</span><span class="o">(</span><span class="k">new</span> <span class="n">RuntimeException</span><span class="o">());</span>
+</span><span class='line'><span class="n">assertEquals</span><span class="o">(</span><span class="s">&quot;first&quot;</span><span class="o">,</span> <span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span>
+</span><span class='line'><span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">fail</span><span class="o">(</span><span class="s">&quot;RuntimeExceptionがthrowされていない&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RuntimeException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// whenではanyInt()やanyString()やanyMap()のような指定の仕方もできる</span>
+</span><span class='line'><span class="n">when</span><span class="o">(</span><span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">anyInt</span><span class="o">())).</span><span class="na">thenReturn</span><span class="o">(</span><span class="s">&quot;element&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">assertEquals</span><span class="o">(</span><span class="s">&quot;element&quot;</span><span class="o">,</span> <span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">999</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// verifyでモックオブジェクトが対象のメソッドを実行したか確認できる</span>
+</span><span class='line'><span class="n">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">).</span><span class="na">clear</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// verifyはメソッドの実行回数も確認することができる</span>
+</span><span class='line'><span class="n">mockedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;bar&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">mockedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;bar&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="c1">// mockedList.add(&quot;bar&quot;)が2回呼ばれたことを確認する</span>
+</span><span class='line'><span class="n">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">,</span> <span class="n">times</span><span class="o">(</span><span class="mi">2</span><span class="o">)).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;bar&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="c1">// mockedList.add(&quot;bar&quot;)は1回も呼ばれなかったことを確認する</span>
+</span><span class='line'><span class="n">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">,</span> <span class="n">never</span><span class="o">()).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// verifyはメソッドの実行順序も確認することができる</span>
+</span><span class='line'><span class="n">mockedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">mockedList</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+</span><span class='line'><span class="n">InOrder</span> <span class="n">inOrder</span> <span class="o">=</span> <span class="n">inOrder</span><span class="o">(</span><span class="n">mockedList</span><span class="o">);</span>
+</span><span class='line'><span class="n">inOrder</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">inOrder</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">).</span><span class="na">clear</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// spyで部分的にメソッドを置き換えることもできる</span>
+</span><span class='line'><span class="n">List</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;</span><span class="n">String</span><span class="o">&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">spy</span> <span class="o">=</span> <span class="n">Mockito</span><span class="o">.</span><span class="na">spy</span><span class="o">(</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;</span><span class="n">String</span><span class="o">&amp;</span><span class="n">gt</span><span class="o">;());</span>
+</span><span class='line'><span class="n">doReturn</span><span class="o">(</span><span class="mi">100</span><span class="o">).</span><span class="na">when</span><span class="o">(</span><span class="n">spy</span><span class="o">).</span><span class="na">size</span><span class="o">();</span>
+</span><span class='line'><span class="n">spy</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">);</span> <span class="c1">// 実際のオブジェクトのメソッド呼び出し</span>
+</span><span class='line'><span class="n">spy</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="c1">// =&amp;gt; 100</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>とりあえずmock、when、verify、spyだけ覚えておけば大丈夫そう。
+テスト対象のオブジェクトを継承してモックオブジェクトを作るのに比べてるとだいぶ楽だ。
+　<br/>
+　</p>
+
+<h2>Mockitoによるビヘイビア駆動開発</h2>
+
+<h3><a href="http://docs.mockito.googlecode.com/hg/org/mockito/BDDMockito.html">MockitoBDD API</a></h3>
+
+<p>さらにMockitoBDDというもあって、それを使えばビヘイビアを先に記述してから開発するスペックファーストな実装ができる。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Seller</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="c1">// should implement</span>
+</span><span class='line'><span class="kd">public</span> <span class="n">Bread</span> <span class="nf">askForBread</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kd">class</span> <span class="nc">Shop</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="kd">private</span> <span class="n">Seller</span> <span class="n">mSeller</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">Shop</span><span class="o">(</span><span class="n">Seller</span> <span class="n">seller</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">mSeller</span> <span class="o">=</span> <span class="n">seller</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// should implement</span>
+</span><span class='line'><span class="kd">public</span> <span class="n">Goods</span> <span class="nf">buyBread</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">testShouldBuyBread</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">Seller</span> <span class="n">seller</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="n">Seller</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="n">Shop</span> <span class="n">shop</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Shop</span><span class="o">(</span><span class="n">seller</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//given  </span>
+</span><span class='line'><span class="n">given</span><span class="o">(</span><span class="n">seller</span><span class="o">.</span><span class="na">askForBread</span><span class="o">()).</span><span class="na">willReturn</span><span class="o">(</span><span class="k">new</span> <span class="n">Bread</span><span class="o">());</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//when</span>
+</span><span class='line'><span class="n">Goods</span> <span class="n">goods</span> <span class="o">=</span> <span class="n">shop</span><span class="o">.</span><span class="na">buyBread</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//then</span>
+</span><span class='line'><span class="n">assertThat</span><span class="o">(</span><span class="n">goods</span><span class="o">,</span> <span class="n">containBread</span><span class="o">());</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[仕事納め]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/12/29/end-of-the-day/"/>
+    <updated>2012-12-29T02:38:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/12/29/end-of-the-day</id>
+    <content type="html"><![CDATA[<h3>年の瀬とディペンデンシーインジェクション</h3>
+
+<p>穏便に2012年の仕事を終わらせたかったけど、ディペンデンシーフレームワークで殴り合いになった。</p>
+
+<p>本体のコードはインジェクトで書いてるのに、テストではモックをインジェクトで書けるようにしてなかったので // for test と書いてsetterを作っていたということで、某氏がコンストラクタインジェクションを使って書き直したことが発端となって、そのあとインジェクトされるオブジェクトのスコープの話にまで広がって、たいへんなことになった。<br/>
+　<br/>
+　</p>
+
+<h3>どこに依存性を注入すべきか</h3>
+
+<p>ProGuardでコンストラクタを消されないような設定を書く必要があるとか、設定をコンストラクタに書くようにするとラージコンストラクタになるので嫌だとか、そういう理由であまりコンストラクタインジェクションは使わないようにしていた。</p>
+
+<p style="background-color:#FFFFFF;border:1px solid #999999;padding:5px;font-size:14px">
+A:なぜコンストラクタインジェクションを使ってテストを書き直したのですか？<br>
+B:テストのためにsetterを付けるのは間違ってると思う。本体の実装にテストのためのコードを入れるのも良くない。<br>
+A:setterはProGuardで消されるし、ラージコンストラクタになることは避けたいです。<br>
+B:ProGuardで消されるからってテストのためのコードを書いていい理由にはなりませんよね？本体のコードがテストがある前提で書かれるのはおかしいと思います。<br>
+A:僕はおかしいとは思いません。そもそもテストコードがないという状態はありえませんし。コンストラクタインジェクションだと、ProGuardに消されないように設定を書く必要がありますよね。<br>
+B:いや、しかし…<br>
+</p>
+
+
+<p>〜20分経過〜</p>
+
+<h3>結論</h3>
+
+<p style="background-color:#FFFFFF;border:1px solid #999999;padding:5px;font-size:14px">
+A:分かりました。じゃあセッターインジェクションにしましょう。それなら僕も大丈夫です。<br>
+B:それも完全には良いと思わないですけどね。<br>
+</p>
+
+
+<p>　<br/>
+　</p>
+
+<h3>オブジェクトのスコープをどうするか</h3>
+
+<p><span style="color:red">Androidのコンテキストのライフサイクルに合わせてオブジェクトを保持したいので、デフォルトのスコープをコンテキストシングルトンにしたい</span> VS <span style="color:blue">すべてのオブジェクトがコンテキストのライフサイクルに結びついているわけじゃないのでその都度生成するようにしたい</span></p>
+
+<p style="background-color:#FFFFFF;border:1px solid #999999;padding:5px;font-size:14px">
+A:コンテキストシングルトンで生成されたオブジェクトはDIコンテナが持ってるのでアクティビティが消えると消えます。結局入出力なので、ユーザーでもフレームワークでもコンテキストが一意に定まって、その中で動くからコンテキストシングルトンが良いんじゃないですかね。<br>
+B:まず、コンテキストシングルトンは事故を少なくするものじゃなくて、無駄をなくそうってものという認識は合ってますか？<br>
+A:アプリケーションシングルトンとコンテキストシングルトンだったら、コンテキストシングルトンを使おうっていうのはいいですよね。<br>
+B:それも場合によると思います。<br>
+A:都度生成だと、アクティビティとアクティビティのヘルパーでモデルを操作するときに、そのモデルが別のオブジェクトになって事故が起こったりしますよね。<br>
+B:事故るってなんですか？事故が起こると思わない。都度生成が一番事故が起こらないんですよね？<br>
+A:僕はそうは思わない。データの不整合が起こるケースと、どういったメリット・デメリットがあるか整理されてますかね。永続化するかどうかの話が混ざってますよね。<br>
+B:永続化するかではないです。<br>
+C:コンテキストシングルトンとノースコープが混ざっても事故は起こりませんっていうのは大丈夫ですか？<br>
+B:さっきの話とちがって、アプリケーションシングルトンが混ざると変わってくるんですよね。<br>
+C:ステートフルなものが混ざってくると変わってきますね。<br>
+A:全部がステートレスならいいのですが、それはありえませんよね。モデルが都度生成されてオブジェクトが変わってしまうと困りますよね。<br>
+B:でもモデルはDBなりファイルなりに入ってるので大丈夫ですよね。<br>
+A:モデルはキャッシュとかクライアントの接続とかを持ってます。そいつらのリソースをディプリケートして整合性を持たせるのは難しいですよね。だったらコンテキストシングルトンにしましょうよ。<br>
+B:キャッシュはコンテキストに依存してないですよね。コンテキストに依存してないものは…<br>
+A:ちょっと今モデル層にあるものを見てみてくださいよ。<br>
+B:クライアントってステートフルですか？<br>
+A:モデルはステーフルにならざるを得ない。<br>
+B:そのケースだけではない。<br>
+</p>
+
+
+<p>〜議論が白熱〜</p>
+
+<p style="background-color:#FFFFFF;border:1px solid #999999;padding:5px;font-size:14px">
+A:アクティビティとヘルパーで保持するステートフルなモデルが違うオブジェクトだと困りますよね？<br>
+B:DBからとってくるときはだいじょうぶですよね。あとサーバーから取ってきたり。<br>
+A:キャッシュに関してはキャッシュ機構の話ですよね。キャッシュ機構を変えるべきですが、現実問題として今それはできません。<br>
+B:でもデフォルトでコンテキストスコープなのは良くない。<br>
+A:だから…<br>
+B:デフォルトでコンテキストシングルトンはふさわしくない。<br>
+C:スコープが混ざると広い方のスコープが適用されてオブジェクトを保持し続けてメモリリークが起こったりカオスになるので、デフォルトはコンテキストシングルトンにしてそれ以外のスコープを定義するときは話し合うようにしませんか？禁止じゃなくてやるなら話し合いましょうということです。<br>
+B:でもデフォルトはコンテキストシングルトンにするんですよね。<br>
+A:すべてのケースをカバー出来るスコープなんてありません。なので一番マジョリティなケースに合わせましょう。<br>
+B:ケースを考えないでデフォルトを設定するのは「publicにしとけばどこからでもアクセスできるし値を書き換えなきゃ安全なのでとりあえずpublicにしましょう」みたいなものじゃないですか？<br>
+A:でもべつにコンテキストシングルトンだったらメモリ使用量も節約できるし、悪いことないじゃないですか。<br>
+B:デフォルトでコンテキストシングルトンはない。Guiceではgetterより生成のコストが低いと書いてあったし、わざわざコンテキストシングルトンにはしたくない。<br>
+A:それに関して言うとGuiceはサーバーサイドで使われていたので、getterより生成のコストが低いっていうのは、何千ものリクエストが同時に走るような状況では、リクエストシングルトン、つまりリクエストごとにオブジェクトを生成した方が速いということではないですか？<br>
+B:Guiceはサーバーサイドを前提に作られたわけではない。<br>
+C:ではなにをデフォルトにしますか？<br>
+B:デフォルトをとりあえず動くものにするのは良くない。どっちでも動けば問題ないということにはしたくない。ステートのスコープに合わせてオブジェクトを定義しないといけない。<br>
+C:ステートフルのときは考えないといけないよねって話ですよね。<br>
+B:大多数でルールを決めるのはあほらしい。青信号の時間が長いので確認しないで渡りましょうみたいなものじゃないですか。<br>
+A:コンテキストシングルトンは自分の判断で使っていいけど、それ以外は話そうで良いんじゃないですか。<br>
+</p>
+
+
+<p>〜さらに議論が白熱〜
+　<br/>
+　</p>
+
+<h3>結論</h3>
+
+<p>う、うーん…。<br/>
+　<br/>
+　</p>
+
+<h3>僕は思った</h3>
+
+<p>デフォルトをどちらのスコープにしても、レビューを通して適切なスコープでオブジェクトが管理されるようになると思ったけど、それとは別に開発のしやすさでいうと、</p>
+
+<ul>
+<li>デフォルトでコンテキストシングルトン ＞ その都度生成</li>
+</ul>
+
+
+<p>ってなって、事故の起こりやすさが</p>
+
+<ul>
+<li>デフォルトでコンテキストシングルトン ＜ その都度生成</li>
+</ul>
+
+
+<p>となるのかなとって思った。なのでみんなの意識が高まっている状態ならば、デフォルトはコンテキストシングルトンでいいんじゃないかって思った。</p>
+
+<p><blockquote class="twitter-tweet" lang="ja"><p>なぜ人は争うのか</p>&mdash; レジャスポ太郎さん (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/status/284507403934896128" data-datetime="2012-12-28T03:53:45+00:00">12月 28, 2012</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<p>そんな、2012年の最終出社日でした。<br/>
+　<br/>
+　<br/>
+　</p>
+
+<p>そのあとなぜかピープパポの忘年会行ってた。<br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201212/party.gif" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[トリアイナってなに？]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/12/24/triaina/"/>
+    <updated>2012-12-24T21:55:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/12/24/triaina</id>
+    <content type="html"><![CDATA[<h2>はじめに</h2>
+
+<p><a href="http://alpha.mixi.co.jp/2012/11576/">Titanium? いいえ、Triainaです。</a></p>
+
+<p>トリアイナは、先端が三つに分かれた漁具あるいは武器の一種。ギリシア神話の海神ポセイドンが持つ三叉の矛として知られる。 <a href="http://ja.wikipedia.org/wiki/%E3%83%88%E3%83%AA%E3%82%A2%E3%82%A4%E3%83%8A">wikipediaより</a></p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Angelo_Bronzino_048.jpg/220px-Angelo_Bronzino_048.jpg" alt="ポセイドーンの肖像画" /></p>
+
+<p>ギリシャ神話詳しく知らないけど、ポセイドンがトライデント(Triaina)でタイタン(Titanium)を倒した話に掛けてるのかも。<br/>
+　<br/>
+　</p>
+
+<h2>トリアイナ概要</h2>
+
+<p>Triainaはhnakagawa氏が中心になって作ったスマートフォンアプリ開発のフレームワークです。<br/>
+ハイブリッドアプリ開発のフレームワークの中でもネイティブ寄りかなって思います。</p>
+
+<p>Androidが提供するネイティブとWebViewの連携のしくみは、以前に<a href="http://takiguchi0817.github.com/blog/2012/11/29/about-android-webview/">ブログに書いた</a>通りです。</p>
+
+<p>Androidが提供するしくみでハイブリッドアプリを作ろうと思うと、</p>
+
+<ul>
+<li>プロトコルを考えて</li>
+<li>プロトコルに従ったのパーサーを書いて</li>
+<li>コールバックのしくみを作る</li>
+</ul>
+
+
+<p>必要があります。</p>
+
+<p>公式ブログの画像を引用すると、<br/>
+<img src="http://alpha.mixi.co.jp/images/triaina3.png" alt="Triaina概要" /><br/>
+このように、メソッド名を指定することでコールバックまで含めてよろしくやってくれるみたいです。<br/>
+　<br/>
+　<br/>
+<a href="https://github.com/mixi-inc/triaina">mixi-inc / triaina</a>
+　<br/>
+　</p>
+
+<h2>JavaScriptの実装</h2>
+
+<p>サンプルにあるとおりですが、</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">WebBridge</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="s1">&#39;form.media.click&#39;</span><span class="p">,</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">filter</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;jpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">],</span>
+</span><span class='line'><span class="nx">max</span><span class="o">:</span> <span class="mi">1</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="c1">// response data</span>
+</span><span class='line'><span class="c1">// {</span>
+</span><span class='line'><span class="c1">//     bridge: &quot;1.1&quot;,</span>
+</span><span class='line'><span class="c1">//     dest: &quot;form.media.click&quot;,</span>
+</span><span class='line'><span class="c1">//     result: [{</span>
+</span><span class='line'><span class="c1">//         id: &quot;xxxxxxx&quot;,</span>
+</span><span class='line'><span class="c1">//         filename: &quot;&quot;,</span>
+</span><span class='line'><span class="c1">//     }]</span>
+</span><span class='line'><span class="c1">// }</span>
+</span><span class='line'><span class="c1">// create input data &amp;amp; added input value</span>
+</span><span class='line'><span class="nx">fileStoreElement</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>destとjsonとcallbackを引数にWebBridgeのcallを呼ぶみたいですね。callの実装は、</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>triaina/javascript/bridge.js  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">call</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dest</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">bridge</span><span class="o">:</span> <span class="nx">BRIDGE_VERSION</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">dest</span><span class="o">:</span> <span class="nx">dest</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">params</span><span class="o">:</span> <span class="nx">params</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">getId</span><span class="p">()</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">execute</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">};</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">execute</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">requestJSON</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nx">callback</span> <span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span> <span class="nx">request</span><span class="p">.</span><span class="nx">id</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">_callbackTable</span><span class="p">[</span><span class="nx">request</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">callback</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">if</span><span class="p">(</span><span class="nx">existsDeviceBridge</span><span class="p">()){</span>
+</span><span class='line'>    <span class="nb">window</span><span class="p">.</span><span class="nx">DeviceBridge</span><span class="p">.</span><span class="nx">notifyToDevice</span><span class="p">(</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">requestJSON</span><span class="p">));</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">onStart</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>        <span class="nb">window</span><span class="p">.</span><span class="nx">DeviceBridge</span><span class="p">.</span><span class="nx">notifyToDevice</span><span class="p">(</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">requestJSON</span><span class="p">));</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">_isEnableBridge</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">_buildBridge</span><span class="p">();</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;not found DeviceBridge JavaScriptInterface&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;stack DeviceBridge notity&quot;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">requestJSON</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>こんな感じになってます。callbackはJSONRPCでいうところのIDをキーにハッシュで管理されているようです。<br/>
+JavaScriptが実行できるタイミングになったらネイティブ側に通知したり、逆にネイティブ側が実行できるようになったタイミングでメソッドを遅延呼び出ししたり、そういう細かい制御をしてくれてるようです。<br/>
+　<br/>
+　</p>
+
+<h2>Javaの実装</h2>
+
+<p>前にも書きましたが、Java側には、</p>
+
+<ul>
+<li>インジェクト</li>
+<li>バイナリのダイナミックローディング</li>
+<li>ネイティブ・ブラウザ間のメソッドの相互呼び出し</li>
+</ul>
+
+
+<p>の3つの機能があります(って聞きました)。</p>
+
+<p>インジェクトは2012年12月24日現在は、RoboGuiceをベースに作ってあります。(DIコンテナは、RoboGuice自体がGuiceのラップしたもので重いので、<a href="https://github.com/square/Dagger">Dagger</a>をベースに書き直したいと聞きました)。<br/>
+なので、トリアイナはハイブリッドアプリ開発のフレームワークとして公開されてますが、トリアイナのjarを入れればインジェクトでアプリが書けるようになります。</p>
+
+<p>それはそれで、ネイティブ・ブラウザ間のメソッド呼び出しのしくみです。<br/>
+まず、Activityです。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Layout</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">mywebview</span><span class="o">)</span>    <span class="c1">// 使用するlayoutのリソース</span>
+</span><span class='line'><span class="nd">@WebViewBridge</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">mywebview</span><span class="o">)</span> <span class="c1">// 使用するWebViewBridgeのリソース</span>
+</span><span class='line'><span class="nd">@Domain</span><span class="o">({</span> <span class="s">&quot;rejasupotaro.com&quot;</span><span class="o">,</span> <span class="s">&quot;rejamotion.com&quot;</span> <span class="o">})</span> <span class="c1">// 許可するドメイン</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyWebViewActivity</span> <span class="kd">extends</span> <span class="n">AbstractWebViewBridgeActivity</span> <span class="o">{</span>
+</span><span class='line'>  <span class="o">....</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>DomainアノテーションでJavaScriptを実行するドメインを指定します。じゃないとWebViewはJavaのクラスローダーが呼べたりJNIが使えたりして危険だからです。</p>
+
+<p>ブラウザから呼び出すメソッドは、Bridgeアノテーションを付けて宣言します。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Bridge</span><span class="o">(</span><span class="s">&quot;hoge.action.method&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">hogeActionMethod</span><span class="o">(</span><span class="n">HogeActionParams</span> <span class="n">params</span><span class="o">,</span> <span class="n">Callback</span><span class="o">&lt;</span><span class="n">HogeActionResult</span><span class="o">&gt;</span> <span class="n">callback</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="o">....</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Parcerableなtriaina.webview.entity.Paramsを継承したクラスと、Parcerableなtriaina.webview.entity.Resultを継承したクラスをジェネリクス型に持つtriaina.webview.Callbackを引数に取ります。<br/>
+JavaScript側からJSON形式で値が渡せば、自動的に値がエンティティにバインドされます。</p>
+
+<p>呼び出される仕組みを見てみます。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>triaina/android/WebViewBridge/src/triaina/webview/WebViewBridge.java   </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">call</span><span class="o">(</span><span class="n">String</span> <span class="n">dest</span><span class="o">,</span> <span class="n">Params</span> <span class="n">params</span><span class="o">,</span> <span class="n">Callback</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;?&gt;</span> <span class="n">callback</span><span class="o">)</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="o">(</span><span class="n">isDestroyed</span><span class="o">)</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">mSeq</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+</span><span class='line'><span class="n">String</span> <span class="n">js</span> <span class="o">=</span> <span class="n">notifyToWebInternal</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">dest</span><span class="o">,</span> <span class="s">&quot;params&quot;</span><span class="o">,</span> <span class="n">params</span><span class="o">);</span>
+</span><span class='line'><span class="k">if</span> <span class="o">(</span><span class="n">js</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">callbacks</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">callback</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span> <span class="n">js</span><span class="o">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="kd">private</span> <span class="n">String</span> <span class="n">notifyToWebInternal</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">dest</span><span class="o">,</span> <span class="n">String</span> <span class="n">container</span><span class="o">,</span> <span class="n">Object</span> <span class="n">data</span><span class="o">)</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">JSONObject</span> <span class="n">json</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="o">();</span>
+</span><span class='line'>    <span class="n">JSONObjectUtils</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="s">&quot;bridge&quot;</span><span class="o">,</span> <span class="n">VERSION</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">JSONObjectUtils</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">dest</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class='line'>        <span class="n">JSONObjectUtils</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="s">&quot;dest&quot;</span><span class="o">,</span> <span class="n">dest</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">JSONObject</span> <span class="n">jsonData</span> <span class="o">=</span> <span class="n">JSONConverter</span><span class="o">.</span><span class="na">toJSON</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">JSONObjectUtils</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="n">container</span><span class="o">,</span> <span class="n">jsonData</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+</span><span class='line'>    <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Notify to Web with &quot;</span> <span class="o">+</span> <span class="n">s</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">String</span> <span class="n">js</span> <span class="o">=</span> <span class="n">mHelper</span><span class="o">.</span><span class="na">makeJavaScript</span><span class="o">(</span><span class="s">&quot;WebBridge.notifyToWeb&quot;</span><span class="o">,</span> <span class="n">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">s</span><span class="o">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">loadUrl</span><span class="o">(</span><span class="n">js</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">js</span><span class="o">;</span><span class="c1">// for test</span>
+</span><span class='line'><span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">exp</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">exp</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="n">exp</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><a href="https://github.com/mixi-inc/triaina/blob/master/android/Commons/src/triaina/commons/json/JSONConverter.java">triaina.commons.json.JSONConverter</a>でParamsオブジェクトをJSONに変換しているみたいです。</p>
+
+<p>どのようにJSONに変換しているかというと、</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="n">JSONObject</span> <span class="nf">toJSON</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">bundle</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">JSONConvertException</span> <span class="o">{&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">if</span> <span class="o">(</span><span class="n">bundle</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">JSONObject</span> <span class="n">json</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="o">();</span>
+</span><span class='line'><span class="n">Set</span><span class="o">&amp;</span><span class="n">lt</span><span class="o">;</span><span class="n">String</span><span class="o">&amp;</span><span class="n">gt</span><span class="o">;</span> <span class="n">keySet</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+</span><span class='line'><span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">key</span> <span class="o">:</span> <span class="n">keySet</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="n">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">bundle</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span> <span class="n">json</span><span class="o">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>こんな感じで、Bundleとして処理して変換していますね。<br/>
+逆にブラウザから受け取ったJSONは、JSONConverter内で再帰的にリフレクションを使ったりして、Javaのオブジェクトに変換しているようです。<br/>
+　<br/>
+　</p>
+
+<h2>iOSの実装</h2>
+
+<p>わからん。<br/>
+　<br/>
+　</p>
+
+<h2>まとめ</h2>
+
+<p>今時のアプリはハイブリッド！みたいな声を良く聞きますが、ハイブリッドって言ってもいろんなタイプがあるし、どういうのが最適なのか僕も分かりません。<br/>
+いろんな実装を見ながら僕だけのハイブリッドを見つけていきたいです。</p>
+]]></content>
+  </entry>
+  
+</feed>

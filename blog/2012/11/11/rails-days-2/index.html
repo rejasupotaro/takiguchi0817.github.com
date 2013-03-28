@@ -1,0 +1,232 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Rails Days 2 - Just posted a blog</title>
+    <meta name="author" content="rejasupotaro">
+    
+	<meta name="description" content="DBとかモデルとかいじる MySQLのインストール $ sudo aptitude update
+$ aptitude install mysql-server
+$ aptitude install libmysqlclient-dev
+$ mysqladmin ping -u root -p &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36257112-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        rejasupotaro
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Rails Days 2</h2>
+	<div class="entry-content"><h2>DBとかモデルとかいじる</h2>
+
+<h3>MySQLのインストール</h3>
+
+<pre><code>$ sudo aptitude update
+$ aptitude install mysql-server
+$ aptitude install libmysqlclient-dev
+$ mysqladmin ping -u root -p
+Enter password: ****
+mysqld is alive
+</code></pre>
+
+<p>インストール中にrootのパスワード聞かれた。<br/>
+そのパスワードでpingして存命確認した。</p>
+
+<h3>ユーザーの作成</h3>
+
+<p>作成する。</p>
+
+<pre><code>$ mysql -u root -p
+mysql&gt; CREATE USER betterflow@localhost IDENTIFIED BY 'hogehoge';
+mysql&gt; GRAND ALL ON *.* TO betterflow@localhost;
+mysql&gt; FLUSH PRIVILEGES;
+</code></pre>
+
+<p>確認する。</p>
+
+<pre><code>mysql&gt; use mysql;
+mysql&gt; SELECT Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv FROM user;
+</code></pre>
+
+<h3>RailsでMySQLを使えるようにする</h3>
+
+<p>Gemfileで gem &#8216;sqlite3&#8217; を gem &#8216;mysql2&#8217; に変えた。</p>
+
+<pre><code>$ bundle install --path vender/bundle
+$ vim config/database.yml
+development:
+  adapter: mysql2
+  database: betterflow
+  username: betterflow
+  password: hogehoge
+  pool: 5
+  timeout: 5000
+$ rake db:create
+</code></pre>
+
+<p>DBにアクセスできるようにした。</p>
+
+<h3>モデルを作る</h3>
+
+<pre><code>$ rails generate model track track_name:string artist_name:string release_date:date preview_url:string jacket_image_url:string track_view_url:string
+$ rake db:migrate
+</code></pre>
+
+<h3>モデルの型の変更</h3>
+
+<p>release_dateをdate型にしたけどstring型の方が都合が良かった、変えたい。</p>
+
+<pre><code>$ rails generate migration change_release_date_type
+$ vim db/migrate/20121111051853_change_release_date_type.rb
+class ChangeReleaseDateType &lt; ActiveRecord::Migration
+  def change
+    change_column :tracks, :release_date, :string
+  end
+end
+$ rake db:migrate
+</code></pre>
+
+<p>すごい。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    rejasupotaro
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

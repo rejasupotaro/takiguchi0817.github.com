@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Jenkins | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/jenkins/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[無限デプロイ]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/12/16/vote/"/>
+    <updated>2012-12-16T13:05:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/12/16/vote</id>
+    <content type="html"><![CDATA[<p>ブログのデザインを可愛くしました。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/top.png" alt="TOP" /></p>
+
+<p>ついでにGitHubへのpushをhookにしてブログを自動デプロイするようにして、選挙に行った。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/sampo.gif" alt="近所" /></p>
+
+<p>戻ってきたらJenkinsがfetchしてgenerateしてdeployという一連の流れをひたすら反復してて、そのさまを見てひとしきり笑ったあと真顔でローカルのコミットにhookするように修正した。<br/>
+　<br/>
+何が起こったかというと、Octopressはページを生成したあと成果物をGitHubにプッシュする(じゃないとブログ反映されないし)ので、そうするとそれをhookしてJenkinsがまたリポジトリを見に行ってしてページを生成してしてプッシュして…を繰り返してた。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[JenkinsでAndroidをCIしたかった]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/12/10/android-ci/"/>
+    <updated>2012-12-10T00:46:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/12/10/android-ci</id>
+    <content type="html"><![CDATA[<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/jenktocat.jpg" alt="jenktocat" />
+GitHubにあるAndroidプロジェクトにプッシュしたらJenkinsがビルドしてテストするというのを実現したかった。</p>
+
+<h2>手順</h2>
+
+<ul>
+<li>Jenkinsをインストールする</li>
+<li>Androidをantでビルドする</li>
+<li>JenkinsでAndroidをビルドする</li>
+<li>GitHubにプッシュしたらビルドを行う</li>
+</ul>
+
+
+<p>ってする。</p>
+
+<h3>Jenkinsをインストールする</h3>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+</span><span class='line'>$ sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+</span><span class='line'>$ sudo aptitude update
+</span><span class='line'>$ sudo aptitude install jenkins
+</span><span class='line'>$ sudo service jenkins start</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>http://yourhost:8080にアクセスするとJenkinsさん動いてるの確認できる。<br/>
+新規ジョブ作って定期実行するだけで、</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/success.png" alt="Hello rejasupotaro" /></p>
+
+<p>1分毎にハローって言うかわいい。<br/>
+これだけでもカンタンにcronの管理が出来そうな感じ。</p>
+
+<h4>Jenkinsにプラグインを入れる</h4>
+
+<p>Jenkinsの管理 -> プラグインの管理 -> 利用可能のタブから</p>
+
+<ul>
+<li>Android Emulator Plugin</li>
+<li>GitHub Plugin</li>
+</ul>
+
+
+<p>入れる。</p>
+
+<h3>Androidをantでビルドする</h3>
+
+<p>まずant入れる。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo aptitude install ant</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>bashrcに追記した。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ANDROID_HOME=/var/lib/jenkins/tools/android-sdk
+</span><span class='line'>PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>この時点でAndroidのリストを見てみる。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ android list target
+</span><span class='line'>id: 1 or "android-9"↲&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;pre>&lt;code> Name: Android 2.3.1
+</span><span class='line'> Type: Platform
+</span><span class='line'> API level: 9
+</span><span class='line'> Revision: 2
+</span><span class='line'> Skins: WVGA854, WQVGA400, HVGA, QVGA, WQVGA432, WVGA800 (default)
+</span><span class='line'> ABIs : armeabi
+</span><span class='line'>&lt;/code>&lt;/pre>
+</span><span class='line'>
+</span><span class='line'>&lt;p></span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>はい。<br/>
+プロジェクトはルートのディレクトリがあって、その下にアプリのプロジェクトとテストプロジェクトがあるっていう感じ。なので、</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ android update project -p ./MyAppTest --target android-9
+</span><span class='line'>$ android update test-project -p MyAppTest/ -m ~/develop/projects/MyProjet/MyApp</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>設定ファイルとかが作られる。<br/>
+ant clean debugとかしてみて、モジュールが足りなかったりしたらlddとかしながら頑張って入れる。<br/>
+モジュールが足りないとadb: No such file or directoryとかなる。</p>
+
+<p><a href="http://source.android.com/source/initializing.html">Initializing a Build Environment</a><br/>
+ここを見ればだいたい解決する(はず)。</p>
+
+<h3>JenkinsでAndroidをビルドする</h3>
+
+<p>Jenkinsで新規ジョブを作成して実行する。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>emulator: ERROR: Could not load OpenGLES emulation library: libX11.so.6 #=> 試しにビルドしたらコケる&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>$ sudo aptitude install libx11-6:i386 #=> 試しに入れてみる&lt;/p>
+</span><span class='line'>
+</span><span class='line'>&lt;p>Could not load OpenGLES emulation library #=>コケる
+</span><span class='line'>Failed to load libEGL_translator.so #=> なんか読めてない</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>でlibEGLを入れるとまたlibX11.soがないと言われ、libX11.soを入れると（ryの無限ループになった。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/failed.png" alt="failed..." /></p>
+
+<p>うーん。わからん。</p>
+
+<h3>GitHubにプッシュしたらビルドを行う</h3>
+
+<p>GitHubに鍵を登録する。</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo -u jenkins -H git config --global user.emal "jenkins@rejasupotaro.com"
+</span><span class='line'>$ sudo -u jenkins -H git config --global user.name "jenkins"
+</span><span class='line'>$ sudo -u jenkins -H ssh-keygen -t rsa -C jenkins@rejasupotaro.com
+</span><span class='line'>[sudo] password for rejasupotaro:
+</span><span class='line'>Generating public/private rsa key pair.
+</span><span class='line'>Enter file in which to save the key (/var/lib/jenkins/.ssh/id_rsa):
+</span><span class='line'>Created directory '/var/lib/jenkins/.ssh'.
+</span><span class='line'>Enter passphrase (empty for no passphrase):
+</span><span class='line'>Enter same passphrase again:
+</span><span class='line'>Your identification has been saved in /var/lib/jenkins/.ssh/id_rsa.
+</span><span class='line'>Your public key has been saved in /var/lib/jenkins/.ssh/id_rsa.pub.</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>鍵をcatしてコピペしてGitHubに貼る。<br/>
+　<br/>
+　<br/>
+　<br/>
+エミュレーターが動くようになったらHooksに登録してビルドするようにしたい。</p>
+]]></content>
+  </entry>
+  
+</feed>

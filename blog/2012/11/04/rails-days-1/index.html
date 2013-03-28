@@ -1,0 +1,287 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Rails Days 1 - Just posted a blog</title>
+    <meta name="author" content="rejasupotaro">
+    
+	<meta name="description" content="Railsを始めるまで さくらのVPSのOS再インストール カスタムインストール(Ubuntu) VNCコンソールはかなり厄介。
+Macを10.8.02にしたらJava Preferencesがなくなってた＆Ubuntuだとよく分からないけど動かなかった。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36257112-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        rejasupotaro
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">Rails Days 1</h2>
+	<div class="entry-content"><h1>Railsを始めるまで</h1>
+
+<h2>さくらのVPSのOS再インストール</h2>
+
+<h3>カスタムインストール(Ubuntu)</h3>
+
+<p>VNCコンソールはかなり厄介。<br/>
+Macを10.8.02にしたらJava Preferencesがなくなってた＆Ubuntuだとよく分からないけど動かなかった。<br/>
+しかたなくWindowsを持ってきてなんとか起動した。Windowsがなかったら詰んでた。</p>
+
+<p>VNCコンソールさえ起動できれば問題なくインストールできた。</p>
+
+<h2>サーバーの設定</h2>
+
+<h3>rootのパスワードの設定</h3>
+
+<pre><code>$ sudo passwd root
+</code></pre>
+
+<h3>必要なパッケージ集める</h3>
+
+<pre><code>$ aptitude install gcc
+$ aptitude install build-essential g++
+$ aptitude install make
+$ aptitude install vim
+$ aptitude install git
+$ aptitude install curl
+</code></pre>
+
+<h2>Rails関連のインストール</h2>
+
+<h3>RVM</h3>
+
+<pre><code>$ curl -L https://get.rvm.io | bash -s stable --ruby --trace
+$ source .bashrc
+</code></pre>
+
+<h3>Bundler</h3>
+
+<pre><code>$ gem install bundler --pre
+</code></pre>
+
+<h3>Rails</h3>
+
+<pre><code>$ gem install rails↲
+</code></pre>
+
+<h2>Railsをちょっとやる</h2>
+
+<h3>プロジェクトの作成</h3>
+
+<pre><code>$ rails new MyProject
+</code></pre>
+
+<h3>gemのインストール</h3>
+
+<pre><code>$ bundle install --path vendor/bundle
+</code></pre>
+
+<h3>ControllerとActionとViewの作成</h3>
+
+<pre><code>$ rails generate controller info index
+</code></pre>
+
+<p>rails generate controller コントローラー名 アクション名<br/>
+コントローラーを作成するとビューもできる。</p>
+
+<h3>ルーティングの設定</h3>
+
+<p>rootをindexに向ける。</p>
+
+<pre><code>$ vim config/routes.rb
+MyProject::Application.routes.draw do
+  root :to =&gt; "info#index"
+  get "info/index""
+end
+</code></pre>
+
+<h3>ルーティングの確認</h3>
+
+<pre><code>$ rake routes
+  info_index GET /info/index(.:format)         info#index
+  root           /                             info#index
+</code></pre>
+
+<h3>サーバー起動時に何か処理をさせる</h3>
+
+<pre><code>$ vim lib/init.rb
+module Initializer
+  def init
+    puts 'Now Initializing...'
+  end
+end
+
+$ vim config/boot.rb
+require 'rubygems'
+
+# Set up gems listed in the Gemfile.
+ENV['BUNDLE_GEMFILE'] ||= FILE.expand_path('../../Gemfile', __FILE__)
+
+require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
+
+require File.expand_path('../../lib/init', __FILE__)
+include Initializer
+init()
+</code></pre>
+
+<h3>autoloadを有効にする</h3>
+
+<p>config/application.rbに、</p>
+
+<pre><code># Custom directories with classes and modules you want to be autoloadable.
+# config.autoload_paths += %W(#{config.root}/extras)
+</code></pre>
+
+<p>って書いてあったので、</p>
+
+<pre><code>config.autoload_paths += %W(#{config.root}/lib)
+config.autoload_paths += Dir["#{config.root}/lib/**/"]
+</code></pre>
+
+<p>追加した。</p>
+
+<h3>サーバーの起動</h3>
+
+<pre><code>$ rails s
+</code></pre>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    rejasupotaro
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

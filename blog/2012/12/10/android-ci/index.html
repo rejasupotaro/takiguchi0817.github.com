@@ -1,0 +1,320 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>JenkinsでAndroidをCIしたかった - Just posted a blog</title>
+    <meta name="author" content="rejasupotaro">
+    
+	<meta name="description" content="GitHubにあるAndroidプロジェクトにプッシュしたらJenkinsがビルドしてテストするというのを実現したかった。 手順 Jenkinsをインストールする
+Androidをantでビルドする
+JenkinsでAndroidをビルドする
+GitHubにプッシュしたらビルドを行う ってする &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36257112-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        rejasupotaro
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">JenkinsでAndroidをCIしたかった</h2>
+	<div class="entry-content"><p><img src="http://dl.dropbox.com/u/54255753/blog/201212/jenktocat.jpg" alt="jenktocat" />
+GitHubにあるAndroidプロジェクトにプッシュしたらJenkinsがビルドしてテストするというのを実現したかった。</p>
+
+<h2>手順</h2>
+
+<ul>
+<li>Jenkinsをインストールする</li>
+<li>Androidをantでビルドする</li>
+<li>JenkinsでAndroidをビルドする</li>
+<li>GitHubにプッシュしたらビルドを行う</li>
+</ul>
+
+
+<p>ってする。</p>
+
+<h3>Jenkinsをインストールする</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+</span><span class='line'>$ sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+</span><span class='line'>$ sudo aptitude update
+</span><span class='line'>$ sudo aptitude install jenkins
+</span><span class='line'>$ sudo service jenkins start</span></code></pre></td></tr></table></div></figure>
+
+
+<p>http://yourhost:8080にアクセスするとJenkinsさん動いてるの確認できる。<br/>
+新規ジョブ作って定期実行するだけで、</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/success.png" alt="Hello rejasupotaro" /></p>
+
+<p>1分毎にハローって言うかわいい。<br/>
+これだけでもカンタンにcronの管理が出来そうな感じ。</p>
+
+<h4>Jenkinsにプラグインを入れる</h4>
+
+<p>Jenkinsの管理 -> プラグインの管理 -> 利用可能のタブから</p>
+
+<ul>
+<li>Android Emulator Plugin</li>
+<li>GitHub Plugin</li>
+</ul>
+
+
+<p>入れる。</p>
+
+<h3>Androidをantでビルドする</h3>
+
+<p>まずant入れる。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo aptitude install ant</span></code></pre></td></tr></table></div></figure>
+
+
+<p>bashrcに追記した。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ANDROID_HOME=/var/lib/jenkins/tools/android-sdk
+</span><span class='line'>PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools</span></code></pre></td></tr></table></div></figure>
+
+
+<p>この時点でAndroidのリストを見てみる。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ android list target
+</span><span class='line'>id: 1 or "android-9"↲
+</span><span class='line'>     Name: Android 2.3.1
+</span><span class='line'>     Type: Platform
+</span><span class='line'>     API level: 9
+</span><span class='line'>     Revision: 2
+</span><span class='line'>     Skins: WVGA854, WQVGA400, HVGA, QVGA, WQVGA432, WVGA800 (default)
+</span><span class='line'>     ABIs : armeabi</span></code></pre></td></tr></table></div></figure>
+
+
+<p>はい。<br/>
+プロジェクトはルートのディレクトリがあって、その下にアプリのプロジェクトとテストプロジェクトがあるっていう感じ。なので、</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ android update project -p ./MyAppTest --target android-9
+</span><span class='line'>$ android update test-project -p MyAppTest/ -m ~/develop/projects/MyProjet/MyApp</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定ファイルとかが作られる。<br/>
+ant clean debugとかしてみて、モジュールが足りなかったりしたらlddとかしながら頑張って入れる。<br/>
+モジュールが足りないとadb: No such file or directoryとかなる。</p>
+
+<p><a href="http://source.android.com/source/initializing.html">Initializing a Build Environment</a><br/>
+ここを見ればだいたい解決する(はず)。</p>
+
+<h3>JenkinsでAndroidをビルドする</h3>
+
+<p>Jenkinsで新規ジョブを作成して実行する。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>emulator: ERROR: Could not load OpenGLES emulation library: libX11.so.6 #=> 試しにビルドしたらコケる
+</span><span class='line'>
+</span><span class='line'>$ sudo aptitude install libx11-6:i386 #=> 試しに入れてみる
+</span><span class='line'>
+</span><span class='line'>Could not load OpenGLES emulation library #=>コケる
+</span><span class='line'>Failed to load libEGL_translator.so #=> なんか読めてない</span></code></pre></td></tr></table></div></figure>
+
+
+<p>でlibEGLを入れるとまたlibX11.soがないと言われ、libX11.soを入れると（ryの無限ループになった。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/failed.png" alt="failed..." /></p>
+
+<p>うーん。わからん。</p>
+
+<h3>GitHubにプッシュしたらビルドを行う</h3>
+
+<p>GitHubに鍵を登録する。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo -u jenkins -H git config --global user.emal "jenkins@rejasupotaro.com"
+</span><span class='line'>$ sudo -u jenkins -H git config --global user.name "jenkins"
+</span><span class='line'>$ sudo -u jenkins -H ssh-keygen -t rsa -C jenkins@rejasupotaro.com
+</span><span class='line'>[sudo] password for rejasupotaro:
+</span><span class='line'>Generating public/private rsa key pair.
+</span><span class='line'>Enter file in which to save the key (/var/lib/jenkins/.ssh/id_rsa):
+</span><span class='line'>Created directory '/var/lib/jenkins/.ssh'.
+</span><span class='line'>Enter passphrase (empty for no passphrase):
+</span><span class='line'>Enter same passphrase again:
+</span><span class='line'>Your identification has been saved in /var/lib/jenkins/.ssh/id_rsa.
+</span><span class='line'>Your public key has been saved in /var/lib/jenkins/.ssh/id_rsa.pub.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>鍵をcatしてコピペしてGitHubに貼る。<br/>
+　<br/>
+　<br/>
+　<br/>
+エミュレーターが動くようになったらHooksに登録してビルドするようにしたい。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    rejasupotaro
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>

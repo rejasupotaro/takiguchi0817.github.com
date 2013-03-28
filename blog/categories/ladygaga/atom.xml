@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: LadyGaga | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/ladygaga/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-03-28T23:27:03+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ライブに行った。感化された。]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2012/11/11/betterflow/"/>
+    <updated>2012-11-11T18:10:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2012/11/11/betterflow</id>
+    <content type="html"><![CDATA[<h2>ライブに行った</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/live1.jpg" alt="さいたまスーパーアリーナ付近" /><br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201211/live2.jpg" alt="会場で待機" /><br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201211/live3.jpg" alt="レディーガガ" /></p>
+
+<h2>kosugeさんのサイトに感化された</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/kosuge.png" alt="kosugeさん" />
+<a href="https://twitter.com/9m">kosugeさん</a>が作ったサイト、<a href="http://kksg.net/">kksg.net</a></p>
+
+<h2>作った</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/screenshot1.png" alt="音が鳴る" /><br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201211/screenshot2.png" alt="30秒ぐらいで音と背景が変わる" /></p>
+
+<p><a href="http://rejasupotaro.com">rejasupotaro.com</a></p>
+
+<p>Chromeのことしか考えずに作った。<br/>
+Firefox他ではコーデック対応してないっぽいので音鳴らない。</p>
+
+<p>iTunes Search APIで適当な音持ってきてる。かわいみGIFはネットで探した。</p>
+]]></content>
+  </entry>
+  
+</feed>
