@@ -15,7 +15,7 @@ categories: Android RoboGuice
 そこで、DIフレームワークを使うことにした。  
 [Deep dive into RoboGuice beyond "Hello World apps"](http://www.blog.project13.pl/wp-content/uploads/2011/12/presentation.html#slide1)  
 
-![微妙に可愛くないキャラクター](http://dl.dropbox.com/u/54255753/blog/201212/roboguice.png)
+![](http://dl.dropbox.com/u/54255753/blog/201212/roboguice.png)
 
 ["RoboGuice 2 smoothes out some of the wrinkles in your Android development experience and makes things simple and fun!"](http://code.google.com/p/roboguice/)  
 ということらしいので、RoboGuice入れてみた。  
@@ -107,7 +107,7 @@ public class MainActivity extends RoboActivity {
         
         mPostButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // アーアアー
+                // 略
             }
         });
 {% endcodeblock %}
@@ -130,7 +130,7 @@ public class MainActivity extends RoboActivity {
         
         mPostButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // アーアアー
+                // 略
             }
         });
 {% endcodeblock %}
@@ -165,9 +165,7 @@ public class RoboGuiceSampleModule extends AbstractModule {
 {% endcodeblock %}
 
 モジュールに定義しなくてもクラス宣言に@ContextSingletonとアノテーションをつけておけばコンテキストシングルトンになる。
-コンテキストシングルトンにしておけばアクティビティとヘルパーでちがうモデルを見ちゃうことはなくなりそう。  
-
-追記：しかしこのあとスコープで[喧嘩](http://takiguchi0817.github.com/blog/2012/12/29/end-of-the-day/)になる  
+コンテキストシングルトンだと、例えばActivityとFragmentで状態を持つHelperをインジェクトするときに、違うインスタンスを見ることがなくなるので安全にはなります。(スコープについては喧嘩になりました)(ケースによります)
 
 次にヘルパーを定義する  
 
@@ -224,4 +222,4 @@ public class MainActivity extends RoboActivity {
 みたいにいきなりメソッドが呼べてかっこいい。  
 　  
 　  
-何も考えずにAndroidアプリ書いてるとコントローラがどんどん太るから、コントローラにはなるべく処理は書かずにジュースを使ってどんどんヘルパーにデリゲートしよう。  
+何も考えずにAndroidアプリ書いてるとコントローラがどんどん太るから、コントローラにはなるべく処理は書かずにジュースを使ってどんどんヘルパーにデリゲートしていきたいです。  
