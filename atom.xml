@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-03-28T23:27:03+09:00</updated>
+  <updated>2013-04-02T02:29:55+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,53 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[クックパッド株式会社に入社しました]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/04/02/nyusya-entry/"/>
+    <updated>2013-04-02T01:50:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/04/02/nyusya-entry</id>
+    <content type="html"><![CDATA[<h3>はじめまして</h3>
+
+<blockquote class="twitter-tweet" lang="ja"><p>新卒です</p>&mdash; レジャスポ太郎さん (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/status/318505403476488193">2013年3月31日</a></blockquote>
+
+
+<script async src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>新卒としてクックパッド株式会社に入社しました。
+僕は今日初めて同期と顔を合わせたのですが、新卒入社なのに社歴がすでに4年目という人や、博士後期課程までがっつり研究をして「新卒ですがもうすぐ30です」という人がいたり、「前職では〜」「転職のきっかけは〜」と始まる自己紹介をする人(僕もですが)もいて、
+新卒のみなさんとてもフレッシュで戦々恐々としていました。</p>
+
+<p>全社員が集まる場での自己紹介で「なぜクックパッドに入ったか」と「クックパッドで実現したいこと」の二点について、話してくださいと言われたので話しました。</p>
+
+<h4>なぜクックパッドに入ったか</h4>
+
+<p>思い返すと、年末にコードが綺麗な<a href="http://r7kamura.hatenablog.com/entry/2012/11/30/223412">中村クン</a>と話したことがきっかけだったのかなと思います。
+Androidアプリ開発どう？みたいな話をして、実は一人しか開発者がいなくて、その方も今は業務委託って形だからあんまりメンテされてないという聞いて、良いサービスなのにもったいないと思ったのがとても記憶に残っています。
+(気になってその日はうちに帰ってapkを逆コンパイルしてた気がします)</p>
+
+<h4>クックパッドで実現したいこと</h4>
+
+<p>「マーケットのレーティングで星4つ以上を目指します」と言いました。
+スマートフォンアプリというのは単純に「PCのページのデザインを崩れないように表示できるようにしたもの」にとどまらず、そもそも使われるシーンが違う(たとえば献立を考えるときにはPCで検索して、買い物をするときにはスマートフォンでレシピの材料を見て、実際に料理をするときにはタブレットで閲覧するみたいな)ので、シーンに応じた求められる機能とは何か、最適な見せ方とは何かを突き詰めていきたいです。</p>
+
+<p>という話をしました。</p>
+
+<h3>その他</h3>
+
+<p>クックパッドは2008年(2007年だったかも)というかなり早い時期からHadoopを導入したり、同じく2008年にColdFusionで書かれたサービスをRailsでフルリニューアルしたり、導入後も最新のバージョンに追随するようにしてきました。
+なぜ最新にこだわっているかというと、新しいバージョンでしか使えないものが使えないなんてディスアドバンテージを背負いたくないというのと、実は常にバージョンアップしていくのが一番コストが低いからだと言っていました。</p>
+
+<p>そういう姿勢がクックパッドをテクノロジーカンパニーとして世間に認知させ、多くのエンジニアを引き寄せ、今のようなレールズモヒカンの巣窟の形成に至ったのだと思います。</p>
+
+<p>僕はそれと同じことをスマートフォンでもやりたい、
+クックパッドをレールズ以外にも、スマートフォンアプリ開発も凄いって言われるようにしたいと思っています。</p>
+
+<p>もちろんすべてはユーザーの問題解決のため。
+新鮮な野菜とジャバと顧客に届け続けるオアダイ</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[はじめてのRspec on Rails(コントローラ編)]]></title>
@@ -2889,37 +2936,6 @@ JSからジャバのすべてが見えるし、プライベートもあったも
 <p>最近GIFにはまってる。ちょうどいいタイミングでハッカソンがあったので作った。<br/>
 今流行りの<a href="http://takiguchi0817.github.com/blog/2012/11/29/about-android-webview/">ハイブリッドな感じ</a>にした。
 そこそこウケたので良かった。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[MySQL、文字化けた]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/11/23/mysql-character-set/"/>
-    <updated>2012-11-23T19:21:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/11/23/mysql-character-set</id>
-    <content type="html"><![CDATA[<p>デプロイしておーエラー出なかったーって思ってブラウザで開いたら文字化けしてた。</p>
-
-<pre><code>mysql&gt; STATUS
-</code></pre>
-
-<p>アーMacBookはutf8だったけどサーバーはlatin1のままだった。<br/>
-文字コード変えるためにmysql止めようとしたら、いつの間にか/etc/init.d/mysqlを使うんじゃなくてservice mysqlを使うことになってた。</p>
-
-<p>まあ、それはそれで、/etc/mysql/conf.d/charset.confに</p>
-
-<pre><code>[client]
-default-character-set=utf8
-
-[mysqld]
-character-set-server=utf8
-skip-character-set-client-handshake
-
-[mysqldump]
-default-character-set=utf8
-</code></pre>
-
-<p>って書いてオルターテーブルしたら文字化け直った、良かった。<br/>
-mysql5.5でmysqldのdefault-character-setなくなってたの知らなくてちょっと困ったりした。</p>
 ]]></content>
   </entry>
   
