@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-04-02T02:29:55+09:00</updated>
+  <updated>2013-04-02T02:31:43+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -35,7 +35,7 @@
 <h4>なぜクックパッドに入ったか</h4>
 
 <p>思い返すと、年末にコードが綺麗な<a href="http://r7kamura.hatenablog.com/entry/2012/11/30/223412">中村クン</a>と話したことがきっかけだったのかなと思います。
-Androidアプリ開発どう？みたいな話をして、実は一人しか開発者がいなくて、その方も今は業務委託って形だからあんまりメンテされてないという聞いて、良いサービスなのにもったいないと思ったのがとても記憶に残っています。
+Androidアプリ開発どう？みたいな話をして、実は開発者は一人しかいなくて、その人も今は業務委託って形であんまりメンテされてないという聞いて、良いサービスなのにもったいないと思ったのがとても記憶に残っています。
 (気になってその日はうちに帰ってapkを逆コンパイルしてた気がします)</p>
 
 <h4>クックパッドで実現したいこと</h4>
