@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-04-15T23:25:32+09:00</updated>
+  <updated>2013-04-28T18:30:12+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,94 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[テンプレートアプリ "katanuki" を作った]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/04/28/android-katanuki/"/>
+    <updated>2013-04-28T16:47:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/04/28/android-katanuki</id>
+    <content type="html"><![CDATA[<h1><a href="https://github.com/takiguchi0817/katanuki">Android Katanuki</a></h1>
+
+<p>A template application that includes tons of great open source tools and frameworks.</p>
+
+<p><img src="https://raw.github.com/takiguchi0817/katanuki/master/katanuki.png" width="640" height="480"></p>
+
+<h1>経緯</h1>
+
+<p>この前、<a href="http://androidkickstartr.com/">AndroidKickstartR</a>というプロジェクトを見つけました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201304/androidkickstartr.png" width="640" height="480"></p>
+
+<p>これは自分が使いたいライブラリを選んでポチポチ選んで "Download it!" を押したらAndroidアプリのテンプレートが落とせるというものです。
+ハッカソンとかで便利そう。
+雛形を提供するプロジェクトは他にも
+<a href="android%20katanuk://github.com/donnfelker/android-bootstrap">Android Bootstrap</a>
+などもあります。</p>
+
+<p>で、各々がサポートしているライブラリが以下になります。</p>
+
+<h3>AndroidKickstartR</h3>
+
+<ul>
+<li>android-maven-plugin</li>
+<li>AndroidAnnotations</li>
+<li>ActionBarSherlock</li>
+<li>Spring RESTTemplate</li>
+<li>Android support v4</li>
+<li>NineOldAndroid</li>
+<li>ACRA</li>
+<li>RoboGuice</li>
+</ul>
+
+
+<h3>Android Bootstrap</h3>
+
+<ul>
+<li>ActionBarSherlock</li>
+<li>Dagger</li>
+<li>Butterknife</li>
+<li>Otto</li>
+<li>Robotium</li>
+<li>android-maven-plugin</li>
+<li>http-request</li>
+<li>google-gson</li>
+</ul>
+
+
+<p>新しいアプリを作るときのセットアップってほぼ作業だし、
+毎回同じことをしてる気がしたので、自分用のアプリのテンプレートを作りました。
+（なぜわざわざ作ったかというと自分の使いたいライブラリや書き方が、上のテンプレートと合わなかったからです。）</p>
+
+<h1>katanukiについて</h1>
+
+<p>このテンプレートは、プロトタイプ作成や一日でアプリを組むハッカソンを想定して作りました。
+今から8時間でそれっぽいアプリを作るぞ！と思ったときに、何をすれば良いか考えて、</p>
+
+<ol>
+<li>APIを叩く</li>
+<li>データを保存する</li>
+<li>かっこいいUIを作る</li>
+</ol>
+
+
+<p>と作業を分解して、APIを叩くのにhttp-request、レスポンスのjsonをオブジェクトに変換するのにgson、それらをAsyncTaskLoaderで呼び出すようにしました。</p>
+
+<p>次にデータの保存はActiveAndroidを使いました。エンタープライズでは使わないと思いますが、面倒なDB周りのコードを書く時間をバッサリカットできるので便利です。</p>
+
+<p>UIについては、入れようか迷ったのですが、中のロジックは一緒でも見せ方はケースバイケースかなと思ったので入れませんでした。
+プロジェクトには含めてませんが、このあたりが便利そうです。</p>
+
+<ul>
+<li><a href="https://github.com/JakeWharton/ActionBarSherlock">ActionBarSherlock</a> : ActionBarのcompatibility library</li>
+<li><a href="https://github.com/chrisbanes/Android-PullToRefresh">PullToRefresh</a> : 引っ張り更新</li>
+<li><a href="https://github.com/Prototik/HoloEverywhere">HoloEverywhere</a> : Holoを2系でも使えるようにする</li>
+<li><a href="https://github.com/SimonVT/android-menudrawer">MenuDrawer</a> : 横から出るメニューの実装</li>
+</ul>
+
+
+<p>OpenSource便利。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Otto 使ってみた]]></title>
@@ -493,139 +581,6 @@ Mockito is a mocking framework that tastes really good.</p>
 </span><span class='line'>
 </span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;}</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[仕事納め]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/12/29/end-of-the-day/"/>
-    <updated>2012-12-29T02:38:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/12/29/end-of-the-day</id>
-    <content type="html"><![CDATA[<h3>年の瀬とディペンデンシーインジェクション</h3>
-
-<p>穏便に2012年の仕事を終わらせたかったけど、ディペンデンシーフレームワークで殴り合いになった。</p>
-
-<p>本体のコードはインジェクトで書いてるのに、テストではモックをインジェクトで書けるようにしてなかったので // for test と書いてsetterを作っていたということで、某氏がコンストラクタインジェクションを使って書き直したことが発端となって、そのあとインジェクトされるオブジェクトのスコープの話にまで広がって、たいへんなことになった。<br/>
-　<br/>
-　</p>
-
-<h3>どこに依存性を注入すべきか</h3>
-
-<p>ProGuardでコンストラクタを消されないような設定を書く必要があるとか、設定をコンストラクタに書くようにするとラージコンストラクタになるので嫌だとか、そういう理由であまりコンストラクタインジェクションは使わないようにしていた。</p>
-
-<p style="background-color:#FFFFFF;border:1px solid #999999;padding:5px;font-size:14px">
-A:なぜコンストラクタインジェクションを使ってテストを書き直したのですか？<br>
-B:テストのためにsetterを付けるのは間違ってると思う。本体の実装にテストのためのコードを入れるのも良くない。<br>
-A:setterはProGuardで消されるし、ラージコンストラクタになることは避けたいです。<br>
-B:ProGuardで消されるからってテストのためのコードを書いていい理由にはなりませんよね？本体のコードがテストがある前提で書かれるのはおかしいと思います。<br>
-A:僕はおかしいとは思いません。そもそもテストコードがないという状態はありえませんし。コンストラクタインジェクションだと、ProGuardに消されないように設定を書く必要がありますよね。<br>
-B:いや、しかし…<br>
-</p>
-
-
-<p>〜20分経過〜</p>
-
-<h3>結論</h3>
-
-<p style="background-color:#FFFFFF;border:1px solid #999999;padding:5px;font-size:14px">
-A:分かりました。じゃあセッターインジェクションにしましょう。それなら僕も大丈夫です。<br>
-B:それも完全には良いと思わないですけどね。<br>
-</p>
-
-
-<p>　<br/>
-　</p>
-
-<h3>オブジェクトのスコープをどうするか</h3>
-
-<p><span style="color:red">Androidのコンテキストのライフサイクルに合わせてオブジェクトを保持したいので、デフォルトのスコープをコンテキストシングルトンにしたい</span> VS <span style="color:blue">すべてのオブジェクトがコンテキストのライフサイクルに結びついているわけじゃないのでその都度生成するようにしたい</span></p>
-
-<p style="background-color:#FFFFFF;border:1px solid #999999;padding:5px;font-size:14px">
-A:コンテキストシングルトンで生成されたオブジェクトはDIコンテナが持ってるのでアクティビティが消えると消えます。結局入出力なので、ユーザーでもフレームワークでもコンテキストが一意に定まって、その中で動くからコンテキストシングルトンが良いんじゃないですかね。<br>
-B:まず、コンテキストシングルトンは事故を少なくするものじゃなくて、無駄をなくそうってものという認識は合ってますか？<br>
-A:アプリケーションシングルトンとコンテキストシングルトンだったら、コンテキストシングルトンを使おうっていうのはいいですよね。<br>
-B:それも場合によると思います。<br>
-A:都度生成だと、アクティビティとアクティビティのヘルパーでモデルを操作するときに、そのモデルが別のオブジェクトになって事故が起こったりしますよね。<br>
-B:事故るってなんですか？事故が起こると思わない。都度生成が一番事故が起こらないんですよね？<br>
-A:僕はそうは思わない。データの不整合が起こるケースと、どういったメリット・デメリットがあるか整理されてますかね。永続化するかどうかの話が混ざってますよね。<br>
-B:永続化するかではないです。<br>
-C:コンテキストシングルトンとノースコープが混ざっても事故は起こりませんっていうのは大丈夫ですか？<br>
-B:さっきの話とちがって、アプリケーションシングルトンが混ざると変わってくるんですよね。<br>
-C:ステートフルなものが混ざってくると変わってきますね。<br>
-A:全部がステートレスならいいのですが、それはありえませんよね。モデルが都度生成されてオブジェクトが変わってしまうと困りますよね。<br>
-B:でもモデルはDBなりファイルなりに入ってるので大丈夫ですよね。<br>
-A:モデルはキャッシュとかクライアントの接続とかを持ってます。そいつらのリソースをディプリケートして整合性を持たせるのは難しいですよね。だったらコンテキストシングルトンにしましょうよ。<br>
-B:キャッシュはコンテキストに依存してないですよね。コンテキストに依存してないものは…<br>
-A:ちょっと今モデル層にあるものを見てみてくださいよ。<br>
-B:クライアントってステートフルですか？<br>
-A:モデルはステーフルにならざるを得ない。<br>
-B:そのケースだけではない。<br>
-</p>
-
-
-<p>〜議論が白熱〜</p>
-
-<p style="background-color:#FFFFFF;border:1px solid #999999;padding:5px;font-size:14px">
-A:アクティビティとヘルパーで保持するステートフルなモデルが違うオブジェクトだと困りますよね？<br>
-B:DBからとってくるときはだいじょうぶですよね。あとサーバーから取ってきたり。<br>
-A:キャッシュに関してはキャッシュ機構の話ですよね。キャッシュ機構を変えるべきですが、現実問題として今それはできません。<br>
-B:でもデフォルトでコンテキストスコープなのは良くない。<br>
-A:だから…<br>
-B:デフォルトでコンテキストシングルトンはふさわしくない。<br>
-C:スコープが混ざると広い方のスコープが適用されてオブジェクトを保持し続けてメモリリークが起こったりカオスになるので、デフォルトはコンテキストシングルトンにしてそれ以外のスコープを定義するときは話し合うようにしませんか？禁止じゃなくてやるなら話し合いましょうということです。<br>
-B:でもデフォルトはコンテキストシングルトンにするんですよね。<br>
-A:すべてのケースをカバー出来るスコープなんてありません。なので一番マジョリティなケースに合わせましょう。<br>
-B:ケースを考えないでデフォルトを設定するのは「publicにしとけばどこからでもアクセスできるし値を書き換えなきゃ安全なのでとりあえずpublicにしましょう」みたいなものじゃないですか？<br>
-A:でもべつにコンテキストシングルトンだったらメモリ使用量も節約できるし、悪いことないじゃないですか。<br>
-B:デフォルトでコンテキストシングルトンはない。Guiceではgetterより生成のコストが低いと書いてあったし、わざわざコンテキストシングルトンにはしたくない。<br>
-A:それに関して言うとGuiceはサーバーサイドで使われていたので、getterより生成のコストが低いっていうのは、何千ものリクエストが同時に走るような状況では、リクエストシングルトン、つまりリクエストごとにオブジェクトを生成した方が速いということではないですか？<br>
-B:Guiceはサーバーサイドを前提に作られたわけではない。<br>
-C:ではなにをデフォルトにしますか？<br>
-B:デフォルトをとりあえず動くものにするのは良くない。どっちでも動けば問題ないということにはしたくない。ステートのスコープに合わせてオブジェクトを定義しないといけない。<br>
-C:ステートフルのときは考えないといけないよねって話ですよね。<br>
-B:大多数でルールを決めるのはあほらしい。青信号の時間が長いので確認しないで渡りましょうみたいなものじゃないですか。<br>
-A:コンテキストシングルトンは自分の判断で使っていいけど、それ以外は話そうで良いんじゃないですか。<br>
-</p>
-
-
-<p>〜さらに議論が白熱〜
-　<br/>
-　</p>
-
-<h3>結論</h3>
-
-<p>う、うーん…。<br/>
-　<br/>
-　</p>
-
-<h3>僕は思った</h3>
-
-<p>デフォルトをどちらのスコープにしても、レビューを通して適切なスコープでオブジェクトが管理されるようになると思ったけど、それとは別に開発のしやすさでいうと、</p>
-
-<ul>
-<li>デフォルトでコンテキストシングルトン ＞ その都度生成</li>
-</ul>
-
-
-<p>ってなって、事故の起こりやすさが</p>
-
-<ul>
-<li>デフォルトでコンテキストシングルトン ＜ その都度生成</li>
-</ul>
-
-
-<p>となるのかなとって思った。なのでみんなの意識が高まっている状態ならば、デフォルトはコンテキストシングルトンでいいんじゃないかって思った。</p>
-
-<p><blockquote class="twitter-tweet" lang="ja"><p>なぜ人は争うのか</p>&mdash; レジャスポ太郎さん (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/status/284507403934896128" data-datetime="2012-12-28T03:53:45+00:00">12月 28, 2012</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
-<p>そんな、2012年の最終出社日でした。<br/>
-　<br/>
-　<br/>
-　</p>
-
-<p>そのあとなぜかピープパポの忘年会行ってた。<br/>
-<img src="http://dl.dropbox.com/u/54255753/blog/201212/party.gif" alt="" /></p>
 ]]></content>
   </entry>
   

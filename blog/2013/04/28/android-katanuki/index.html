@@ -1,0 +1,239 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>テンプレートアプリ "katanuki" を作った - Just posted a blog</title>
+    <meta name="author" content="rejasupotaro">
+    
+	<meta name="description" content="Android Katanuki A template application that includes tons of great open source tools and frameworks. 経緯 この前、AndroidKickstartRというプロジェクトを見つけました。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.ico" rel="shortcut icon">
+    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+
+    <!-- remove or comment it to disable ajaxification -->   
+    <script src="/javascripts/ajaxify.js"></script>
+   
+    
+    
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36257112-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+</head>
+
+
+<body>
+    <div id="wrapper">
+    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
+<h1 class="animated bounceInDown">
+    <div id="headerbg">
+        rejasupotaro
+    </div>
+</h1>
+<br>
+
+<ul id="social-links" style="text-align:center">
+  
+  <!-- GitHub -->
+  <li>
+  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
+  </li>
+  
+  
+  
+  
+  <!-- Twitter -->
+  <li>
+  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
+  </li>
+  
+  
+  
+  
+  
+</ul>
+
+
+<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
+<ul id="nav">
+	<li id="ajax"><a href="/index.html">Home</a></li>
+	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
+    <li><a href="/atom.xml">RSS</a></li>
+    
+    <li>
+    <div id="dark">
+        <form method="get" action="/search.html" id="search">
+            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
+        </form>
+    </div>
+    </li>
+        
+</ul>
+
+
+
+
+</header>
+
+<div id="toload">
+<!-- begin toload --> 
+    <div id="content" class="inner">
+        <article class="post">
+	<h2 class="title">テンプレートアプリ "Katanuki" を作った</h2>
+	<div class="entry-content"><h1><a href="https://github.com/takiguchi0817/katanuki">Android Katanuki</a></h1>
+
+<p>A template application that includes tons of great open source tools and frameworks.</p>
+
+<p><img src="https://raw.github.com/takiguchi0817/katanuki/master/katanuki.png" width="640" height="480"></p>
+
+<h1>経緯</h1>
+
+<p>この前、<a href="http://androidkickstartr.com/">AndroidKickstartR</a>というプロジェクトを見つけました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201304/androidkickstartr.png" width="640" height="480"></p>
+
+<p>これは自分が使いたいライブラリを選んでポチポチ選んで &#8220;Download it!&#8221; を押したらAndroidアプリのテンプレートが落とせるというものです。
+ハッカソンとかで便利そう。
+雛形を提供するプロジェクトは他にも
+<a href="android%20katanuk://github.com/donnfelker/android-bootstrap">Android Bootstrap</a>
+などもあります。</p>
+
+<p>で、各々がサポートしているライブラリが以下になります。</p>
+
+<h3>AndroidKickstartR</h3>
+
+<ul>
+<li>android-maven-plugin</li>
+<li>AndroidAnnotations</li>
+<li>ActionBarSherlock</li>
+<li>Spring RESTTemplate</li>
+<li>Android support v4</li>
+<li>NineOldAndroid</li>
+<li>ACRA</li>
+<li>RoboGuice</li>
+</ul>
+
+
+<h3>Android Bootstrap</h3>
+
+<ul>
+<li>ActionBarSherlock</li>
+<li>Dagger</li>
+<li>Butterknife</li>
+<li>Otto</li>
+<li>Robotium</li>
+<li>android-maven-plugin</li>
+<li>http-request</li>
+<li>google-gson</li>
+</ul>
+
+
+<p>新しいアプリを作るときのセットアップってほぼ作業だし、
+毎回同じことをしてる気がしたので、自分用のアプリのテンプレートを作りました。
+（なぜわざわざ作ったかというと自分の使いたいライブラリや書き方が、上のテンプレートと合わなかったからです。）</p>
+
+<h1>katanukiについて</h1>
+
+<p>このテンプレートは、プロトタイプ作成や一日でアプリを組むハッカソンを想定して作りました。
+今から8時間でそれっぽいアプリを作るぞ！と思ったときに、何をすれば良いか考えて、</p>
+
+<ol>
+<li>APIを叩く</li>
+<li>データを保存する</li>
+<li>かっこいいUIを作る</li>
+</ol>
+
+
+<p>と作業を分解して、APIを叩くのにhttp-request、レスポンスのjsonをオブジェクトに変換するのにgson、それらをAsyncTaskLoaderで呼び出すようにしました。</p>
+
+<p>次にデータの保存はActiveAndroidを使いました。エンタープライズでは使わないと思いますが、面倒なDB周りのコードを書く時間をバッサリカットできるので便利です。</p>
+
+<p>UIについては、入れようか迷ったのですが、中のロジックは一緒でも見せ方はケースバイケースかなと思ったので入れませんでした。
+プロジェクトには含めてませんが、このあたりが便利そうです。</p>
+
+<ul>
+<li><a href="https://github.com/JakeWharton/ActionBarSherlock">ActionBarSherlock</a> : ActionBarのcompatibility library</li>
+<li><a href="https://github.com/chrisbanes/Android-PullToRefresh">PullToRefresh</a> : 引っ張り更新</li>
+<li><a href="https://github.com/Prototik/HoloEverywhere">HoloEverywhere</a> : Holoを2系でも使えるようにする</li>
+<li><a href="https://github.com/SimonVT/android-menudrawer">MenuDrawer</a> : 横から出るメニューの実装</li>
+</ul>
+
+
+<p>OpenSource便利。</p>
+</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+
+    </div>
+    <footer id="footer">
+    <div style="display:inline">
+    Copyright &copy; 2013
+
+    rejasupotaro
+. Powered by <a href="http://octopress.org">Octopress</a> | 
+    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
+</div>
+
+
+    </footer>
+    <script src="/javascripts/fabric.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+<!-- end toload --> 
+</div>
+</div>
+<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
+/*]]>*/
+</script><!-- remove it to remove the scroll to top button -->
+</body>
+</html>
