@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-04-28T18:33:19+09:00</updated>
+  <updated>2013-04-28T18:53:50+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -68,6 +68,7 @@
 
 <p>新しいアプリを作るときのセットアップってほぼ作業だし、
 毎回同じことをしてる気がしたので、自分用のアプリのテンプレートを作りました。
+作ったというより設定を書いた、の方が近いですが。
 （なぜわざわざ作ったかというと自分の使いたいライブラリや書き方が、上のテンプレートと微妙に合わなかったからです。）</p>
 
 <h1>katanukiについて</h1>
