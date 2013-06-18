@@ -6,8 +6,8 @@
 	<title>Just posted a blog</title>
     <meta name="author" content="rejasupotaro">
     
-	<meta name="description" content="Published on: Oct 6th, 2012 Tags: Octopress 某ブログから移転しました。
-ブラウザ立ち上げてサイトに行ってかっこいいUIをしながらプレビューを比較しながら調整してオシャンティなブログをポスするのって結構面倒くさい。 &hellip;">
+	<meta name="description" content="Published on: Oct 6th, 2012 Tags: Android 方法は2つ。 エミュレータにGoogle Playを入れる
+PCでapkをダウンロードしてadbでエミュレータに移す 1の方法は面倒な感じしたので2にすることにした。 Google &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -102,6 +102,97 @@
 <!-- begin toload --> 
     <div id="content" class="inner">
         
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/10/06/google-play-on-emulator/">
+		
+			エミュレータにGoogle Playにあるapkを入れる</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-06T13:41:00+09:00" pubdate data-updated="true">Oct 6<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/android/'>Android</a>
+
+
+</div>
+    </div>
+		<p>方法は2つ。</p>
+
+<ol>
+<li>エミュレータにGoogle Playを入れる</li>
+<li>PCでapkをダウンロードしてadbでエミュレータに移す</li>
+</ol>
+
+
+<p>1の方法は面倒な感じしたので2にすることにした。</p>
+
+<h2>Google Playからapkを直接ダウンロードできるようにする</h2>
+
+<p>Chrome拡張を入れることでブラウザ版のGoogle Playからapkをダウンロードできるようになる。</p>
+
+<h3>AndroidのデバイスIDを調べる</h3>
+
+<p>アプリを使うと簡単。
+<a href="https://play.google.com/store/apps/details?id=com.redphx.deviceid">Device ID</a>
+を起動してDevice IDをメモしておく。</p>
+
+<h3>APK Downloaderを入れる</h3>
+
+<p><a href="http://codekiem.com/2012/02/24/apk-downloader/">APK Downloader – Download APK files from Android Market to PC</a></p>
+
+<p>詳しい手順：
+<a href="http://www.teradas.net/archives/3894/">PlayストアからAndroidのapkを直接ダウンロードできる「APK Downloader」</a></p>
+
+<p>apkをダウンロードしたら、以下のオプションでchromeを起動する。</p>
+
+<pre><code>open -a Google\ Chrome --args --ignore-certificate-errors
+</code></pre>
+
+<p>「ツール」→「拡張機能」の画面にドラッグ・アンド・ドロップ。</p>
+
+<h2>エミュレータにインストールする</h2>
+
+<p>実際にapkをダウンロードしてエミュレータにインストールする。</p>
+
+<h3>Google Playからapkをダウンロードする。</h3>
+
+<p>Google Playに行ってインストールしたいアプリのインストールページに行く。<br/>
+アドレスバーのところにAPK Downloaderのアイコンが出るので、クリックしてダウンロード。</p>
+
+<h3>エミュレータにインストールする</h3>
+
+<pre><code>$ emulator -avd device_name
+$ adb install ~/Downloads/HelloGooglePlay.apk
+</code></pre>
+
+<p>/data/data/パッケージ名 にダウンロードされる。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
 
 
     <article class="post">

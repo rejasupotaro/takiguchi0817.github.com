@@ -6,8 +6,8 @@
 	<title>Just posted a blog</title>
     <meta name="author" content="rejasupotaro">
     
-	<meta name="description" content="Published on: Nov 6th, 2012 Tags: GIF 夜中にカメラパシャパシャ撮ってせこせこconvertした。
-なんか日常が動くの面白いし、タイムラインに流れてきたら賑やかになるし、GIFを作るAndroidアプリ作りたいかもしれない。 &hellip;">
+	<meta name="description" content="Published on: Nov 6th, 2012 Tags: Isucon, Server #isucon2、周りでも結構話題になった。
+「同期でもやりたいねー。」みたいな話になって、僕はパフォーマンスチューニングとかよくわからなかったので、各チームが何をしたのか調べた。 言語 「 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -102,6 +102,109 @@
 <!-- begin toload --> 
     <div id="content" class="inner">
         
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/06/isucon2/">
+		
+			イスコン各位のパフォーマンスチューニング</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-06T23:59:00+09:00" pubdate data-updated="true">Nov 6<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/isucon/'>Isucon</a>, <a class='category' href='/blog/categories/server/'>Server</a>
+
+
+</div>
+    </div>
+		<p><a href="http://blog.livedoor.jp/techblog/archives/67726806.html">#isucon2</a>、周りでも結構話題になった。<br/>
+「同期でもやりたいねー。」みたいな話になって、僕はパフォーマンスチューニングとかよくわからなかったので、各チームが何をしたのか調べた。</p>
+
+<h2>言語</h2>
+
+<ul>
+<li>「なんとなくはやそう」みたいな曖昧な理由でnodeは選ばない。</li>
+<li>使い慣れた言語(RubyとかPerlとか)でやった方が良い。</li>
+</ul>
+
+
+<h2>デプロイ</h2>
+
+<ul>
+<li>コードはGitHubに置いて、Capistranoでデプロイ出来るようにしたら良かった。</li>
+</ul>
+
+
+<h2>データベース</h2>
+
+<ul>
+<li>スロークエリのチェックと設定パラメータを見た。</li>
+<li>インデックス張ったりクエリを試行錯誤した。</li>
+<li>サーバーのメモリサイズが16GBだったのに、innodb_buffer_pool_size 2Gだったので、メモリを増やそうと思ったけど、データサイズが小さかったので、DBサーバーでAPPを動かした。</li>
+<li>Redisを使うように書き直した。</li>
+</ul>
+
+
+<h2>アプリケーション</h2>
+
+<ul>
+<li>http_loadでベンチ。各リクエストのレスポンスタイムを確認した。</li>
+<li>最適なワーカー数を二分探索で調べた。</li>
+<li>リバースプロキシ先をHostnameからIPアドレスに変えた(DNSルックアップが遅い罠を警戒)</li>
+<li>Rubyのあるパッチを当てたらRailsアプリが20〜30％高速化するらしいと聞いて、Rubyをビルドし直してみたらスコアが上がった。</li>
+<li>nginxで静的ファイルを配信した。</li>
+<li>VarnishでESIを使った。</li>
+<li>リバースプロキシやDBにもAPP入れた。</li>
+<li>ページ数が少ないので事前にHTMLを書き出して、1秒以内にすべて更新するようにしたら速くなる。</li>
+<li>配信時にgzip圧縮をするのでは遅いので、事前にgzipで圧縮しておくと速くなる。</li>
+</ul>
+
+
+<h2>プロファイリング</h2>
+
+<ul>
+<li>PerlならDevel::KYTProfで丸裸にできる。</li>
+<li>Text::Xslate->renderを計測したら、テンプレートのレンダリングで50〜100ms程度かかることが分かった。</li>
+<li>負荷はテンプレートレンダリングのCPU boundだった。そこでworkerにレンダリング処理を独立した。</li>
+</ul>
+
+
+<h2>まとめ</h2>
+
+<ol>
+<li>とりあえず環境を整えて、ベンチマークを取ること。</li>
+<li>まずSQLチューニングして、負荷がAPPに移ったらそっちに取りかかる。</li>
+<li>キャッシュとかリバースプロキシをいじってみる。</li>
+</ol>
+
+
+<p>これらをうまく分担して行う、みたいな？</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -2149,97 +2252,6 @@ private static final String CIPHER_ALGORITM = "AES/CBC/PKCS5Padding";
 <p>画像に関してはあれだが、アクセストークンくらいなら速いししばらくメモリに乗ってそうだし、良さそう。<br/>
 注意する点として、SharedPreferenceにはStringしか保存できないので、暗号化と復号の処理の間にBase64化処理が必要になる。<br/>
 しかもAndroidのBase64クラスが使えるのは2.2以降なので、そういうのをうまくやる必要がある。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/10/06/google-play-on-emulator/">
-		
-			エミュレータにGoogle Playにあるapkを入れる</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-06T13:41:00+09:00" pubdate data-updated="true">Oct 6<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/android/'>Android</a>
-
-
-</div>
-    </div>
-		<p>方法は2つ。</p>
-
-<ol>
-<li>エミュレータにGoogle Playを入れる</li>
-<li>PCでapkをダウンロードしてadbでエミュレータに移す</li>
-</ol>
-
-
-<p>1の方法は面倒な感じしたので2にすることにした。</p>
-
-<h2>Google Playからapkを直接ダウンロードできるようにする</h2>
-
-<p>Chrome拡張を入れることでブラウザ版のGoogle Playからapkをダウンロードできるようになる。</p>
-
-<h3>AndroidのデバイスIDを調べる</h3>
-
-<p>アプリを使うと簡単。
-<a href="https://play.google.com/store/apps/details?id=com.redphx.deviceid">Device ID</a>
-を起動してDevice IDをメモしておく。</p>
-
-<h3>APK Downloaderを入れる</h3>
-
-<p><a href="http://codekiem.com/2012/02/24/apk-downloader/">APK Downloader – Download APK files from Android Market to PC</a></p>
-
-<p>詳しい手順：
-<a href="http://www.teradas.net/archives/3894/">PlayストアからAndroidのapkを直接ダウンロードできる「APK Downloader」</a></p>
-
-<p>apkをダウンロードしたら、以下のオプションでchromeを起動する。</p>
-
-<pre><code>open -a Google\ Chrome --args --ignore-certificate-errors
-</code></pre>
-
-<p>「ツール」→「拡張機能」の画面にドラッグ・アンド・ドロップ。</p>
-
-<h2>エミュレータにインストールする</h2>
-
-<p>実際にapkをダウンロードしてエミュレータにインストールする。</p>
-
-<h3>Google Playからapkをダウンロードする。</h3>
-
-<p>Google Playに行ってインストールしたいアプリのインストールページに行く。<br/>
-アドレスバーのところにAPK Downloaderのアイコンが出るので、クリックしてダウンロード。</p>
-
-<h3>エミュレータにインストールする</h3>
-
-<pre><code>$ emulator -avd device_name
-$ adb install ~/Downloads/HelloGooglePlay.apk
-</code></pre>
-
-<p>/data/data/パッケージ名 にダウンロードされる。</p>
 
 		
 		

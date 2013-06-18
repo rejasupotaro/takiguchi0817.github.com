@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-05-25T21:54:34+09:00</updated>
+  <updated>2013-06-18T22:40:47+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,34 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RouteActivityを作ろう]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/06/18/route-activity/"/>
+    <updated>2013-06-18T22:16:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/06/18/route-activity</id>
+    <content type="html"><![CDATA[<h2>理由1. LauncherのActivityは太りやすい</h2>
+
+<p>Androidのプロジェクトを作ると最初にMainActivityが作られます。
+そのMainActivityを中心にアプリを作っていくと、認証の確認を行うロジックを入れたり、思わぬ初期化処理が必要になったりして、規模が大きくなるごとにどんどんActivityが太ってしまいます。
+ユーザーから最初に見える画面は出来るだけ速く表示したいですし、分岐がたくさん入ると見通しが悪くなって変更がしづらくなる、という状態は避けたいです。</p>
+
+<h2>理由2. アプリの起動の口が複数あるとコピペが発生しやすい</h2>
+
+<p>Androidはショートカットや通知など、画面を起動するパスがたくさんあります。
+素直な実装をすると、すべてのActivityのonCreateの中で、isAuthenticatedみたいなメソッドを生やしてログインしてなかったらログイン画面に飛ばしたり、どの経路からアプリが起動されたかログを取る処理などを書いたりして、コピペが発生してActivityの見通しが悪くなってしまいます。</p>
+
+<p>かといって共通の親クラスを作るという方法は、あまりやりたくありません。</p>
+
+<h2>RouteActivityを作ろう</h2>
+
+<p>プロジェクトを作成したらまず最初にMainActivityをRouteActivityにリネームします。
+そして、ショートカットやIntentFilterなどはすべてRouteActivityを起動するようにして、パラメータで遷移先を変えるようにします。
+RouteActivityに認証の確認の処理や、初期化処理などを置いて、各Activityはそれぞれの責務を真っ当させたら、コードが綺麗になるのではないかと思いました。</p>
+
+<p>RouteActivityという名前はRailsのconfig/routes.rbから来ています。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[テンプレートアプリ "katanuki" を作った]]></title>
@@ -2858,24 +2886,6 @@ RoboGuice 2.0からはRoboApplicationは継承しなくてよくなった。</p>
 　<br/>
 　<br/>
 何も考えずにAndroidアプリ書いてるとコントローラがどんどん太るから、コントローラにはなるべく処理は書かずにジュースを使ってどんどんヘルパーにデリゲートしていきたいです。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[近況]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/12/01/recent/"/>
-    <updated>2012-12-01T13:17:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/12/01/recent</id>
-    <content type="html"><![CDATA[
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">(</span> <span class="o">*</span><span class="err">´ω｀</span><span class="o">*)</span>  <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">project</span> <span class="n">$</span> <span class="n">find</span> <span class="o">.</span> <span class="o">-</span><span class="n">name</span> <span class="o">*.</span><span class="na">xml</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">cat</span> <span class="o">|</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
-</span><span class='line'>    <span class="mi">36741</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/blue.gif" alt="ウワーッ" /></p>
 ]]></content>
   </entry>
   
