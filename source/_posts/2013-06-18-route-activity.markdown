@@ -1,0 +1,25 @@
+---
+layout: post
+title: "RouteActivityを作ろう"
+date: 2013-06-18 22:16
+comments: false
+categories: Android
+---
+
+## 理由1. LauncherのActivityは太りやすい
+Androidのプロジェクトを作ると最初にMainActivityが作られます。
+そのMainActivityを中心にアプリを作っていくと、認証の確認を行うロジックを入れたり、思わぬ初期化処理が必要になったりして、規模が大きくなるごとにどんどんActivityが太ってしまいます。
+ユーザーから最初に見える画面は出来るだけ速く表示したいですし、分岐がたくさん入ると見通しが悪くなって変更がしづらくなる、という状態は避けたいです。
+
+## 理由2. アプリの起動の口が複数あるとコピペが発生しやすい
+Androidはショートカットや通知など、画面を起動するパスがたくさんあります。
+素直な実装をすると、すべてのActivityのonCreateの中で、isAuthenticatedみたいなメソッドを生やしてログインしてなかったらログイン画面に飛ばしたり、どの経路からアプリが起動されたかログを取る処理などを書いたりして、コピペが発生してActivityの見通しが悪くなってしまいます。
+
+かといって共通の親クラスを作るという方法は、あまりやりたくありません。
+
+## RouteActivityを作ろう
+プロジェクトを作成したらまず最初にMainActivityをRouteActivityにリネームします。
+そして、ショートカットやIntentFilterなどはすべてRouteActivityを起動するようにして、パラメータで遷移先を変えるようにします。
+RouteActivityに認証の確認の処理や、初期化処理などを置いて、各Activityはそれぞれの責務を真っ当させたら、コードが綺麗になるのではないかと思いました。
+
+RouteActivityという名前はRailsのconfig/routes.rbから来ています。
