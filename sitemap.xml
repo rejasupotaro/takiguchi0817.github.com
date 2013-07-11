@@ -2,182 +2,188 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/10/06/hello-octopress/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/10/06/google-play-on-emulator/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/10/06/android-encryption/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/10/09/appli-comparison/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/10/19/browsercat/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/10/21/sicp-4-dot-11/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/10/21/pairpro/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/10/30/java-lambda/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/03/y-combinators/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/04/rails-days-1/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/06/gif-generator/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/06/isucon2/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/07/android-notification/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/11/rails-days-2/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/11/betterflow/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/16/into-brook/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/17/beautiful-gifs/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/19/zip-upload/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/23/mysql-character-set/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/24/save-dailymotion/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/11/29/about-android-webview/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/12/01/recent/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/12/01/install-roboguice/</loc>
-        <lastmod>2013-03-28T23:09:42+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/12/02/whenever/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/12/02/guideline/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/12/10/android-ci/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/12/16/vote/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/12/24/triaina/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/12/29/end-of-the-day/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/12/30/look-back-2012/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2012/12/31/java-aes/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2013/01/05/drink-mockito/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2013/01/15/android-security/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2013/03/05/dislable-java/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2013/03/07/sicp-hanseikai/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2013/03/10/android-libraries/</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2013/03/16/taisyoku/</loc>
-        <lastmod>2013-03-28T22:07:31+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2013/03/28/rspec-on-rails/</loc>
-        <lastmod>2013-03-28T22:51:29+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2013/04/02/nyusya-entry/</loc>
-        <lastmod>2013-04-09T01:06:11+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2013/04/15/using-otto/</loc>
-        <lastmod>2013-04-15T23:25:24+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2013/04/28/android-katanuki/</loc>
-        <lastmod>2013-04-28T18:53:44+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/2013/06/18/route-activity/</loc>
-        <lastmod>2013-06-18T22:40:33+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://takiguchi0817.github.com/blog/2013/07/11/altria-connected-instrument-test/
+        </loc>
+        <lastmod>2013-07-11T22:20:15+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/blog/archives/</loc>
-        <lastmod>2013-06-18T22:40:33+09:00</lastmod>
+        <lastmod>2013-07-11T22:20:15+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/</loc>
-        <lastmod>2013-06-18T22:40:33+09:00</lastmod>
+        <lastmod>2013-07-11T22:20:15+09:00</lastmod>
     </url>
     <url>
         <loc>http://takiguchi0817.github.com/search.html</loc>
-        <lastmod>2013-03-28T22:06:35+09:00</lastmod>
+        <lastmod>2013-06-18T22:54:33+09:00</lastmod>
     </url>
 </urlset>

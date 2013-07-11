@@ -6,8 +6,9 @@
 	<title>Just posted a blog</title>
     <meta name="author" content="rejasupotaro">
     
-	<meta name="description" content="Published on: Nov 6th, 2012 Tags: Isucon, Server #isucon2、周りでも結構話題になった。
-「同期でもやりたいねー。」みたいな話になって、僕はパフォーマンスチューニングとかよくわからなかったので、各チームが何をしたのか調べた。 言語 「 &hellip;">
+	<meta name="description" content="Published on: Nov 7th, 2012 Tags: Android ステータスバー NotificationManagerを介してステータスバーに通知を出したり消したりする。
+NotificationManagerドキュメント 通知を出す・消す 1
+2 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -102,6 +103,287 @@
 <!-- begin toload --> 
     <div id="content" class="inner">
         
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/07/android-notification/">
+		
+			Androidの通知周り</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-07T23:19:00+09:00" pubdate data-updated="true">Nov 7<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/android/'>Android</a>
+
+
+</div>
+    </div>
+		<h2>ステータスバー</h2>
+
+<p>NotificationManagerを介してステータスバーに通知を出したり消したりする。<br/>
+<a href="http://developer.android.com/reference/android/app/NotificationManager.html">NotificationManagerドキュメント</a></p>
+
+<h3>通知を出す・消す</h3>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">NotificationManager</span> <span class="n">notificationManager</span> <span class="o">=</span>
+</span><span class='line'>    <span class="o">(</span><span class="n">NotificationManager</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">NOTIFICATION_SERVICE</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>通知を出す：notify(id, notification)</li>
+<li>通知を消す：cancel(id)</li>
+</ul>
+
+
+<p>イッツシンプル</p>
+
+<h3>表示するNotificationについて</h3>
+
+<p>Notification.Builderを使って生成する(〜API Level 11)</p>
+
+<p><img src="http://developer.android.com/images/ui/notifications/normal_notification_callouts.png" alt="ステータスバーの対応表" /></p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Notification</span> <span class="n">notification</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Notification</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">context</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setContentTitle</span><span class="o">(</span><span class="s">&quot;通知のタイトル&quot;</span><span class="o">)</span> <span class="mi">1</span><span class="err">に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setLargeIcon</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">large_icon</span><span class="o">)</span> <span class="c1">// 2に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setContentText</span><span class="o">(</span><span class="s">&quot;テキスト&quot;</span><span class="o">)</span> <span class="c1">// 3に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setContentInfo</span><span class="o">(</span><span class="s">&quot;ちょっとした情報&quot;</span><span class="o">)</span> <span class="c1">// 4に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setSmallIcon</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">small_icon</span><span class="o">)</span> <span class="c1">// 5に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setWhen</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">())</span> <span class="c1">// 6に対応</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setTicker</span><span class="o">(</span><span class="s">&quot;通知なう&quot;</span><span class="o">,</span> <span class="n">remoteView</span><span class="o">)</span> <span class="c1">// 通知を最初に受け取ったときに表示テキスト</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setContentIntent</span><span class="o">(</span><span class="n">pendingIntent</span><span class="o">)</span> <span class="c1">// 通知をタップしたときに呼ばれるIntent</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setSound</span><span class="o">(</span><span class="n">uri</span><span class="o">)</span> <span class="c1">// 音を鳴らす</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setLights</span><span class="o">(</span><span class="n">argb</span><span class="o">,</span> <span class="n">onMs</span><span class="o">,</span> <span class="n">offMs</span><span class="o">)</span> <span class="c1">// ピカピカさせる</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">setVibrate</span><span class="o">(</span><span class="n">Notification</span><span class="o">.</span><span class="na">DEFAULT_VIBRATE</span><span class="o">)</span> <span class="c1">// バイブ設定</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">getNotification</span><span class="o">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>FLAGがたくさんあると思うけど、なんとなくの理解で、</p>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>フラグの種類            </th>
+<th>内容                                   </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>FLAG_AUTO_CANCEL        </td>
+<td>タップしたら消える                     </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_FOREGROUND_SERVICE </td>
+<td>現在実行中のサービスを表す？？？       </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_HIGH_PRIORITY      </td>
+<td>ステータスバーが非表示でも通知が出せる </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_INSISTENT          </td>
+<td>通知が消されるまで音が繰り返しなる     </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_NO_CLEAR           </td>
+<td>タップとかで消せないようにする         </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_ONGOING_EVENT      </td>
+<td>現在進行形のイベントを表す？？？       </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_ONLY_ALERT_ONCE    </td>
+<td>通知が来る度に音とか振動とか出す       </td>
+</tr>
+<tr>
+<td></td>
+<td>FLAG_SHOW_LIGHTS        </td>
+<td>ピカピカさせる                         </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>こんな感じな気がする。</p>
+
+<h2>プッシュ通知(C2DM)</h2>
+
+<p>なんでC2DMかって、2.1はGCMに対応していない。</p>
+
+<p><a href="http://www.techdoctranslator.com/code-google-com/android-c2dm">Android C2DM - ソフトウェア技術ドキュメントを勝手に翻訳</a></p>
+
+<p>まず、アプリケーションの登録</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="s">&quot;com.google.android.c2dm.intent.REGISTER&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;app&quot;</span><span class="o">,</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getBroadcast</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(),</span> <span class="mi">0</span><span class="o">));</span>
+</span><span class='line'><span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;sender&quot;</span><span class="o">,</span> <span class="n">emailOfSender</span><span class="o">);</span>
+</span><span class='line'><span class="n">context</span><span class="o">.</span><span class="na">startService</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>アプリケーションの登録解除</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="s">&quot;com.google.android.c2dm.intent.UNREGISTER&quot;</span><span class="o">);</span>
+</span><span class='line'><span class="n">Intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">&quot;app&quot;</span><span class="o">,</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getBroadcast</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(),</span> <span class="mi">0</span><span class="o">));</span>
+</span><span class='line'><span class="n">startService</span><span class="o">(</span><span class="n">intent</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>BroadcastReceiverを継承したPushNotificationReceiverクラスを作る。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Override</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onReceive</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">intent</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">action</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getAction</span><span class="o">();</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">ACTION_REGISTER</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">action</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>            <span class="c1">// アーアアー</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">ACTION_RECEIVE</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">action</span><span class="o">))</span> <span class="o">{</span>
+</span><span class='line'>            <span class="c1">// アーアアー</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>C2DMからRegistration IDを受信したときの処理は</p>
+
+<ul>
+<li>SyncManagerを動かす</li>
+<li>サーバーに登録IDを送る</li>
+<li>SharedPreferenceにIDを保存する</li>
+</ul>
+
+
+<p>とか。その他なんらかのメッセージを受信したときの処理は定型なのでリンク先を参照されたし。</p>
+
+<p>Manifestには以下のように記述しておく。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="c">&lt;!-- このアプリケーションだけがメッセージの受信と登録の結果の受信が可能 --&gt;</span>
+</span><span class='line'><span class="nt">&lt;permission</span> <span class="na">android:name=</span><span class="s">&quot;com.rejasupotaro.permission.C2D_MESSAGE&quot;</span> <span class="na">android:protectionLevel=</span><span class="s">&quot;signature&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;com.rejasupotaro.permission.C2D_MESSAGE&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- このアプリケーションは登録とメッセージ受信の許可がある --&gt;</span>
+</span><span class='line'><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.permission.RECEIVE&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- 登録 ID をサーバに送信する --&gt;</span>
+</span><span class='line'><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">&quot;android.permission.INTERNET&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c">&lt;!-- C2DM サーバのみがアプリにメッセージを送信できる。許可がセットされないと、他のどのアプリでもこれを生成できてしまう --&gt;</span>
+</span><span class='line'><span class="nt">&lt;receiver</span> <span class="na">android:permission=</span><span class="s">&quot;com.google.android.c2dm.permission.SEND&quot;</span>
+</span><span class='line'>    <span class="na">android:name=</span><span class="s">&quot;.PushNotificationReceiver&quot;</span> <span class="nt">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">&lt;!-- 実際のメッセージの受信 --&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;intent-filter</span> <span class="nt">&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.intent.RECEIVE&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;com.rejasupotaro&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c">&lt;!-- 登録 ID の受信 --&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;intent-filter</span> <span class="nt">&gt;</span>
+</span><span class='line'>         <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;com.google.android.c2dm.intent.REGISTRATION&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>         <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;com.rejasupotaro&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>     <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class='line'><span class="nt">&lt;/receiver&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>だいたいそんな感じ。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -2084,174 +2366,6 @@ WebViewのキャッシュ</li>
 各社、セキュアな情報はプリファレンスに入れてるか、暗号化してそこらに置いてる。<br/>
 プリファレンスの中は平文で保存されていることが多いけど、実際に端末を盗んでroot化しないの見れないので、良いと思う。<br/>
 アカウントマネージャを使っているアプリはSDカードに移動できないようにしている。再マウント時にアカウントを復帰させるのあんまりやらないのかな。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/10/06/android-encryption/">
-		
-			Androidの画像の暗号化</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-06T17:05:00+09:00" pubdate data-updated="true">Oct 6<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/android/'>Android</a>, <a class='category' href='/blog/categories/encryption/'>Encryption</a>
-
-
-</div>
-    </div>
-		<h2>SDカードに保存する画像を暗号化したい</h2>
-
-<h3>Androidの暗号化手法</h3>
-
-<p>Androidで使用出来る暗号化手法一覧：Security.getAlgorithms(&#8220;Cipher&#8221;)</p>
-
-<pre><code>PBEWITHSHAAND192BITAES-CBC-BC
-PBEWITHSHAAND40BITRC4
-PBEWITHSHAAND128BITRC2-CBC
-PBEWITHSHA256AND256BITAES-CBC-BC
-PBEWITHSHAAND128BITAES-CBC-BC
-PBEWITHSHAAND40BITRC2-CBC
-PBEWITHSHA1ANDDES
-AESWRAP
-DES
-AES
-DESEDEWRAP
-PBEWITHSHAAND256BITAES-CBC-BC
-PBEWITHSHA256AND192BITAES-CBC-BC
-PBEWITHMD5AND128BITAES-CBC-OPENSSL
-PBEWITHMD5AND256BITAES-CBC-OPENSSL
-BLOWFISH
-PBEWITHSHAAND2-KEYTRIPLEDES-CBC
-PBEWITHSHA1ANDRC2
-PBEWITHMD5AND192BITAES-CBC-OPENSSL
-ARC4
-PBEWITHMD5ANDDES
-RSA
-PBEWITHSHA256AND128BITAES-CBC-BC
-PBEWITHSHAAND3-KEYTRIPLEDES-CBC
-DESEDE
-PBEWITHSHAANDTWOFISH-CBC
-PBEWITHSHAAND128BITRC4
-PBEWITHMD5ANDRC2
-</code></pre>
-
-<p>色々あるが、今回はAESを検証した。</p>
-
-<h3>コード</h3>
-
-<p>定数</p>
-
-<pre><code>private static final byte[] SALT = new byte[] {
-    -47, 66, 32, -127, -102, -51, 79, -69, 57, 85, -91, -42, 74, -116 };
-private static final byte[] INITAIL_VECTOR = {
-    16, 74, 71, -80, 32, 101, -47, 72, 117, -14, 0, -29, 70, 65, -12, 74 };
-private static final String CIPHER_ALGORITM = "AES/CBC/PKCS5Padding";
-</code></pre>
-
-<p>鍵の生成</p>
-
-<pre><code>private static SecretKey generateKey()
-        throws  NoSuchAlgorithmException, InvalidKeySpecException {  
-
-    // ここでは"password"を与えているが実際にやってはいけない
-    char[] password = "password".toCharArray();
-
-    // ソルト、イテレーションカウント1024回、鍵の長さ256ビットを指定
-    KeySpec keySpec = new PBEKeySpec(password, SALT, 1024, 256);  
-    SecretKeyFactory factory = SecretKeyFactory.getInstance("PBEWITHSHAAND256BITAES-CBC-BC");  
-    SecretKey secretKey = factory.generateSecret(keySpec);  
-
-    return secretKey;  
-}
-</code></pre>
-
-<p>暗号化</p>
-
-<pre><code>public static byte[] encrypt(Bitmap bitmap)
-        throws
-        NoSuchAlgorithmException, InvalidKeySpecException, NameNotFoundException,
-        InvalidKeyException, NoSuchPaddingException, InvalidAlgorithmParameterException,
-        IllegalBlockSizeException, BadPaddingException {
-
-    SecretKey secretKey = generateKey();
-
-    // 暗号アルゴリズムにAESを指定
-    Cipher cipher = Cipher.getInstance(CIPHER_ALGORITM);
-
-    // 暗号化モードに設定し、キーを指定
-    cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(INITAIL_VECTOR));
-
-    // 暗号化の実行
-    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    bitmap.compress(CompressFormat.JPEG, 100, bos);
-    return cipher.doFinal(bos.toByteArray());
-}
-</code></pre>
-
-<p>復号</p>
-
-<pre><code>public static Bitmap decrypt(byte[] crypted)
-        throws
-        NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException,
-        InvalidKeyException, InvalidAlgorithmParameterException,
-        IllegalBlockSizeException, BadPaddingException {
-
-    SecretKey secretKey = generateKey();
-
-    // 暗号アルゴリズムにAESを指定
-    Cipher cipher = Cipher.getInstance(CIPHER_ALGORITM);
-
-    // 暗号化モードに設定し、キーを指定
-    cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(INITAIL_VECTOR));
-
-    // 復号の実行
-    byte[] decrypted = cipher.doFinal(crypted);
-    BitmapFactory.Options options = new BitmapFactory.Options();
-    return BitmapFactory.decodeByteArray(decrypted, 0, decrypted.length, options);
-}
-</code></pre>
-
-<h3>検証</h3>
-
-<p>500 * 500 の画像10枚の暗号化と復号にかかった時間を測定…しようと思って実行したらアプリが応答しなかった。</p>
-
-<p>traceviewで画像1枚の処理時間を調べたら、全体で6800msec掛かっていた。encrypt(generateKey込み)が80%、decryptが20%で、generateKeyにかなりの時間がかかっていた。<br/>
-なのでsecretKeyを外で生成して暗号化・復号に掛かる時間を計測してみたら2800msecになった。</p>
-
-<h3>感想</h3>
-
-<p>画像を暗号化するなら、ローカルに置くよりサーバに置いた方が速いし楽な気がする。<br/>
-絶対に見られてはならない機密情報ってほどでもないが、あんまり見られたくないという画像は、<a href="http://www.kk.iij4u.or.jp/~kondo/bmp/">ヘッダ</a>をいじるのが良いのだろうか。</p>
-
-<p>画像に関してはあれだが、アクセストークンくらいなら速いししばらくメモリに乗ってそうだし、良さそう。<br/>
-注意する点として、SharedPreferenceにはStringしか保存できないので、暗号化と復号の処理の間にBase64化処理が必要になる。<br/>
-しかもAndroidのBase64クラスが使えるのは2.2以降なので、そういうのをうまくやる必要がある。</p>
 
 		
 		

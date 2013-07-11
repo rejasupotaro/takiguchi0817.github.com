@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-06-18T22:49:02+09:00</updated>
+  <updated>2013-07-11T22:20:25+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[altria-connected_instrument_test]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/07/11/altria-connected-instrument-test/"/>
+    <updated>2013-07-11T22:03:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/07/11/altria-connected-instrument-test</id>
+    <content type="html"><![CDATA[<p><blockquote class="twitter-tweet"><p>何も作ってないけどLLでJenkins cloneつくってYAPCとかで発表したい</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/340815292131311619">June 1, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p>Jenkins clone実験中に暴走して凍結とかが良い</p>&mdash; 片s (@hotchemi) <a href="https://twitter.com/hotchemi/statuses/346598875328557059">June 17, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p>Jenkins clone clone作って中村氏のaltriaと聖杯戦争したい</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/352936007068422144">July 4, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p>Jenkins clone、最終的には独立して一人暮らしとか始めたらいい</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/347316439113400320">June 19, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p>Jenkins cloneの名前どうするかという話してて、それより上の抽象概念を考えられないからプロダクトにクラス名のような名前を付けてしまう、初音ミクのような個の概念を与えよ、Jenkins同士が会話してるの見ておっさんがLike付けるという結論になりました</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/347336070427451394">June 19, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。
+AndroidのConnected Instrument Testの結果を表示します。</p>
+
+<p><a href="https://github.com/takiguchi0817/altria-connected_instrument_test">altria-connected_instrument_test</a>
+<img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/altria-connected_instrument_test.png" alt="" /></p>
+
+<p>エミュレータのプラグインも欲しいですね。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Railsでcronを設定するときに良いやつ]]></title>
@@ -730,84 +756,6 @@ outFilePathはどこでもいいんだけど、</p>
 Firefox他ではコーデック対応してないっぽいので音鳴らない。</p>
 
 <p>iTunes Search APIで適当な音持ってきてる。かわいみGIFはネットで探した。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Rails Days 2]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/11/11/rails-days-2/"/>
-    <updated>2012-11-11T14:02:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/11/11/rails-days-2</id>
-    <content type="html"><![CDATA[<h2>DBとかモデルとかいじる</h2>
-
-<h3>MySQLのインストール</h3>
-
-<pre><code>$ sudo aptitude update
-$ aptitude install mysql-server
-$ aptitude install libmysqlclient-dev
-$ mysqladmin ping -u root -p
-Enter password: ****
-mysqld is alive
-</code></pre>
-
-<p>インストール中にrootのパスワード聞かれた。<br/>
-そのパスワードでpingして存命確認した。</p>
-
-<h3>ユーザーの作成</h3>
-
-<p>作成する。</p>
-
-<pre><code>$ mysql -u root -p
-mysql&gt; CREATE USER betterflow@localhost IDENTIFIED BY 'hogehoge';
-mysql&gt; GRAND ALL ON *.* TO betterflow@localhost;
-mysql&gt; FLUSH PRIVILEGES;
-</code></pre>
-
-<p>確認する。</p>
-
-<pre><code>mysql&gt; use mysql;
-mysql&gt; SELECT Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv FROM user;
-</code></pre>
-
-<h3>RailsでMySQLを使えるようにする</h3>
-
-<p>Gemfileで gem 'sqlite3' を gem 'mysql2' に変えた。</p>
-
-<pre><code>$ bundle install --path vender/bundle
-$ vim config/database.yml
-development:
-  adapter: mysql2
-  database: betterflow
-  username: betterflow
-  password: hogehoge
-  pool: 5
-  timeout: 5000
-$ rake db:create
-</code></pre>
-
-<p>DBにアクセスできるようにした。</p>
-
-<h3>モデルを作る</h3>
-
-<pre><code>$ rails generate model track track_name:string artist_name:string release_date:date preview_url:string jacket_image_url:string track_view_url:string
-$ rake db:migrate
-</code></pre>
-
-<h3>モデルの型の変更</h3>
-
-<p>release_dateをdate型にしたけどstring型の方が都合が良かった、変えたい。</p>
-
-<pre><code>$ rails generate migration change_release_date_type
-$ vim db/migrate/20121111051853_change_release_date_type.rb
-class ChangeReleaseDateType &lt; ActiveRecord::Migration
-  def change
-    change_column :tracks, :release_date, :string
-  end
-end
-$ rake db:migrate
-</code></pre>
-
-<p>すごい。</p>
 ]]></content>
   </entry>
   

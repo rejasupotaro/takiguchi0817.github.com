@@ -6,9 +6,7 @@
 	<title>Just posted a blog</title>
     <meta name="author" content="rejasupotaro">
     
-	<meta name="description" content="Published on: Jan 5th, 2013 Tags: Android, Mockito mojito モヒートは、キューバ・ハバナ発祥のカクテルの一つ。
-ラムをベースにソーダ、ライム、砂糖、ミントを加えたもの。
-ミントとソーダの清涼感が暑い夏にぴったりと、「夏と言えば」 &hellip;">
+	<meta name="description" content="Published on: Jan 15th, 2013 Tags: Android, Security Androidセキュリティあるあるをまとめてみました。 　 アプリケーションデータディレクトリの外に個人情報を置いていないか？ &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -103,6 +101,84 @@
 <!-- begin toload --> 
     <div id="content" class="inner">
         
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/01/15/android-security/">
+		
+			Androidアプリを作るときに気を付けること(セキュリティ)</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-15T23:28:00+09:00" pubdate data-updated="true">Jan 15<span>th</span>, 2013</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/android/'>Android</a>, <a class='category' href='/blog/categories/security/'>Security</a>
+
+
+</div>
+    </div>
+		<h3>Androidセキュリティあるあるをまとめてみました。</h3>
+
+<p>　</p>
+
+<h4><input type="checkbox">アプリケーションデータディレクトリの外に個人情報を置いていないか？</h4>
+
+<p>基本的に個人情報はSDカードや他のディレクトリに置いてはいけません。
+どうしても置きたい場合は<a href="http://takiguchi0817.github.com/blog/2012/12/31/java-aes/">暗号化</a>します。</p>
+
+<h4><input type="checkbox">WebViewでGETパラメータでCookieやトークンを渡していないか？</h4>
+
+<p>LogCatに出てしまいます。ただし、Jelly Beanからは<a href="http://blog.2maru.com/archives/1700">LogCatが読めなくなりました</a>。</p>
+
+<h4><input type="checkbox">WebViewで許可されたドメイン以外にJavaScriptInterfaceが公開されていないか？</h4>
+
+<p>JavaScriptInterfaceからクラスローダーが取得できたりJNIが呼べたりしてしまうので<a href="https://www.google.co.jp/#hl=ja&amp;q=Android+WebView+%E5%8D%B1%E9%99%BA&amp;fp=1">たいへん危険</a>です。</p>
+
+<h4><input type="checkbox">ContentProviderのパーミッションは適切か？</h4>
+
+<p>コンテントプロバイダはデフォルトで公開されているので注意が必要です。
+また2.2以前だと<a href="http://www.taosoftware.co.jp/blog/2011/10/android_contentproviderexport.html">exportedをfalseにしていても</a>外部アプリから情報が読めてしまいます。</p>
+
+<h4><input type="checkbox">Broadcastのパーミッションは適切か？</h4>
+
+<p>パーミッションを付け忘れると外に情報が出てしまいます。
+またStickyブロードキャストはパーミッションが指定できないので個人情報を入れてはいけません。</p>
+
+<h4><input type="checkbox">端末固有の識別子をサーバ側でIDとして使っていないか？</h4>
+
+<p><a href="http://news.mynavi.jp/articles/2012/03/28/abc2012_06/index.html">怖い人</a>が飛んでくるおそれがあります。
+　<br/>
+　</p>
+
+<h3>まとめ</h3>
+
+<p>脆弱性のあるアプリを一度世に出してしまったら、いくらセキュリティパッチをあてたところで、ユーザにアップデートをしてもらえなければそれまでです。
+ちょっとした注意で防げるものもあるので、外部からの攻撃ならまだしも、こちら側で防げるものは確実に防いでおきたいですね。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -2120,393 +2196,6 @@ autoload、書いてなかったらconfig/application.rbに</p>
 
 
 <p>良い。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/12/01/install-roboguice/">
-		
-			RoboGuice 2.0 で Dependency を Injection しました</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-01T16:07:00+09:00" pubdate data-updated="true">Dec 1<span>st</span>, 2012</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/android/'>Android</a>, <a class='category' href='/blog/categories/roboguice/'>RoboGuice</a>
-
-
-</div>
-    </div>
-		<blockquote class="twitter-tweet" lang="ja"><p>だるすぎ</p>&mdash; 高意識エネルギー体さん (@mizchi) <a href="https://twitter.com/mizchi/status/274790220988297216" data-datetime="2012-12-01T08:21:08+00:00">12月 1, 2012</a></blockquote>
-
-
-<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<blockquote class="twitter-tweet" lang="ja"><p>“はじめてのDependency Injection - _development,” <a href="http://t.co/J8d5rO3z" title="http://htn.to/yoYFMc">htn.to/yoYFMc</a></p>&mdash; 高意識エネルギー体さん (@mizchi) <a href="https://twitter.com/mizchi/status/274790200465555456" data-datetime="2012-12-01T08:21:03+00:00">12月 1, 2012</a></blockquote>
-
-
-<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<p>人間はだるくない開発がしたい。<br/>
-　<br/>
-　<br/>
-そこで、DIフレームワークを使うことにした。<br/>
-<a href="http://www.blog.project13.pl/wp-content/uploads/2011/12/presentation.html#slide1">Deep dive into RoboGuice beyond &#8220;Hello World apps&#8221;</a></p>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/roboguice.png" alt="" /></p>
-
-<p><a href="http://code.google.com/p/roboguice/">&#8220;RoboGuice 2 smoothes out some of the wrinkles in your Android development experience and makes things simple and fun!&#8221;</a><br/>
-ということらしいので、RoboGuice入れてみた。<br/>
-　<br/>
-　</p>
-
-<h2>インストール</h2>
-
-<p>maven使ってないので <a href="http://code.google.com/p/roboguice/wiki/InstallationNonMaven">Installation for Non-Maven Projects</a></p>
-
-<ul>
-<li><a href="http://repo1.maven.org/maven2/org/roboguice/roboguice/">RoboGuice 2.0</a></li>
-<li><a href="http://repo1.maven.org/maven2/com/google/inject/guice/">Guice 3.0-no_aop</a></li>
-<li><a href="http://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/">jsr305 (optional support for @Nullable annotation, if desired)</a></li>
-</ul>
-
-
-<p>これらを入れろって言ってるけど、入れても動かなかった。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="o">:</span><span class="mi">26</span><span class="o">:</span><span class="mf">49.250</span><span class="o">:</span> <span class="n">E</span><span class="o">/</span><span class="n">AndroidRuntime</span><span class="o">(</span><span class="mi">15131</span><span class="o">):</span> <span class="n">FATAL</span> <span class="nl">EXCEPTION:</span> <span class="n">main</span>
-</span><span class='line'><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="o">:</span><span class="mi">26</span><span class="o">:</span><span class="mf">49.250</span><span class="o">:</span> <span class="n">E</span><span class="o">/</span><span class="n">AndroidRuntime</span><span class="o">(</span><span class="mi">15131</span><span class="o">):</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">NoClassDefFoundError</span><span class="o">:</span> <span class="n">javax</span><span class="o">.</span><span class="na">inject</span><span class="o">.</span><span class="na">Provider</span>
-</span><span class='line'><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="o">:</span><span class="mi">26</span><span class="o">:</span><span class="mf">49.250</span><span class="o">:</span> <span class="n">E</span><span class="o">/</span><span class="n">AndroidRuntime</span><span class="o">(</span><span class="mi">15131</span><span class="o">):</span>  <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">inject</span><span class="o">.</span><span class="na">internal</span><span class="o">.</span><span class="na">MoreTypes</span><span class="o">.</span><span class="na">canonicalizeForKey</span><span class="o">(</span><span class="n">MoreTypes</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">81</span><span class="o">)</span>
-</span><span class='line'><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="o">:</span><span class="mi">26</span><span class="o">:</span><span class="mf">49.250</span><span class="o">:</span> <span class="n">E</span><span class="o">/</span><span class="n">AndroidRuntime</span><span class="o">(</span><span class="mi">15131</span><span class="o">):</span>  <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">inject</span><span class="o">.</span><span class="na">Key</span><span class="o">.&lt;</span><span class="n">init</span><span class="o">&gt;(</span><span class="n">Key</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">119</span><span class="o">)</span>
-</span><span class='line'><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="o">:</span><span class="mi">26</span><span class="o">:</span><span class="mf">49.250</span><span class="o">:</span> <span class="n">E</span><span class="o">/</span><span class="n">AndroidRuntime</span><span class="o">(</span><span class="mi">15131</span><span class="o">):</span>  <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">inject</span><span class="o">.</span><span class="na">Key</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">Key</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">212</span><span class="o">)</span>
-</span><span class='line'><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="o">:</span><span class="mi">26</span><span class="o">:</span><span class="mf">49.250</span><span class="o">:</span> <span class="n">E</span><span class="o">/</span><span class="n">AndroidRuntime</span><span class="o">(</span><span class="mi">15131</span><span class="o">):</span>  <span class="n">at</span> <span class="n">roboguice</span><span class="o">.</span><span class="na">inject</span><span class="o">.</span><span class="na">ContextScope</span><span class="o">.</span><span class="na">enter</span><span class="o">(</span><span class="n">ContextScope</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">87</span><span class="o">)</span>
-</span><span class='line'><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="o">:</span><span class="mi">26</span><span class="o">:</span><span class="mf">49.250</span><span class="o">:</span> <span class="n">E</span><span class="o">/</span><span class="n">AndroidRuntime</span><span class="o">(</span><span class="mi">15131</span><span class="o">):</span>  <span class="n">at</span> <span class="n">roboguice</span><span class="o">.</span><span class="na">inject</span><span class="o">.</span><span class="na">ContextScope</span><span class="o">.&lt;</span><span class="n">init</span><span class="o">&gt;(</span><span class="n">ContextScope</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">61</span><span class="o">)</span>
-</span><span class='line'><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="o">:</span><span class="mi">26</span><span class="o">:</span><span class="mf">49.250</span><span class="o">:</span> <span class="n">E</span><span class="o">/</span><span class="n">AndroidRuntime</span><span class="o">(</span><span class="mi">15131</span><span class="o">):</span>  <span class="n">at</span> <span class="n">roboguice</span><span class="o">.</span><span class="na">RoboGuice</span><span class="o">.</span><span class="na">newDefaultRoboModule</span><span class="o">(</span><span class="n">RoboGuice</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">163</span><span class="o">)</span>
-</span><span class='line'><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="o">:</span><span class="mi">26</span><span class="o">:</span><span class="mf">49.250</span><span class="o">:</span> <span class="n">E</span><span class="o">/</span><span class="n">AndroidRuntime</span><span class="o">(</span><span class="mi">15131</span><span class="o">):</span>  <span class="n">at</span> <span class="n">roboguice</span><span class="o">.</span><span class="na">RoboGuice</span><span class="o">.</span><span class="na">setBaseApplicationInjector</span><span class="o">(</span><span class="n">RoboGuice</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">120</span><span class="o">)</span>
-</span><span class='line'><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="o">:</span><span class="mi">26</span><span class="o">:</span><span class="mf">49.250</span><span class="o">:</span> <span class="n">E</span><span class="o">/</span><span class="n">AndroidRuntime</span><span class="o">(</span><span class="mi">15131</span><span class="o">):</span>  <span class="n">at</span> <span class="n">roboguice</span><span class="o">.</span><span class="na">RoboGuice</span><span class="o">.</span><span class="na">getBaseApplicationInjector</span><span class="o">(</span><span class="n">RoboGuice</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">59</span><span class="o">)</span>
-</span><span class='line'><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="o">:</span><span class="mi">26</span><span class="o">:</span><span class="mf">49.250</span><span class="o">:</span> <span class="n">E</span><span class="o">/</span><span class="n">AndroidRuntime</span><span class="o">(</span><span class="mi">15131</span><span class="o">):</span>  <span class="n">at</span> <span class="n">roboguice</span><span class="o">.</span><span class="na">RoboGuice</span><span class="o">.</span><span class="na">getInjector</span><span class="o">(</span><span class="n">RoboGuice</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">149</span><span class="o">)</span>
-</span><span class='line'><span class="mi">12</span><span class="o">-</span><span class="mi">01</span> <span class="mi">14</span><span class="o">:</span><span class="mi">26</span><span class="o">:</span><span class="mf">49.250</span><span class="o">:</span> <span class="n">E</span><span class="o">/</span><span class="n">AndroidRuntime</span><span class="o">(</span><span class="mi">15131</span><span class="o">):</span>  <span class="n">at</span> <span class="n">roboguice</span><span class="o">.</span><span class="na">activity</span><span class="o">.</span><span class="na">RoboActivity</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">RoboActivity</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">76</span><span class="o">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>javaxのinjectがないって言ってる。<br/>
-調べたらRoboGuiceを使うのにGoogle Guiceが必要で、Google Guiceは<a href="http://code.google.com/p/atinject/downloads/list">javax.inject</a>が必要とのこと。<br/>
-ダウンロードしてlibsに入れたら動くようになった。</p>
-
-<p>ググっても全然ブログ出てこないのでちょっと不安になってきた。<br/>
-　<br/>
-　</p>
-
-<h2>使い方</h2>
-
-<p>公式の<a href="http://code.google.com/p/roboguice/wiki/InjectView">チュートリアル</a>のやる気スイッチ押してあげたい。</p>
-
-<p>ActivityとかFragmentActivityは、RoboActivityとかRoboFragmentActivityとかを継承するようにする。<br/>
-RoboGuice 2.0からはRoboApplicationは継承しなくてよくなった。</p>
-
-<h3>レイアウトをインジェクトする</h3>
-
-<p>@ContentViewでレイアウトをインジェクトする。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>みたいにレイアウトをセットしてたのが、</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@ContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">)</span>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">RoboActivity</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-</span><span class='line'>        <span class="c1">// setContentView(R.layout.activity_main); &lt;= いらない</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ってなる。</p>
-
-<h3>ビューをインジェクトする</h3>
-
-<p>@InjectViewでビューをインジェクトする。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@ContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">)</span>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">RoboActivity</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">Button</span> <span class="n">mPostButton</span><span class="o">;</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">Button</span> <span class="n">mCloseButton</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">mPostButton</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button_post</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">mCloseButton</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button_close</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">mPostButton</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>                <span class="c1">// 略</span>
-</span><span class='line'>            <span class="o">}</span>
-</span><span class='line'>        <span class="o">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>みたいにIDからビューを取得してキャストしてたのが、</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@ContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">)</span>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">RoboActivity</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@InjectView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button_post</span><span class="o">)</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">Button</span> <span class="n">mPostButton</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@InjectView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button_close</span><span class="o">)</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">Button</span> <span class="n">mCloseButton</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">mPostButton</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>                <span class="c1">// 略</span>
-</span><span class='line'>            <span class="o">}</span>
-</span><span class='line'>        <span class="o">});</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>いきなりイベントをセットしたりできるようになる。キャストも不要でかっこいい。</p>
-
-<h3>インジェクト</h3>
-
-<p>@Injectでオブジェクトをインジェクトする。
-アクティビティのヘルパーを作ってインジェクトするのはすごく具合が良かった。</p>
-
-<p>まず、モジュールを定義する</p>
-
-<figure class='code'><figcaption><span>res/values/roboguice.xml  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
-</span><span class='line'><span class="nt">&lt;resources&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;string-array</span> <span class="na">name=</span><span class="s">&quot;roboguice_modules&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;item&gt;</span>com.rejasupotaro.roboguicesample.RoboGuiceSampleModule<span class="nt">&lt;/item&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/string-array&gt;</span>
-</span><span class='line'><span class="nt">&lt;/resources&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RoboGuiceSampleModule</span> <span class="kd">extends</span> <span class="n">AbstractModule</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">configure</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">bind</span><span class="o">(</span><span class="n">MainActivityHelper</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">in</span><span class="o">(</span><span class="n">ContextSingleton</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>モジュールに定義しなくてもクラス宣言に@ContextSingletonとアノテーションをつけておけばコンテキストシングルトンになる。
-コンテキストシングルトンだと、例えばActivityとFragmentで状態を持つHelperをインジェクトするときに、違うインスタンスを見ることがなくなるので安全にはなります。(スコープについては喧嘩になりました)(ケースによります)</p>
-
-<p>次にヘルパーを定義する</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AbstractActivityHelper</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Inject</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">Context</span> <span class="n">mContext</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">protected</span> <span class="n">Activity</span> <span class="nf">getActivity</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="o">(</span><span class="n">Activity</span><span class="o">)</span> <span class="n">mContext</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">protected</span> <span class="n">Context</span> <span class="nf">getContext</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">mContext</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>こんな抽象クラスを作っておくと、</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivityHelper</span> <span class="kd">extends</span> <span class="n">AbstractActivityHelper</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">launchGallarey</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">intent</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="s">&quot;image/*&quot;</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">intent</span><span class="o">.</span><span class="na">setAction</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_GET_CONTENT</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">getActivity</span><span class="o">().</span><span class="na">startActivityForResult</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">REQUEST_GALLERY</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">launchActivity</span><span class="o">(</span><span class="n">Class</span> <span class="n">targetClass</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">getActivity</span><span class="o">().</span><span class="na">startActivity</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="n">getActivity</span><span class="o">(),</span> <span class="n">targetClass</span><span class="o">));</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>こんな感じでコンストラクタなしでどんどんメソッド書ける。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">RoboActivity</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Inject</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">MainActivityHelper</span> <span class="n">mActivityHelper</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">mMainActivityHelper</span><span class="o">.</span><span class="na">launchGallarey</span><span class="o">();</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>みたいにいきなりメソッドが呼べてかっこいい。<br/>
-　<br/>
-　<br/>
-何も考えずにAndroidアプリ書いてるとコントローラがどんどん太るから、コントローラにはなるべく処理は書かずにジュースを使ってどんどんヘルパーにデリゲートしていきたいです。</p>
 
 		
 		

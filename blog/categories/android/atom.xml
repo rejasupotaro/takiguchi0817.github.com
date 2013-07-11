@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-06-18T22:49:02+09:00</updated>
+  <updated>2013-07-11T22:20:25+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[altria-connected_instrument_test]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/07/11/altria-connected-instrument-test/"/>
+    <updated>2013-07-11T22:03:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/07/11/altria-connected-instrument-test</id>
+    <content type="html"><![CDATA[<p><blockquote class="twitter-tweet"><p>何も作ってないけどLLでJenkins cloneつくってYAPCとかで発表したい</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/340815292131311619">June 1, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p>Jenkins clone実験中に暴走して凍結とかが良い</p>&mdash; 片s (@hotchemi) <a href="https://twitter.com/hotchemi/statuses/346598875328557059">June 17, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p>Jenkins clone clone作って中村氏のaltriaと聖杯戦争したい</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/352936007068422144">July 4, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p>Jenkins clone、最終的には独立して一人暮らしとか始めたらいい</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/347316439113400320">June 19, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet"><p>Jenkins cloneの名前どうするかという話してて、それより上の抽象概念を考えられないからプロダクトにクラス名のような名前を付けてしまう、初音ミクのような個の概念を与えよ、Jenkins同士が会話してるの見ておっさんがLike付けるという結論になりました</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/347336070427451394">June 19, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+<p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。
+AndroidのConnected Instrument Testの結果を表示します。</p>
+
+<p><a href="https://github.com/takiguchi0817/altria-connected_instrument_test">altria-connected_instrument_test</a>
+<img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/altria-connected_instrument_test.png" alt="" /></p>
+
+<p>エミュレータのプラグインも欲しいですね。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RouteActivityを作ろう]]></title>
@@ -328,51 +354,6 @@ NamingPolicyやDeserializerの使い方を覚えれば、手でjsonのパーサ�
 
 
 <p>とかあるので、また検証をしたら個別に記事を書こうと思います。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Androidアプリを作るときに気を付けること(セキュリティ)]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/01/15/android-security/"/>
-    <updated>2013-01-15T23:28:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/01/15/android-security</id>
-    <content type="html"><![CDATA[<h3>Androidセキュリティあるあるをまとめてみました。</h3>
-
-<p>　</p>
-
-<h4><input type="checkbox">アプリケーションデータディレクトリの外に個人情報を置いていないか？</h4>
-
-<p>基本的に個人情報はSDカードや他のディレクトリに置いてはいけません。
-どうしても置きたい場合は<a href="http://takiguchi0817.github.com/blog/2012/12/31/java-aes/">暗号化</a>します。</p>
-
-<h4><input type="checkbox">WebViewでGETパラメータでCookieやトークンを渡していないか？</h4>
-
-<p>LogCatに出てしまいます。ただし、Jelly Beanからは<a href="http://blog.2maru.com/archives/1700">LogCatが読めなくなりました</a>。</p>
-
-<h4><input type="checkbox">WebViewで許可されたドメイン以外にJavaScriptInterfaceが公開されていないか？</h4>
-
-<p>JavaScriptInterfaceからクラスローダーが取得できたりJNIが呼べたりしてしまうので<a href="https://www.google.co.jp/#hl=ja&amp;q=Android+WebView+%E5%8D%B1%E9%99%BA&amp;fp=1">たいへん危険</a>です。</p>
-
-<h4><input type="checkbox">ContentProviderのパーミッションは適切か？</h4>
-
-<p>コンテントプロバイダはデフォルトで公開されているので注意が必要です。
-また2.2以前だと<a href="http://www.taosoftware.co.jp/blog/2011/10/android_contentproviderexport.html">exportedをfalseにしていても</a>外部アプリから情報が読めてしまいます。</p>
-
-<h4><input type="checkbox">Broadcastのパーミッションは適切か？</h4>
-
-<p>パーミッションを付け忘れると外に情報が出てしまいます。
-またStickyブロードキャストはパーミッションが指定できないので個人情報を入れてはいけません。</p>
-
-<h4><input type="checkbox">端末固有の識別子をサーバ側でIDとして使っていないか？</h4>
-
-<p><a href="http://news.mynavi.jp/articles/2012/03/28/abc2012_06/index.html">怖い人</a>が飛んでくるおそれがあります。
-　<br/>
-　</p>
-
-<h3>まとめ</h3>
-
-<p>脆弱性のあるアプリを一度世に出してしまったら、いくらセキュリティパッチをあてたところで、ユーザにアップデートをしてもらえなければそれまでです。
-ちょっとした注意で防げるものもあるので、外部からの攻撃ならまだしも、こちら側で防げるものは確実に防いでおきたいですね。</p>
 ]]></content>
   </entry>
   
