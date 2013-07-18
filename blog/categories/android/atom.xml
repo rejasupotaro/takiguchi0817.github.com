@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-07-11T22:22:02+09:00</updated>
+  <updated>2013-07-19T00:27:16+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Modern Android Design]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/07/18/google-mobile-sessions/"/>
+    <updated>2013-07-18T23:01:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/07/18/google-mobile-sessions</id>
+    <content type="html"><![CDATA[<p>Google Mobile Sessionsにいってきた。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gms1.jpg" alt="" /></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gms2.jpg" alt="" /></p>
+
+<p>色んなセッションがあったけど、Mobile Android Designが特に良かった。
+たとえば、スマートフォンブラウザ、Androidアプリ、iPhoneアプリなど、マルチデバイスでサービスを出す場合のアプリのデザインについて、どこを統一すべきで、どこをカスタマイズすべきかなど。</p>
+
+<p>Designについて意識が高まって、他のアプリではどんなパターンを適用しているのか眺めてみたりしていた。</p>
+
+<h3>Google公式のデザインガイド</h3>
+
+<ul>
+<li><a href="http://developer.android.com/design/index.html">Android Design</a></li>
+<li><a href="http://www.youtube.com/playlist?list=PLWz5rJ2EKKc8j2B95zGMb8muZvrIy-wcF">Android Dsign in Action</a></li>
+</ul>
+
+
+<h3>Googleが美しいと紹介していたアプリ</h3>
+
+<ul>
+<li><a href="https://play.google.com/store/apps/details?id=com.thefancy.app&amp;hl=ja">Fancy</a>
+: Cardsベースでさまざまな解像度に対応していて、コンテンツを綺麗に見せることに成功している。</li>
+<li><a href="https://play.google.com/store/apps/details?id=com.expedia.bookings&amp;hl=ja">Expedia</a>
+: 解像度別にデザインを細かく調整していて、どのデバイスからも快適に見ることができる。</li>
+<li><a href="https://play.google.com/store/apps/details?id=com.ted.android&amp;hl=ja">Ted</a>
+: コンテンツ中心にうまく見せている。プライマリーに赤、セカンダリーに白を使っていてとても見やすい。</li>
+</ul>
+
+
+<h3>美しいデザインを紹介しているサイト</h3>
+
+<ul>
+<li><a href="http://androidniceties.tumblr.com/">Android niceties</a></li>
+<li><a href="http://www.slideshare.net/theresaneil/best-android-app-designs">The Best Android Apps 2012: A Designers Collection</a></li>
+<li><a href="http://www.creativebloq.com/app-design/15-beautiful-android-app-ui-designs-11121271">15 beautiful Android app designs</a></li>
+<li><a href="http://www.android-app-patterns.com/">Design inspiration for your Android app</a></li>
+<li><a href="http://www.hongkiat.com/blog/android-apps-designer/">65 Useful Android Apps For Designers</a></li>
+<li><a href="http://www.hongkiat.com/blog/cool-android-homescreens/">40 Really Cool Android Home Screens For Your Inspiration</a></li>
+</ul>
+
+
+<h3>Androidのテーマに従うということ</h3>
+
+<blockquote><p>なぜAndroidのテーマでアプリを作らなければいけないのか？独自テーマはダメなのか？
+それは、ユーザーにとってアプリをより良い体験にするためで、
+たとえば、アプリを使っていて設定画面がバラバラに導線が置かれていたらイライラする。
+Androidのガイドラインに従うということは、
+ユーザー体験を統一するということであり、
+そうすることでユーザーはストレスなく、
+インストールした瞬間からそのアプリを使いこなすことができるようになる。
+ユーザーはガイドラインに沿ったアプリを要求しているし、
+デベロッパーにとっても前も後ろも互換性があり、
+ベストプラクティスにのることで時間と努力を節約することができる。</p></blockquote>
+
+<p>これを聞いて、僕のアプリはちゃんと出来ているだろうかと考えさせられた。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[altria-connected_instrument_test]]></title>
@@ -29,8 +94,9 @@
 <blockquote class="twitter-tweet"><p>Jenkins clone clone作って中村氏のaltriaと聖杯戦争したい</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/352936007068422144">July 4, 2013</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
 
-<p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。
-AndroidのConnected Instrument Testの結果を表示します。</p>
+<p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。</p>
+
+<p>AndroidのConnected Instrument Testの結果を表示します。</p>
 
 <p><a href="https://github.com/takiguchi0817/altria-connected_instrument_test">altria-connected_instrument_test</a>
 <img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/altria-connected_instrument_test.png" alt="" /></p>
@@ -270,90 +336,6 @@ ActivityではonResumeとonPauseでそれぞれregisterとunregisterをしてや
 
 <p><blockquote class="twitter-tweet" lang="ja"><p>Otto、シンプルだしコード綺麗だしパフォーマンスを考慮してtraverseしないのもいい / An enhanced Guava-based event bus with emphasis on Android support. <a href="http://t.co/2yHWQkejEd" title="http://square.github.io/otto/">square.github.io/otto/</a></p>&mdash; レジャスポ太郎さん (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/status/323451917235789824">2013年4月14日</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2013年 Androidアプリ開発で使いたいライブラリ]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/03/10/android-libraries/"/>
-    <updated>2013-03-10T22:35:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/03/10/android-libraries</id>
-    <content type="html"><![CDATA[<p>30億のデバイスのみなさん、こんにちは、ジャバです。</p>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201303/javamonster.gif" alt="迫り来るジャバモンスター" /></p>
-
-<p>何の前触れもなく、2013年 Androidアプリ開発で使いたいライブラリを発表します。</p>
-
-<h2>JsonConverter => <a href="https://code.google.com/p/google-gson/">gson</a></h2>
-
-<p>JSONRPCでサーバーサイドと通信を行うときに、毎回パーサーを書くのは面倒なので、JsonConverterを使いたくなります。
-そこで開発ではgoogleが開発しているgsonを使っていました。
-NamingPolicyやDeserializerの使い方を覚えれば、手でjsonのパーサーを書くより圧倒的に楽で、</p>
-
-<pre><code>Person person = gson.fromJson(json, Person.class);
-</code></pre>
-
-<p>このように一行でjsonからオブジェクトに変換できるようになり、</p>
-
-<pre><code>String json = gson.toJson(person);
-</code></pre>
-
-<p>一行でオブジェクトからStringに変換することも出来ます。
-なので、preferenceに保存 => 復旧もすごく便利になります。もうSerializableはやめましょう！</p>
-
-<p>ただ、gsonは各々の型の変換のためにTypeAdapterを保持しているというのと、変換にはリフレクションを使っているので、パフォーマンスはあまり良くないです。
-また、レスポンスのjsonの構造がクラスになってしまうので、変換したクラスをそのままモデルとして使おうとすると柔軟性が下がってしまいます。なので、使うのであれば</p>
-
-<pre><code>json =&gt; api entity =&gt; model
-</code></pre>
-
-<p>ってしたい感じです。</p>
-
-<h2>ORM => <a href="https://www.activeandroid.com/">ActiveAndroid</a> or <a href="http://greendao-orm.com/">greenDAO</a></h2>
-
-<p>SQL文をHelperに記述してるときは人間らしい心を失いそうになります。そして、人間はtypoする生き物なのでDBのバージョンアップで死んだりすることもあります。<br/>
-そこでORMということになるのですが、AndroidのORMでは、RailsのAndroid版であるActiveAndroidというのがあります。
-ただし、Active Recordパターンの欠点もそのままなので、"構築が容易であり理解もしやすい"代償としてそのままでは複雑なロジックを扱いづらくなります。
-ドメイン層とパーシステンス層が一緒になったのがActive Recordパターンなので、Rubyみたいにmixinができる言語は良いけど、ジャバだとテストが書きづらくなるので、あまりオススメしない、って某氏が言ってました。
-データアクセスに関しては <a href="http://www.oracle.com/technetwork/jp/articles/index-087873-ja.html">データアクセスことはじめ</a> が勉強になりました。</p>
-
-<p>あまり規模が大きくないならActiveAndroidは記述量が減るし読みやすいしで、良い選択肢だと思います。
-それ以上なら、ORMLiteを高速化したgreenDAOを使うのが良いかもしれません。</p>
-
-<iframe src="http://www.slideshare.net/slideshow/embed_code/12321475" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
-
-
-<p> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/droidcon/green-dao" title="Green dao" target="_blank">Green dao</a> </strong> from <strong><a href="http://www.slideshare.net/droidcon" target="_blank">Droidcon Berlin</a></strong> </div></p>
-
-<h2>DI => <a href="https://github.com/roboguice/roboguice">RoboGuice</a> or <a href="https://github.com/hnakagawa/proton">Proton</a> or <a href="http://square.github.com/dagger/">Dagger</a></h2>
-
-<p>Fragmentのイベントを別のFragmentで作用させたいときに、interfaceを定義してActivity経由でlistenerを登録とかするとすぐにlistener地獄になってしまってつらいです。
-そういうときにContextSingletonなヘルパーをインジェクトして使うとめちゃ便利で、コードの見通しが良くなって仕様変更に強くなって心が豊かになってモテ始めたりすると思います。
-他にもテスト実行時にインジェクトするオブジェクトを切り替えられるとか、記述が楽になる以外にもメリットはたくさんあると思います。</p>
-
-<p>有名なのはRoboGuiceです。これはサーバーサイドのDIフレームワークのGuiceを、Androidでも使えるようにラップしたものです。
-サーバーサイドを想定して作られたものなので、無駄が多かったりするのですが、それなりにドキュメントがあって実績もあります。</p>
-
-<p>そんなRoboGuiceを見て後述のTriainaフレームワークの開発者の人が、
-「RoboGuice無駄に大きしTypeListenerとかいらんし、もっと早くて軽いのをフルスクラッチで書く」
-と言って作られたのがProtonです。いらない機能を削ってAndroidに最適化した結果、サイズもメモリ使用量も圧倒的に少なくなったとのことです。
-ただドキュメントがないので使うならRoboGuiceの知識が必須で、ソースコードを読みながらになると思います。</p>
-
-<p>RoboActivityとかProtonActivityとか継承したくない、かつコンテキストシングルトンとかいらない！というケースであれば、単純にインジェクトだけが出来るDagger良いです。</p>
-
-<h1>おわりに</h1>
-
-<p>もうちょっと書こうと思ったのですが意外と書くのがたいへんだったので突然ブログは終わります。他にも、</p>
-
-<ul>
-<li>event busの<a href="http://square.github.com/otto/">Otto</a></li>
-<li>WebView Bridgeの<a href="https://github.com/mixi-inc/triaina">Triaina</a></li>
-<li>Code Dietが出来る<a href="http://androidannotations.org/">AndroidAnnotations</a></li>
-<li>jQueryのAndroid版の<a href="https://code.google.com/p/android-query/">android-query</a></li>
-</ul>
-
-
-<p>とかあるので、また検証をしたら個別に記事を書こうと思います。</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-07-11T22:22:02+09:00</updated>
+  <updated>2013-07-19T00:27:16+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Modern Android Design]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/07/18/google-mobile-sessions/"/>
+    <updated>2013-07-18T23:01:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/07/18/google-mobile-sessions</id>
+    <content type="html"><![CDATA[<p>Google Mobile Sessionsにいってきた。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gms1.jpg" alt="" /></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gms2.jpg" alt="" /></p>
+
+<p>色んなセッションがあったけど、Mobile Android Designが特に良かった。
+たとえば、スマートフォンブラウザ、Androidアプリ、iPhoneアプリなど、マルチデバイスでサービスを出す場合のアプリのデザインについて、どこを統一すべきで、どこをカスタマイズすべきかなど。</p>
+
+<p>Designについて意識が高まって、他のアプリではどんなパターンを適用しているのか眺めてみたりしていた。</p>
+
+<h3>Google公式のデザインガイド</h3>
+
+<ul>
+<li><a href="http://developer.android.com/design/index.html">Android Design</a></li>
+<li><a href="http://www.youtube.com/playlist?list=PLWz5rJ2EKKc8j2B95zGMb8muZvrIy-wcF">Android Dsign in Action</a></li>
+</ul>
+
+
+<h3>Googleが美しいと紹介していたアプリ</h3>
+
+<ul>
+<li><a href="https://play.google.com/store/apps/details?id=com.thefancy.app&amp;hl=ja">Fancy</a>
+: Cardsベースでさまざまな解像度に対応していて、コンテンツを綺麗に見せることに成功している。</li>
+<li><a href="https://play.google.com/store/apps/details?id=com.expedia.bookings&amp;hl=ja">Expedia</a>
+: 解像度別にデザインを細かく調整していて、どのデバイスからも快適に見ることができる。</li>
+<li><a href="https://play.google.com/store/apps/details?id=com.ted.android&amp;hl=ja">Ted</a>
+: コンテンツ中心にうまく見せている。プライマリーに赤、セカンダリーに白を使っていてとても見やすい。</li>
+</ul>
+
+
+<h3>美しいデザインを紹介しているサイト</h3>
+
+<ul>
+<li><a href="http://androidniceties.tumblr.com/">Android niceties</a></li>
+<li><a href="http://www.slideshare.net/theresaneil/best-android-app-designs">The Best Android Apps 2012: A Designers Collection</a></li>
+<li><a href="http://www.creativebloq.com/app-design/15-beautiful-android-app-ui-designs-11121271">15 beautiful Android app designs</a></li>
+<li><a href="http://www.android-app-patterns.com/">Design inspiration for your Android app</a></li>
+<li><a href="http://www.hongkiat.com/blog/android-apps-designer/">65 Useful Android Apps For Designers</a></li>
+<li><a href="http://www.hongkiat.com/blog/cool-android-homescreens/">40 Really Cool Android Home Screens For Your Inspiration</a></li>
+</ul>
+
+
+<h3>Androidのテーマに従うということ</h3>
+
+<blockquote><p>なぜAndroidのテーマでアプリを作らなければいけないのか？独自テーマはダメなのか？
+それは、ユーザーにとってアプリをより良い体験にするためで、
+たとえば、アプリを使っていて設定画面がバラバラに導線が置かれていたらイライラする。
+Androidのガイドラインに従うということは、
+ユーザー体験を統一するということであり、
+そうすることでユーザーはストレスなく、
+インストールした瞬間からそのアプリを使いこなすことができるようになる。
+ユーザーはガイドラインに沿ったアプリを要求しているし、
+デベロッパーにとっても前も後ろも互換性があり、
+ベストプラクティスにのることで時間と努力を節約することができる。</p></blockquote>
+
+<p>これを聞いて、僕のアプリはちゃんと出来ているだろうかと考えさせられた。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[altria-connected_instrument_test]]></title>
@@ -48,8 +113,9 @@
 <script async src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-<p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。
-AndroidのConnected Instrument Testの結果を表示します。</p>
+<p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。</p>
+
+<p>AndroidのConnected Instrument Testの結果を表示します。</p>
 
 <p><a href="https://github.com/takiguchi0817/altria-connected_instrument_test">altria-connected_instrument_test</a>
 <img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/altria-connected_instrument_test.png" alt="" /></p>
@@ -2346,237 +2412,6 @@ ant clean debugとかしてみて、モジュールが足りなかったりし�
 
 
 <p>でも人間は許せる生き物だから。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Railsでcronを設定するときに良いやつ]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/12/02/whenever/"/>
-    <updated>2012-12-02T10:59:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/12/02/whenever</id>
-    <content type="html"><![CDATA[<p>Railsアプリで定期的にDBの情報を更新したかった。なにか良い方法ないか調べたらwheneverというもの見つけた。</p>
-
-<p>&#8220;<a href="https://github.com/javan/whenever">Whenever</a> is a Ruby gem that provides a clear syntax for writing and deploying cron jobs.&#8221;</p>
-
-<p>crontabの設定が分かりやすく書けるというのと、Railsの読み込みしてくれるのが便利そうだったので入れてみた。<br/>
-　<br/>
-　</p>
-
-<h2>wheneverのインストール</h2>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem <span class="s1">&#39;whenever&#39;</span>, :requrire <span class="o">=</span>&gt; <span class="nb">false</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Gemfileに追記してbundle instal</p>
-
-<p>wheneverizeすると設定ファイルのひな形を作ってくれる。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle <span class="nb">exec </span>wheneverize .
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>　<br/>
-　</p>
-
-<h2>設定方法</h2>
-
-<p>setでいろいろセットできる。</p>
-
-<figure class='code'><figcaption><span>ログの出力先  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">log_path</span> <span class="o">=</span> <span class="no">Whenever</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/log/cron.log&#39;</span>
-</span><span class='line'><span class="n">error_log_path</span> <span class="o">=</span> <span class="no">Whenever</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s1">&#39;/log/error.log&#39;</span>
-</span><span class='line'><span class="n">set</span> <span class="ss">:output</span><span class="p">,</span> <span class="p">{</span><span class="n">standard</span> <span class="o">=&gt;</span> <span class="n">log_path</span><span class="p">,</span> <span class="ss">:error</span> <span class="o">=&gt;</span> <span class="n">error_log_path</span><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Rails.root使えなかったけどwheneverのソース見てたらself.pathあったのでそっちを使ったらいけた。</p>
-
-<p>　</p>
-
-<p>時間の指定が直感的で分かりやすいのが良い。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># 3時間おきに実行</span>
-</span><span class='line'><span class="n">every</span> <span class="mi">3</span><span class="o">.</span><span class="n">hours</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">runner</span> <span class="s2">&quot;MyModel.some_process&quot;</span>
-</span><span class='line'>  <span class="n">rake</span> <span class="s2">&quot;my:rake:task&quot;</span>
-</span><span class='line'>  <span class="n">command</span> <span class="s2">&quot;/usr/bin/my_great_command&quot;</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 1日1回、4:30に実行</span>
-</span><span class='line'><span class="n">every</span> <span class="mi">1</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="ss">:at</span> <span class="o">=&gt;</span> <span class="s1">&#39;4:30 am&#39;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">runner</span> <span class="s2">&quot;MyModel.task_to_run_at_four_thirty_in_the_morning&quot;</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># 日曜日の24:00に実行</span>
-</span><span class='line'><span class="n">every</span> <span class="ss">:sunday</span><span class="p">,</span> <span class="ss">:at</span> <span class="o">=&gt;</span> <span class="s1">&#39;12pm&#39;</span> <span class="k">do</span> <span class="c1"># Use any day of the week or :weekend, :weekday</span>
-</span><span class='line'>  <span class="n">runner</span> <span class="s2">&quot;Task.do_something_great&quot;</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># ふつうのcronの時間指定もできる</span>
-</span><span class='line'><span class="n">every</span> <span class="s1">&#39;0 0 27-31 * *&#39;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">command</span> <span class="s2">&quot;echo &#39;you can use raw cron syntax too&#39;&quot;</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>社会は厳しいが、wheneverは人間に優しい。<br/>
-　<br/>
-　</p>
-
-<h2>定期実行する処理</h2>
-
-<p>railsはrunnerコマンドっていうのがあって、モデルとかautoloadのパスに指定したファイルをロードした上でスクリプトを実行できたりする。<br/>
-autoload、書いてなかったらconfig/application.rbに</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">config</span><span class="o">.</span><span class="n">autoload_paths</span> <span class="o">+=</span> <span class="sx">%W(</span><span class="si">#{</span><span class="n">config</span><span class="o">.</span><span class="n">root</span><span class="si">}</span><span class="sx">/lib)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>って書いとく。それから、実行する処理を書く。</p>
-
-<figure class='code'><figcaption><span>lib/batch_update.rb </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;open-uri&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;kconv&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">class</span> <span class="nc">BatchUpdate</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="no">SC_OK</span> <span class="o">=</span> <span class="s2">&quot;200&quot;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">execute</span>
-</span><span class='line'>    <span class="n">update_track</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">update_track</span>
-</span><span class='line'>    <span class="nb">puts</span><span class="p">(</span><span class="s2">&quot;==== &quot;</span> <span class="o">+</span> <span class="no">Time</span><span class="o">.</span><span class="n">now</span><span class="o">.</span><span class="n">to_s</span> <span class="o">+</span> <span class="s2">&quot; ====&quot;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">not_found_id_list</span> <span class="o">=</span> <span class="nb">Array</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'>    <span class="n">track_list</span> <span class="o">=</span> <span class="no">Track</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="ss">:all</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">track_list</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">track</span><span class="o">|</span>
-</span><span class='line'>      <span class="nb">p</span> <span class="n">track</span>
-</span><span class='line'>      <span class="k">if</span> <span class="o">!</span><span class="n">exist?</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">preview_url</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">not_found_id_list</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">track</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">not_found_id_list</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="nb">id</span><span class="o">|</span>
-</span><span class='line'>      <span class="no">Track</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
-</span><span class='line'>      <span class="n">assert_raise</span><span class="p">(</span><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">RecordNotFound</span><span class="p">)</span> <span class="k">do</span>
-</span><span class='line'>        <span class="no">Track</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">puts</span><span class="p">(</span><span class="s2">&quot;==== update done!!! ====&quot;</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">exist?</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">result</span> <span class="o">=</span> <span class="kp">false</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nb">open</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">file</span><span class="o">|</span>
-</span><span class='line'>      <span class="n">status_code</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">status</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
-</span><span class='line'>      <span class="nb">p</span> <span class="n">status_code</span>
-</span><span class='line'>      <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">status</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">==</span> <span class="no">SC_OK</span>
-</span><span class='line'>        <span class="n">result</span> <span class="o">=</span> <span class="kp">true</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="k">return</span> <span class="n">result</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>トラックの生存確認を行う処理を、runnerで毎日4:05に呼ぶようにした。</p>
-
-<figure class='code'><figcaption><span>config/schedule.rb  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">set</span> <span class="ss">:output</span><span class="p">,</span> <span class="no">Whenever</span><span class="o">.</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/log/cron.log&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">every</span> <span class="mi">1</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="ss">:at</span> <span class="o">=&gt;</span> <span class="s1">&#39;4:05 am&#39;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">runner</span> <span class="s2">&quot;BatchUpdate.execute&quot;</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>良い。</p>
 ]]></content>
   </entry>
   

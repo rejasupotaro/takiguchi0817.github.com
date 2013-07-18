@@ -6,7 +6,11 @@
 	<title>Just posted a blog</title>
     <meta name="author" content="rejasupotaro">
     
-	<meta name="description" content="Published on: Oct 6th, 2012 Tags: Android, Encryption SDカードに保存する画像を暗号化したい Androidの暗号化手法 Androidで使用出来る暗号化手法一覧：Security.getAlgorithms(&#8220;Cipher&# &hellip;">
+	<meta name="description" content="Published on: Oct 9th, 2012 Tags: Android 内部ストレージ /data/data/package.name cache
+databases
+files
+lib
+shared_prefs cache getCacheDir() com.android. &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -101,6 +105,117 @@
 <!-- begin toload --> 
     <div id="content" class="inner">
         
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/10/09/appli-comparison/">
+		
+			アプリのデータはどこに保存されるの</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-09T22:02:00+09:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/android/'>Android</a>
+
+
+</div>
+    </div>
+		<h2>内部ストレージ /data/data/package.name</h2>
+
+<ul>
+<li>cache</li>
+<li>databases</li>
+<li>files</li>
+<li>lib</li>
+<li>shared_prefs</li>
+</ul>
+
+
+<h3>cache</h3>
+
+<pre><code>getCacheDir()
+</code></pre>
+
+<ul>
+<li>com.android.renderscript.cache<br/>
+勝手に作られる。RenderScript使ったことないので良く知らない。</li>
+<li>webviewCacheChromium<br/>
+WebViewのキャッシュ</li>
+</ul>
+
+
+<h3>files</h3>
+
+<pre><code>openFileOutput()
+</code></pre>
+
+<p>アプリによって使ったり。</p>
+
+<h3>databases</h3>
+
+<pre><code>getWritableDatabase()
+</code></pre>
+
+<ul>
+<li>webview.db<br/>
+メタデータとか認証情報とかパスワードとか。</li>
+<li>webviewCookiesChromium.db<br/>
+メタデータとかクッキーとか。</li>
+</ul>
+
+
+<h3>lib</h3>
+
+<p>使ってたら入る。</p>
+
+<h3>shared_prefs</h3>
+
+<pre><code>getSharedPreferences()
+</code></pre>
+
+<p>databasesに入れるほどでもないけど、filesに置きたくないデータを入れてる。<br/>
+最後にアプリを開いた時間とか、データをリフレッシュした時間とか、タブレットかとか。</p>
+
+<h2>外部ストレージ /mnt/sdcard/Android/data/package.name</h2>
+
+<pre><code>getExternalFilesDir()
+</code></pre>
+
+<p>見えても良いデータを置いてる。<br/>
+画像とか動画とかのキャッシュにされてることが多い気がする。</p>
+
+<h2>その他</h2>
+
+<p>それ以外にもパス指定すればファイル作れる。<br/>
+各社、セキュアな情報はプリファレンスに入れてるか、暗号化してそこらに置いてる。<br/>
+プリファレンスの中は平文で保存されていることが多いけど、実際に端末を盗んでroot化しないの見れないので、良いと思う。<br/>
+アカウントマネージャを使っているアプリはSDカードに移動できないようにしている。再マウント時にアカウントを復帰させるのあんまりやらないのかな。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
 
 
     <article class="post">

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-07-11T22:22:02+09:00</updated>
+  <updated>2013-07-19T00:27:16+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -29,8 +29,9 @@
 <blockquote class="twitter-tweet"><p>Jenkins clone clone作って中村氏のaltriaと聖杯戦争したい</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/352936007068422144">July 4, 2013</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
 
-<p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。
-AndroidのConnected Instrument Testの結果を表示します。</p>
+<p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。</p>
+
+<p>AndroidのConnected Instrument Testの結果を表示します。</p>
 
 <p><a href="https://github.com/takiguchi0817/altria-connected_instrument_test">altria-connected_instrument_test</a>
 <img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/altria-connected_instrument_test.png" alt="" /></p>

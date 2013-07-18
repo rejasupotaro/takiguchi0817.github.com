@@ -6,7 +6,8 @@
 	<title>Just posted a blog</title>
     <meta name="author" content="rejasupotaro">
     
-	<meta name="description" content="Published on: Jul 11th, 2013 Tags: Android, Ruby 何も作ってないけどLLでJenkins cloneつくってYAPCとかで発表したい&mdash; 中村氏 (@r7kamura) June 1, 2013 Jenkins &hellip;">
+	<meta name="description" content="Published on: Jul 18th, 2013 Tags: Android Google Mobile Sessionsにいってきた。 色んなセッションがあったけど、Mobile Android Designが特に良かった。
+たとえば、スマートフォンブラウザ、Androidアプリ、 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -106,6 +107,104 @@
     <article class="post">
 	<h2 class="title">
 		
+		<a href="/blog/2013/07/18/google-mobile-sessions/">
+		
+			Modern Android Design</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-18T23:01:00+09:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/android/'>Android</a>
+
+
+</div>
+    </div>
+		<p>Google Mobile Sessionsにいってきた。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gms1.jpg" alt="" /></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gms2.jpg" alt="" /></p>
+
+<p>色んなセッションがあったけど、Mobile Android Designが特に良かった。
+たとえば、スマートフォンブラウザ、Androidアプリ、iPhoneアプリなど、マルチデバイスでサービスを出す場合のアプリのデザインについて、どこを統一すべきで、どこをカスタマイズすべきかなど。</p>
+
+<p>Designについて意識が高まって、他のアプリではどんなパターンを適用しているのか眺めてみたりしていた。</p>
+
+<h3>Google公式のデザインガイド</h3>
+
+<ul>
+<li><a href="http://developer.android.com/design/index.html">Android Design</a></li>
+<li><a href="http://www.youtube.com/playlist?list=PLWz5rJ2EKKc8j2B95zGMb8muZvrIy-wcF">Android Dsign in Action</a></li>
+</ul>
+
+
+<h3>Googleが美しいと紹介していたアプリ</h3>
+
+<ul>
+<li><a href="https://play.google.com/store/apps/details?id=com.thefancy.app&amp;hl=ja">Fancy</a>
+: Cardsベースでさまざまな解像度に対応していて、コンテンツを綺麗に見せることに成功している。</li>
+<li><a href="https://play.google.com/store/apps/details?id=com.expedia.bookings&amp;hl=ja">Expedia</a>
+: 解像度別にデザインを細かく調整していて、どのデバイスからも快適に見ることができる。</li>
+<li><a href="https://play.google.com/store/apps/details?id=com.ted.android&amp;hl=ja">Ted</a>
+: コンテンツ中心にうまく見せている。プライマリーに赤、セカンダリーに白を使っていてとても見やすい。</li>
+</ul>
+
+
+<h3>美しいデザインを紹介しているサイト</h3>
+
+<ul>
+<li><a href="http://androidniceties.tumblr.com/">Android niceties</a></li>
+<li><a href="http://www.slideshare.net/theresaneil/best-android-app-designs">The Best Android Apps 2012: A Designers Collection</a></li>
+<li><a href="http://www.creativebloq.com/app-design/15-beautiful-android-app-ui-designs-11121271">15 beautiful Android app designs</a></li>
+<li><a href="http://www.android-app-patterns.com/">Design inspiration for your Android app</a></li>
+<li><a href="http://www.hongkiat.com/blog/android-apps-designer/">65 Useful Android Apps For Designers</a></li>
+<li><a href="http://www.hongkiat.com/blog/cool-android-homescreens/">40 Really Cool Android Home Screens For Your Inspiration</a></li>
+</ul>
+
+
+<h3>Androidのテーマに従うということ</h3>
+
+<blockquote><p>なぜAndroidのテーマでアプリを作らなければいけないのか？独自テーマはダメなのか？
+それは、ユーザーにとってアプリをより良い体験にするためで、
+たとえば、アプリを使っていて設定画面がバラバラに導線が置かれていたらイライラする。
+Androidのガイドラインに従うということは、
+ユーザー体験を統一するということであり、
+そうすることでユーザーはストレスなく、
+インストールした瞬間からそのアプリを使いこなすことができるようになる。
+ユーザーはガイドラインに沿ったアプリを要求しているし、
+デベロッパーにとっても前も後ろも互換性があり、
+ベストプラクティスにのることで時間と努力を節約することができる。</p></blockquote>
+
+<p>これを聞いて、僕のアプリはちゃんと出来ているだろうかと考えさせられた。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
 		<a href="/blog/2013/07/11/altria-connected-instrument-test/">
 		
 			Altria-connected_instrument_test</a>
@@ -163,8 +262,9 @@
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-<p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。
-AndroidのConnected Instrument Testの結果を表示します。</p>
+<p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。</p>
+
+<p>AndroidのConnected Instrument Testの結果を表示します。</p>
 
 <p><a href="https://github.com/takiguchi0817/altria-connected_instrument_test">altria-connected_instrument_test</a>
 <img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/altria-connected_instrument_test.png" alt="" /></p>
@@ -1116,89 +1216,6 @@ NamingPolicyやDeserializerの使い方を覚えれば、手でjsonのパーサ�
 <p>ちょっと僕はお酒に弱くすでにヘロヘロな状態でこの記事を書くのも限界なのですが、SICP読書会に参加してきた感想としては、世間で思われてるほどLISPは怖くないし、LISPerの方々もみんな優しくていい人ばかりでした。</p>
 
 <p>一年間ありがとうございました！</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/03/05/dislable-java/">
-		
-			Dislable Java</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-05T00:32:00+09:00" pubdate data-updated="true">Mar 5<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/java/'>Java</a>
-
-
-</div>
-    </div>
-		<h3>若手なので、<a href="http://www.zusaar.com/event/521003">若手Webエンジニア交流会</a>に行ってきました。</h3>
-
-<p>アプリケーション開発から言語、インフラまで幅広い話が聞けたのは良かったです。意識がちょっぴり高まりました。またWeb系、みんなイケイケなのであれをあれしないといけないなどと思いました。</p>
-
-<iframe src="http://www.slideshare.net/slideshow/embed_code/16883585" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
-
-
-<p> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/rejasupotaro/dislable-java" title="Dislable java" target="_blank">Dislable java</a> </strong> from <strong><a href="http://www.slideshare.net/rejasupotaro" target="_blank">rejasupotaro</a></strong> </div></p>
-
-<p>かくいう僕も若手なので、フレッシュな言語・ジャバについて発表してきました。</p>
-
-<h3>言語のはなし</h3>
-
-<p>ジャバの発表をした当日に、偶然にもdynamicおじさんが記事を公開して、</p>
-
-<h4><a href="http://d.hatena.ne.jp/perlcodesample/20130227/1361928810">変数に型がないということの利点について考える</a></h4>
-
-<p>これが連鎖的に型論争の呼んで、TLが地獄みたいになった。</p>
-
-<ul>
-<li><a href="http://bleis-tift.hatenablog.com/entry/2013/02/28/%E3%80%8C%E5%A4%89%E6%95%B0%E3%81%AB%E5%9E%8B%E3%81%8C%E3%81%AA%E3%81%84%E3%81%A8%E3%81%84%E3%81%86%E3%81%93%E3%81%A8%E3%81%AE%E5%88%A9%E7%82%B9%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E8%80%83%E3%81%88">「変数に型がないということの利点について考える」の問題について考える</a></li>
-<li><a href="http://blog.practical-scheme.net/shiro/20130227-equibillium">型付けと変更の時定数</a></li>
-<li><a href="http://d.hatena.ne.jp/Nagise/20130228/1362069158">言語機能としての型、概念としての型</a></li>
-<li><a href="http://d.hatena.ne.jp/tt_clown/20130302/programming_languages">動的型付き言語と静的型付き言語</a></li>
-<li><a href="http://blog.practical-scheme.net/shiro/20130302-why-do-you-wanna-do-it">型論争</a></li>
-<li><a href="http://www.gembook.org/benefits_of_dynamic_typing.html">動的型言語の使いどころ</a></li>
-<li><a href="http://d.hatena.ne.jp/mizchi/20130303/1362286050">動的型とか静的型の話の前に「作者の気持ち」を考えろ</a></li>
-<li><a href="https://gist.github.com/taichi/5079626">「作者の気持ち」以前に、揚げ足とる相手の最新状況くらい調べろ</a></li>
-</ul>
-
-
-<blockquote class="twitter-tweet" lang="ja"><p>若手webでプログラミング言語の話をしたのでスライド上げようと思ったけど、同日にdynamicおじさんの記事が公開されて、それ以来みんな型の話してるし、このタイミングで公開するのこわいので様子をみてる</p>&mdash; レジャスポ太郎さん (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/status/307880537324929024">2013年3月2日</a></blockquote>
-
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<p>正直これのおかげで、このスライドもアップするか迷ったけど、だいぶ収まってきた感じするので一応上げておきます。</p>
-
-<p><a href="http://d.hatena.ne.jp/perlcodesample/20130227/1361928810">変数に型がないということの利点について考える</a>についてはまったく共感ができないけど、静的型付けか動的型付けかという問題、具体的にディスろうと思うとソースコードが必要になって、ソースコードを持ち出すともはやstaticかdynamicかに留まらず言語による殴り合いになってしまうし、かと言って具体的な内容に踏み込まないと思想とか宗教の話になってしまうので、穏健派の僕は遠くからその様子を眺めていたいという感じです。</p>
-
-<p>あと言語って、長くやると愛着がわいてきて自分ではディスるわりに他人からディスられるとイラッとするみたいなところもあるので難しいですね、なんてふわっとしたまとめで閉めさせてもらいます。</p>
 
 		
 		
