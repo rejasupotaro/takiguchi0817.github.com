@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-07-19T00:34:50+09:00</updated>
+  <updated>2013-07-22T22:18:35+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,39 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Android Casual Talksやります]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/07/22/android-casual-talks/"/>
+    <updated>2013-07-22T21:18:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/07/22/android-casual-talks</id>
+    <content type="html"><![CDATA[<p>ワイワイしているルビーストの様子です。</p>
+
+<p><img src="http://d3lrup5e12lrut.cloudfront.net/media/BAhbCVsHOgZmSSIzMjAxMy8wNi8xNi8wOS8wMy8xNC82MjUvaGlnaHJlc18yNDgyMjkzMTIuanBlZwY6BkVUWwg6BnA6DGNvbnZlcnRJIhEtYXV0by1vcmllbnQGOwZUWwg7BzoKdGh1bWJJIg04MjB4NDAwIwY7BlRbCDoGZToIanBnSSIXLXN0cmlwIC1xdWFsaXR5IDgwBjsGVA.jpg" alt="" />
+<img src="http://d3lrup5e12lrut.cloudfront.net/media/BAhbCVsHOgZmSSIzMjAxMi8xMi8wNy8xNS8wMS8yNC8yOTUvaGlnaHJlc18xODU3MDc1MjIuanBlZwY6BkVUWwg6BnA6DGNvbnZlcnRJIhEtYXV0by1vcmllbnQGOwZUWwg7BzoKdGh1bWJJIg04MjB4NDAwIwY7BlRbCDoGZToIanBnSSIXLXN0cmlwIC1xdWFsaXR5IDgwBjsGVA.jpg" alt="" />
+<img src="http://d3lrup5e12lrut.cloudfront.net/media/BAhbCVsHOgZmSSIzMjAxMy8wNS8wOS8xNy8wMS80Ni83MDUvaGlnaHJlc18yMzQxNzQ1MjIuanBlZwY6BkVUWwg6BnA6DGNvbnZlcnRJIhEtYXV0by1vcmllbnQGOwZUWwg7BzoKdGh1bWJJIg04MjB4NDAwIwY7BlRbCDoGZToIanBnSSIXLXN0cmlwIC1xdWFsaXR5IDgwBjsGVA.jpg" alt="" /></p>
+
+<p>画像は<a href="http://www.tokyorails.org/ja">TOKYO RAILS</a>より。</p>
+
+<p>ルビーストはいつもワイワイしてて楽しそうだなと思ってた。</p>
+
+<p>開発の話するの基本好きなんだけど、Android開発者ってウェッブ系ほど人口がいないし、
+エンタープライズの人らにはあれ(Android)はJavaではないと後ろ指をさされ、社内ではエンタープライズｗｗｗと煽られてつらたんだった。</p>
+
+<blockquote class="twitter-tweet"><p>「さすがの包丁さばきだね！ジャバ書いてるもんね！エンタープライズだもんね！」ってmrknさんに煽られていた</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/358065012734050307">July 19, 2013</a></blockquote>
+
+
+<script async src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>なのでイベントを立てました -> <a href="http://atnd.org/events/41600">Android Casual Talks</a></p>
+
+<p>人が集まるか不安だったけど、イベントページを立ててその日のうちに定員になったし、
+トーク内容も開発環境から実装から効果測定まで、いい内容って良かった。</p>
+
+<p>この夏は勉強会ドリブンディベロップメントで開発環境の整備を頑張ります。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Modern Android Design]]></title>
@@ -2332,86 +2365,6 @@ ant clean debugとかしてみて、モジュールが足りなかったりし�
 　<br/>
 　<br/>
 エミュレーターが動くようになったらHooksに登録してビルドするようにしたい。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[まさかこのままプッシュする気じゃないよね？]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/12/02/guideline/"/>
-    <updated>2012-12-02T16:17:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/12/02/guideline</id>
-    <content type="html"><![CDATA[<blockquote class="twitter-tweet" lang="ja"><p>自分のコード綺麗って思ってんの？ - ✘╹◡╹✘ <a href="http://t.co/AeZFbpL9" title="http://r7kamura.hatenablog.com/entry/2012/11/30/223412">r7kamura.hatenablog.com/entry/2012/11/…</a></p>&mdash; 人月さん (@r7kamura) <a href="https://twitter.com/r7kamura/status/275064946759454720" data-datetime="2012-12-02T02:32:48+00:00">12月 2, 2012</a></blockquote>
-
-
-<script src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<p>　<br/>
-　<br/>
-　<br/>
-綺麗かどうかどころか、デバッグコードとかそのままプッシュしてしまって、後でレビューツールでdiff見ててアッてなるので書いた。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/sh</span>
-</span><span class='line'>
-</span><span class='line'><span class="nb">readonly </span><span class="nv">MESSAGE</span><span class="o">=</span><span class="s2">&quot;まさかこのままプッシュする気じゃないよね？&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nv">has_ax_code</span><span class="o">=</span><span class="nb">false</span>
-</span><span class='line'><span class="nv">file_list</span><span class="o">=</span><span class="k">$(</span>find . -name *.java<span class="k">)</span>
-</span><span class='line'><span class="k">for </span>file in <span class="k">${</span><span class="nv">file_list</span><span class="p">[@]</span><span class="k">}</span>; <span class="k">do</span>
-</span><span class='line'><span class="k">  </span><span class="nv">ax_code</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$file</span> | grep -n -e TODO -e FIXME -e XXX -e DEBUG<span class="k">)</span>
-</span><span class='line'>  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;$ax_code&quot;</span> <span class="o">]</span>; <span class="k">then</span>
-</span><span class='line'><span class="k">    </span><span class="nb">echo</span> <span class="nv">$file</span>
-</span><span class='line'>    <span class="nb">echo</span> <span class="s2">&quot;$ax_code&quot;</span>
-</span><span class='line'>    <span class="nv">has_ax_code</span><span class="o">=</span><span class="nb">true</span>
-</span><span class='line'><span class="nb">  </span><span class="k">fi</span>
-</span><span class='line'><span class="k">done</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="nv">$has_ax_code</span> <span class="o">]</span>; <span class="k">then</span>
-</span><span class='line'><span class="k">  </span><span class="nb">echo</span> <span class="nv">$MESSAGE</span>
-</span><span class='line'><span class="k">fi</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>コミットする。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">(</span> *´ω｀*<span class="o">)</span>  ~/develop/projects/Betterflow <span class="nv">$ </span>git commit
-</span><span class='line'>548:        // TODO: この名前はおかしいので後で変える
-</span><span class='line'>572:        // FIXME: 読み込む前にリサイズしないと余裕でOOMする
-</span><span class='line'>752:        // XXX: よくわからないけど動いてる
-</span><span class='line'>まさかこのままプッシュする気じゃないよね？
-</span><span class='line'><span class="o">[</span>master 98c0487<span class="o">]</span> コメント書いた
-</span><span class='line'> 2 files changed, 3 insertions<span class="o">(</span>+<span class="o">)</span>
-</span><span class='line'><span class="o">(</span> *´ω｀*<span class="o">)</span>  ~/develop/projects/Betterflow <span class="err">$</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>でも人間は許せる生き物だから。</p>
 ]]></content>
   </entry>
   
