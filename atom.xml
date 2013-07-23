@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-07-23T19:41:45+09:00</updated>
+  <updated>2013-07-23T20:11:12+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -39,8 +39,9 @@
 
 <p>なのでイベントを立てました -> <a href="http://atnd.org/events/41600">Android Casual Talks</a></p>
 
-<p>人が集まるか不安だったけど、イベントページを立ててその日のうちに定員になったし、
-トーク内容も開発環境から実装から効果測定まで、いい内容が集まって良かった。</p>
+<p>Android Studio移行した？とかレビューどうしてる？とかテストちゃんと書いてる？とか効果測定どうしてる？とか、そういう話をカジュアルに出来ればなと思っています。</p>
+
+<p>人が集まるか不安だったけど、イベントページを立ててその日のうちに定員になったし、トーク内容も幅広くいい内容が集まって良かったです。</p>
 
 <p>この夏は勉強会ドリブンディベロップメントで開発環境の整備を頑張ります。</p>
 ]]></content>
