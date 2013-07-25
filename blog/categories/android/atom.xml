@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-07-23T20:13:16+09:00</updated>
+  <updated>2013-07-26T08:27:20+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,99 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Modern Android Design?]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/07/26/modern-android-design/"/>
+    <updated>2013-07-26T00:37:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/07/26/modern-android-design</id>
+    <content type="html"><![CDATA[<h1>What's Modern Android Design?</h1>
+
+<p>Androidでアプリの操作にはざっくりと分けると以下の部品があります。</p>
+
+<ul>
+<li>Navigation (主にコンテンツの移動など使われるもの)</li>
+<li>ActionBar (画面上部にあるバックや検索やサブメニューなどがある領域)</li>
+<li>Menu (メニューキーを押したときに出てくるオプション領域)</li>
+</ul>
+
+
+<p>先週Modern Android Designというエントリを書きましたが、実際アプリではどのようにデザインされているか調べました。
+全体の設計に大きな影響を与えるナビゲーションに着目して2つに分けました。</p>
+
+<h3>GitHub</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/github.png" alt="" /></p>
+
+<h3>Ted</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/ted.png" alt="" /></p>
+
+<h3>Twitter</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/twitter.png" alt="" /></p>
+
+<h3>Evernote Food</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/evernotefood.png" alt="" /></p>
+
+<h3>Flipboard</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/flipboard.png" alt="" /></p>
+
+<h3>Gmail</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gmail.png" alt="" /></p>
+
+<h3>Google Music</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/googlemusic.png" alt="" /></p>
+
+<h3>Google+</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/googleplus.png" alt="" /></p>
+
+<h3>pixiv</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/pixiv.png" alt="" /></p>
+
+<h3>recipes</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/recipes.png" alt="" /></p>
+
+<h3>Trulia</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/trulia.png" alt="" /></p>
+
+<h3>umano</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/umano.png" alt="" /></p>
+
+<h3>YouTube</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/youtube.png" alt="" /></p>
+
+<h1>Navigation</h1>
+
+<h2>Tab Navigation</h2>
+
+<p>ワンタップでコンテンツの切り替えが出来るので回遊率がNavigation Drawerより高くなるのではと思います。</p>
+
+<h2>Navigation Drawer</h2>
+
+<p>通知を表示したいなど、ビューをカスタムしたい場合や、タブだと入りきらないくらいメニューが多かったり、メニューの数が変動するような場合に便利です。</p>
+
+<h1>ActionBar</h1>
+
+<p>検索に注目して見ていたのですが、最近は虫眼鏡アイコンをタップするとActionBarが検索ボックスに変化して、文字を入力すると履歴が出てくるパターンが多かったです。
+あるいは、検索画面を別に用意して、履歴を画像付きで表示したり、その場で履歴を1件ずつ消せたり、複雑な絞り込み条件を入力出来たり、サジェストを表示したりするというパターンもありました。</p>
+
+<h1>Menu</h1>
+
+<p>最後にメニューですが、意外と実装していないアプリが多かったです。
+設定、更新、ヘルプ、ご意見、ログアウトなど、入れてるものはだいたいどのアプリも一緒でした。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Android Casual Talksやります]]></title>
@@ -159,95 +252,6 @@ Androidのガイドラインに従うことでデベロッパーは時間と努�
 RouteActivityに認証の確認の処理や、初期化処理などを置いて、各Activityはそれぞれの責務を真っ当させたら、コードが綺麗になるのではないかと思いました。</p>
 
 <p>RouteActivityという名前はRailsのconfig/routes.rbから来ています。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[テンプレートアプリ "katanuki" を作った]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/04/28/android-katanuki/"/>
-    <updated>2013-04-28T16:47:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/04/28/android-katanuki</id>
-    <content type="html"><![CDATA[<h1><a href="https://github.com/takiguchi0817/katanuki">Android Katanuki</a></h1>
-
-<p>A template application that includes tons of great open source tools and frameworks.</p>
-
-<p><img src="https://raw.github.com/takiguchi0817/katanuki/master/katanuki.png" width="640" height="480"></p>
-
-<h1>経緯</h1>
-
-<p>この前、<a href="http://androidkickstartr.com/">AndroidKickstartR</a>というプロジェクトを見つけました。</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201304/androidkickstartr.png" width="640" height="480"></p>
-
-<p>これは自分が使いたいライブラリを選んでポチポチ選んで "Download it!" を押したらAndroidアプリのテンプレートが落とせるというものです。
-ハッカソンとかで便利そう。
-雛形を提供するプロジェクトは他にも
-<a href="android%20katanuk://github.com/donnfelker/android-bootstrap">Android Bootstrap</a>
-などもあります。</p>
-
-<p>で、各々がサポートしているライブラリが以下になります。</p>
-
-<h3>AndroidKickstartR</h3>
-
-<ul>
-<li>android-maven-plugin</li>
-<li>AndroidAnnotations</li>
-<li>ActionBarSherlock</li>
-<li>Spring RESTTemplate</li>
-<li>Android support v4</li>
-<li>NineOldAndroid</li>
-<li>ACRA</li>
-<li>RoboGuice</li>
-</ul>
-
-
-<h3>Android Bootstrap</h3>
-
-<ul>
-<li>ActionBarSherlock</li>
-<li>Dagger</li>
-<li>Butterknife</li>
-<li>Otto</li>
-<li>Robotium</li>
-<li>android-maven-plugin</li>
-<li>http-request</li>
-<li>google-gson</li>
-</ul>
-
-
-<p>新しいアプリを作るときのセットアップってほぼ作業だし、
-毎回同じことをしてる気がしたので、自分用のアプリのテンプレートを作りました。
-作ったというより設定を書いた、の方が近いですが。
-（なぜわざわざ作ったかというと自分の使いたいライブラリや書き方が、上のテンプレートと微妙に合わなかったからです。）</p>
-
-<h1>katanukiについて</h1>
-
-<p>このテンプレートは、プロトタイプ作成や一日でアプリを組むハッカソンを想定して作りました。
-今から数時間でそれっぽいアプリを作るぞ！と思ったときに、何をすれば良いか考えて、</p>
-
-<ol>
-<li>APIを叩く</li>
-<li>データを保存する</li>
-<li>かっこいいUIを作る</li>
-</ol>
-
-
-<p>と作業を分解して、APIを叩くのにhttp-request、レスポンスのjsonをオブジェクトに変換するのにgson、それらをAsyncTaskLoaderで呼び出すようにしました。</p>
-
-<p>次にデータの保存はActiveAndroidを使いました。エンタープライズでは使わないと思いますが、面倒なDB周りのコードを書く時間をバッサリカットできるので便利です。</p>
-
-<p>UIについては、入れようか迷ったのですが、中のロジックは一緒でも見せ方はケースバイケースかなと思ったので入れませんでした。
-プロジェクトには含めてませんが、このあたりが便利そうです。</p>
-
-<ul>
-<li><a href="https://github.com/JakeWharton/ActionBarSherlock">ActionBarSherlock</a> : ActionBarのcompatibility library</li>
-<li><a href="https://github.com/chrisbanes/Android-PullToRefresh">PullToRefresh</a> : 引っ張り更新</li>
-<li><a href="https://github.com/Prototik/HoloEverywhere">HoloEverywhere</a> : Holoを2系でも使えるようにする</li>
-<li><a href="https://github.com/SimonVT/android-menudrawer">MenuDrawer</a> : 横から出るメニューの実装</li>
-</ul>
-
-
-<p>OpenSource便利。</p>
 ]]></content>
   </entry>
   

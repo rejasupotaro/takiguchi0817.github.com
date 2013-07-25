@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Design | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/design/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-07-26T08:27:20+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Modern Android Design?]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/07/26/modern-android-design/"/>
+    <updated>2013-07-26T00:37:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/07/26/modern-android-design</id>
+    <content type="html"><![CDATA[<h1>What's Modern Android Design?</h1>
+
+<p>Androidでアプリの操作にはざっくりと分けると以下の部品があります。</p>
+
+<ul>
+<li>Navigation (主にコンテンツの移動など使われるもの)</li>
+<li>ActionBar (画面上部にあるバックや検索やサブメニューなどがある領域)</li>
+<li>Menu (メニューキーを押したときに出てくるオプション領域)</li>
+</ul>
+
+
+<p>先週Modern Android Designというエントリを書きましたが、実際アプリではどのようにデザインされているか調べました。
+全体の設計に大きな影響を与えるナビゲーションに着目して2つに分けました。</p>
+
+<h3>GitHub</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/github.png" alt="" /></p>
+
+<h3>Ted</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/ted.png" alt="" /></p>
+
+<h3>Twitter</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/twitter.png" alt="" /></p>
+
+<h3>Evernote Food</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/evernotefood.png" alt="" /></p>
+
+<h3>Flipboard</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/flipboard.png" alt="" /></p>
+
+<h3>Gmail</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gmail.png" alt="" /></p>
+
+<h3>Google Music</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/googlemusic.png" alt="" /></p>
+
+<h3>Google+</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/googleplus.png" alt="" /></p>
+
+<h3>pixiv</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/pixiv.png" alt="" /></p>
+
+<h3>recipes</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/recipes.png" alt="" /></p>
+
+<h3>Trulia</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/trulia.png" alt="" /></p>
+
+<h3>umano</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/umano.png" alt="" /></p>
+
+<h3>YouTube</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/youtube.png" alt="" /></p>
+
+<h1>Navigation</h1>
+
+<h2>Tab Navigation</h2>
+
+<p>ワンタップでコンテンツの切り替えが出来るので回遊率がNavigation Drawerより高くなるのではと思います。</p>
+
+<h2>Navigation Drawer</h2>
+
+<p>通知を表示したいなど、ビューをカスタムしたい場合や、タブだと入りきらないくらいメニューが多かったり、メニューの数が変動するような場合に便利です。</p>
+
+<h1>ActionBar</h1>
+
+<p>検索に注目して見ていたのですが、最近は虫眼鏡アイコンをタップするとActionBarが検索ボックスに変化して、文字を入力すると履歴が出てくるパターンが多かったです。
+あるいは、検索画面を別に用意して、履歴を画像付きで表示したり、その場で履歴を1件ずつ消せたり、複雑な絞り込み条件を入力出来たり、サジェストを表示したりするというパターンもありました。</p>
+
+<h1>Menu</h1>
+
+<p>最後にメニューですが、意外と実装していないアプリが多かったです。
+設定、更新、ヘルプ、ご意見、ログアウトなど、入れてるものはだいたいどのアプリも一緒でした。</p>
+]]></content>
+  </entry>
+  
+</feed>
