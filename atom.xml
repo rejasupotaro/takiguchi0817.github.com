@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-07-27T15:45:24+09:00</updated>
+  <updated>2013-07-27T16:30:22+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,120 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[aar dependency]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/07/27/aar-dependency/"/>
+    <updated>2013-07-27T15:47:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/07/27/aar-dependency</id>
+    <content type="html"><![CDATA[<p>Android StudioでLibrary Projectを参照するのにソースコードを修正するたびにjarで固めてlibsにポンしてもいいいのですが、
+面倒だしバージョン管理もしたいので調べてたらGitHubをmavenrepoにしてbuild.gradleにdependencyを書いてaarを読み込めることが分かった。</p>
+
+<p><a href="http://u1aryz.blogspot.jp/2013/06/githubmavenandroidaar.html">githubをMavenリポジトリとしてAndroidライブラリプロジェクト(aar)をデプロイして使用する</a></p>
+
+<p>Library Projectの対象moduleのbuild.gradleを以下のように変更。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>buildscript {
+</span><span class='line'>    repositories {
+</span><span class='line'>        mavenCentral()
+</span><span class='line'>    }
+</span><span class='line'>    dependencies {
+</span><span class='line'>        classpath 'com.android.tools.build:gradle:0.5.+'
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>apply plugin: 'android-library'
+</span><span class='line'>
+</span><span class='line'>repositories {
+</span><span class='line'>    mavenCentral()
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>dependencies {
+</span><span class='line'>    compile 'com.android.support:support-v4:13.0.+'
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>android {
+</span><span class='line'>    compileSdkVersion 17
+</span><span class='line'>    buildToolsVersion "17.0.0"
+</span><span class='line'>
+</span><span class='line'>    defaultConfig {
+</span><span class='line'>        minSdkVersion 9
+</span><span class='line'>        targetSdkVersion 16
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>apply plugin: 'maven'
+</span><span class='line'>
+</span><span class='line'>uploadArchives {
+</span><span class='line'>    repositories {
+</span><span class='line'>        mavenDeployer {
+</span><span class='line'>            repository url: "file://${projectDir}/repository"
+</span><span class='line'>            pom.groupId = 'com.rejasupotaro'
+</span><span class='line'>            pom.artifactId = 'rejasupo-commons'
+</span><span class='line'>            pom.version = '0.0.1'
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参照するプロジェクトのbuild.gradleにdependencyを追加。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>repositories {
+</span><span class='line'>    maven { url 'https://raw.github.com/takiguchi0817/rejasupo-commons/master/rejasupo-commons/repository' }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>dependencies {
+</span><span class='line'>    compile 'com.rejasupotaro:rejasupo-commons:0.0.1'
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Modern Android Design?]]></title>
@@ -2240,25 +2354,6 @@ JavaScript側からJSON形式で値が渡せば、自動的に値がエンティ
 
 <p>今時のアプリはハイブリッド！みたいな声を良く聞きますが、ハイブリッドって言ってもいろんなタイプがあるし、どういうのが最適なのか僕も分かりません。<br/>
 いろんな実装を見ながら僕だけのハイブリッドを見つけていきたいです。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[無限デプロイ]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/12/16/vote/"/>
-    <updated>2012-12-16T13:05:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/12/16/vote</id>
-    <content type="html"><![CDATA[<p>ブログのデザインを可愛くしました。</p>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/top.png" alt="TOP" /></p>
-
-<p>ついでにGitHubへのpushをhookにしてブログを自動デプロイするようにして、選挙に行った。</p>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/sampo.gif" alt="近所" /></p>
-
-<p>戻ってきたらJenkinsがfetchしてgenerateしてdeployという一連の流れをひたすら反復してて、そのさまを見てひとしきり笑ったあと真顔でローカルのコミットにhookするように修正した。<br/>
-　<br/>
-何が起こったかというと、Octopressはページを生成したあと成果物をGitHubにプッシュする(じゃないとブログ反映されないし)ので、そうするとそれをhookしてJenkinsがまたリポジトリを見に行ってしてページを生成してしてプッシュして…を繰り返してた。</p>
 ]]></content>
   </entry>
   

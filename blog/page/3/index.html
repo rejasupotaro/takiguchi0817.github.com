@@ -6,7 +6,7 @@
 	<title>Just posted a blog</title>
     <meta name="author" content="rejasupotaro">
     
-	<meta name="description" content="Published on: Dec 10th, 2012 Tags: Android, Jenkins GitHubにあるAndroidプロジェクトにプッシュしたらJenkinsがビルドしてテストするというのを実現したかった。 手順 Jenkinsをインストールする &hellip;">
+	<meta name="description" content="Published on: Dec 16th, 2012 Tags: Git, Jenkins, Octopress ブログのデザインを可愛くしました。 ついでにGitHubへのpushをhookにしてブログを自動デプロイするようにして、選挙に行った。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -101,6 +101,58 @@
 <!-- begin toload --> 
     <div id="content" class="inner">
         
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/12/16/vote/">
+		
+			無限デプロイ</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-16T13:05:00+09:00" pubdate data-updated="true">Dec 16<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/git/'>Git</a>, <a class='category' href='/blog/categories/jenkins/'>Jenkins</a>, <a class='category' href='/blog/categories/octopress/'>Octopress</a>
+
+
+</div>
+    </div>
+		<p>ブログのデザインを可愛くしました。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/top.png" alt="TOP" /></p>
+
+<p>ついでにGitHubへのpushをhookにしてブログを自動デプロイするようにして、選挙に行った。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/sampo.gif" alt="近所" /></p>
+
+<p>戻ってきたらJenkinsがfetchしてgenerateしてdeployという一連の流れをひたすら反復してて、そのさまを見てひとしきり笑ったあと真顔でローカルのコミットにhookするように修正した。<br/>
+　<br/>
+何が起こったかというと、Octopressはページを生成したあと成果物をGitHubにプッシュする(じゃないとブログ反映されないし)ので、そうするとそれをhookしてJenkinsがまたリポジトリを見に行ってしてページを生成してしてプッシュして…を繰り返してた。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -1861,87 +1913,6 @@ outFilePathはどこでもいいんだけど、</p>
 <h2>このプログラムはフォンデュしながら書きました</h2>
 
 <p><img src="http://dl.dropbox.com/u/54255753/blog/201211/fondue.gif" alt="チョコフォンデュ" /></p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/17/beautiful-gifs/">
-		
-			Beautiful GIFs</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-17T09:08:00+09:00" pubdate data-updated="true">Nov 17<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/gif/'>GIF</a>
-
-
-</div>
-    </div>
-		<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/boy.gif" alt="GIFは動く" /></p>
-
-<p><a href="http://www.buzzfeed.com/thegeshow/the-60-most-beautiful-cinemagraph-gifs">The 60 Most Beautiful Cinemagraph GIFs</a></p>
-
-<h3>GIFサービス</h3>
-
-<ul>
-<li><a href="http://jp.techcrunch.com/archives/20120209cinemagram-turns-iphone-photos-into-animated-gifs-in-secondsgrcc33333z98/">Cinemagram</a></li>
-<li><a href="http://appllio.com/android-tool-app/20120216-1625-gifboom-animation-camera">GIFBoom</a></li>
-<li><a href="http://www.gifsoup.com/">gifsoup</a></li>
-</ul>
-
-
-<h3>お役立ちサイト</h3>
-
-<p><img src="http://24.media.tumblr.com/tumblr_mbtisnNTzE1rvaveio1_400.gif" alt="サイケデリックGIFアニメーション入門" /></p>
-
-<p><a href="http://diary.mirakui.com/post/33481148217">わくわくパンダさん日記</a></p>
-
-<h3>convertコマンド</h3>
-
-<pre><code>$ convert [ options ... ] input output
-</code></pre>
-
-<p>よく使いそうなオプション</p>
-
-<pre><code>-resize  =&gt; リサイズ
--delay   =&gt; 静止画の切り替え感覚
--unsharp =&gt; シャープネスする
--font    =&gt; 文字入れる
-</code></pre>
-
-<p>And More&#8230; <a href="http://www5a.biglobe.ne.jp/~nkgwtty/njaLinuxImageMagick.html">ImageMagick convert option</a></p>
-
-<h3>AndroidネイティブでGIF再生</h3>
-
-<p><a href="http://d.hatena.ne.jp/tomorrowkey/20100426/1272267480">AndroidでGIFアニメーションが動いたんだもんね</a></p>
-
-<p>GifView作った人がいた。<br/>
-ふつうにWebViewに表示させてもいい気がする。</p>
 
 		
 		
