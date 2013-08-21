@@ -6,7 +6,7 @@
 	<title>Just posted a blog</title>
     <meta name="author" content="rejasupotaro">
     
-	<meta name="description" content="Published on: Dec 16th, 2012 Tags: Git, Jenkins, Octopress ブログのデザインを可愛くしました。 ついでにGitHubへのpushをhookにしてブログを自動デプロイするようにして、選挙に行った。 &hellip;">
+	<meta name="description" content="Published on: Dec 24th, 2012 Tags: Android, Triaina はじめに Titanium? いいえ、Triainaです。 トリアイナは、先端が三つに分かれた漁具あるいは武器の一種。ギリシア神話の海神ポセイドンが持つ三叉の矛として知られる。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -101,6 +101,370 @@
 <!-- begin toload --> 
     <div id="content" class="inner">
         
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/12/24/triaina/">
+		
+			トリアイナってなに？</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-24T21:55:00+09:00" pubdate data-updated="true">Dec 24<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/android/'>Android</a>, <a class='category' href='/blog/categories/triaina/'>Triaina</a>
+
+
+</div>
+    </div>
+		<h2>はじめに</h2>
+
+<p><a href="http://alpha.mixi.co.jp/2012/11576/">Titanium? いいえ、Triainaです。</a></p>
+
+<p>トリアイナは、先端が三つに分かれた漁具あるいは武器の一種。ギリシア神話の海神ポセイドンが持つ三叉の矛として知られる。 <a href="http://ja.wikipedia.org/wiki/%E3%83%88%E3%83%AA%E3%82%A2%E3%82%A4%E3%83%8A">wikipediaより</a></p>
+
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Angelo_Bronzino_048.jpg/220px-Angelo_Bronzino_048.jpg" alt="ポセイドーンの肖像画" /></p>
+
+<p>ギリシャ神話詳しく知らないけど、ポセイドンがトライデント(Triaina)でタイタン(Titanium)を倒した話に掛けてるのかも。<br/>
+　<br/>
+　</p>
+
+<h2>トリアイナ概要</h2>
+
+<p>Triainaはhnakagawa氏が中心になって作ったスマートフォンアプリ開発のフレームワークです。<br/>
+ハイブリッドアプリ開発のフレームワークの中でもネイティブ寄りかなって思います。</p>
+
+<p>Androidが提供するネイティブとWebViewの連携のしくみは、以前に<a href="http://takiguchi0817.github.com/blog/2012/11/29/about-android-webview/">ブログに書いた</a>通りです。</p>
+
+<p>Androidが提供するしくみでハイブリッドアプリを作ろうと思うと、</p>
+
+<ul>
+<li>プロトコルを考えて</li>
+<li>プロトコルに従ったのパーサーを書いて</li>
+<li>コールバックのしくみを作る</li>
+</ul>
+
+
+<p>必要があります。</p>
+
+<p>公式ブログの画像を引用すると、<br/>
+<img src="http://alpha.mixi.co.jp/images/triaina3.png" alt="Triaina概要" /><br/>
+このように、メソッド名を指定することでコールバックまで含めてよろしくやってくれるみたいです。<br/>
+　<br/>
+　<br/>
+<a href="https://github.com/mixi-inc/triaina">mixi-inc / triaina</a>
+　<br/>
+　</p>
+
+<h2>JavaScriptの実装</h2>
+
+<p>サンプルにあるとおりですが、</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">WebBridge</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="s1">&#39;form.media.click&#39;</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">filter</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;jpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">],</span>
+</span><span class='line'>    <span class="nx">max</span><span class="o">:</span> <span class="mi">1</span>
+</span><span class='line'><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">response</span><span class="p">){</span>
+</span><span class='line'>    <span class="c1">// response data</span>
+</span><span class='line'>    <span class="c1">// {</span>
+</span><span class='line'>    <span class="c1">//     bridge: &quot;1.1&quot;,</span>
+</span><span class='line'>    <span class="c1">//     dest: &quot;form.media.click&quot;,</span>
+</span><span class='line'>    <span class="c1">//     result: [{</span>
+</span><span class='line'>    <span class="c1">//         id: &quot;xxxxxxx&quot;,</span>
+</span><span class='line'>    <span class="c1">//         filename: &quot;&quot;,</span>
+</span><span class='line'>    <span class="c1">//     }]</span>
+</span><span class='line'>    <span class="c1">// }</span>
+</span><span class='line'>    <span class="c1">// create input data &amp; added input value</span>
+</span><span class='line'>    <span class="nx">fileStoreElement</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">input</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>destとjsonとcallbackを引数にWebBridgeのcallを呼ぶみたいですね。callの実装は、</p>
+
+<figure class='code'><figcaption><span>triaina/javascript/bridge.js  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">call</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dest</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">bridge</span><span class="o">:</span> <span class="nx">BRIDGE_VERSION</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">dest</span><span class="o">:</span> <span class="nx">dest</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">params</span><span class="o">:</span> <span class="nx">params</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">getId</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">execute</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="k">this</span><span class="p">.</span><span class="nx">execute</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">requestJSON</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">callback</span> <span class="o">&amp;&amp;</span> <span class="nx">request</span><span class="p">.</span><span class="nx">id</span><span class="p">){</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">_callbackTable</span><span class="p">[</span><span class="nx">request</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">callback</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span><span class="nx">existsDeviceBridge</span><span class="p">()){</span>
+</span><span class='line'>        <span class="nb">window</span><span class="p">.</span><span class="nx">DeviceBridge</span><span class="p">.</span><span class="nx">notifyToDevice</span><span class="p">(</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">requestJSON</span><span class="p">));</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>        <span class="k">this</span><span class="p">.</span><span class="nx">onStart</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>            <span class="nb">window</span><span class="p">.</span><span class="nx">DeviceBridge</span><span class="p">.</span><span class="nx">notifyToDevice</span><span class="p">(</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">requestJSON</span><span class="p">));</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">_isEnableBridge</span><span class="p">)</span> <span class="k">this</span><span class="p">.</span><span class="nx">_buildBridge</span><span class="p">();</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;not found DeviceBridge JavaScriptInterface&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&quot;stack DeviceBridge notity&quot;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">requestJSON</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こんな感じになってます。callbackはJSONRPCでいうところのIDをキーにハッシュで管理されているようです。<br/>
+JavaScriptが実行できるタイミングになったらネイティブ側に通知したり、逆にネイティブ側が実行できるようになったタイミングでメソッドを遅延呼び出ししたり、そういう細かい制御をしてくれてるようです。<br/>
+　<br/>
+　</p>
+
+<h2>Javaの実装</h2>
+
+<p>前にも書きましたが、Java側には、</p>
+
+<ul>
+<li>インジェクト</li>
+<li>バイナリのダイナミックローディング</li>
+<li>ネイティブ・ブラウザ間のメソッドの相互呼び出し</li>
+</ul>
+
+
+<p>の3つの機能があります(って聞きました)。</p>
+
+<p>インジェクトは2012年12月24日現在は、RoboGuiceをベースに作ってあります。(DIコンテナは、RoboGuice自体がGuiceのラップしたもので重いので、<a href="https://github.com/square/Dagger">Dagger</a>をベースに書き直したいと聞きました)。<br/>
+なので、トリアイナはハイブリッドアプリ開発のフレームワークとして公開されてますが、トリアイナのjarを入れればインジェクトでアプリが書けるようになります。</p>
+
+<p>それはそれで、ネイティブ・ブラウザ間のメソッド呼び出しのしくみです。<br/>
+まず、Activityです。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Layout</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">mywebview</span><span class="o">)</span>    <span class="c1">// 使用するlayoutのリソース</span>
+</span><span class='line'><span class="nd">@WebViewBridge</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">mywebview</span><span class="o">)</span> <span class="c1">// 使用するWebViewBridgeのリソース</span>
+</span><span class='line'><span class="nd">@Domain</span><span class="o">({</span> <span class="s">&quot;rejasupotaro.com&quot;</span><span class="o">,</span> <span class="s">&quot;rejamotion.com&quot;</span> <span class="o">})</span> <span class="c1">// 許可するドメイン</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyWebViewActivity</span> <span class="kd">extends</span> <span class="n">AbstractWebViewBridgeActivity</span> <span class="o">{</span>
+</span><span class='line'>  <span class="o">....</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>DomainアノテーションでJavaScriptを実行するドメインを指定します。じゃないとWebViewはJavaのクラスローダーが呼べたりJNIが使えたりして危険だからです。</p>
+
+<p>ブラウザから呼び出すメソッドは、Bridgeアノテーションを付けて宣言します。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Bridge</span><span class="o">(</span><span class="s">&quot;hoge.action.method&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">hogeActionMethod</span><span class="o">(</span><span class="n">HogeActionParams</span> <span class="n">params</span><span class="o">,</span> <span class="n">Callback</span><span class="o">&lt;</span><span class="n">HogeActionResult</span><span class="o">&gt;</span> <span class="n">callback</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>  <span class="o">....</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Parcerableなtriaina.webview.entity.Paramsを継承したクラスと、Parcerableなtriaina.webview.entity.Resultを継承したクラスをジェネリクス型に持つtriaina.webview.Callbackを引数に取ります。<br/>
+JavaScript側からJSON形式で値が渡せば、自動的に値がエンティティにバインドされます。</p>
+
+<p>呼び出される仕組みを見てみます。</p>
+
+<figure class='code'><figcaption><span>triaina/android/WebViewBridge/src/triaina/webview/WebViewBridge.java   </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="n">String</span> <span class="nf">call</span><span class="o">(</span><span class="n">String</span> <span class="n">dest</span><span class="o">,</span> <span class="n">Params</span> <span class="n">params</span><span class="o">,</span> <span class="n">Callback</span><span class="o">&lt;?&gt;</span> <span class="n">callback</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">isDestroyed</span><span class="o">)</span>
+</span><span class='line'>        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">mSeq</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">String</span> <span class="n">js</span> <span class="o">=</span> <span class="n">notifyToWebInternal</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">dest</span><span class="o">,</span> <span class="s">&quot;params&quot;</span><span class="o">,</span> <span class="n">params</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">js</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class='line'>        <span class="n">callbacks</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">callback</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">js</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">private</span> <span class="n">String</span> <span class="nf">notifyToWebInternal</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">dest</span><span class="o">,</span> <span class="n">String</span> <span class="n">container</span><span class="o">,</span> <span class="n">Object</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">JSONObject</span> <span class="n">json</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">JSONObjectUtils</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="s">&quot;bridge&quot;</span><span class="o">,</span> <span class="n">VERSION</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">JSONObjectUtils</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="s">&quot;id&quot;</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">dest</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+</span><span class='line'>            <span class="n">JSONObjectUtils</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="s">&quot;dest&quot;</span><span class="o">,</span> <span class="n">dest</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">JSONObject</span> <span class="n">jsonData</span> <span class="o">=</span> <span class="n">JSONConverter</span><span class="o">.</span><span class="na">toJSON</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">JSONObjectUtils</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="n">container</span><span class="o">,</span> <span class="n">jsonData</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;Notify to Web with &quot;</span> <span class="o">+</span> <span class="n">s</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">String</span> <span class="n">js</span> <span class="o">=</span> <span class="n">mHelper</span><span class="o">.</span><span class="na">makeJavaScript</span><span class="o">(</span><span class="s">&quot;WebBridge.notifyToWeb&quot;</span><span class="o">,</span> <span class="n">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">s</span><span class="o">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">loadUrl</span><span class="o">(</span><span class="n">js</span><span class="o">);</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">js</span><span class="o">;</span><span class="c1">// for test</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">exp</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">exp</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="n">exp</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://github.com/mixi-inc/triaina/blob/master/android/Commons/src/triaina/commons/json/JSONConverter.java">triaina.commons.json.JSONConverter</a>でParamsオブジェクトをJSONに変換しているみたいです。</p>
+
+<p>どのようにJSONに変換しているかというと、</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="n">JSONObject</span> <span class="nf">toJSON</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">bundle</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">JSONConvertException</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">bundle</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">JSONObject</span> <span class="n">json</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JSONObject</span><span class="o">();</span>
+</span><span class='line'>    <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">keySet</span> <span class="o">=</span> <span class="n">bundle</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+</span><span class='line'>    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">key</span> <span class="o">:</span> <span class="n">keySet</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="n">put</span><span class="o">(</span><span class="n">json</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">bundle</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">json</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こんな感じで、Bundleとして処理して変換していますね。<br/>
+逆にブラウザから受け取ったJSONは、JSONConverter内で再帰的にリフレクションを使ったりして、Javaのオブジェクトに変換しているようです。<br/>
+　<br/>
+　</p>
+
+<h2>iOSの実装</h2>
+
+<p>わからん。<br/>
+　<br/>
+　</p>
+
+<h2>まとめ</h2>
+
+<p>今時のアプリはハイブリッド！みたいな声を良く聞きますが、ハイブリッドって言ってもいろんなタイプがあるし、どういうのが最適なのか僕も分かりません。<br/>
+いろんな実装を見ながら僕だけのハイブリッドを見つけていきたいです。</p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -1617,302 +1981,6 @@ default-character-set=utf8
 
 <p>って書いてオルターテーブルしたら文字化け直った、良かった。<br/>
 mysql5.5でmysqldのdefault-character-setなくなってたの知らなくてちょっと困ったりした。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/19/zip-upload/">
-		
-			Androidで複数画像をzipにしてmultipart/form-dataで送ってRubyで受け取る</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-19T01:08:00+09:00" pubdate data-updated="true">Nov 19<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/android/'>Android</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
-
-
-</div>
-    </div>
-		<h2>Androidで送る</h2>
-
-<p>事情があって一回のリクエストで複数画像を送りたかった。</p>
-
-<h3>UriからStringの変換</h3>
-
-<p>画像のパスが必要になるので、ContentResolverに問い合わせてパスもらう。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="n">String</span> <span class="nf">getPath</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">ContentResolver</span> <span class="n">contentResolver</span> <span class="o">=</span> <span class="n">mContext</span><span class="o">.</span><span class="na">getContentResolver</span><span class="o">();</span>
-</span><span class='line'>    <span class="n">String</span><span class="o">[]</span> <span class="n">columns</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MediaStore</span><span class="o">.</span><span class="na">Images</span><span class="o">.</span><span class="na">Media</span><span class="o">.</span><span class="na">DATA</span> <span class="o">};</span>
-</span><span class='line'>    <span class="n">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>    <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">contentResolver</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">columns</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">cursor</span><span class="o">.</span><span class="na">moveToFirst</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">path</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">cursor</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">cursor</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">path</span><span class="o">;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Closableを閉じる</h3>
-
-<p>finallyで閉じてもいいけどtryが入れ子になるのなんか嫌なのでメソッド作る。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">(</span><span class="n">Closeable</span> <span class="n">closeable</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">closeable</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
-</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">closeable</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;An error occurred in CloseableUtils.close()&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>before:</h4>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">hogeStream</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">hogeStream</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;omg!!&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>after:</h4>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">hogeStream</span><span class="o">);</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>すっきりした。</p>
-
-<h3>zipにする</h3>
-
-<p>HTTPに画像を配列にしてポストする、みたいなのなかったように思える。なのでzipにした。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="n">File</span> <span class="nf">toZip</span><span class="o">(</span><span class="n">String</span> <span class="n">outputFilePath</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Uri</span><span class="o">&gt;</span> <span class="n">inputFileUriList</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">File</span> <span class="n">oldFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">outputFilePath</span><span class="o">);</span>
-</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">oldFile</span><span class="o">.</span><span class="na">isFile</span><span class="o">())</span> <span class="n">oldFile</span><span class="o">.</span><span class="na">delete</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">ZipOutputStream</span> <span class="n">zipOutputStream</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>    <span class="n">BufferedInputStream</span> <span class="n">bufferedInputStream</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">zipOutputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZipOutputStream</span><span class="o">(</span>
-</span><span class='line'>                <span class="k">new</span> <span class="nf">BufferedOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">outputFilePath</span><span class="o">)));</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">BUFFER_SIZE</span><span class="o">];</span>
-</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">inputFileUriList</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="n">getPath</span><span class="o">(</span><span class="n">inputFileUriList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
-</span><span class='line'>            <span class="n">bufferedInputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedInputStream</span><span class="o">(</span>
-</span><span class='line'>                    <span class="k">new</span> <span class="nf">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">filePath</span><span class="o">)),</span> <span class="n">BUFFER_SIZE</span><span class="o">);</span>
-</span><span class='line'>            <span class="kd">final</span> <span class="n">ZipEntry</span> <span class="n">entry</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZipEntry</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span>  <span class="s">&quot;.jpg&quot;</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">zipOutputStream</span><span class="o">.</span><span class="na">putNextEntry</span><span class="o">(</span><span class="n">entry</span><span class="o">);</span>
-</span><span class='line'>            <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-</span><span class='line'>            <span class="k">while</span> <span class="o">((</span><span class="n">len</span> <span class="o">=</span> <span class="n">bufferedInputStream</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">BUFFER_SIZE</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>                <span class="n">zipOutputStream</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">len</span><span class="o">);</span>
-</span><span class='line'>            <span class="o">}</span>
-</span><span class='line'>            <span class="n">zipOutputStream</span><span class="o">.</span><span class="na">closeEntry</span><span class="o">();</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">FileNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">zipOutputStream</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">bufferedInputStream</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">File</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">outputFilePath</span><span class="o">);</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>これでout.zipが作られて解凍すると1.jpg、2.jpg &#8230; みたいにファイルできる。<br/>
-outFilePathはどこでもいいんだけど、</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">context</span><span class="o">.</span><span class="na">getExternalCacheDir</span><span class="o">().</span><span class="na">getPath</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;/out.zip&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とかしてSDカードのキャッシュに保存した。</p>
-
-<h3>multipart/form-dataで送る</h3>
-
-<p>ライブラリとして<br/>
-* Apache Mime4J<br/>
-* httpmime<br/>
-追加した。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">HttpPost</span> <span class="n">httpPost</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpPost</span><span class="o">(</span><span class="n">url</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">final</span> <span class="n">MultipartEntity</span> <span class="n">reqEntity</span> <span class="o">=</span>
-</span><span class='line'>        <span class="k">new</span> <span class="nf">MultipartEntity</span><span class="o">(</span><span class="n">HttpMultipartMode</span><span class="o">.</span><span class="na">BROWSER_COMPATIBLE</span><span class="o">);</span>
-</span><span class='line'><span class="n">reqEntity</span><span class="o">.</span><span class="na">addPart</span><span class="o">(</span><span class="n">titleNameValuePair</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
-</span><span class='line'>        <span class="k">new</span> <span class="nf">StringBody</span><span class="o">(</span><span class="n">titleNameValuePair</span><span class="o">.</span><span class="na">getValue</span><span class="o">(),</span> <span class="n">DEFAULT_CHARSET</span><span class="o">));</span>
-</span><span class='line'><span class="n">reqEntity</span><span class="o">.</span><span class="na">addPart</span><span class="o">(</span><span class="n">delayNameValuePair</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
-</span><span class='line'>        <span class="k">new</span> <span class="nf">StringBody</span><span class="o">(</span><span class="n">delayNameValuePair</span><span class="o">.</span><span class="na">getValue</span><span class="o">(),</span> <span class="n">DEFAULT_CHARSET</span><span class="o">));</span>
-</span><span class='line'><span class="kd">final</span> <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">fileNameValuePair</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
-</span><span class='line'><span class="n">reqEntity</span><span class="o">.</span><span class="na">addPart</span><span class="o">(</span><span class="n">fileNameValuePair</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
-</span><span class='line'>        <span class="k">new</span> <span class="nf">FileBody</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="n">CONTENTTYPE_BINARY</span><span class="o">));</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">httpPost</span><span class="o">.</span><span class="na">setEntity</span><span class="o">(</span><span class="n">reqEntity</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>こんな感じでエンティティ〜作ってHttpClientでポストする。</p>
-
-<h2>Rubyで受け取る</h2>
-
-<p>Sinatraだったら</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
-</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">set</span> <span class="ss">:public</span><span class="p">,</span> <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/public&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">post</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">zipfile</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="s1">&#39;zipfile&#39;</span><span class="o">]</span>
-</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">binwrite</span><span class="p">(</span><span class="s1">&#39;public/&#39;</span> <span class="o">+</span> <span class="n">zipfile</span><span class="o">[</span><span class="ss">:filename</span><span class="o">]</span><span class="p">,</span> <span class="n">zipfile</span><span class="o">[</span><span class="ss">:tempfile</span><span class="o">]</span><span class="p">)</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とかするといける。</p>
-
-<h2>このプログラムはフォンデュしながら書きました</h2>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/fondue.gif" alt="チョコフォンデュ" /></p>
 
 		
 		

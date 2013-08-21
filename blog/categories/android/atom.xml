@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-07-27T16:30:22+09:00</updated>
+  <updated>2013-08-21T22:27:03+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,33 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[どうすると気持ち良く感じるのか]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/08/21/ui-animations/"/>
+    <updated>2013-08-21T21:56:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/08/21/ui-animations</id>
+    <content type="html"><![CDATA[<p><img src="http://i.imgur.com/t3u9Ucc.gif" alt="" /></p>
+
+<p><img src="http://i.imgur.com/IoWbato.gif" alt="" /></p>
+
+<p><img src="http://i.imgur.com/aUsHSCo.gif" alt="" /></p>
+
+<p><img src="http://i.imgur.com/mQp4sYq.gif" alt="" /></p>
+
+<p><img src="http://hyper-text.org/img/post/css_tumblr_mobile_app_ui_01.gif" alt="" /></p>
+
+<p>アプリにアニメーションを取り入れるのってどうだろう。
+って友人と話していたのだけど、過度なアニメーション？開発者がやりたくやったみたいなのは使う側からするとあんまり嬉しくなくて、
+でも気持ちいいアニメーションはついアクションをしたくなるし、それによってコミュニケーションが活発になったりするんじゃないかなってなった。</p>
+
+<p>アニメーションって結構意味が広いからむずかしいのだけど。</p>
+
+<p><a href="http://gihyo.jp/design/serial/01/ui-ux/0001">気持ち良さはどこからくるのか～身体に近づくUIへ</a></p>
+
+<p>たぶんここに書いてあるように、アニメーションにも色々種類があるのだな。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[aar dependency]]></title>
@@ -255,33 +282,6 @@ Androidのガイドラインに従うということは、
 Androidのガイドラインに従うことでデベロッパーは時間と努力を節約することができる。</p></blockquote>
 
 <p>これを聞いて、僕のアプリはちゃんと出来ているだろうかと考えさせられた。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[altria-connected_instrument_test]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/07/11/altria-connected-instrument-test/"/>
-    <updated>2013-07-11T22:03:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/07/11/altria-connected-instrument-test</id>
-    <content type="html"><![CDATA[<p><blockquote class="twitter-tweet"><p>何も作ってないけどLLでJenkins cloneつくってYAPCとかで発表したい</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/340815292131311619">June 1, 2013</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-<blockquote class="twitter-tweet"><p>Jenkins clone実験中に暴走して凍結とかが良い</p>&mdash; 片s (@hotchemi) <a href="https://twitter.com/hotchemi/statuses/346598875328557059">June 17, 2013</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-<blockquote class="twitter-tweet"><p>Jenkins clone、最終的には独立して一人暮らしとか始めたらいい</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/347316439113400320">June 19, 2013</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-<blockquote class="twitter-tweet"><p>Jenkins cloneの名前どうするかという話してて、それより上の抽象概念を考えられないからプロダクトにクラス名のような名前を付けてしまう、初音ミクのような個の概念を与えよ、Jenkins同士が会話してるの見ておっさんがLike付けるという結論になりました</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/347336070427451394">June 19, 2013</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-<blockquote class="twitter-tweet"><p>Jenkins clone clone作って中村氏のaltriaと聖杯戦争したい</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/352936007068422144">July 4, 2013</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
-
-<p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。</p>
-
-<p>AndroidのConnected Instrument Testの結果を表示します。</p>
-
-<p><a href="https://github.com/takiguchi0817/altria-connected_instrument_test">altria-connected_instrument_test</a>
-<img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/altria-connected_instrument_test.png" alt="" /></p>
-
-<p>エミュレータのプラグインも欲しいですね。</p>
 ]]></content>
   </entry>
   

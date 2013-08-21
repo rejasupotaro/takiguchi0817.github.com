@@ -6,9 +6,7 @@
 	<title>Just posted a blog</title>
     <meta name="author" content="rejasupotaro">
     
-	<meta name="description" content="Published on: Nov 17th, 2012 Tags: GIF The 60 Most Beautiful Cinemagraph GIFs GIFサービス Cinemagram
-GIFBoom
-gifsoup お役立ちサイト わくわくパンダさん日記 convertコマンド $ &hellip;">
+	<meta name="description" content="Published on: Nov 19th, 2012 Tags: Android, Ruby Androidで送る 事情があって一回のリクエストで複数画像を送りたかった。 UriからStringの変換 画像のパスが必要になるので、ContentResolverに問い合わせてパスもらう。 1 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -103,6 +101,302 @@ gifsoup お役立ちサイト わくわくパンダさん日記 convertコマン
 <!-- begin toload --> 
     <div id="content" class="inner">
         
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2012/11/19/zip-upload/">
+		
+			Androidで複数画像をzipにしてmultipart/form-dataで送ってRubyで受け取る</a>
+	</h2>
+    <div class="entry-content">
+    <div class="meta">
+      <div class="date">Published on: 
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-19T01:08:00+09:00" pubdate data-updated="true">Nov 19<span>th</span>, 2012</time></div>
+      <div class="tags">Tags: 
+
+
+	<a class='category' href='/blog/categories/android/'>Android</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+
+
+</div>
+    </div>
+		<h2>Androidで送る</h2>
+
+<p>事情があって一回のリクエストで複数画像を送りたかった。</p>
+
+<h3>UriからStringの変換</h3>
+
+<p>画像のパスが必要になるので、ContentResolverに問い合わせてパスもらう。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="n">String</span> <span class="nf">getPath</span><span class="o">(</span><span class="n">Uri</span> <span class="n">uri</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">ContentResolver</span> <span class="n">contentResolver</span> <span class="o">=</span> <span class="n">mContext</span><span class="o">.</span><span class="na">getContentResolver</span><span class="o">();</span>
+</span><span class='line'>    <span class="n">String</span><span class="o">[]</span> <span class="n">columns</span> <span class="o">=</span> <span class="o">{</span> <span class="n">MediaStore</span><span class="o">.</span><span class="na">Images</span><span class="o">.</span><span class="na">Media</span><span class="o">.</span><span class="na">DATA</span> <span class="o">};</span>
+</span><span class='line'>    <span class="n">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">cursor</span> <span class="o">=</span> <span class="n">contentResolver</span><span class="o">.</span><span class="na">query</span><span class="o">(</span><span class="n">uri</span><span class="o">,</span> <span class="n">columns</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">cursor</span><span class="o">.</span><span class="na">moveToFirst</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">path</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">cursor</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="n">cursor</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">path</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Closableを閉じる</h3>
+
+<p>finallyで閉じてもいいけどtryが入れ子になるのなんか嫌なのでメソッド作る。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">(</span><span class="n">Closeable</span> <span class="n">closeable</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">closeable</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span><span class="o">;</span>
+</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">closeable</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;An error occurred in CloseableUtils.close()&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>before:</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">hogeStream</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">hogeStream</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;omg!!&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>after:</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">hogeStream</span><span class="o">);</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>すっきりした。</p>
+
+<h3>zipにする</h3>
+
+<p>HTTPに画像を配列にしてポストする、みたいなのなかったように思える。なのでzipにした。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">private</span> <span class="n">File</span> <span class="nf">toZip</span><span class="o">(</span><span class="n">String</span> <span class="n">outputFilePath</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Uri</span><span class="o">&gt;</span> <span class="n">inputFileUriList</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">File</span> <span class="n">oldFile</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">outputFilePath</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">if</span> <span class="o">(</span><span class="n">oldFile</span><span class="o">.</span><span class="na">isFile</span><span class="o">())</span> <span class="n">oldFile</span><span class="o">.</span><span class="na">delete</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">ZipOutputStream</span> <span class="n">zipOutputStream</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="n">BufferedInputStream</span> <span class="n">bufferedInputStream</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">zipOutputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZipOutputStream</span><span class="o">(</span>
+</span><span class='line'>                <span class="k">new</span> <span class="nf">BufferedOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">outputFilePath</span><span class="o">)));</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">BUFFER_SIZE</span><span class="o">];</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">inputFileUriList</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="n">getPath</span><span class="o">(</span><span class="n">inputFileUriList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+</span><span class='line'>            <span class="n">bufferedInputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedInputStream</span><span class="o">(</span>
+</span><span class='line'>                    <span class="k">new</span> <span class="nf">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">filePath</span><span class="o">)),</span> <span class="n">BUFFER_SIZE</span><span class="o">);</span>
+</span><span class='line'>            <span class="kd">final</span> <span class="n">ZipEntry</span> <span class="n">entry</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZipEntry</span><span class="o">(</span><span class="n">i</span> <span class="o">+</span>  <span class="s">&quot;.jpg&quot;</span><span class="o">);</span>
+</span><span class='line'>            <span class="n">zipOutputStream</span><span class="o">.</span><span class="na">putNextEntry</span><span class="o">(</span><span class="n">entry</span><span class="o">);</span>
+</span><span class='line'>            <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+</span><span class='line'>            <span class="k">while</span> <span class="o">((</span><span class="n">len</span> <span class="o">=</span> <span class="n">bufferedInputStream</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">BUFFER_SIZE</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">zipOutputStream</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">len</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>            <span class="n">zipOutputStream</span><span class="o">.</span><span class="na">closeEntry</span><span class="o">();</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">FileNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">zipOutputStream</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">bufferedInputStream</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">File</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">outputFilePath</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これでout.zipが作られて解凍すると1.jpg、2.jpg &#8230; みたいにファイルできる。<br/>
+outFilePathはどこでもいいんだけど、</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">context</span><span class="o">.</span><span class="na">getExternalCacheDir</span><span class="o">().</span><span class="na">getPath</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;/out.zip&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とかしてSDカードのキャッシュに保存した。</p>
+
+<h3>multipart/form-dataで送る</h3>
+
+<p>ライブラリとして<br/>
+* Apache Mime4J<br/>
+* httpmime<br/>
+追加した。</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">HttpPost</span> <span class="n">httpPost</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpPost</span><span class="o">(</span><span class="n">url</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">final</span> <span class="n">MultipartEntity</span> <span class="n">reqEntity</span> <span class="o">=</span>
+</span><span class='line'>        <span class="k">new</span> <span class="nf">MultipartEntity</span><span class="o">(</span><span class="n">HttpMultipartMode</span><span class="o">.</span><span class="na">BROWSER_COMPATIBLE</span><span class="o">);</span>
+</span><span class='line'><span class="n">reqEntity</span><span class="o">.</span><span class="na">addPart</span><span class="o">(</span><span class="n">titleNameValuePair</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
+</span><span class='line'>        <span class="k">new</span> <span class="nf">StringBody</span><span class="o">(</span><span class="n">titleNameValuePair</span><span class="o">.</span><span class="na">getValue</span><span class="o">(),</span> <span class="n">DEFAULT_CHARSET</span><span class="o">));</span>
+</span><span class='line'><span class="n">reqEntity</span><span class="o">.</span><span class="na">addPart</span><span class="o">(</span><span class="n">delayNameValuePair</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
+</span><span class='line'>        <span class="k">new</span> <span class="nf">StringBody</span><span class="o">(</span><span class="n">delayNameValuePair</span><span class="o">.</span><span class="na">getValue</span><span class="o">(),</span> <span class="n">DEFAULT_CHARSET</span><span class="o">));</span>
+</span><span class='line'><span class="kd">final</span> <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">fileNameValuePair</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+</span><span class='line'><span class="n">reqEntity</span><span class="o">.</span><span class="na">addPart</span><span class="o">(</span><span class="n">fileNameValuePair</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
+</span><span class='line'>        <span class="k">new</span> <span class="nf">FileBody</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="n">CONTENTTYPE_BINARY</span><span class="o">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">httpPost</span><span class="o">.</span><span class="na">setEntity</span><span class="o">(</span><span class="n">reqEntity</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>こんな感じでエンティティ〜作ってHttpClientでポストする。</p>
+
+<h2>Rubyで受け取る</h2>
+
+<p>Sinatraだったら</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">set</span> <span class="ss">:public</span><span class="p">,</span> <span class="no">File</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">__FILE__</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/public&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">post</span> <span class="s1">&#39;/&#39;</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">zipfile</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="s1">&#39;zipfile&#39;</span><span class="o">]</span>
+</span><span class='line'>  <span class="no">File</span><span class="o">.</span><span class="n">binwrite</span><span class="p">(</span><span class="s1">&#39;public/&#39;</span> <span class="o">+</span> <span class="n">zipfile</span><span class="o">[</span><span class="ss">:filename</span><span class="o">]</span><span class="p">,</span> <span class="n">zipfile</span><span class="o">[</span><span class="ss">:tempfile</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とかするといける。</p>
+
+<h2>このプログラムはフォンデュしながら書きました</h2>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/fondue.gif" alt="チョコフォンデュ" /></p>
+
+		
+		
+	</div>
+
+<div class="meta">
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -1276,112 +1570,6 @@ config.autoload_paths += Dir["#{config.root}/lib/**/"]
 <h2>夕食</h2>
 
 <p><img src="http://dl.dropbox.com/u/54255753/blog/201211/1351934736127.jpg" alt="鶏肉焼いてパスタ茹でた" /></p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/10/30/java-lambda/">
-		
-			ジャバ8のラムダでYコンビネータが書きたかった…</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-30T04:50:00+09:00" pubdate data-updated="true">Oct 30<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/java/'>Java</a>, <a class='category' href='/blog/categories/lambda/'>Lambda</a>
-
-
-</div>
-    </div>
-		<p>今日のSICP読書会でLazyKanがちょっとした話題になった。<br/>
-<img src="http://dl.dropbox.com/u/54255753/blog/201210/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-10-30%205.19.46.png" alt="LazyKan" /><br/>
-画像から狂気を感じましたが、しかしYコンビネータ、よく耳にするけどどういうものか分かってなかった。</p>
-
-<p>ジャバ8でラムダ入るらしいので、書いてみたら何か分かるかもしれないと思って、<br/>
-amachanさんの<a href="http://d.hatena.ne.jp/amachang/20080124/1201199469">Yコンビネータってなに？</a><br/>
-を見ながらまずふつうに実装して、それからラムダで書いてみることにしました。</p>
-
-<p>まだ途中だけど、</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">((</span><span class="k">new</span> <span class="n">LambdaInterface</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="n">GInterface</span> <span class="nf">exec</span><span class="o">(</span><span class="n">FInterface</span> <span class="n">f</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">GInterface</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>      <span class="kd">public</span> <span class="kt">int</span> <span class="nf">exec</span><span class="o">(</span><span class="kt">int</span> <span class="n">m</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">fib</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
-</span><span class='line'>      <span class="o">}</span>
-</span><span class='line'>    <span class="o">};</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}).</span><span class="na">execute</span><span class="o">(</span><span class="k">new</span> <span class="n">FInterface</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>  <span class="kd">public</span> <span class="n">FibInterface</span> <span class="nf">exec</span><span class="o">(</span><span class="n">GInterface</span> <span class="n">g</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nf">FibInterface</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>      <span class="kd">public</span> <span class="kt">int</span> <span class="nf">fib</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="o">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="o">)</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="o">);</span>
-</span><span class='line'>      <span class="o">}</span>
-</span><span class='line'>    <span class="o">};</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}).</span><span class="na">exec</span><span class="o">(</span><span class="mi">10</span><span class="o">));</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>計算は出来ているが、この時点でかなりつらい。<br/>
-というか書いてて思ったけどこれ実装してもラムダにしようと思ったら、</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">GInterface</span> <span class="n">g</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span> <span class="n">m</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">fib</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ってイコール使っちゃうからだめだし、でももしかしたらと思って</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="k">return</span> <span class="o">(</span><span class="n">GInterface</span><span class="o">)</span> <span class="o">((</span><span class="kt">int</span> <span class="n">m</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="k">this</span><span class="o">).</span><span class="na">fib</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>って書いたけどやっぱり動かなかったし、無名関数の数だけ関数型インタフェースを用意しないといけないし、ジャバ8のラムダってふつうの糖衣構文だなって思いました(公式にもそう書いてあるのだけど)。</p>
-
-<p>あとジャバ9でプリミティブ型がなくなるのを今日知りました。</p>
 
 		
 		
