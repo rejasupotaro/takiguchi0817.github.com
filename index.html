@@ -1,119 +1,94 @@
 
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<title>Just posted a blog</title>
-    <meta name="author" content="rejasupotaro">
-    
-	<meta name="description" content="Published on: Aug 21st, 2013 Tags: Android アプリにアニメーションを取り入れるのってどうだろう。
-って友人と話していたのだけど、過度なアニメーション？開発者がやりたくやったみたいなのは使う側からするとあんまり嬉しくなくて、 &hellip;">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="utf-8">
+  <title>Just posted a blog</title>
+  <meta name="author" content="rejasupotaro">
 
-	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
-	<link rel="canonical" href="">
-	<link href="/favicon.ico" rel="shortcut icon">
-    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
+  <meta name="description" content="はじめに Androidの開発をしていて、 WebとiOSとAndroidで足並み揃えるのどうするんだろう
+プラットフォーム間のUIの統一についてはどう考えたらいいんだろう
+他のアプリではA/Bとかやってるのかな
+PCからスマホウェブでは全機能を移植するけど、 &hellip;">
+  
 
-    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+  
+  <link rel="canonical" href="http://takiguchi0817.github.com">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36257112-2']);
+    _gaq.push(['_trackPageview']);
 
-    <!-- remove or comment it to disable ajaxification -->   
-    <script src="/javascripts/ajaxify.js"></script>
-   
-    
-    
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-36257112-2']);
-		_gaq.push(['_trackPageview']);
-
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
 
 
 </head>
 
-
-<body>
-    <div id="wrapper">
-    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
-<h1 class="animated bounceInDown">
-    <div id="headerbg">
-        Just posted a blog
-    </div>
-</h1>
-<br>
-
-<ul id="social-links" style="text-align:center">
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Just posted a blog</a></h1>
   
-  <!-- GitHub -->
-  <li>
-  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
-  </li>
-  
-  
-  
-  
-  <!-- Twitter -->
-  <li>
-  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
-  </li>
-  
-  
-  
-  
-  
-</ul>
-
-
-<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
-<ul id="nav">
-	<li id="ajax"><a href="/index.html">Home</a></li>
-	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
-    <li><a href="/atom.xml">RSS</a></li>
-    
-    <li>
-    <div id="dark">
-        <form method="get" action="/search.html" id="search">
-            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
-        </form>
-    </div>
-    </li>
-        
-</ul>
-
-
-
+</hgroup>
 
 </header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:takiguchi0817.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
 
-<div id="toload">
-<!-- begin toload --> 
-    <div id="content" class="inner">
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/31/android-casual-talks-1/">Android Casual Talks #1</a></h1>
+    
+    
+      <p class="meta">
         
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/08/21/ui-animations/">
-		
-			どうすると気持ち良く感じるのか</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
 
 
 
@@ -125,16 +100,199 @@
   
 
 
-<time datetime="2013-08-21T21:56:00+09:00" pubdate data-updated="true">Aug 21<span>st</span>, 2013</time></div>
-      <div class="tags">Tags: 
+<time datetime="2013-08-31T17:44:00+09:00" pubdate data-updated="true">Aug 31<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/android/'>Android</a>
+  <div class="entry-content"><h1>はじめに</h1>
+
+<p>Androidの開発をしていて、</p>
+
+<ul>
+<li>WebとiOSとAndroidで足並み揃えるのどうするんだろう</li>
+<li>プラットフォーム間のUIの統一についてはどう考えたらいいんだろう</li>
+<li>他のアプリではA/Bとかやってるのかな</li>
+<li>PCからスマホウェブでは全機能を移植するけど、その流れでアプリでも全機能使えるようにって会社やユーザから言われるけどどうしたらいいのか</li>
+<li>PCからネイティブアプリでは機能を削ってシンプルにってアプリ開発者は言うけど、削られた機能はどこにいくのか</li>
+<li>多くのサービスでPCのPVが下がってスマホやタブレットのUUが伸びてると思うけど、アプリの広告のうまい組み込み方とか売り方について話を聞きたい</li>
+<li>WebViewでアプリを組むとステートが複雑になったり標準的なユーザ体験を提供するのが難しい</li>
+<li>ブランチ管理でgit-flowを導入しようかと思ったけど、管理するコストと考えるとあれかなと思ったのでGitHub Flowでやっているけど、他社ではどうしてるのか</li>
+<li>大規模でも破綻しない設計とは(「MVCを意識して書く」だと個人の技量に左右されるしスケールしない感じがする)</li>
+<li>効果的なテストとメトリクス計測(取るだけじゃなくて改善するところも含めて)ってどうするのがいいんだろう</li>
+<li>継続的にパフォーマンス計測をしたいけど、Jenkinsでどう実現したらいいのだろう</li>
+<li>頑張ってすべてのレビューを読んでるけど、叩かれるとへこむ</li>
+<li>デザイナーがみんなiPhoneユーザだ</li>
+<li>むしろエンジニアもMacとiPhoneを使っている人が多くて、Androidは現代のIEって言われる</li>
+</ul>
 
 
+<p>など、悩むことが多いです。</p>
+
+<p>こういう技術書にのっていない話は人に聞くのが一番早い思っていましたが、今までAndroid界隈では集まってこういう話をする場がなかったように思います。(僕が知らないだけであったのかもしれませんが)
+それでこの度、カジュアルに情報交換をしたいなと思って、<a href="http://atnd.org/events/41600">Android Casual Talks #1</a>を開きました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual0.png" width="600px"></p>
+
+<p>内容については「ぶっちゃけ過ぎてるんであんまりツイートしないでください」っていうのもあったので、さらっと概要だけまとめました。</p>
+
+<h1>1. クックパッドの開発環境について</h1>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual4.jpg" width="600px"></p>
+
+<p>僕はAndroid Studio + Gradleの導入とか、リポジトリ管理とか、ビルドの設定とか、人が増えてもスケールしそうな開発の話をしました。</p>
+
+<h1>2. 品質を保つための組織的な取り組みと人に依存しないテスト</h1>
+
+<p>メーカーの開発の品質は高いと伺っていたので、品質への取り組みについてお話いただきました。
+いわゆるウォーターフォールモデルだけど、1週間のイテレーションを回して目標値への達成度の確認と是正を行っていて、さすがにしっかり管理をしているなと思いました。
+メトリクスを細かく取っていたのも印象的でした。</p>
+
+<h1>3. グリーにJenkinsを導入して2年半でおこった事</h1>
+
+<p>Jenkinsの運用の話＆エモ枠としてお話いただきました。</p>
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/25716362" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
+
+
+<p> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/okazaki/2013-0829-jenkins-for-cookpad-android" title="2013 08-29 jenkins for cookpad android" target="_blank">2013 08-29 jenkins for cookpad android</a> </strong> from <strong><a href="http://www.slideshare.net/okazaki" target="_blank">Takayuki Okazaki</a></strong> </div></p>
+
+<ul>
+<li><p>変えないことは大きなリスク</p>
+
+<ul>
+<li>変えないと、技術的負債激増</li>
+<li>ある時点から技術的負債のために働くことになる</li>
+</ul>
+</li>
+<li><p>変えるのはツールではなくワークフロー</p>
+
+<ul>
+<li>ツールの導入で解決 -> 仕組みの改善で解決</li>
+<li>あるべき論、精神論 -> しくみ、制度化</li>
+</ul>
+</li>
+</ul>
+
+
+<p>いい話でした。詳しくはスライドを御覧ください。</p>
+
+<h1>4. injectionの基礎（android編）</h1>
+
+<p>イベント開催を知った師匠が話してくれました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual2.png" width="600px"></p>
+
+<p>DIフレームワークの基礎ということで、依存性の注入や制御の反転について、あるチャットアプリの例を通して、仕様が変わっていく中でプログラムを綺麗な状態に保ちながらテストをしやすくする方法について話していただきました。</p>
+
+<p>社内ではひっそりと<a href="https://github.com/roboguice/roboguice">RoboGuice</a>を使っていたのですが、パフォーマンスとかで<a href="http://square.github.io/dagger/">Dagger</a>の方が良いみたいな流れが最近あるので、そっちに移行したいなと思いました。</p>
+
+<h1>5. 意外と役立つ？Android Open Source Projectのすすめ</h1>
+
+<p>Androidアプリのデバッグ手法について話していただきました。</p>
+
+<ul>
+<li><p>アプリ開発で悩んだときはどうしますか？</p>
+
+<ul>
+<li>ググる</li>
+<li>Android Developersで調べる</li>
+<li>色々試す</li>
+</ul>
+</li>
+<li><p>上の方法で解決できないときはどうしますか？</p>
+
+<ul>
+<li>他のアプリを逆コンパイル</li>
+<li>明日考える</li>
+<li>仕様をドロップ</li>
+</ul>
+</li>
+</ul>
+
+
+<p>でも仕様を諦めるのはエンジニアとして負けた気分になる。そこで、<a href="https://sites.google.com/site/devcollaboration/codesearch">{OpenGrok</a></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual3.png" width="600px"></p>
+
+<p>OpenGrokは、Androidのソースコードを簡単に見るために作られた検索エンジンで、Full Search、Definition、Symbol、File Path、Historyなど絞り込んで検索をすることができるみたいです。
+ちょっと調べ物をするのに便利そうでした。</p>
+
+<h1>6. アプリのリニューアルとその効果測定について</h1>
+
+<p>Android2系のデザインで作られた黒背景に白文字の「葬式UI」だったPixivアプリをリニューアルしたときの反響と効果測定についてお話いただきました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual5.png" width="600px"></p>
+
+<p>リニューアルをしたときにはGoogle Playで☆1の嵐が吹き荒れて…</p>
+
+<ul>
+<li>「最悪。アップデート前の方がいいです。」</li>
+<li>「凄まじいまでの改悪、なぜこれでゴーが出たのか」</li>
+</ul>
+
+
+<p><strong>開発者「もう許してくださいって思いました。」</strong></p>
+
+<p>ただ定性的な意見だけではなく、定量的なデータからこのリニューアルはどうだったのかというと、操作性の向上を図ったことにより、</p>
+
+<ul>
+<li>ブックマークのイベント数：4.7倍</li>
+<li>評価ボタンのイベント数：9.5倍</li>
+</ul>
+
+
+<p>となり、順調にユーザ数も増加しているそうです。
+レビューと合わせて計測することの大切さを言っていました。</p>
+
+<h1>おわりに</h1>
+
+<p>各社のいい話が聞けたのと、イベントを通して多くのAndroidエンジニアと知り合えたのはとても良かったです。
+一方で、一通りトークが終わったあと時間が押してて「すいません、あと12分で交流してください」となってしまったのが残念でした。</p>
+
+<p>このイベントの定員50人だったんですけど、150人以上の登録があって、思っていたより人が集まって驚きました。
+それなりに需要があれば#2, #3&#8230;とやるかもしれないので、やりたいとか、会場を提供できるよとか、声を掛けていただければまたやりましょう。
+次やるのなら交流をメインにしたいので、20分くらいのトークは2本にして、あとは5分のLTを募集してたくさんの人に発表してもらったあとに、さっき◯◯の話をしていたあの人と話そう、みたいにすると良いかなと思いました。</p>
+
+<p>Androidエンジニアに幸あれ。</p>
 </div>
-    </div>
-		<p><img src="http://i.imgur.com/t3u9Ucc.gif" alt="" /></p>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/21/ui-animations/">どうすると気持ち良く感じるのか</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-21T21:56:00+09:00" pubdate data-updated="true">Aug 21<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="http://i.imgur.com/t3u9Ucc.gif" alt="" /></p>
 
 <p><img src="http://i.imgur.com/IoWbato.gif" alt="" /></p>
 
@@ -153,27 +311,23 @@
 <p><a href="http://gihyo.jp/design/serial/01/ui-ux/0001">気持ち良さはどこからくるのか～身体に近づくUIへ</a></p>
 
 <p>たぶんここに書いてあるように、アニメーションにも色々種類があるのだな。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/07/27/aar-dependency/">
-		
-			Aar Dependency</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/27/aar-dependency/">Aar Dependency</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -185,16 +339,14 @@
   
 
 
-<time datetime="2013-07-27T15:47:00+09:00" pubdate data-updated="true">Jul 27<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
+<time datetime="2013-07-27T15:47:00+09:00" pubdate data-updated="true">Jul 27<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/android/'>Android</a>
-
-
-</div>
-    </div>
-		<p>Android StudioでLibrary Projectを参照するのにソースコードを修正するたびにjarで固めてlibsにポンしてもいいいのですが、
+  <div class="entry-content"><p>Android StudioでLibrary Projectを参照するのにソースコードを修正するたびにjarで固めてlibsにポンしてもいいいのですが、
 面倒だしバージョン管理もしたいので調べてたらGitHubをmavenrepoにしてbuild.gradleにdependencyを書いてaarを読み込めることが分かった。</p>
 
 <p><a href="http://u1aryz.blogspot.jp/2013/06/githubmavenandroidaar.html">githubをMavenリポジトリとしてAndroidライブラリプロジェクト(aar)をデプロイして使用する</a></p>
@@ -300,27 +452,23 @@
 </span><span class='line'>    compile 'com.rejasupotaro:rejasupo-commons:0.0.1'
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/07/26/modern-android-design/">
-		
-			Modern Android Design?</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/26/modern-android-design/">Modern Android Design?</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -332,16 +480,14 @@
   
 
 
-<time datetime="2013-07-26T00:37:00+09:00" pubdate data-updated="true">Jul 26<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
+<time datetime="2013-07-26T00:37:00+09:00" pubdate data-updated="true">Jul 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/android/'>Android</a>, <a class='category' href='/blog/categories/design/'>Design</a>
-
-
-</div>
-    </div>
-		<h1>What&#8217;s Modern Android Design?</h1>
+  <div class="entry-content"><h1>What&#8217;s Modern Android Design?</h1>
 
 <h3>GitHub</h3>
 
@@ -394,27 +540,23 @@
 <h3>YouTube</h3>
 
 <p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/youtube.png" alt="" /></p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/07/22/android-casual-talks/">
-		
-			Android Casual Talksやります</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/22/android-casual-talks/">Android Casual Talksやります</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -426,16 +568,14 @@
   
 
 
-<time datetime="2013-07-22T21:18:00+09:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2013</time></div>
-      <div class="tags">Tags: 
+<time datetime="2013-07-22T21:18:00+09:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/android/'>Android</a>
-
-
-</div>
-    </div>
-		<p>ワイワイしているルビーストの様子です。</p>
+  <div class="entry-content"><p>ワイワイしているルビーストの様子です。</p>
 
 <p><img src="http://d3lrup5e12lrut.cloudfront.net/media/BAhbCVsHOgZmSSIzMjAxMy8wNi8xNi8wOS8wMy8xNC82MjUvaGlnaHJlc18yNDgyMjkzMTIuanBlZwY6BkVUWwg6BnA6DGNvbnZlcnRJIhEtYXV0by1vcmllbnQGOwZUWwg7BzoKdGh1bWJJIg04MjB4NDAwIwY7BlRbCDoGZToIanBnSSIXLXN0cmlwIC1xdWFsaXR5IDgwBjsGVA.jpg" alt="" />
 <img src="http://d3lrup5e12lrut.cloudfront.net/media/BAhbCVsHOgZmSSIzMjAxMi8xMi8wNy8xNS8wMS8yNC8yOTUvaGlnaHJlc18xODU3MDc1MjIuanBlZwY6BkVUWwg6BnA6DGNvbnZlcnRJIhEtYXV0by1vcmllbnQGOwZUWwg7BzoKdGh1bWJJIg04MjB4NDAwIwY7BlRbCDoGZToIanBnSSIXLXN0cmlwIC1xdWFsaXR5IDgwBjsGVA.jpg" alt="" />
@@ -461,27 +601,23 @@
 <p>人が集まるか不安だったけど、イベントページを立ててその日のうちに定員になったし、トーク内容も幅広くいい内容が集まって良かったです。</p>
 
 <p>この夏は勉強会ドリブンディベロップメントで開発環境の整備を頑張ります。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/07/18/google-mobile-sessions/">
-		
-			Modern Android Design</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/18/google-mobile-sessions/">Modern Android Design</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -493,16 +629,14 @@
   
 
 
-<time datetime="2013-07-18T23:01:00+09:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
+<time datetime="2013-07-18T23:01:00+09:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/android/'>Android</a>
-
-
-</div>
-    </div>
-		<p>Google Mobile Sessionsにいってきた。</p>
+  <div class="entry-content"><p>Google Mobile Sessionsにいってきた。</p>
 
 <p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gms1.jpg" alt="" /></p>
 
@@ -557,27 +691,23 @@ Androidのガイドラインに従うということは、
 Androidのガイドラインに従うことでデベロッパーは時間と努力を節約することができる。</p></blockquote>
 
 <p>これを聞いて、僕のアプリはちゃんと出来ているだろうかと考えさせられた。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/07/11/altria-connected-instrument-test/">
-		
-			Altria-connected_instrument_test</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/11/altria-connected-instrument-test/">Altria-connected_instrument_test</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -589,16 +719,14 @@ Androidのガイドラインに従うことでデベロッパーは時間と努�
   
 
 
-<time datetime="2013-07-11T22:03:00+09:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
+<time datetime="2013-07-11T22:03:00+09:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/android/'>Android</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
-
-
-</div>
-    </div>
-		<blockquote class="twitter-tweet"><p>何も作ってないけどLLでJenkins cloneつくってYAPCとかで発表したい</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/340815292131311619">June 1, 2013</a></blockquote>
+  <div class="entry-content"><blockquote class="twitter-tweet"><p>何も作ってないけどLLでJenkins cloneつくってYAPCとかで発表したい</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/340815292131311619">June 1, 2013</a></blockquote>
 
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -636,27 +764,23 @@ Androidのガイドラインに従うことでデベロッパーは時間と努�
 <img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/altria-connected_instrument_test.png" alt="" /></p>
 
 <p>エミュレータのプラグインも欲しいですね。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/06/18/route-activity/">
-		
-			RouteActivityを作ろう</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/18/route-activity/">RouteActivityを作ろう</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -668,16 +792,14 @@ Androidのガイドラインに従うことでデベロッパーは時間と努�
   
 
 
-<time datetime="2013-06-18T22:16:00+09:00" pubdate data-updated="true">Jun 18<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
+<time datetime="2013-06-18T22:16:00+09:00" pubdate data-updated="true">Jun 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/android/'>Android</a>
-
-
-</div>
-    </div>
-		<h2>理由1. LauncherのActivityは太りやすい</h2>
+  <div class="entry-content"><h2>理由1. LauncherのActivityは太りやすい</h2>
 
 <p>Androidのプロジェクトを作ると最初にMainActivityが作られます。
 そのMainActivityを中心にアプリを作っていくと、認証の確認を行うロジックを入れたり、思わぬ初期化処理が必要になったりして、規模が大きくなるごとにどんどんActivityが太ってしまいます。
@@ -697,27 +819,23 @@ Androidのガイドラインに従うことでデベロッパーは時間と努�
 RouteActivityに認証の確認の処理や、初期化処理などを置いて、各Activityはそれぞれの責務を真っ当させたら、コードが綺麗になるのではないかと思いました。</p>
 
 <p>RouteActivityという名前はRailsのconfig/routes.rbから来ています。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/04/28/android-katanuki/">
-		
-			テンプレートアプリ &#8220;Katanuki&#8221; を作った</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/28/android-katanuki/">テンプレートアプリ &#8220;Katanuki&#8221; を作った</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -729,16 +847,14 @@ RouteActivityに認証の確認の処理や、初期化処理などを置いて�
   
 
 
-<time datetime="2013-04-28T16:47:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
+<time datetime="2013-04-28T16:47:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/android/'>Android</a>
-
-
-</div>
-    </div>
-		<h1><a href="https://github.com/takiguchi0817/katanuki">Android Katanuki</a></h1>
+  <div class="entry-content"><h1><a href="https://github.com/takiguchi0817/katanuki">Android Katanuki</a></h1>
 
 <p>A template application that includes tons of great open source tools and frameworks.</p>
 
@@ -819,27 +935,23 @@ RouteActivityに認証の確認の処理や、初期化処理などを置いて�
 
 
 <p>OpenSource便利。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/04/15/using-otto/">
-		
-			Otto 使ってみた</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/15/using-otto/">Otto 使ってみた</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -851,16 +963,14 @@ RouteActivityに認証の確認の処理や、初期化処理などを置いて�
   
 
 
-<time datetime="2013-04-15T21:25:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
+<time datetime="2013-04-15T21:25:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/android/'>Android</a>
-
-
-</div>
-    </div>
-		<h1><a href="http://square.github.io/otto/">Otto - An event bus by Square</a></h1>
+  <div class="entry-content"><h1><a href="http://square.github.io/otto/">Otto - An event bus by Square</a></h1>
 
 <p>画像のアップロード処理が終わったらActivityに通知するとか、
 DBからデータを消したらViewに反映させるとかしたくなることってよくあると思います。</p>
@@ -1034,135 +1144,118 @@ ThreadEnforcer.ANYを指定しています。</p>
 
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/04/02/nyusya-entry/">
-		
-			クックパッド株式会社に入社しました</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/08/31/android-casual-talks-1/">Android Casual Talks #1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/21/ui-animations/">どうすると気持ち良く感じるのか</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/27/aar-dependency/">aar dependency</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/26/modern-android-design/">Modern Android Design?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/22/android-casual-talks/">Android Casual Talksやります</a>
+      </li>
+    
+  </ul>
+</section>
 
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/takiguchi0817">@takiguchi0817</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
 
-
+        github.showRepos({
+            user: 'takiguchi0817',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
 
 
 
 
 
   
-
-
-<time datetime="2013-04-02T01:50:00+09:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-</div>
-    </div>
-		<h3>はじめまして</h3>
-
-<blockquote class="twitter-tweet" lang="ja"><p>新卒です</p>&mdash; レジャスポ太郎さん (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/status/318505403476488193">2013年3月31日</a></blockquote>
-
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<p>新卒としてクックパッド株式会社に入社しました。
-僕は今日初めて同期と顔を合わせたのですが、新卒入社なのに社歴がすでに4年目という人や、博士後期課程までがっつり研究をして「新卒ですがもうすぐ30です」という人がいたり、「前職では〜」「転職のきっかけは〜」と始まる自己紹介をする人(僕もですが)もいて、
-新卒のみなさんとてもフレッシュで戦々恐々としていました。</p>
-
-<p>全社員が集まる場での自己紹介で「なぜクックパッドに入ったか」と「クックパッドで実現したいこと」の二点について、話してくださいと言われたので話しました。</p>
-
-<h4>なぜクックパッドに入ったか</h4>
-
-<p>思い返すと、年末にコードが綺麗な<a href="http://r7kamura.hatenablog.com/entry/2012/11/30/223412">中村クン</a>と話したことがきっかけだったのかなと思います。
-Androidアプリ開発どう？みたいな話をして、あまりリソースが割けていないという話を聞きました。良いサービスなのにもったいないと思ったのがとても記憶に残っています。
-(気になってその日はうちに帰ってapkを逆コンパイルしてた気がします)</p>
-
-<h4>クックパッドで実現したいこと</h4>
-
-<p>「マーケットのレーティングで星4つ以上を目指します」と言いました。
-スマートフォンアプリというのは単純に「PCのページのデザインを崩れないように表示できるようにしたもの」にとどまらず、そもそも使われるシーンが違う(たとえば献立を考えるときにはPCで検索して、買い物をするときにはスマートフォンでレシピの材料を見て、実際に料理をするときにはタブレットで閲覧するみたいな)ので、シーンに応じた求められる機能とは何か、最適な見せ方とは何かを突き詰めていきたいです。</p>
-
-<p>という話をしました。</p>
-
-<h3>その他</h3>
-
-<p>クックパッドは2008年(2007年だったかも)というかなり早い時期からHadoopを導入したり、同じく2008年にColdFusionで書かれたサービスをRailsでフルリニューアルしたりして、導入後は最新のバージョンに追随するようにしてきました。
-なぜ最新にこだわっているかというと、新しいバージョンでしか使えないものが使えないなんてディスアドバンテージを背負いたくないというのと、実は常にバージョンアップしていくのが一番コストが低いからだと言っていました。</p>
-
-<p>そういう姿勢がクックパッドをテクノロジーカンパニーとして世間に認知させ、多くのエンジニアを引き寄せ、今のようなレールズモヒカンの巣窟の形成に至ったのだと思います。</p>
-
-<p>僕はそれと同じことをスマートフォンでもやりたい、
-クックパッドをレールズ以外にもスマートフォンアプリ開発も凄いって言われるようにしたいと思っています。</p>
-
-<p>もちろんすべてはユーザーの問題解決のため。
-新鮮な野菜とジャバと顧客に届け続けるオアダイという言葉を胸に頑張ります。</p>
-
-<p>これからどうぞよろしくお願いします。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-<nav id="pagenavi">
-    
-    
-        <a href="/blog/page/2/" class="next">Next</a>
-    
-    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
-</nav>
+</aside>
 
     </div>
-    <footer id="footer">
-    <div style="display:inline">
-    Copyright &copy; 2013
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - rejasupotaro -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
 
-    rejasupotaro
-. Powered by <a href="http://octopress.org">Octopress</a> | 
-    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
-</div>
-
-
-    </footer>
-    <script src="/javascripts/fabric.js"></script>
-<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-	$('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
+</footer>
+  
 
 
 
 
 
 
-<!-- end toload --> 
-</div>
-</div>
-<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
-<script type="text/javascript">
-/*<![CDATA[*/
-;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
-/*]]>*/
-</script><!-- remove it to remove the scroll to top button -->
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
 </body>
 </html>

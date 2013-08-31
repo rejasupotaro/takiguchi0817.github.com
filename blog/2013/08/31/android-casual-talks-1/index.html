@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Android Casual Talks #1 - Just posted a blog</title>
+  <meta name="author" content="rejasupotaro">
+
+  
+  <meta name="description" content="はじめに Androidの開発をしていて、 WebとiOSとAndroidで足並み揃えるのどうするんだろう
+プラットフォーム間のUIの統一についてはどう考えたらいいんだろう
+他のアプリではA/Bとかやってるのかな
+PCからスマホウェブでは全機能を移植するけど、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://takiguchi0817.github.com/blog/2013/08/31/android-casual-talks-1">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36257112-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Just posted a blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:takiguchi0817.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Android Casual Talks #1</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-31T17:44:00+09:00" pubdate data-updated="true">Aug 31<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>はじめに</h1>
+
+<p>Androidの開発をしていて、</p>
+
+<ul>
+<li>WebとiOSとAndroidで足並み揃えるのどうするんだろう</li>
+<li>プラットフォーム間のUIの統一についてはどう考えたらいいんだろう</li>
+<li>他のアプリではA/Bとかやってるのかな</li>
+<li>PCからスマホウェブでは全機能を移植するけど、その流れでアプリでも全機能使えるようにって会社やユーザから言われるけどどうしたらいいのか</li>
+<li>PCからネイティブアプリでは機能を削ってシンプルにってアプリ開発者は言うけど、削られた機能はどこにいくのか</li>
+<li>多くのサービスでPCのPVが下がってスマホやタブレットのUUが伸びてると思うけど、アプリの広告のうまい組み込み方とか売り方について話を聞きたい</li>
+<li>WebViewでアプリを組むとステートが複雑になったり標準的なユーザ体験を提供するのが難しい</li>
+<li>ブランチ管理でgit-flowを導入しようかと思ったけど、管理するコストと考えるとあれかなと思ったのでGitHub Flowでやっているけど、他社ではどうしてるのか</li>
+<li>大規模でも破綻しない設計とは(「MVCを意識して書く」だと個人の技量に左右されるしスケールしない感じがする)</li>
+<li>効果的なテストとメトリクス計測(取るだけじゃなくて改善するところも含めて)ってどうするのがいいんだろう</li>
+<li>継続的にパフォーマンス計測をしたいけど、Jenkinsでどう実現したらいいのだろう</li>
+<li>頑張ってすべてのレビューを読んでるけど、叩かれるとへこむ</li>
+<li>デザイナーがみんなiPhoneユーザだ</li>
+<li>むしろエンジニアもMacとiPhoneを使っている人が多くて、Androidは現代のIEって言われる</li>
+</ul>
+
+
+<p>など、悩むことが多いです。</p>
+
+<p>こういう技術書にのっていない話は人に聞くのが一番早い思っていましたが、今までAndroid界隈では集まってこういう話をする場がなかったように思います。(僕が知らないだけであったのかもしれませんが)
+それでこの度、カジュアルに情報交換をしたいなと思って、<a href="http://atnd.org/events/41600">Android Casual Talks #1</a>を開きました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual0.png" width="600px"></p>
+
+<p>内容については「ぶっちゃけ過ぎてるんであんまりツイートしないでください」っていうのもあったので、さらっと概要だけまとめました。</p>
+
+<h1>1. クックパッドの開発環境について</h1>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual4.jpg" width="600px"></p>
+
+<p>僕はAndroid Studio + Gradleの導入とか、リポジトリ管理とか、ビルドの設定とか、人が増えてもスケールしそうな開発の話をしました。</p>
+
+<h1>2. 品質を保つための組織的な取り組みと人に依存しないテスト</h1>
+
+<p>メーカーの開発の品質は高いと伺っていたので、品質への取り組みについてお話いただきました。
+いわゆるウォーターフォールモデルだけど、1週間のイテレーションを回して目標値への達成度の確認と是正を行っていて、さすがにしっかり管理をしているなと思いました。
+メトリクスを細かく取っていたのも印象的でした。</p>
+
+<h1>3. グリーにJenkinsを導入して2年半でおこった事</h1>
+
+<p>Jenkinsの運用の話＆エモ枠としてお話いただきました。</p>
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/25716362" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
+
+
+<p> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/okazaki/2013-0829-jenkins-for-cookpad-android" title="2013 08-29 jenkins for cookpad android" target="_blank">2013 08-29 jenkins for cookpad android</a> </strong> from <strong><a href="http://www.slideshare.net/okazaki" target="_blank">Takayuki Okazaki</a></strong> </div></p>
+
+<ul>
+<li><p>変えないことは大きなリスク</p>
+
+<ul>
+<li>変えないと、技術的負債激増</li>
+<li>ある時点から技術的負債のために働くことになる</li>
+</ul>
+</li>
+<li><p>変えるのはツールではなくワークフロー</p>
+
+<ul>
+<li>ツールの導入で解決 -> 仕組みの改善で解決</li>
+<li>あるべき論、精神論 -> しくみ、制度化</li>
+</ul>
+</li>
+</ul>
+
+
+<p>いい話でした。詳しくはスライドを御覧ください。</p>
+
+<h1>4. injectionの基礎（android編）</h1>
+
+<p>イベント開催を知った師匠が話してくれました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual2.png" width="600px"></p>
+
+<p>DIフレームワークの基礎ということで、依存性の注入や制御の反転について、あるチャットアプリの例を通して、仕様が変わっていく中でプログラムを綺麗な状態に保ちながらテストをしやすくする方法について話していただきました。</p>
+
+<p>社内ではひっそりと<a href="https://github.com/roboguice/roboguice">RoboGuice</a>を使っていたのですが、パフォーマンスとかで<a href="http://square.github.io/dagger/">Dagger</a>の方が良いみたいな流れが最近あるので、そっちに移行したいなと思いました。</p>
+
+<h1>5. 意外と役立つ？Android Open Source Projectのすすめ</h1>
+
+<p>Androidアプリのデバッグ手法について話していただきました。</p>
+
+<ul>
+<li><p>アプリ開発で悩んだときはどうしますか？</p>
+
+<ul>
+<li>ググる</li>
+<li>Android Developersで調べる</li>
+<li>色々試す</li>
+</ul>
+</li>
+<li><p>上の方法で解決できないときはどうしますか？</p>
+
+<ul>
+<li>他のアプリを逆コンパイル</li>
+<li>明日考える</li>
+<li>仕様をドロップ</li>
+</ul>
+</li>
+</ul>
+
+
+<p>でも仕様を諦めるのはエンジニアとして負けた気分になる。そこで、<a href="https://sites.google.com/site/devcollaboration/codesearch">{OpenGrok</a></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual3.png" width="600px"></p>
+
+<p>OpenGrokは、Androidのソースコードを簡単に見るために作られた検索エンジンで、Full Search、Definition、Symbol、File Path、Historyなど絞り込んで検索をすることができるみたいです。
+ちょっと調べ物をするのに便利そうでした。</p>
+
+<h1>6. アプリのリニューアルとその効果測定について</h1>
+
+<p>Android2系のデザインで作られた黒背景に白文字の「葬式UI」だったPixivアプリをリニューアルしたときの反響と効果測定についてお話いただきました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual5.png" width="600px"></p>
+
+<p>リニューアルをしたときにはGoogle Playで☆1の嵐が吹き荒れて…</p>
+
+<ul>
+<li>「最悪。アップデート前の方がいいです。」</li>
+<li>「凄まじいまでの改悪、なぜこれでゴーが出たのか」</li>
+</ul>
+
+
+<p><strong>開発者「もう許してくださいって思いました。」</strong></p>
+
+<p>ただ定性的な意見だけではなく、定量的なデータからこのリニューアルはどうだったのかというと、操作性の向上を図ったことにより、</p>
+
+<ul>
+<li>ブックマークのイベント数：4.7倍</li>
+<li>評価ボタンのイベント数：9.5倍</li>
+</ul>
+
+
+<p>となり、順調にユーザ数も増加しているそうです。
+レビューと合わせて計測することの大切さを言っていました。</p>
+
+<h1>おわりに</h1>
+
+<p>各社のいい話が聞けたのと、イベントを通して多くのAndroidエンジニアと知り合えたのはとても良かったです。
+一方で、一通りトークが終わったあと時間が押してて「すいません、あと12分で交流してください」となってしまったのが残念でした。</p>
+
+<p>このイベントの定員50人だったんですけど、150人以上の登録があって、思っていたより人が集まって驚きました。
+それなりに需要があれば#2, #3&#8230;とやるかもしれないので、やりたいとか、会場を提供できるよとか、声を掛けていただければまたやりましょう。
+次やるのなら交流をメインにしたいので、20分くらいのトークは2本にして、あとは5分のLTを募集してたくさんの人に発表してもらったあとに、さっき◯◯の話をしていたあの人と話そう、みたいにすると良いかなと思いました。</p>
+
+<p>Androidエンジニアに幸あれ。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">rejasupotaro</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-31T17:44:00+09:00" pubdate data-updated="true">Aug 31<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/android/'>Android</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://takiguchi0817.github.com/blog/2013/08/31/android-casual-talks-1/" data-via="rejasupotaro" data-counturl="http://takiguchi0817.github.com/blog/2013/08/31/android-casual-talks-1/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/08/21/ui-animations/" title="Previous Post: どうすると気持ち良く感じるのか">&laquo; どうすると気持ち良く感じるのか</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/08/31/android-casual-talks-1/">Android Casual Talks #1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/21/ui-animations/">どうすると気持ち良く感じるのか</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/27/aar-dependency/">aar dependency</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/26/modern-android-design/">Modern Android Design?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/22/android-casual-talks/">Android Casual Talksやります</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/takiguchi0817">@takiguchi0817</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'takiguchi0817',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - rejasupotaro -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

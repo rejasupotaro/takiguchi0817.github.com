@@ -1,118 +1,92 @@
 
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<title>Just posted a blog</title>
-    <meta name="author" content="rejasupotaro">
-    
-	<meta name="description" content="Published on: Nov 19th, 2012 Tags: Android, Ruby Androidで送る 事情があって一回のリクエストで複数画像を送りたかった。 UriからStringの変換 画像のパスが必要になるので、ContentResolverに問い合わせてパスもらう。 1 &hellip;">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="utf-8">
+  <title>Just posted a blog</title>
+  <meta name="author" content="rejasupotaro">
 
-	<link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
-	<link rel="canonical" href="">
-	<link href="/favicon.ico" rel="shortcut icon">
-    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
+  <meta name="description" content="デプロイしておーエラー出なかったーって思ってブラウザで開いたら文字化けしてた。 mysql&gt; STATUS アーMacBookはutf8だったけどサーバーはlatin1のままだった。
+文字コード変えるためにmysql止めようとしたら、いつの間にか/etc/init.d/ &hellip;">
+  
 
-    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+  
+  <link rel="canonical" href="http://takiguchi0817.github.com/blog/page/4">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36257112-2']);
+    _gaq.push(['_trackPageview']);
 
-    <!-- remove or comment it to disable ajaxification -->   
-    <script src="/javascripts/ajaxify.js"></script>
-   
-    
-    
-	<script type="text/javascript">
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', 'UA-36257112-2']);
-		_gaq.push(['_trackPageview']);
-
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-	</script>
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
 
 
 </head>
 
-
-<body>
-    <div id="wrapper">
-    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
-<h1 class="animated bounceInDown">
-    <div id="headerbg">
-        Just posted a blog
-    </div>
-</h1>
-<br>
-
-<ul id="social-links" style="text-align:center">
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Just posted a blog</a></h1>
   
-  <!-- GitHub -->
-  <li>
-  <a href="https://github.com/takiguchi0817" class="github" title="Github"></a>
-  </li>
-  
-  
-  
-  
-  <!-- Twitter -->
-  <li>
-  <a href="http://www.twitter.com/rejasupotaro" class="twitter" title="Twitter"></a>
-  </li>
-  
-  
-  
-  
-  
-</ul>
-
-
-<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
-<ul id="nav">
-	<li id="ajax"><a href="/index.html">Home</a></li>
-	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
-    <li><a href="/atom.xml">RSS</a></li>
-    
-    <li>
-    <div id="dark">
-        <form method="get" action="/search.html" id="search">
-            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
-        </form>
-    </div>
-    </li>
-        
-</ul>
-
-
-
+</hgroup>
 
 </header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:takiguchi0817.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
 
-<div id="toload">
-<!-- begin toload --> 
-    <div id="content" class="inner">
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/23/mysql-character-set/">MySQL、文字化けた</a></h1>
+    
+    
+      <p class="meta">
         
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/19/zip-upload/">
-		
-			Androidで複数画像をzipにしてmultipart/form-dataで送ってRubyで受け取る</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
 
 
 
@@ -124,16 +98,72 @@
   
 
 
-<time datetime="2012-11-19T01:08:00+09:00" pubdate data-updated="true">Nov 19<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
+<time datetime="2012-11-23T19:21:00+09:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/android/'>Android</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
+  <div class="entry-content"><p>デプロイしておーエラー出なかったーって思ってブラウザで開いたら文字化けしてた。</p>
 
+<pre><code>mysql&gt; STATUS
+</code></pre>
 
+<p>アーMacBookはutf8だったけどサーバーはlatin1のままだった。<br/>
+文字コード変えるためにmysql止めようとしたら、いつの間にか/etc/init.d/mysqlを使うんじゃなくてservice mysqlを使うことになってた。</p>
+
+<p>まあ、それはそれで、/etc/mysql/conf.d/charset.confに</p>
+
+<pre><code>[client]
+default-character-set=utf8
+
+[mysqld]
+character-set-server=utf8
+skip-character-set-client-handshake
+
+[mysqldump]
+default-character-set=utf8
+</code></pre>
+
+<p>って書いてオルターテーブルしたら文字化け直った、良かった。<br/>
+mysql5.5でmysqldのdefault-character-setなくなってたの知らなくてちょっと困ったりした。</p>
 </div>
-    </div>
-		<h2>Androidで送る</h2>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/19/zip-upload/">Androidで複数画像をzipにしてmultipart/form-dataで送ってRubyで受け取る</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-19T01:08:00+09:00" pubdate data-updated="true">Nov 19<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Androidで送る</h2>
 
 <p>事情があって一回のリクエストで複数画像を送りたかった。</p>
 
@@ -388,27 +418,23 @@ outFilePathはどこでもいいんだけど、</p>
 <h2>このプログラムはフォンデュしながら書きました</h2>
 
 <p><img src="http://dl.dropbox.com/u/54255753/blog/201211/fondue.gif" alt="チョコフォンデュ" /></p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/17/beautiful-gifs/">
-		
-			Beautiful GIFs</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/17/beautiful-gifs/">Beautiful GIFs</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -420,16 +446,14 @@ outFilePathはどこでもいいんだけど、</p>
   
 
 
-<time datetime="2012-11-17T09:08:00+09:00" pubdate data-updated="true">Nov 17<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
+<time datetime="2012-11-17T09:08:00+09:00" pubdate data-updated="true">Nov 17<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/gif/'>GIF</a>
-
-
-</div>
-    </div>
-		<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/boy.gif" alt="GIFは動く" /></p>
+  <div class="entry-content"><p><img src="http://dl.dropbox.com/u/54255753/blog/201211/boy.gif" alt="GIFは動く" /></p>
 
 <p><a href="http://www.buzzfeed.com/thegeshow/the-60-most-beautiful-cinemagraph-gifs">The 60 Most Beautiful Cinemagraph GIFs</a></p>
 
@@ -469,27 +493,23 @@ outFilePathはどこでもいいんだけど、</p>
 
 <p>GifView作った人がいた。<br/>
 ふつうにWebViewに表示させてもいい気がする。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/16/into-brook/">
-		
-			JavaScriptの名前空間</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/16/into-brook/">JavaScriptの名前空間</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -501,16 +521,14 @@ outFilePathはどこでもいいんだけど、</p>
   
 
 
-<time datetime="2012-11-16T01:28:00+09:00" pubdate data-updated="true">Nov 16<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
+<time datetime="2012-11-16T01:28:00+09:00" pubdate data-updated="true">Nov 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/javascript/'>JavaScript</a>, <a class='category' href='/blog/categories/namespace-dot-js/'>Namespace.js</a>
-
-
-</div>
-    </div>
-		<h2>大規模JavaScript案件</h2>
+  <div class="entry-content"><h2>大規模JavaScript案件</h2>
 
 <p>僕はあまりJavaScript書かないけど、大規模JavaScript案件すると変数とかかぶって滅ぶらしい。<br/>
 <a href="https://github.com/hirokidaichi/namespace-js">Namespace.js</a>とかいうの使うとパッケージ的なもの作れるらしいと聞いた。</p>
@@ -691,27 +709,23 @@ NamespaceObjectはファクトリーで生成するっぽい。</p>
 <p>createNamespaceで、fqnを渡してやってNamespace受け取って、useしたりdefineしたりするみたい。</p>
 
 <p>眠たいので流し読みしたけど、なんとなく雰囲気だけわかった。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/11/betterflow/">
-		
-			ライブに行った。感化された。</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/11/betterflow/">ライブに行った。感化された。</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -723,16 +737,14 @@ NamespaceObjectはファクトリーで生成するっぽい。</p>
   
 
 
-<time datetime="2012-11-11T18:10:00+09:00" pubdate data-updated="true">Nov 11<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
+<time datetime="2012-11-11T18:10:00+09:00" pubdate data-updated="true">Nov 11<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/gif/'>GIF</a>, <a class='category' href='/blog/categories/ladygaga/'>LadyGaga</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
-
-
-</div>
-    </div>
-		<h2>ライブに行った</h2>
+  <div class="entry-content"><h2>ライブに行った</h2>
 
 <p><img src="http://dl.dropbox.com/u/54255753/blog/201211/live1.jpg" alt="さいたまスーパーアリーナ付近" /><br/>
 <img src="http://dl.dropbox.com/u/54255753/blog/201211/live2.jpg" alt="会場で待機" /><br/>
@@ -754,27 +766,23 @@ NamespaceObjectはファクトリーで生成するっぽい。</p>
 Firefox他ではコーデック対応してないっぽいので音鳴らない。</p>
 
 <p>iTunes Search APIで適当な音持ってきてる。かわいみGIFはネットで探した。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/11/rails-days-2/">
-		
-			Rails Days 2</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/11/rails-days-2/">Rails Days 2</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -786,16 +794,14 @@ Firefox他ではコーデック対応してないっぽいので音鳴らない�
   
 
 
-<time datetime="2012-11-11T14:02:00+09:00" pubdate data-updated="true">Nov 11<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
+<time datetime="2012-11-11T14:02:00+09:00" pubdate data-updated="true">Nov 11<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/mysql/'>MySQL</a>, <a class='category' href='/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
-
-
-</div>
-    </div>
-		<h2>DBとかモデルとかいじる</h2>
+  <div class="entry-content"><h2>DBとかモデルとかいじる</h2>
 
 <h3>MySQLのインストール</h3>
 
@@ -865,27 +871,23 @@ $ rake db:migrate
 </code></pre>
 
 <p>すごい。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/07/android-notification/">
-		
-			Androidの通知周り</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/07/android-notification/">Androidの通知周り</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -897,16 +899,14 @@ $ rake db:migrate
   
 
 
-<time datetime="2012-11-07T23:19:00+09:00" pubdate data-updated="true">Nov 7<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
+<time datetime="2012-11-07T23:19:00+09:00" pubdate data-updated="true">Nov 7<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/android/'>Android</a>
-
-
-</div>
-    </div>
-		<h2>ステータスバー</h2>
+  <div class="entry-content"><h2>ステータスバー</h2>
 
 <p>NotificationManagerを介してステータスバーに通知を出したり消したりする。<br/>
 <a href="http://developer.android.com/reference/android/app/NotificationManager.html">NotificationManagerドキュメント</a></p>
@@ -1146,27 +1146,23 @@ $ rake db:migrate
 
 
 <p>だいたいそんな感じ。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/06/isucon2/">
-		
-			イスコン各位のパフォーマンスチューニング</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/06/isucon2/">イスコン各位のパフォーマンスチューニング</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -1178,16 +1174,14 @@ $ rake db:migrate
   
 
 
-<time datetime="2012-11-06T23:59:00+09:00" pubdate data-updated="true">Nov 6<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
+<time datetime="2012-11-06T23:59:00+09:00" pubdate data-updated="true">Nov 6<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/isucon/'>Isucon</a>, <a class='category' href='/blog/categories/server/'>Server</a>
-
-
-</div>
-    </div>
-		<p><a href="http://blog.livedoor.jp/techblog/archives/67726806.html">#isucon2</a>、周りでも結構話題になった。<br/>
+  <div class="entry-content"><p><a href="http://blog.livedoor.jp/techblog/archives/67726806.html">#isucon2</a>、周りでも結構話題になった。<br/>
 「同期でもやりたいねー。」みたいな話になって、僕はパフォーマンスチューニングとかよくわからなかったので、各チームが何をしたのか調べた。</p>
 
 <h2>言語</h2>
@@ -1249,27 +1243,23 @@ $ rake db:migrate
 
 
 <p>これらをうまく分担して行う、みたいな？</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/06/gif-generator/">
-		
-			GIFの流れ感じる</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/06/gif-generator/">GIFの流れ感じる</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -1281,16 +1271,14 @@ $ rake db:migrate
   
 
 
-<time datetime="2012-11-06T00:16:00+09:00" pubdate data-updated="true">Nov 6<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
+<time datetime="2012-11-06T00:16:00+09:00" pubdate data-updated="true">Nov 6<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/gif/'>GIF</a>
-
-
-</div>
-    </div>
-		<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/gif1.gif" alt="冷蔵庫" /></p>
+  <div class="entry-content"><p><img src="http://dl.dropbox.com/u/54255753/blog/201211/gif1.gif" alt="冷蔵庫" /></p>
 
 <p><img src="http://dl.dropbox.com/u/54255753/blog/201211/gif2.gif" alt="レディーガガ" /></p>
 
@@ -1300,27 +1288,23 @@ $ rake db:migrate
 なんか日常が動くの面白いし、タイムラインに流れてきたら賑やかになるし、GIFを作るAndroidアプリ作りたいかもしれない。</p>
 
 <p>convertコマンドをarm用にstaticビルドしてassetsとかに置いてruntime.execするとか、画像変換のライブラリ使ったりして簡単に出来たりしないですかね。</p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/04/rails-days-1/">
-		
-			Rails Days 1</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/04/rails-days-1/">Rails Days 1</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -1332,16 +1316,14 @@ $ rake db:migrate
   
 
 
-<time datetime="2012-11-04T19:49:00+09:00" pubdate data-updated="true">Nov 4<span>th</span>, 2012</time></div>
-      <div class="tags">Tags: 
+<time datetime="2012-11-04T19:49:00+09:00" pubdate data-updated="true">Nov 4<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/rails/'>Rails</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
-
-
-</div>
-    </div>
-		<h1>Railsを始めるまで</h1>
+  <div class="entry-content"><h1>Railsを始めるまで</h1>
 
 <h2>さくらのVPSのOS再インストール</h2>
 
@@ -1468,161 +1450,120 @@ config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
 <pre><code>$ rails s
 </code></pre>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
 </div>
-</article>
+  
+  
 
 
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2012/11/03/y-combinators/">
-		
-			文化の日</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/3/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/08/31/android-casual-talks-1/">Android Casual Talks #1</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/08/21/ui-animations/">どうすると気持ち良く感じるのか</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/27/aar-dependency/">aar dependency</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/26/modern-android-design/">Modern Android Design?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/22/android-casual-talks/">Android Casual Talksやります</a>
+      </li>
+    
+  </ul>
+</section>
 
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/takiguchi0817">@takiguchi0817</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
 
-
+        github.showRepos({
+            user: 'takiguchi0817',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
 
 
 
 
 
   
-
-
-<time datetime="2012-11-03T14:15:00+09:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2012</time></div>
-      <div class="tags">Tags: 
-
-
-	<a class='category' href='/blog/categories/coffeescript/'>CoffeeScript</a>, <a class='category' href='/blog/categories/lambda/'>Lambda</a>, <a class='category' href='/blog/categories/ruby/'>Ruby</a>
-
-
-</div>
-    </div>
-		<h2>わかりやすかった</h2>
-
-<p><a href="http://d.hatena.ne.jp/r-west/20090417/1239972722">おとうさんにもわかるYコンビネータ！(絵解き解説編)</a></p>
-
-<h2>かわいみコート買った</h2>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/1351951130405-1.jpg" alt="かわいみコート買った" /></p>
-
-<h2>Yコンビネータみたいなの書いてた</h2>
-
-<h3>case of ruby</h3>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">y</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">y</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
-</span><span class='line'>    <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span>
-</span><span class='line'>      <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="o">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">})</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
-</span><span class='line'>  <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">g</span><span class="o">|</span>
-</span><span class='line'>    <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
-</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="p">))</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">g</span><span class="o">|</span>
-</span><span class='line'>    <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
-</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="p">))</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">})</span>
-</span><span class='line'><span class="p">})</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>case of coffeescript</h3>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="p">(</span><span class="nf">(Y) -&gt;</span> <span class="nx">Y</span><span class="p">(</span><span class="nf">(f) -&gt;</span> <span class="nf">(n) -&gt;</span> <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">)</span> <span class="k">then</span> <span class="mi">1</span> <span class="k">else</span> <span class="nx">f</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">f</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class='line'><span class="p">)(</span><span class="mi">10</span><span class="p">))</span> <span class="nf">(f) -&gt;</span> <span class="p">(</span><span class="nf">(g) -&gt;</span> <span class="nf">(m) -&gt;</span> <span class="nx">f</span><span class="p">(</span><span class="nx">g</span> <span class="nx">g</span><span class="p">)</span> <span class="nx">m</span><span class="p">)</span> <span class="nf">(g) -&gt;</span> <span class="nf">(m) -&gt;</span> <span class="nx">f</span><span class="p">(</span><span class="nx">g</span> <span class="nx">g</span><span class="p">)</span> <span class="nx">m</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>夕食</h2>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/1351934736127.jpg" alt="鶏肉焼いてパスタ茹でた" /></p>
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-<nav id="pagenavi">
-    
-        <a href="/blog/page/3/" class="prev">Prev</a>
-    
-    
-        <a href="/blog/page/5/" class="next">Next</a>
-    
-    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
-</nav>
+</aside>
 
     </div>
-    <footer id="footer">
-    <div style="display:inline">
-    Copyright &copy; 2013
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - rejasupotaro -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
 
-    rejasupotaro
-. Powered by <a href="http://octopress.org">Octopress</a> | 
-    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
-</div>
-
-
-    </footer>
-    <script src="/javascripts/fabric.js"></script>
-<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-	$('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
+</footer>
+  
 
 
 
 
 
 
-<!-- end toload --> 
-</div>
-</div>
-<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
-<script type="text/javascript">
-/*<![CDATA[*/
-;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
-/*]]>*/
-</script><!-- remove it to remove the scroll to top button -->
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
 </body>
 </html>

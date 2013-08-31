@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-08-21T22:27:03+09:00</updated>
+  <updated>2013-08-31T23:00:57+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,164 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Android Casual Talks #1]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/08/31/android-casual-talks-1/"/>
+    <updated>2013-08-31T17:44:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/08/31/android-casual-talks-1</id>
+    <content type="html"><![CDATA[<h1>はじめに</h1>
+
+<p>Androidの開発をしていて、</p>
+
+<ul>
+<li>WebとiOSとAndroidで足並み揃えるのどうするんだろう</li>
+<li>プラットフォーム間のUIの統一についてはどう考えたらいいんだろう</li>
+<li>他のアプリではA/Bとかやってるのかな</li>
+<li>PCからスマホウェブでは全機能を移植するけど、その流れでアプリでも全機能使えるようにって会社やユーザから言われるけどどうしたらいいのか</li>
+<li>PCからネイティブアプリでは機能を削ってシンプルにってアプリ開発者は言うけど、削られた機能はどこにいくのか</li>
+<li>多くのサービスでPCのPVが下がってスマホやタブレットのUUが伸びてると思うけど、アプリの広告のうまい組み込み方とか売り方について話を聞きたい</li>
+<li>WebViewでアプリを組むとステートが複雑になったり標準的なユーザ体験を提供するのが難しい</li>
+<li>ブランチ管理でgit-flowを導入しようかと思ったけど、管理するコストと考えるとあれかなと思ったのでGitHub Flowでやっているけど、他社ではどうしてるのか</li>
+<li>大規模でも破綻しない設計とは(「MVCを意識して書く」だと個人の技量に左右されるしスケールしない感じがする)</li>
+<li>効果的なテストとメトリクス計測(取るだけじゃなくて改善するところも含めて)ってどうするのがいいんだろう</li>
+<li>継続的にパフォーマンス計測をしたいけど、Jenkinsでどう実現したらいいのだろう</li>
+<li>頑張ってすべてのレビューを読んでるけど、叩かれるとへこむ</li>
+<li>デザイナーがみんなiPhoneユーザだ</li>
+<li>むしろエンジニアもMacとiPhoneを使っている人が多くて、Androidは現代のIEって言われる</li>
+</ul>
+
+
+<p>など、悩むことが多いです。</p>
+
+<p>こういう技術書にのっていない話は人に聞くのが一番早い思っていましたが、今までAndroid界隈では集まってこういう話をする場がなかったように思います。(僕が知らないだけであったのかもしれませんが)
+それでこの度、カジュアルに情報交換をしたいなと思って、<a href="http://atnd.org/events/41600">Android Casual Talks #1</a>を開きました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual0.png" width="600px"></p>
+
+<p>内容については「ぶっちゃけ過ぎてるんであんまりツイートしないでください」っていうのもあったので、さらっと概要だけまとめました。</p>
+
+<h1>1. クックパッドの開発環境について</h1>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual4.jpg" width="600px"></p>
+
+<p>僕はAndroid Studio + Gradleの導入とか、リポジトリ管理とか、ビルドの設定とか、人が増えてもスケールしそうな開発の話をしました。</p>
+
+<h1>2. 品質を保つための組織的な取り組みと人に依存しないテスト</h1>
+
+<p>メーカーの開発の品質は高いと伺っていたので、品質への取り組みについてお話いただきました。
+いわゆるウォーターフォールモデルだけど、1週間のイテレーションを回して目標値への達成度の確認と是正を行っていて、さすがにしっかり管理をしているなと思いました。
+メトリクスを細かく取っていたのも印象的でした。</p>
+
+<h1>3. グリーにJenkinsを導入して2年半でおこった事</h1>
+
+<p>Jenkinsの運用の話＆エモ枠としてお話いただきました。</p>
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/25716362" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
+
+
+<p> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/okazaki/2013-0829-jenkins-for-cookpad-android" title="2013 08-29 jenkins for cookpad android" target="_blank">2013 08-29 jenkins for cookpad android</a> </strong> from <strong><a href="http://www.slideshare.net/okazaki" target="_blank">Takayuki Okazaki</a></strong> </div></p>
+
+<ul>
+<li><p>変えないことは大きなリスク</p>
+
+<ul>
+<li>変えないと、技術的負債激増</li>
+<li>ある時点から技術的負債のために働くことになる</li>
+</ul>
+</li>
+<li><p>変えるのはツールではなくワークフロー</p>
+
+<ul>
+<li>ツールの導入で解決 -> 仕組みの改善で解決</li>
+<li>あるべき論、精神論 -> しくみ、制度化</li>
+</ul>
+</li>
+</ul>
+
+
+<p>いい話でした。詳しくはスライドを御覧ください。</p>
+
+<h1>4. injectionの基礎（android編）</h1>
+
+<p>イベント開催を知った師匠が話してくれました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual2.png" width="600px"></p>
+
+<p>DIフレームワークの基礎ということで、依存性の注入や制御の反転について、あるチャットアプリの例を通して、仕様が変わっていく中でプログラムを綺麗な状態に保ちながらテストをしやすくする方法について話していただきました。</p>
+
+<p>社内ではひっそりと<a href="https://github.com/roboguice/roboguice">RoboGuice</a>を使っていたのですが、パフォーマンスとかで<a href="http://square.github.io/dagger/">Dagger</a>の方が良いみたいな流れが最近あるので、そっちに移行したいなと思いました。</p>
+
+<h1>5. 意外と役立つ？Android Open Source Projectのすすめ</h1>
+
+<p>Androidアプリのデバッグ手法について話していただきました。</p>
+
+<ul>
+<li><p>アプリ開発で悩んだときはどうしますか？</p>
+
+<ul>
+<li>ググる</li>
+<li>Android Developersで調べる</li>
+<li>色々試す</li>
+</ul>
+</li>
+<li><p>上の方法で解決できないときはどうしますか？</p>
+
+<ul>
+<li>他のアプリを逆コンパイル</li>
+<li>明日考える</li>
+<li>仕様をドロップ</li>
+</ul>
+</li>
+</ul>
+
+
+<p>でも仕様を諦めるのはエンジニアとして負けた気分になる。そこで、<a href="https://sites.google.com/site/devcollaboration/codesearch">{OpenGrok</a></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual3.png" width="600px"></p>
+
+<p>OpenGrokは、Androidのソースコードを簡単に見るために作られた検索エンジンで、Full Search、Definition、Symbol、File Path、Historyなど絞り込んで検索をすることができるみたいです。
+ちょっと調べ物をするのに便利そうでした。</p>
+
+<h1>6. アプリのリニューアルとその効果測定について</h1>
+
+<p>Android2系のデザインで作られた黒背景に白文字の「葬式UI」だったPixivアプリをリニューアルしたときの反響と効果測定についてお話いただきました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual5.png" width="600px"></p>
+
+<p>リニューアルをしたときにはGoogle Playで☆1の嵐が吹き荒れて…</p>
+
+<ul>
+<li>「最悪。アップデート前の方がいいです。」</li>
+<li>「凄まじいまでの改悪、なぜこれでゴーが出たのか」</li>
+</ul>
+
+
+<p><strong>開発者「もう許してくださいって思いました。」</strong></p>
+
+<p>ただ定性的な意見だけではなく、定量的なデータからこのリニューアルはどうだったのかというと、操作性の向上を図ったことにより、</p>
+
+<ul>
+<li>ブックマークのイベント数：4.7倍</li>
+<li>評価ボタンのイベント数：9.5倍</li>
+</ul>
+
+
+<p>となり、順調にユーザ数も増加しているそうです。
+レビューと合わせて計測することの大切さを言っていました。</p>
+
+<h1>おわりに</h1>
+
+<p>各社のいい話が聞けたのと、イベントを通して多くのAndroidエンジニアと知り合えたのはとても良かったです。
+一方で、一通りトークが終わったあと時間が押してて「すいません、あと12分で交流してください」となってしまったのが残念でした。</p>
+
+<p>このイベントの定員50人だったんですけど、150人以上の登録があって、思っていたより人が集まって驚きました。
+それなりに需要があれば#2, #3...とやるかもしれないので、やりたいとか、会場を提供できるよとか、声を掛けていただければまたやりましょう。
+次やるのなら交流をメインにしたいので、20分くらいのトークは2本にして、あとは5分のLTを募集してたくさんの人に発表してもらったあとに、さっき◯◯の話をしていたあの人と話そう、みたいにすると良いかなと思いました。</p>
+
+<p>Androidエンジニアに幸あれ。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[どうすると気持ち良く感じるのか]]></title>
@@ -219,69 +377,6 @@ repositories {</p>
 <p>人が集まるか不安だったけど、イベントページを立ててその日のうちに定員になったし、トーク内容も幅広くいい内容が集まって良かったです。</p>
 
 <p>この夏は勉強会ドリブンディベロップメントで開発環境の整備を頑張ります。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Modern Android Design]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/07/18/google-mobile-sessions/"/>
-    <updated>2013-07-18T23:01:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/07/18/google-mobile-sessions</id>
-    <content type="html"><![CDATA[<p>Google Mobile Sessionsにいってきた。</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gms1.jpg" alt="" /></p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gms2.jpg" alt="" /></p>
-
-<p>色んなセッションがあったけど、Mobile Android Designが特に良かった。
-たとえば、スマートフォンブラウザ、Androidアプリ、iPhoneアプリなど、マルチデバイスでサービスを出す場合のアプリのデザインについて、どこを統一すべきで、どこをカスタマイズすべきかなど。</p>
-
-<p>Designについて意識が高まって、他のアプリではどんなパターンを適用しているのか眺めてみたりしていた。</p>
-
-<h3>Google公式のデザインガイド</h3>
-
-<ul>
-<li><a href="http://developer.android.com/design/index.html">Android Design</a></li>
-<li><a href="http://www.youtube.com/playlist?list=PLWz5rJ2EKKc8j2B95zGMb8muZvrIy-wcF">Android Design in Action</a></li>
-</ul>
-
-
-<h3>Googleが美しいと紹介していたアプリ</h3>
-
-<ul>
-<li><a href="https://play.google.com/store/apps/details?id=com.thefancy.app&amp;hl=ja">Fancy</a>
-: Cardsベースでさまざまな解像度に対応していて、コンテンツを綺麗に見せることに成功している。</li>
-<li><a href="https://play.google.com/store/apps/details?id=com.expedia.bookings&amp;hl=ja">Expedia</a>
-: 解像度別にデザインを細かく調整していて、どのデバイスからも快適に見ることができる。</li>
-<li><a href="https://play.google.com/store/apps/details?id=com.ted.android&amp;hl=ja">Ted</a>
-: コンテンツ中心にうまく見せている。プライマリーに赤、セカンダリーに白を使っていてとても見やすい。</li>
-</ul>
-
-
-<h3>美しいデザインを紹介しているサイト</h3>
-
-<ul>
-<li><a href="http://androidniceties.tumblr.com/">Android niceties</a></li>
-<li><a href="http://www.slideshare.net/theresaneil/best-android-app-designs">The Best Android Apps 2012: A Designers Collection</a></li>
-<li><a href="http://www.creativebloq.com/app-design/15-beautiful-android-app-ui-designs-11121271">15 beautiful Android app designs</a></li>
-<li><a href="http://www.android-app-patterns.com/">Design inspiration for your Android app</a></li>
-<li><a href="http://www.hongkiat.com/blog/android-apps-designer/">65 Useful Android Apps For Designers</a></li>
-<li><a href="http://www.hongkiat.com/blog/cool-android-homescreens/">40 Really Cool Android Home Screens For Your Inspiration</a></li>
-</ul>
-
-
-<h3>Androidのテーマに従うということ</h3>
-
-<blockquote><p>なぜAndroidのテーマでアプリを作らなければいけないのか？独自テーマはダメなのか？
-たとえば、アプリを使っていて設定画面がバラバラに導線が置かれていたらイライラする。
-Androidのガイドラインに従うということは、
-ユーザー体験を統一するということであり、
-そうすることでユーザーはストレスなく、
-インストールした瞬間からそのアプリを使いこなすことができるようになる。
-ユーザーはガイドラインに沿ったアプリを求めているし、
-Androidのガイドラインに従うことでデベロッパーは時間と努力を節約することができる。</p></blockquote>
-
-<p>これを聞いて、僕のアプリはちゃんと出来ているだろうかと考えさせられた。</p>
 ]]></content>
   </entry>
   

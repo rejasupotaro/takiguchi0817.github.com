@@ -1,0 +1,1174 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Just posted a blog</title>
+  <meta name="author" content="rejasupotaro">
+
+  
+  <meta name="description" content="はじめに Androidの開発をしていて、 WebとiOSとAndroidで足並み揃えるのどうするんだろう
+プラットフォーム間のUIの統一についてはどう考えたらいいんだろう
+他のアプリではA/Bとかやってるのかな
+PCからスマホウェブでは全機能を移植するけど、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://takiguchi0817.github.com/blog">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36257112-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="collapse-sidebar sidebar-footer" >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Just posted a blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:takiguchi0817.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      
+
+
+    <article class="post">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/31/android-casual-talks-1/">Android Casual Talks #1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-31T17:44:00+09:00" pubdate data-updated="true">Aug 31<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>はじめに</h1>
+
+<p>Androidの開発をしていて、</p>
+
+<ul>
+<li>WebとiOSとAndroidで足並み揃えるのどうするんだろう</li>
+<li>プラットフォーム間のUIの統一についてはどう考えたらいいんだろう</li>
+<li>他のアプリではA/Bとかやってるのかな</li>
+<li>PCからスマホウェブでは全機能を移植するけど、その流れでアプリでも全機能使えるようにって会社やユーザから言われるけどどうしたらいいのか</li>
+<li>PCからネイティブアプリでは機能を削ってシンプルにってアプリ開発者は言うけど、削られた機能はどこにいくのか</li>
+<li>多くのサービスでPCのPVが下がってスマホやタブレットのUUが伸びてると思うけど、アプリの広告のうまい組み込み方とか売り方について話を聞きたい</li>
+<li>WebViewでアプリを組むとステートが複雑になったり標準的なユーザ体験を提供するのが難しい</li>
+<li>ブランチ管理でgit-flowを導入しようかと思ったけど、管理するコストと考えるとあれかなと思ったのでGitHub Flowでやっているけど、他社ではどうしてるのか</li>
+<li>大規模でも破綻しない設計とは(「MVCを意識して書く」だと個人の技量に左右されるしスケールしない感じがする)</li>
+<li>効果的なテストとメトリクス計測(取るだけじゃなくて改善するところも含めて)ってどうするのがいいんだろう</li>
+<li>継続的にパフォーマンス計測をしたいけど、Jenkinsでどう実現したらいいのだろう</li>
+<li>頑張ってすべてのレビューを読んでるけど、叩かれるとへこむ</li>
+<li>デザイナーがみんなiPhoneユーザだ</li>
+<li>むしろエンジニアもMacとiPhoneを使っている人が多くて、Androidは現代のIEって言われる</li>
+</ul>
+
+
+<p>など、悩むことが多いです。</p>
+
+<p>こういう技術書にのっていない話は人に聞くのが一番早い思っていましたが、今までAndroid界隈では集まってこういう話をする場がなかったように思います。(僕が知らないだけであったのかもしれませんが)
+それでこの度、カジュアルに情報交換をしたいなと思って、<a href="http://atnd.org/events/41600">Android Casual Talks #1</a>を開きました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual0.png" width="600px"></p>
+
+<p>内容については「ぶっちゃけ過ぎてるんであんまりツイートしないでください」っていうのもあったので、さらっと概要だけまとめました。</p>
+
+<h1>1. クックパッドの開発環境について</h1>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual4.jpg" width="600px"></p>
+
+<p>僕はAndroid Studio + Gradleの導入とか、リポジトリ管理とか、ビルドの設定とか、人が増えてもスケールしそうな開発の話をしました。</p>
+
+<h1>2. 品質を保つための組織的な取り組みと人に依存しないテスト</h1>
+
+<p>メーカーの開発の品質は高いと伺っていたので、品質への取り組みについてお話いただきました。
+いわゆるウォーターフォールモデルだけど、1週間のイテレーションを回して目標値への達成度の確認と是正を行っていて、さすがにしっかり管理をしているなと思いました。
+メトリクスを細かく取っていたのも印象的でした。</p>
+
+<h1>3. グリーにJenkinsを導入して2年半でおこった事</h1>
+
+<p>Jenkinsの運用の話＆エモ枠としてお話いただきました。</p>
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/25716362" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
+
+
+<p> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/okazaki/2013-0829-jenkins-for-cookpad-android" title="2013 08-29 jenkins for cookpad android" target="_blank">2013 08-29 jenkins for cookpad android</a> </strong> from <strong><a href="http://www.slideshare.net/okazaki" target="_blank">Takayuki Okazaki</a></strong> </div></p>
+
+<ul>
+<li><p>変えないことは大きなリスク</p>
+
+<ul>
+<li>変えないと、技術的負債激増</li>
+<li>ある時点から技術的負債のために働くことになる</li>
+</ul>
+</li>
+<li><p>変えるのはツールではなくワークフロー</p>
+
+<ul>
+<li>ツールの導入で解決 -> 仕組みの改善で解決</li>
+<li>あるべき論、精神論 -> しくみ、制度化</li>
+</ul>
+</li>
+</ul>
+
+
+<p>いい話でした。詳しくはスライドを御覧ください。</p>
+
+<h1>4. injectionの基礎（android編）</h1>
+
+<p>イベント開催を知った師匠が話してくれました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual2.png" width="600px"></p>
+
+<p>DIフレームワークの基礎ということで、依存性の注入や制御の反転について、あるチャットアプリの例を通して、仕様が変わっていく中でプログラムを綺麗な状態に保ちながらテストをしやすくする方法について話していただきました。</p>
+
+<p>社内ではひっそりと<a href="https://github.com/roboguice/roboguice">RoboGuice</a>を使っていたのですが、パフォーマンスとかで<a href="http://square.github.io/dagger/">Dagger</a>の方が良いみたいな流れが最近あるので、そっちに移行したいなと思いました。</p>
+
+<h1>5. 意外と役立つ？Android Open Source Projectのすすめ</h1>
+
+<p>Androidアプリのデバッグ手法について話していただきました。</p>
+
+<ul>
+<li><p>アプリ開発で悩んだときはどうしますか？</p>
+
+<ul>
+<li>ググる</li>
+<li>Android Developersで調べる</li>
+<li>色々試す</li>
+</ul>
+</li>
+<li><p>上の方法で解決できないときはどうしますか？</p>
+
+<ul>
+<li>他のアプリを逆コンパイル</li>
+<li>明日考える</li>
+<li>仕様をドロップ</li>
+</ul>
+</li>
+</ul>
+
+
+<p>でも仕様を諦めるのはエンジニアとして負けた気分になる。そこで、<a href="https://sites.google.com/site/devcollaboration/codesearch">{OpenGrok</a></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual3.png" width="600px"></p>
+
+<p>OpenGrokは、Androidのソースコードを簡単に見るために作られた検索エンジンで、Full Search、Definition、Symbol、File Path、Historyなど絞り込んで検索をすることができるみたいです。
+ちょっと調べ物をするのに便利そうでした。</p>
+
+<h1>6. アプリのリニューアルとその効果測定について</h1>
+
+<p>Android2系のデザインで作られた黒背景に白文字の「葬式UI」だったPixivアプリをリニューアルしたときの反響と効果測定についてお話いただきました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual5.png" width="600px"></p>
+
+<p>リニューアルをしたときにはGoogle Playで☆1の嵐が吹き荒れて…</p>
+
+<ul>
+<li>「最悪。アップデート前の方がいいです。」</li>
+<li>「凄まじいまでの改悪、なぜこれでゴーが出たのか」</li>
+</ul>
+
+
+<p><strong>開発者「もう許してくださいって思いました。」</strong></p>
+
+<p>ただ定性的な意見だけではなく、定量的なデータからこのリニューアルはどうだったのかというと、操作性の向上を図ったことにより、</p>
+
+<ul>
+<li>ブックマークのイベント数：4.7倍</li>
+<li>評価ボタンのイベント数：9.5倍</li>
+</ul>
+
+
+<p>となり、順調にユーザ数も増加しているそうです。
+レビューと合わせて計測することの大切さを言っていました。</p>
+
+<h1>おわりに</h1>
+
+<p>各社のいい話が聞けたのと、イベントを通して多くのAndroidエンジニアと知り合えたのはとても良かったです。
+一方で、一通りトークが終わったあと時間が押してて「すいません、あと12分で交流してください」となってしまったのが残念でした。</p>
+
+<p>このイベントの定員50人だったんですけど、150人以上の登録があって、思っていたより人が集まって驚きました。
+それなりに需要があれば#2, #3&#8230;とやるかもしれないので、やりたいとか、会場を提供できるよとか、声を掛けていただければまたやりましょう。
+次やるのなら交流をメインにしたいので、20分くらいのトークは2本にして、あとは5分のLTを募集してたくさんの人に発表してもらったあとに、さっき◯◯の話をしていたあの人と話そう、みたいにすると良いかなと思いました。</p>
+
+<p>Androidエンジニアに幸あれ。</p>
+</div>
+  
+  
+
+</article>
+
+
+    <article class="post">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/21/ui-animations/">どうすると気持ち良く感じるのか</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-21T21:56:00+09:00" pubdate data-updated="true">Aug 21<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="http://i.imgur.com/t3u9Ucc.gif" alt="" /></p>
+
+<p><img src="http://i.imgur.com/IoWbato.gif" alt="" /></p>
+
+<p><img src="http://i.imgur.com/aUsHSCo.gif" alt="" /></p>
+
+<p><img src="http://i.imgur.com/mQp4sYq.gif" alt="" /></p>
+
+<p><img src="http://hyper-text.org/img/post/css_tumblr_mobile_app_ui_01.gif" alt="" /></p>
+
+<p>アプリにアニメーションを取り入れるのってどうだろう。
+って友人と話していたのだけど、過度なアニメーション？開発者がやりたくやったみたいなのは使う側からするとあんまり嬉しくなくて、
+でも気持ちいいアニメーションはついアクションをしたくなるし、それによってコミュニケーションが活発になったりするんじゃないかなってなった。</p>
+
+<p>アニメーションって結構意味が広いからむずかしいのだけど。</p>
+
+<p><a href="http://gihyo.jp/design/serial/01/ui-ux/0001">気持ち良さはどこからくるのか～身体に近づくUIへ</a></p>
+
+<p>たぶんここに書いてあるように、アニメーションにも色々種類があるのだな。</p>
+</div>
+  
+  
+
+</article>
+
+
+    <article class="post">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/27/aar-dependency/">Aar Dependency</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-27T15:47:00+09:00" pubdate data-updated="true">Jul 27<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Android StudioでLibrary Projectを参照するのにソースコードを修正するたびにjarで固めてlibsにポンしてもいいいのですが、
+面倒だしバージョン管理もしたいので調べてたらGitHubをmavenrepoにしてbuild.gradleにdependencyを書いてaarを読み込めることが分かった。</p>
+
+<p><a href="http://u1aryz.blogspot.jp/2013/06/githubmavenandroidaar.html">githubをMavenリポジトリとしてAndroidライブラリプロジェクト(aar)をデプロイして使用する</a></p>
+
+<p>Library Projectの対象moduleのbuild.gradleを以下のように変更。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>buildscript {
+</span><span class='line'>    repositories {
+</span><span class='line'>        mavenCentral()
+</span><span class='line'>    }
+</span><span class='line'>    dependencies {
+</span><span class='line'>        classpath 'com.android.tools.build:gradle:0.5.+'
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>apply plugin: 'android-library'
+</span><span class='line'>
+</span><span class='line'>repositories {
+</span><span class='line'>    mavenCentral()
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>dependencies {
+</span><span class='line'>    compile 'com.android.support:support-v4:13.0.+'
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>android {
+</span><span class='line'>    compileSdkVersion 17
+</span><span class='line'>    buildToolsVersion "17.0.0"
+</span><span class='line'>
+</span><span class='line'>    defaultConfig {
+</span><span class='line'>        minSdkVersion 9
+</span><span class='line'>        targetSdkVersion 16
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>apply plugin: 'maven'
+</span><span class='line'>
+</span><span class='line'>uploadArchives {
+</span><span class='line'>    repositories {
+</span><span class='line'>        mavenDeployer {
+</span><span class='line'>            repository url: "file://${projectDir}/repository"
+</span><span class='line'>            pom.groupId = 'com.rejasupotaro'
+</span><span class='line'>            pom.artifactId = 'rejasupo-commons'
+</span><span class='line'>            pom.version = '0.0.1'
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参照するプロジェクトのbuild.gradleにdependencyを追加。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>repositories {
+</span><span class='line'>    maven { url 'https://raw.github.com/takiguchi0817/rejasupo-commons/master/rejasupo-commons/repository' }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>dependencies {
+</span><span class='line'>    compile 'com.rejasupotaro:rejasupo-commons:0.0.1'
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+</article>
+
+
+    <article class="post">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/26/modern-android-design/">Modern Android Design?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-26T00:37:00+09:00" pubdate data-updated="true">Jul 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>What&#8217;s Modern Android Design?</h1>
+
+<h3>GitHub</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/github.png" alt="" /></p>
+
+<h3>Ted</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/ted.png" alt="" /></p>
+
+<h3>Twitter</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/twitter.png" alt="" /></p>
+
+<h3>Evernote Food</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/evernotefood.png" alt="" /></p>
+
+<h3>Flipboard</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/flipboard.png" alt="" /></p>
+
+<h3>Gmail</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gmail.png" alt="" /></p>
+
+<h3>Google Music</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/googlemusic.png" alt="" /></p>
+
+<h3>Google+</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/googleplus.png" alt="" /></p>
+
+<h3>pixiv</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/pixiv.png" alt="" /></p>
+
+<h3>recipes</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/recipes.png" alt="" /></p>
+
+<h3>Trulia</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/trulia.png" alt="" /></p>
+
+<h3>umano</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/umano.png" alt="" /></p>
+
+<h3>YouTube</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/youtube.png" alt="" /></p>
+</div>
+  
+  
+
+</article>
+
+
+    <article class="post">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/22/android-casual-talks/">Android Casual Talksやります</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-22T21:18:00+09:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ワイワイしているルビーストの様子です。</p>
+
+<p><img src="http://d3lrup5e12lrut.cloudfront.net/media/BAhbCVsHOgZmSSIzMjAxMy8wNi8xNi8wOS8wMy8xNC82MjUvaGlnaHJlc18yNDgyMjkzMTIuanBlZwY6BkVUWwg6BnA6DGNvbnZlcnRJIhEtYXV0by1vcmllbnQGOwZUWwg7BzoKdGh1bWJJIg04MjB4NDAwIwY7BlRbCDoGZToIanBnSSIXLXN0cmlwIC1xdWFsaXR5IDgwBjsGVA.jpg" alt="" />
+<img src="http://d3lrup5e12lrut.cloudfront.net/media/BAhbCVsHOgZmSSIzMjAxMi8xMi8wNy8xNS8wMS8yNC8yOTUvaGlnaHJlc18xODU3MDc1MjIuanBlZwY6BkVUWwg6BnA6DGNvbnZlcnRJIhEtYXV0by1vcmllbnQGOwZUWwg7BzoKdGh1bWJJIg04MjB4NDAwIwY7BlRbCDoGZToIanBnSSIXLXN0cmlwIC1xdWFsaXR5IDgwBjsGVA.jpg" alt="" />
+<img src="http://d3lrup5e12lrut.cloudfront.net/media/BAhbCVsHOgZmSSIzMjAxMy8wNS8wOS8xNy8wMS80Ni83MDUvaGlnaHJlc18yMzQxNzQ1MjIuanBlZwY6BkVUWwg6BnA6DGNvbnZlcnRJIhEtYXV0by1vcmllbnQGOwZUWwg7BzoKdGh1bWJJIg04MjB4NDAwIwY7BlRbCDoGZToIanBnSSIXLXN0cmlwIC1xdWFsaXR5IDgwBjsGVA.jpg" alt="" /></p>
+
+<p>画像は<a href="http://www.tokyorails.org/ja">TOKYO RAILS</a>より。</p>
+
+<p>ルビーストはいつもワイワイしてて楽しそうだなと思ってた。</p>
+
+<p>開発の話するの基本好きなんだけど、Android開発者ってウェッブ系ほど人口がいないし、
+エンタープライズの人らにはあれ(Android)はJavaではないと後ろ指をさされ、社内ではエンタープライズｗｗｗと煽られてつらたんだった。</p>
+
+<blockquote class="twitter-tweet"><p>「さすがの包丁さばきだね！ジャバ書いてるもんね！エンタープライズだもんね！」ってmrknさんに煽られていた</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/358065012734050307">July 19, 2013</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>なのでイベントを立てました -> <a href="http://atnd.org/events/41600">Android Casual Talks</a></p>
+
+<p>Android Studio移行した？とかレビューどうしてる？とかテストちゃんと書いてる？とか効果測定どうしてる？とか、そういう話をカジュアルに出来ればなと思っています。</p>
+
+<p>人が集まるか不安だったけど、イベントページを立ててその日のうちに定員になったし、トーク内容も幅広くいい内容が集まって良かったです。</p>
+
+<p>この夏は勉強会ドリブンディベロップメントで開発環境の整備を頑張ります。</p>
+</div>
+  
+  
+
+</article>
+
+
+    <article class="post">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/18/google-mobile-sessions/">Modern Android Design</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-18T23:01:00+09:00" pubdate data-updated="true">Jul 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Google Mobile Sessionsにいってきた。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gms1.jpg" alt="" /></p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gms2.jpg" alt="" /></p>
+
+<p>色んなセッションがあったけど、Mobile Android Designが特に良かった。
+たとえば、スマートフォンブラウザ、Androidアプリ、iPhoneアプリなど、マルチデバイスでサービスを出す場合のアプリのデザインについて、どこを統一すべきで、どこをカスタマイズすべきかなど。</p>
+
+<p>Designについて意識が高まって、他のアプリではどんなパターンを適用しているのか眺めてみたりしていた。</p>
+
+<h3>Google公式のデザインガイド</h3>
+
+<ul>
+<li><a href="http://developer.android.com/design/index.html">Android Design</a></li>
+<li><a href="http://www.youtube.com/playlist?list=PLWz5rJ2EKKc8j2B95zGMb8muZvrIy-wcF">Android Design in Action</a></li>
+</ul>
+
+
+<h3>Googleが美しいと紹介していたアプリ</h3>
+
+<ul>
+<li><a href="https://play.google.com/store/apps/details?id=com.thefancy.app&amp;hl=ja">Fancy</a>
+: Cardsベースでさまざまな解像度に対応していて、コンテンツを綺麗に見せることに成功している。</li>
+<li><a href="https://play.google.com/store/apps/details?id=com.expedia.bookings&amp;hl=ja">Expedia</a>
+: 解像度別にデザインを細かく調整していて、どのデバイスからも快適に見ることができる。</li>
+<li><a href="https://play.google.com/store/apps/details?id=com.ted.android&amp;hl=ja">Ted</a>
+: コンテンツ中心にうまく見せている。プライマリーに赤、セカンダリーに白を使っていてとても見やすい。</li>
+</ul>
+
+
+<h3>美しいデザインを紹介しているサイト</h3>
+
+<ul>
+<li><a href="http://androidniceties.tumblr.com/">Android niceties</a></li>
+<li><a href="http://www.slideshare.net/theresaneil/best-android-app-designs">The Best Android Apps 2012: A Designers Collection</a></li>
+<li><a href="http://www.creativebloq.com/app-design/15-beautiful-android-app-ui-designs-11121271">15 beautiful Android app designs</a></li>
+<li><a href="http://www.android-app-patterns.com/">Design inspiration for your Android app</a></li>
+<li><a href="http://www.hongkiat.com/blog/android-apps-designer/">65 Useful Android Apps For Designers</a></li>
+<li><a href="http://www.hongkiat.com/blog/cool-android-homescreens/">40 Really Cool Android Home Screens For Your Inspiration</a></li>
+</ul>
+
+
+<h3>Androidのテーマに従うということ</h3>
+
+<blockquote><p>なぜAndroidのテーマでアプリを作らなければいけないのか？独自テーマはダメなのか？
+たとえば、アプリを使っていて設定画面がバラバラに導線が置かれていたらイライラする。
+Androidのガイドラインに従うということは、
+ユーザー体験を統一するということであり、
+そうすることでユーザーはストレスなく、
+インストールした瞬間からそのアプリを使いこなすことができるようになる。
+ユーザーはガイドラインに沿ったアプリを求めているし、
+Androidのガイドラインに従うことでデベロッパーは時間と努力を節約することができる。</p></blockquote>
+
+<p>これを聞いて、僕のアプリはちゃんと出来ているだろうかと考えさせられた。</p>
+</div>
+  
+  
+
+</article>
+
+
+    <article class="post">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/11/altria-connected-instrument-test/">Altria-connected_instrument_test</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-11T22:03:00+09:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote class="twitter-tweet"><p>何も作ってないけどLLでJenkins cloneつくってYAPCとかで発表したい</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/340815292131311619">June 1, 2013</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<blockquote class="twitter-tweet"><p>Jenkins clone実験中に暴走して凍結とかが良い</p>&mdash; 片s (@hotchemi) <a href="https://twitter.com/hotchemi/statuses/346598875328557059">June 17, 2013</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<blockquote class="twitter-tweet"><p>Jenkins clone、最終的には独立して一人暮らしとか始めたらいい</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/347316439113400320">June 19, 2013</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<blockquote class="twitter-tweet"><p>Jenkins cloneの名前どうするかという話してて、それより上の抽象概念を考えられないからプロダクトにクラス名のような名前を付けてしまう、初音ミクのような個の概念を与えよ、Jenkins同士が会話してるの見ておっさんがLike付けるという結論になりました</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/347336070427451394">June 19, 2013</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<blockquote class="twitter-tweet"><p>Jenkins clone clone作って中村氏のaltriaと聖杯戦争したい</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/352936007068422144">July 4, 2013</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。</p>
+
+<p>AndroidのConnected Instrument Testの結果を表示します。</p>
+
+<p><a href="https://github.com/takiguchi0817/altria-connected_instrument_test">altria-connected_instrument_test</a>
+<img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/altria-connected_instrument_test.png" alt="" /></p>
+
+<p>エミュレータのプラグインも欲しいですね。</p>
+</div>
+  
+  
+
+</article>
+
+
+    <article class="post">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/18/route-activity/">RouteActivityを作ろう</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-18T22:16:00+09:00" pubdate data-updated="true">Jun 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>理由1. LauncherのActivityは太りやすい</h2>
+
+<p>Androidのプロジェクトを作ると最初にMainActivityが作られます。
+そのMainActivityを中心にアプリを作っていくと、認証の確認を行うロジックを入れたり、思わぬ初期化処理が必要になったりして、規模が大きくなるごとにどんどんActivityが太ってしまいます。
+ユーザーから最初に見える画面は出来るだけ速く表示したいですし、分岐がたくさん入ると見通しが悪くなって変更がしづらくなる、という状態は避けたいです。</p>
+
+<h2>理由2. アプリの起動の口が複数あるとコピペが発生しやすい</h2>
+
+<p>Androidはショートカットや通知など、画面を起動するパスがたくさんあります。
+素直な実装をすると、すべてのActivityのonCreateの中で、isAuthenticatedみたいなメソッドを生やしてログインしてなかったらログイン画面に飛ばしたり、どの経路からアプリが起動されたかログを取る処理などを書いたりして、コピペが発生してActivityの見通しが悪くなってしまいます。</p>
+
+<p>かといって共通の親クラスを作るという方法は、あまりやりたくありません。</p>
+
+<h2>RouteActivityを作ろう</h2>
+
+<p>プロジェクトを作成したらまず最初にMainActivityをRouteActivityにリネームします。
+そして、ショートカットやIntentFilterなどはすべてRouteActivityを起動するようにして、パラメータで遷移先を変えるようにします。
+RouteActivityに認証の確認の処理や、初期化処理などを置いて、各Activityはそれぞれの責務を真っ当させたら、コードが綺麗になるのではないかと思いました。</p>
+
+<p>RouteActivityという名前はRailsのconfig/routes.rbから来ています。</p>
+</div>
+  
+  
+
+</article>
+
+
+    <article class="post">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/28/android-katanuki/">テンプレートアプリ &#8220;Katanuki&#8221; を作った</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-28T16:47:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1><a href="https://github.com/takiguchi0817/katanuki">Android Katanuki</a></h1>
+
+<p>A template application that includes tons of great open source tools and frameworks.</p>
+
+<p><img src="https://raw.github.com/takiguchi0817/katanuki/master/katanuki.png" width="640" height="480"></p>
+
+<h1>経緯</h1>
+
+<p>この前、<a href="http://androidkickstartr.com/">AndroidKickstartR</a>というプロジェクトを見つけました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201304/androidkickstartr.png" width="640" height="480"></p>
+
+<p>これは自分が使いたいライブラリを選んでポチポチ選んで &#8220;Download it!&#8221; を押したらAndroidアプリのテンプレートが落とせるというものです。
+ハッカソンとかで便利そう。
+雛形を提供するプロジェクトは他にも
+<a href="android%20katanuk://github.com/donnfelker/android-bootstrap">Android Bootstrap</a>
+などもあります。</p>
+
+<p>で、各々がサポートしているライブラリが以下になります。</p>
+
+<h3>AndroidKickstartR</h3>
+
+<ul>
+<li>android-maven-plugin</li>
+<li>AndroidAnnotations</li>
+<li>ActionBarSherlock</li>
+<li>Spring RESTTemplate</li>
+<li>Android support v4</li>
+<li>NineOldAndroid</li>
+<li>ACRA</li>
+<li>RoboGuice</li>
+</ul>
+
+
+<h3>Android Bootstrap</h3>
+
+<ul>
+<li>ActionBarSherlock</li>
+<li>Dagger</li>
+<li>Butterknife</li>
+<li>Otto</li>
+<li>Robotium</li>
+<li>android-maven-plugin</li>
+<li>http-request</li>
+<li>google-gson</li>
+</ul>
+
+
+<p>新しいアプリを作るときのセットアップってほぼ作業だし、
+毎回同じことをしてる気がしたので、自分用のアプリのテンプレートを作りました。
+作ったというより設定を書いた、の方が近いですが。
+（なぜわざわざ作ったかというと自分の使いたいライブラリや書き方が、上のテンプレートと微妙に合わなかったからです。）</p>
+
+<h1>katanukiについて</h1>
+
+<p>このテンプレートは、プロトタイプ作成や一日でアプリを組むハッカソンを想定して作りました。
+今から数時間でそれっぽいアプリを作るぞ！と思ったときに、何をすれば良いか考えて、</p>
+
+<ol>
+<li>APIを叩く</li>
+<li>データを保存する</li>
+<li>かっこいいUIを作る</li>
+</ol>
+
+
+<p>と作業を分解して、APIを叩くのにhttp-request、レスポンスのjsonをオブジェクトに変換するのにgson、それらをAsyncTaskLoaderで呼び出すようにしました。</p>
+
+<p>次にデータの保存はActiveAndroidを使いました。エンタープライズでは使わないと思いますが、面倒なDB周りのコードを書く時間をバッサリカットできるので便利です。</p>
+
+<p>UIについては、入れようか迷ったのですが、中のロジックは一緒でも見せ方はケースバイケースかなと思ったので入れませんでした。
+プロジェクトには含めてませんが、このあたりが便利そうです。</p>
+
+<ul>
+<li><a href="https://github.com/JakeWharton/ActionBarSherlock">ActionBarSherlock</a> : ActionBarのcompatibility library</li>
+<li><a href="https://github.com/chrisbanes/Android-PullToRefresh">PullToRefresh</a> : 引っ張り更新</li>
+<li><a href="https://github.com/Prototik/HoloEverywhere">HoloEverywhere</a> : Holoを2系でも使えるようにする</li>
+<li><a href="https://github.com/SimonVT/android-menudrawer">MenuDrawer</a> : 横から出るメニューの実装</li>
+</ul>
+
+
+<p>OpenSource便利。</p>
+</div>
+  
+  
+
+</article>
+
+
+    <article class="post">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/15/using-otto/">Otto 使ってみた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-15T21:25:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1><a href="http://square.github.io/otto/">Otto - An event bus by Square</a></h1>
+
+<p>画像のアップロード処理が終わったらActivityに通知するとか、
+DBからデータを消したらViewに反映させるとかしたくなることってよくあると思います。</p>
+
+<p>Interfaceでなんとかしようとするとコードが汚くなってやだなと思ってたので、前から気になってたevent busのライブラリ、Ottoを使ってみました。</p>
+
+<h2>バッググラウンドで画像のアップロードが終わったらトーストを出す</h2>
+
+<p>Busですが、インスタンスごとにregisterとunregisterが出来るのですが、通常はSingletonで良いでしょう。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">BusProvider</span> <span class="o">{</span>
+</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Bus</span> <span class="n">BUS</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bus</span><span class="o">(</span><span class="n">ThreadEnforcer</span><span class="o">.</span><span class="na">ANY</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">Bus</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">BUS</span><span class="o">;</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">private</span> <span class="nf">BusProvider</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="c1">// No instances.</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Busのインスタンスの生成のときに実行するスレッドのチェックが出来るのですが、
+event busを使うときってバックグラウンドスレッドからメインスレッドに通知するパターンが多そうなので、
+ThreadEnforcer.ANYを指定しています。</p>
+
+<p>イベントの発火。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ImageUploaderService</span> <span class="kd">extends</span> <span class="n">ProtonIntentService</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">ImageUploaderService</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">();</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EXTRA_UPLOAD_ENTITY</span> <span class="o">=</span> <span class="s">&quot;extra_animation_entity&quot;</span><span class="o">;</span>
+</span><span class='line'>    <span class="nd">@Inject</span> <span class="n">MyNotificationManager</span> <span class="n">mNotificationManager</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">ImageUploaderService</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">(</span><span class="n">TAG</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">ImageUploaderService</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onHandleIntent</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">mNotificationManager</span><span class="o">.</span><span class="na">sendNotification</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">UploadEntity</span> <span class="n">uploadEntity</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getParcelableExtra</span><span class="o">(</span><span class="n">EXTRA_UPLOAD_ENTITY</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">MyApiClient</span> <span class="n">apiClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyApiClient</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">uploadEntity</span><span class="o">);</span>
+</span><span class='line'>        <span class="kt">boolean</span> <span class="n">result</span> <span class="o">=</span> <span class="n">apiClient</span><span class="o">.</span><span class="na">execute</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;upload result: &quot;</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
+</span><span class='line'>        <span class="n">mNotificationManager</span><span class="o">.</span><span class="na">cancelNotification</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">BusProvider</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">post</span><span class="o">(</span><span class="k">new</span> <span class="n">UploadFinishedEvent</span><span class="o">());</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>bus#postに定義したイベントのインスタンスを渡します。</p>
+
+<p>イベントはなんでもいいです。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UploadFinishedEvent</span> <span class="o">{</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>今回は特になにも渡すものがないので空です。</p>
+
+<p>メソッドに@Subscribeを付けて定義したイベントを引数にすると受け取ることが出来ます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="o">...</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onResume</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">.</span><span class="na">onResume</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">BusProvider</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPause</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>        <span class="kd">super</span><span class="o">.</span><span class="na">onPause</span><span class="o">();</span>
+</span><span class='line'>        <span class="n">BusProvider</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">unregister</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Subscribe</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onUploadFinished</span><span class="o">(</span><span class="n">UploadFinishedEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">mHandler</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>            <span class="nd">@Override</span>
+</span><span class='line'>            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">ToastUtils</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="n">AnimationComposeActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">upload_finished</span><span class="o">);</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>        <span class="o">});</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ActivityではonResumeとonPauseでそれぞれregisterとunregisterをしてやる必要があります。</p>
+
+<p>これだけでイベント通知のしくみが使えてとても便利。</p>
+
+<blockquote class="twitter-tweet" lang="ja"><p>Otto、シンプルだしコード綺麗だしパフォーマンスを考慮してtraverseしないのもいい / An enhanced Guava-based event bus with emphasis on Android support. <a href="http://t.co/2yHWQkejEd" title="http://square.github.io/otto/">square.github.io/otto/</a></p>&mdash; レジャスポ太郎さん (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/status/323451917235789824">2013年4月14日</a></blockquote>
+
+
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</div>
+  
+  
+
+</article>
+
+<nav id="pagenavi">
+    
+    
+        <a href="/blog/page/2/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav>
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - rejasupotaro -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
