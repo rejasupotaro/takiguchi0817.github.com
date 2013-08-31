@@ -53,12 +53,12 @@ Jenkinsの運用の話＆エモ枠としてお話いただきました。
 <iframe src="http://www.slideshare.net/slideshow/embed_code/25716362" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/okazaki/2013-0829-jenkins-for-cookpad-android" title="2013 08-29 jenkins for cookpad android" target="_blank">2013 08-29 jenkins for cookpad android</a> </strong> from <strong><a href="http://www.slideshare.net/okazaki" target="_blank">Takayuki Okazaki</a></strong> </div>
 
 - 変えないことは大きなリスク
- - 変えないと、技術的負債激増
- - ある時点から技術的負債のために働くことになる
+    - 変えないと、技術的負債激増
+    - ある時点から技術的負債のために働くことになる
 
 - 変えるのはツールではなくワークフロー
- - ツールの導入で解決 -> 仕組みの改善で解決
- - あるべき論、精神論 -> しくみ、制度化
+    - ツールの導入で解決 -> 仕組みの改善で解決
+    - あるべき論、精神論 -> しくみ、制度化
 
 いい話でした。詳しくはスライドを御覧ください。
 
@@ -77,14 +77,14 @@ DIフレームワークの基礎ということで、依存性の注入や制御
 Androidアプリのデバッグ手法について話していただきました。
 
 - アプリ開発で悩んだときはどうしますか？
- - ググる
- - Android Developersで調べる
- - 色々試す
+    - ググる
+    - Android Developersで調べる
+    - 色々試す
 
 - 上の方法で解決できないときはどうしますか？
- - 他のアプリを逆コンパイル
- - 明日考える
- - 仕様をドロップ
+    - 他のアプリを逆コンパイル
+    - 明日考える
+    - 仕様をドロップ
 
 でも仕様を諦めるのはエンジニアとして負けた気分になる。そこで、[{OpenGrok](https://sites.google.com/site/devcollaboration/codesearch)
 
