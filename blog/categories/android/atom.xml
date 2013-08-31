@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-08-31T23:00:57+09:00</updated>
+  <updated>2013-08-31T23:03:31+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -25,7 +25,7 @@
 <ul>
 <li>WebとiOSとAndroidで足並み揃えるのどうするんだろう</li>
 <li>プラットフォーム間のUIの統一についてはどう考えたらいいんだろう</li>
-<li>他のアプリではA/Bとかやってるのかな</li>
+<li>他のアプリではA/Bテストとかやってるのかな</li>
 <li>PCからスマホウェブでは全機能を移植するけど、その流れでアプリでも全機能使えるようにって会社やユーザから言われるけどどうしたらいいのか</li>
 <li>PCからネイティブアプリでは機能を削ってシンプルにってアプリ開発者は言うけど、削られた機能はどこにいくのか</li>
 <li>多くのサービスでPCのPVが下がってスマホやタブレットのUUが伸びてると思うけど、アプリの広告のうまい組み込み方とか売り方について話を聞きたい</li>
