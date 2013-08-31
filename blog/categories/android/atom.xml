@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-08-31T23:05:20+09:00</updated>
+  <updated>2013-08-31T23:07:57+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -42,7 +42,7 @@
 
 <p>など、悩むことが多いです。</p>
 
-<p>こういう技術書にのっていない話は人に聞くのが一番早い思っていましたが、今までAndroid界隈では集まってこういう話をする場がなかったように思います。(僕が知らないだけであったのかもしれませんが)
+<p>こういう技術書にのっていない話は人に聞くのが一番早いかなと思っていますが、今までAndroid界隈では集まってこういう話をする場がなかったように思います。(僕が知らないだけであったのかもしれませんが)<br/>
 それでこの度、カジュアルに情報交換をしたいなと思って、<a href="http://atnd.org/events/41600">Android Casual Talks #1</a>を開きました。</p>
 
 <p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual0.png" width="600px"></p>
@@ -57,8 +57,8 @@
 
 <h1>2. 品質を保つための組織的な取り組みと人に依存しないテスト</h1>
 
-<p>メーカーの開発の品質は高いと伺っていたので、品質への取り組みについてお話いただきました。
-いわゆるウォーターフォールモデルだけど、1週間のイテレーションを回して目標値への達成度の確認と是正を行っていて、さすがにしっかり管理をしているなと思いました。
+<p>メーカーの開発の品質は高いと伺っていたので、品質への取り組みについてお話いただきました。<br/>
+いわゆるウォーターフォールモデルだけど、1週間のイテレーションを回して目標値への達成度の確認と是正を行っていて、さすがにしっかり管理をしているなと思いました。<br/>
 メトリクスを細かく取っていたのも印象的でした。</p>
 
 <h1>3. グリーにJenkinsを導入して2年半でおこった事</h1>
@@ -128,7 +128,7 @@
 
 <p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/casual3.png" width="600px"></p>
 
-<p>OpenGrokは、Androidのソースコードを簡単に見るために作られた検索エンジンで、Full Search、Definition、Symbol、File Path、Historyなど絞り込んで検索をすることができるみたいです。
+<p>OpenGrokは、Androidのソースコードを簡単に見るために作られた検索エンジンで、Full Search、Definition、Symbol、File Path、Historyなど絞り込んで検索をすることができるみたいです。<br/>
 ちょっと調べ物をするのに便利そうでした。</p>
 
 <h1>6. アプリのリニューアルとその効果測定について</h1>
@@ -155,7 +155,7 @@
 </ul>
 
 
-<p>となり、順調にユーザ数も増加しているそうです。
+<p>となり、順調にユーザ数も増加しているそうです。<br/>
 レビューと合わせて計測することの大切さを言っていました。</p>
 
 <h1>おわりに</h1>
