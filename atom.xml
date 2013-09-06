@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-09-01T00:51:34+09:00</updated>
+  <updated>2013-09-06T23:45:39+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,36 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Genymotion速かった]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/09/06/genymotion/"/>
+    <updated>2013-09-06T23:31:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/09/06/genymotion</id>
+    <content type="html"><![CDATA[<p>AndroVMがいつの間にかGenymotionに名前変わってました。</p>
+
+<h3><a href="http://www.genymotion.com/">Genymotion</a> - BOOST YOUR APP TESTING! Simple, practical and effective.</h3>
+
+<p><img src="http://www.genymotion.com/assets/genymotion-fits-in-your-developping-environment-.png" alt="" /></p>
+
+<p>「x86エミュレータとそんなに変わらないんでしょ」と思っていましたが、これを機にインストールして動かしてみたらサックサクのヌルヌルで驚きました。<br/>
+もしかして、実機より速いのでは？と思って数千行の比較的小規模なライブラリでconnectedInstrumentTestを実行して、その実行時間を比較してみました。
+結果は環境によって結構変わると思うので、あくまで目安で。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/genybench.png" alt="" /></p>
+
+<h3>実機よりも速かった</h3>
+
+<p>しかもエミュレータだとGoogle Playのアプリが落とせなかったりするのですが、Googleアカウントを登録して同期することもできるし、アプリを落として実機より軽快な環境で遊ぶこともできます。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/download.png" alt="" /></p>
+
+<p>ポチポチ押すだけで5分くらいあればインストールできるので、面倒くさがりな僕でもインストールできました。</p>
+
+<p>今回のケースだとそんなにですが、1回のテストで20分かかる環境だとテストが速く終わると相当嬉しみがあるので、
+しばらく使ってみて良さそうだったら、本番環境のJenkinsのAndroidエミュレータをGenymotionに置き換えるかもしれません。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Android Casual Talks #1]]></title>
@@ -1972,106 +2002,6 @@ RandomじゃなくてSecureRandomを使った方が良いです。
 SQLiteに保存するならBLOBで、SharedPreferenceならbase64にエンコードして書き込むようにします。</p>
 
 <p><link href="http://fonts.googleapis.com/css?family=Cantarell" rel="stylesheet" type="text/css"></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[今年やったこと・やらなかったこと]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/12/30/look-back-2012/"/>
-    <updated>2012-12-30T22:28:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/12/30/look-back-2012</id>
-    <content type="html"><![CDATA[<h2>今年やったこと</h2>
-
-<p>仕事のことは書いていいのかよく分からないので、プライベートでやってたことを書きます。</p>
-
-<h3>分散フレームワーク作った</h3>
-
-<iframe src="http://www.slideshare.net/slideshow/embed_code/15800939" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
-
-
-<p> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/rejasupotaro/ss-15800939" title="対宇宙人用フレームワーク" target="_blank">対宇宙人用フレームワーク</a> </strong> from <strong><a href="http://www.slideshare.net/rejasupotaro" target="_blank">rejasupotaro</a></strong> </div></p>
-
-<p>Node + WebSocket + WebWorkersで作ってた。
-結論としては、宇宙人は捕まえられなかった。というかそこまでいかなかった。
-今やってることとかけ離れてるのでまったくメンテとかはしてないけど、ユニークな経験ができて良かったとは思う。
-　<br/>
-　</p>
-
-<h3>git-助けてにプルリク送った</h3>
-
-<p>とりあえずプルリクを送ってみたくなって、git-助けてに「git-このコード書いたの誰？」を追加した。
-社内のコード読んでて分からないところがあったときに、即座に誰に聞いたらいいかを教えてくれるような、そんなコマンドを作りたかった。
-　<br/>
-　</p>
-
-<h3>今ドコ？というアプリ作った</h3>
-
-<p>社内ハッカソンで待ち合わせに特化したアプリを作った。
-iOSチームの人と組んで、僕はサーバーサイドを担当してRackhub + Node + Redisで組んだ。
-残念ながらアプリのスクリーンショットなどはありませんが、優勝できたのは良かった。<br/>
-<img src="http://dl.dropbox.com/u/54255753/blog/201212/goyu.jpg" alt="" />
-優勝賞金で豪遊しました。
-　<br/>
-　</p>
-
-<h3>ブログの移行</h3>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/design.png" alt="" /><br/>
-前ははてなブログを使っていたけど、</p>
-
-<h5>もっと自由にカスタマイズしたい + ターミナルで日記を書きたい</h5>
-
-<p>って思うようになって、GitHubページで運用できてコマンドでデプロイするOctopressに移行した。
-テーマを変えたりプラグインを入れたり、またOctopress自体がRubyで書かれてるので、ブログを書くだけじゃなくて自分で拡張したりするのも楽しめてお得感あります。
-　<br/>
-　</p>
-
-<h3>サーバの運用</h3>
-
-<p>ちょっとしたものはGAEとかHerokuとかRackhubに置いてたけど、自分で管理したくてさくらのVPSを使うようになった。
-ムームードメイン + Dozens + Nginxって感じにしてます。
-　<br/>
-　</p>
-
-<h3>Jenkins</h3>
-
-<p>僕たちはただ顧客に価値を届ければいいんじゃない、顧客に&#8221;継続的&#8221;に価値を届けなければならないんだ！ということに気がついてプライベートでもJenkinsを入れた。
-サービスを置いてるさくらのVPSで動かしてたので、のちに自宅マシンにJenkinsさんを引っ越しさせることになった。
-でも正直まだそんなに有効活用されてない気がするのでもっと勉強したい。
-　<br/>
-　</p>
-
-<h3><a href="http://rejasupotaro.com">Betterflow</a></h3>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/betterflow.png" alt="" /></p>
-
-<h5>インターネットに自分の居場所が欲しい + 家でプログラム書いてるときに適当に音楽流してほしい</h5>
-
-<p>という欲求から生まれた。結構気に入ってて部屋でよく流してる。<br/>
-　<br/>
-　</p>
-
-<h3><a href="http://rejamotion.com">DailyMotion</a></h3>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/dailymotion.png" alt="" />
-今年はGIFは流行ったような気がするけど、自分もGIFアニメーションで生きた証を残したいなと思って作った。
-ハイブリッドアプリとして作ったけど、HTMLはPCのブラウザから見ても見れるようにした。
-作ってみたら案外おもしろかったし、画像フィルタの実装したりとかして機能どんどん追加してきたいっていうモチベーションもあります。
-　<br/>
-　<br/>
-　<br/>
-ほかにもハッカソンとかツールとか、使い捨てなコードを書いたりもしたけど、主にこんな感じです。</p>
-
-<h2>今年やらなかったこと</h2>
-
-<p>振り返ってみると、今年は自分のためにコードを書いていたなあと思った。
-来年はもっと作ったツール公開するとかオープンソースにコミットするとか、外向きな活動を増やしていきたい。<br/>
-それと美しい設計とかコードが書けるようになりたいので、もっとフレームワークのソースを読むというのと、自分のコードのメトリクスを計測できるような状態にしたいです。<br/>
-あと早く若手状態を脱したいです。
-　<br/>
-　<br/>
-　<br/>
-来年はもっと尖っていきたい。</p>
 ]]></content>
   </entry>
   
