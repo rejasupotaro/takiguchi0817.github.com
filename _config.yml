@@ -65,7 +65,7 @@ github_skip_forks: true
 
 # Twitter
 twitter_user: rejasupotaro
-twitter_tweet_button: true
+twitter_tweet_button: false
 twitter_tweet_count: 4
 twitter_tweet_count: 10
 twitter_show_replies: false
