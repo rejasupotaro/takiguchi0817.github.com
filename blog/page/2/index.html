@@ -9,7 +9,8 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="Android Katanuki A template application that includes tons of great open source tools and frameworks. 経緯 この前、AndroidKickstartRというプロジェクトを見つけました。 &hellip;">
+  <meta name="description" content="理由1. LauncherのActivityは太りやすい Androidのプロジェクトを作ると最初にMainActivityが作られます。
+そのMainActivityを中心にアプリを作っていくと、認証の確認を行うロジックを入れたり、思わぬ初期化処理が必要になったりして、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,61 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/18/route-activity/">RouteActivityを作ろう</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-18T22:16:00+09:00" pubdate data-updated="true">Jun 18<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>理由1. LauncherのActivityは太りやすい</h2>
+
+<p>Androidのプロジェクトを作ると最初にMainActivityが作られます。
+そのMainActivityを中心にアプリを作っていくと、認証の確認を行うロジックを入れたり、思わぬ初期化処理が必要になったりして、規模が大きくなるごとにどんどんActivityが太ってしまいます。
+ユーザーから最初に見える画面は出来るだけ速く表示したいですし、分岐がたくさん入ると見通しが悪くなって変更がしづらくなる、という状態は避けたいです。</p>
+
+<h2>理由2. アプリの起動の口が複数あるとコピペが発生しやすい</h2>
+
+<p>Androidはショートカットや通知など、画面を起動するパスがたくさんあります。
+素直な実装をすると、すべてのActivityのonCreateの中で、isAuthenticatedみたいなメソッドを生やしてログインしてなかったらログイン画面に飛ばしたり、どの経路からアプリが起動されたかログを取る処理などを書いたりして、コピペが発生してActivityの見通しが悪くなってしまいます。</p>
+
+<p>かといって共通の親クラスを作るという方法は、あまりやりたくありません。</p>
+
+<h2>RouteActivityを作ろう</h2>
+
+<p>プロジェクトを作成したらまず最初にMainActivityをRouteActivityにリネームします。
+そして、ショートカットやIntentFilterなどはすべてRouteActivityを起動するようにして、パラメータで遷移先を変えるようにします。
+RouteActivityに認証の確認の処理や、初期化処理などを置いて、各Activityはそれぞれの責務を真っ当させたら、コードが綺麗になるのではないかと思いました。</p>
+
+<p>RouteActivityという名前はRailsのconfig/routes.rbから来ています。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1080,253 +1136,6 @@ NamingPolicyやDeserializerの使い方を覚えれば、手でjsonのパーサ�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/01/05/drink-mockito/">モヒートの飲み方</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-05T12:41:00+09:00" pubdate data-updated="true">Jan 5<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>mojito</h1>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201301/mojito.jpg" alt="" />
-モヒートは、キューバ・ハバナ発祥のカクテルの一つ。
-ラムをベースにソーダ、ライム、砂糖、ミントを加えたもの。
-ミントとソーダの清涼感が暑い夏にぴったりと、「夏と言えば」の定番カクテル。<br/>
-アーネスト・ヘミングウェイが好んで飲んでいた話は有名である。</p>
-
-<h1><a href="http://code.google.com/p/mockito/">mockito</a></h1>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201301/mockito.jpg" alt="" />
-Mockito is a mocking framework that tastes really good.</p>
-
-<p>ジャバのモックライブラリ。
-モックライブラリは他にもいろいろありますが<a href="http://code.google.com/p/mockito/wiki/MockitoVSEasyMock">EasyMockと比べても</a>、mockitoの方が簡潔に書けそう。
-というわけで、モヒートを飲んだあとのようにスカッとモックしたいので、どんなものか調べてみた。
-　<br/>
-　</p>
-
-<h2>導入</h2>
-
-<p>mockito本体と、Androidで動かすためにdexmakerとdexmaker-mockitoのjarをlibsに追加する。</p>
-
-<ul>
-<li><a href="http://code.google.com/p/mockito/downloads/list">mockitoのダウンロードはここから</a></li>
-<li><a href="http://code.google.com/p/dexmaker/downloads/list">dexmakerのダウンロードはここから</a></li>
-</ul>
-
-
-<p>またEclipseの設定に追加しておくとContent Assistが効くようになって良い。
-<img src="http://dl.dropbox.com/u/54255753/blog/201301/static_import.png" alt="" />
-　<br/>
-　</p>
-
-<h2>mockito使い方</h2>
-
-<ul>
-<li><a href="http://docs.mockito.googlecode.com/hg/org/mockito/Mockito.html">Mockito API</a></li>
-</ul>
-
-
-<p>良く使いそうなものだけをピックアップした。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDrinkMockito</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span><span class='line'>    <span class="c1">// mockでモックオブジェクトを作成する</span>
-</span><span class='line'>    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">mockedList</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="n">ArrayList</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// whenで引数ごとの返り値を決められる</span>
-</span><span class='line'>    <span class="n">when</span><span class="o">(</span><span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">)).</span><span class="na">thenReturn</span><span class="o">(</span><span class="s">&quot;first&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">when</span><span class="o">(</span><span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="na">thenThrow</span><span class="o">(</span><span class="k">new</span> <span class="n">RuntimeException</span><span class="o">());</span>
-</span><span class='line'>    <span class="n">assertEquals</span><span class="o">(</span><span class="s">&quot;first&quot;</span><span class="o">,</span> <span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span>
-</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">fail</span><span class="o">(</span><span class="s">&quot;RuntimeExceptionがthrowされていない&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RuntimeException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// whenではanyInt()やanyString()やanyMap()のような指定の仕方もできる</span>
-</span><span class='line'>    <span class="n">when</span><span class="o">(</span><span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">anyInt</span><span class="o">())).</span><span class="na">thenReturn</span><span class="o">(</span><span class="s">&quot;element&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">assertEquals</span><span class="o">(</span><span class="s">&quot;element&quot;</span><span class="o">,</span> <span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">999</span><span class="o">));</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// verifyでモックオブジェクトが対象のメソッドを実行したか確認できる</span>
-</span><span class='line'>    <span class="n">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">).</span><span class="na">clear</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// verifyはメソッドの実行回数も確認することができる</span>
-</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;bar&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;bar&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="c1">// mockedList.add(&quot;bar&quot;)が2回呼ばれたことを確認する</span>
-</span><span class='line'>    <span class="n">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">,</span> <span class="n">times</span><span class="o">(</span><span class="mi">2</span><span class="o">)).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;bar&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="c1">// mockedList.add(&quot;bar&quot;)は1回も呼ばれなかったことを確認する</span>
-</span><span class='line'>    <span class="n">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">,</span> <span class="n">never</span><span class="o">()).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// verifyはメソッドの実行順序も確認することができる</span>
-</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
-</span><span class='line'>    <span class="n">InOrder</span> <span class="n">inOrder</span> <span class="o">=</span> <span class="n">inOrder</span><span class="o">(</span><span class="n">mockedList</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">inOrder</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">inOrder</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">).</span><span class="na">clear</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// spyで部分的にメソッドを置き換えることもできる</span>
-</span><span class='line'>    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">spy</span> <span class="o">=</span> <span class="n">Mockito</span><span class="o">.</span><span class="na">spy</span><span class="o">(</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;());</span>
-</span><span class='line'>    <span class="n">doReturn</span><span class="o">(</span><span class="mi">100</span><span class="o">).</span><span class="na">when</span><span class="o">(</span><span class="n">spy</span><span class="o">).</span><span class="na">size</span><span class="o">();</span>
-</span><span class='line'>    <span class="n">spy</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">);</span> <span class="c1">// 実際のオブジェクトのメソッド呼び出し</span>
-</span><span class='line'>    <span class="n">spy</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="c1">// =&gt; 100</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とりあえずmock、when、verify、spyだけ覚えておけば大丈夫そう。
-テスト対象のオブジェクトを継承してモックオブジェクトを作るのに比べてるとだいぶ楽だ。
-　<br/>
-　</p>
-
-<h2>Mockitoによるビヘイビア駆動開発</h2>
-
-<h3><a href="http://docs.mockito.googlecode.com/hg/org/mockito/BDDMockito.html">MockitoBDD API</a></h3>
-
-<p>さらにMockitoBDDというもあって、それを使えばビヘイビアを先に記述してから開発するスペックファーストな実装ができる。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Seller</span> <span class="o">{</span>
-</span><span class='line'>    <span class="c1">// should implement</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">Bread</span> <span class="nf">askForBread</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">class</span> <span class="nc">Shop</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">Seller</span> <span class="n">mSeller</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">Shop</span><span class="o">(</span><span class="n">Seller</span> <span class="n">seller</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">mSeller</span> <span class="o">=</span> <span class="n">seller</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// should implement</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">Goods</span> <span class="nf">buyBread</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">testShouldBuyBread</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Seller</span> <span class="n">seller</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="n">Seller</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">Shop</span> <span class="n">shop</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Shop</span><span class="o">(</span><span class="n">seller</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">//given  </span>
-</span><span class='line'>    <span class="n">given</span><span class="o">(</span><span class="n">seller</span><span class="o">.</span><span class="na">askForBread</span><span class="o">()).</span><span class="na">willReturn</span><span class="o">(</span><span class="k">new</span> <span class="n">Bread</span><span class="o">());</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">//when</span>
-</span><span class='line'>    <span class="n">Goods</span> <span class="n">goods</span> <span class="o">=</span> <span class="n">shop</span><span class="o">.</span><span class="na">buyBread</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">//then</span>
-</span><span class='line'>    <span class="n">assertThat</span><span class="o">(</span><span class="n">goods</span><span class="o">,</span> <span class="n">containBread</span><span class="o">());</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1344,6 +1153,10 @@ Mockito is a mocking framework that tastes really good.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/09/19/android-test/">モヒートはモッキングフレームワークで味はとても美味しい</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/09/17/interaction-design/">デザインリサーチをするにあたって</a>
       </li>
     
@@ -1357,10 +1170,6 @@ Mockito is a mocking framework that tastes really good.</p>
     
       <li class="post">
         <a href="/blog/2013/08/21/ui-animations/">どうすると気持ち良く感じるのか</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/27/aar-dependency/">aar dependency</a>
       </li>
     
   </ul>

@@ -9,9 +9,8 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="某ブログから移転しました。
-ブラウザ立ち上げてサイトに行ってかっこいいUIをしながらプレビューを比較しながら調整してオシャンティなブログをポスするのって結構面倒くさい。
-ターミナルで編集できてコマンドでデプロイ出来て、Octopress良いです。 テーマも色々あるみたいだし、 &hellip;">
+  <meta name="description" content="方法は2つ。 エミュレータにGoogle Playを入れる
+PCでapkをダウンロードしてadbでエミュレータに移す 1の方法は面倒な感じしたので2にすることにした。 Google Playからapkを直接ダウンロードできるようにする Chrome拡張を入れることでブラウザ版のGoogle &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -77,6 +76,91 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/06/google-play-on-emulator/">エミュレータにGoogle Playにあるapkを入れる</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-06T13:41:00+09:00" pubdate data-updated="true">Oct 6<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>方法は2つ。</p>
+
+<ol>
+<li>エミュレータにGoogle Playを入れる</li>
+<li>PCでapkをダウンロードしてadbでエミュレータに移す</li>
+</ol>
+
+
+<p>1の方法は面倒な感じしたので2にすることにした。</p>
+
+<h2>Google Playからapkを直接ダウンロードできるようにする</h2>
+
+<p>Chrome拡張を入れることでブラウザ版のGoogle Playからapkをダウンロードできるようになる。</p>
+
+<h3>AndroidのデバイスIDを調べる</h3>
+
+<p>アプリを使うと簡単。
+<a href="https://play.google.com/store/apps/details?id=com.redphx.deviceid">Device ID</a>
+を起動してDevice IDをメモしておく。</p>
+
+<h3>APK Downloaderを入れる</h3>
+
+<p><a href="http://codekiem.com/2012/02/24/apk-downloader/">APK Downloader – Download APK files from Android Market to PC</a></p>
+
+<p>詳しい手順：
+<a href="http://www.teradas.net/archives/3894/">PlayストアからAndroidのapkを直接ダウンロードできる「APK Downloader」</a></p>
+
+<p>apkをダウンロードしたら、以下のオプションでchromeを起動する。</p>
+
+<pre><code>open -a Google\ Chrome --args --ignore-certificate-errors
+</code></pre>
+
+<p>「ツール」→「拡張機能」の画面にドラッグ・アンド・ドロップ。</p>
+
+<h2>エミュレータにインストールする</h2>
+
+<p>実際にapkをダウンロードしてエミュレータにインストールする。</p>
+
+<h3>Google Playからapkをダウンロードする。</h3>
+
+<p>Google Playに行ってインストールしたいアプリのインストールページに行く。<br/>
+アドレスバーのところにAPK Downloaderのアイコンが出るので、クリックしてダウンロード。</p>
+
+<h3>エミュレータにインストールする</h3>
+
+<pre><code>$ emulator -avd device_name
+$ adb install ~/Downloads/HelloGooglePlay.apk
+</code></pre>
+
+<p>/data/data/パッケージ名 にダウンロードされる。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -274,6 +358,10 @@ bullshit?</p></blockquote>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/09/19/android-test/">モヒートはモッキングフレームワークで味はとても美味しい</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/09/17/interaction-design/">デザインリサーチをするにあたって</a>
       </li>
     
@@ -287,10 +375,6 @@ bullshit?</p></blockquote>
     
       <li class="post">
         <a href="/blog/2013/08/21/ui-animations/">どうすると気持ち良く感じるのか</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/27/aar-dependency/">aar dependency</a>
       </li>
     
   </ul>

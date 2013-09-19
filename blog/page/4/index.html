@@ -9,8 +9,9 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="ネイティブでもHTML5でもない「ハイブリッドアプリ」の価値 ハイブリッドの流れある。
-ネイティブのアプリが書ける人がまだそんなに多くない(ネイティブアプリ縛りの社内ハッカソンも人が集まらなくて大変だった)ので、Webアプリケーションのようにネイティブが書けるの良いと思う。 &hellip;">
+  <meta name="description" content=" 1
+2
+( *´ω｀*) /path/to/project $ find . -name *.xml | xargs cat | wc -l 36741 ">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,51 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/01/recent/">近況</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-01T13:17:00+09:00" pubdate data-updated="true">Dec 1<span>st</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="o">(</span> <span class="o">*</span><span class="err">´ω｀</span><span class="o">*)</span>  <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">project</span> <span class="n">$</span> <span class="n">find</span> <span class="o">.</span> <span class="o">-</span><span class="n">name</span> <span class="o">*.</span><span class="na">xml</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">cat</span> <span class="o">|</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span>
+</span><span class='line'>    <span class="mi">36741</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/blue.gif" alt="ウワーッ" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1540,103 +1586,6 @@ $ rake db:migrate
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/06/isucon2/">イスコン各位のパフォーマンスチューニング</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-06T23:59:00+09:00" pubdate data-updated="true">Nov 6<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://blog.livedoor.jp/techblog/archives/67726806.html">#isucon2</a>、周りでも結構話題になった。<br/>
-「同期でもやりたいねー。」みたいな話になって、僕はパフォーマンスチューニングとかよくわからなかったので、各チームが何をしたのか調べた。</p>
-
-<h2>言語</h2>
-
-<ul>
-<li>「なんとなくはやそう」みたいな曖昧な理由でnodeは選ばない。</li>
-<li>使い慣れた言語(RubyとかPerlとか)でやった方が良い。</li>
-</ul>
-
-
-<h2>デプロイ</h2>
-
-<ul>
-<li>コードはGitHubに置いて、Capistranoでデプロイ出来るようにしたら良かった。</li>
-</ul>
-
-
-<h2>データベース</h2>
-
-<ul>
-<li>スロークエリのチェックと設定パラメータを見た。</li>
-<li>インデックス張ったりクエリを試行錯誤した。</li>
-<li>サーバーのメモリサイズが16GBだったのに、innodb_buffer_pool_size 2Gだったので、メモリを増やそうと思ったけど、データサイズが小さかったので、DBサーバーでAPPを動かした。</li>
-<li>Redisを使うように書き直した。</li>
-</ul>
-
-
-<h2>アプリケーション</h2>
-
-<ul>
-<li>http_loadでベンチ。各リクエストのレスポンスタイムを確認した。</li>
-<li>最適なワーカー数を二分探索で調べた。</li>
-<li>リバースプロキシ先をHostnameからIPアドレスに変えた(DNSルックアップが遅い罠を警戒)</li>
-<li>Rubyのあるパッチを当てたらRailsアプリが20〜30％高速化するらしいと聞いて、Rubyをビルドし直してみたらスコアが上がった。</li>
-<li>nginxで静的ファイルを配信した。</li>
-<li>VarnishでESIを使った。</li>
-<li>リバースプロキシやDBにもAPP入れた。</li>
-<li>ページ数が少ないので事前にHTMLを書き出して、1秒以内にすべて更新するようにしたら速くなる。</li>
-<li>配信時にgzip圧縮をするのでは遅いので、事前にgzipで圧縮しておくと速くなる。</li>
-</ul>
-
-
-<h2>プロファイリング</h2>
-
-<ul>
-<li>PerlならDevel::KYTProfで丸裸にできる。</li>
-<li>Text::Xslate->renderを計測したら、テンプレートのレンダリングで50〜100ms程度かかることが分かった。</li>
-<li>負荷はテンプレートレンダリングのCPU boundだった。そこでworkerにレンダリング処理を独立した。</li>
-</ul>
-
-
-<h2>まとめ</h2>
-
-<ol>
-<li>とりあえず環境を整えて、ベンチマークを取ること。</li>
-<li>まずSQLチューニングして、負荷がAPPに移ったらそっちに取りかかる。</li>
-<li>キャッシュとかリバースプロキシをいじってみる。</li>
-</ol>
-
-
-<p>これらをうまく分担して行う、みたいな？</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -1654,6 +1603,10 @@ $ rake db:migrate
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/09/19/android-test/">モヒートはモッキングフレームワークで味はとても美味しい</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/09/17/interaction-design/">デザインリサーチをするにあたって</a>
       </li>
     
@@ -1667,10 +1620,6 @@ $ rake db:migrate
     
       <li class="post">
         <a href="/blog/2013/08/21/ui-animations/">どうすると気持ち良く感じるのか</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/27/aar-dependency/">aar dependency</a>
       </li>
     
   </ul>

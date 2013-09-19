@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-09-18T00:11:35+09:00</updated>
+  <updated>2013-09-19T23:51:11+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,273 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[モヒートはモッキングフレームワークで味はとても美味しい]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/09/19/android-test/"/>
+    <updated>2013-09-19T22:40:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/09/19/android-test</id>
+    <content type="html"><![CDATA[<h1>mojito (モヒート)</h1>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201301/mojito.jpg" alt="" /></p>
+
+<p>モヒートは、キューバ・ハバナ発祥のカクテルの一つ。<br/>
+由来は、新大陸として注目されていたアメリカ諸国から得られる富をコントロールする名目で、英国女王エリザベス1世が、スペイン領の都市を略奪する海賊達の手助けをしていた16世紀後半、海賊フランシス・ドレイクの部下であるリチャード・ドレイクが、1586年にモヒートの前身となる飲み物「ドラケ(draque)」をキューバの人々へ伝えた、という説が有力。<br/>
+ラムをベースにソーダ、ライム、砂糖、ミントを加えたもの。ミントとソーダの清涼感が暑い夏にぴったりな「夏と言えば」の定番カクテル。</p>
+
+<p>アーネスト・ヘミングウェイが好んで飲んでいた話は有名である。</p>
+
+<h1><a href="http://code.google.com/p/mockito/">mockito</a> (モヒート)</h1>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201301/mockito.jpg" alt="" /></p>
+
+<p>モヒートは、Javaのモックライブラリ。<br/>
+モックライブラリは他にもいろいろあるけど <a href="http://code.google.com/p/mockito/wiki/MockitoVSEasyMock">EasyMockと比べても</a> mockitoの方が簡潔に書ける。<br/>
+導入するとモヒートを飲んだあとのようにスカッとする。</p>
+
+<p><strong>&#8220;Mockito is a mocking framework that tastes really good!&#8221;</strong> とのこと。(公式)</p>
+
+<h1>mockitoナシ</h1>
+
+<p>今までのやり方。まずモッククラスを定義して、</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">com.android.volley.Network</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">com.android.volley.NetworkResponse</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">com.android.volley.Request</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">com.android.volley.VolleyError</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MockNetwork</span> <span class="kd">implements</span> <span class="n">Network</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">mFakeResponseData</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setFakeResponseData</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">mFakeResponseData</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Override</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">NetworkResponse</span> <span class="nf">performRequest</span><span class="o">(</span><span class="n">Request</span><span class="o">&lt;?&gt;</span> <span class="n">request</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">VolleyError</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="k">new</span> <span class="nf">NetworkResponse</span><span class="o">(</span><span class="n">mFakeResponseData</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>テストするときに返したいデータをセットする。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">MockNetwork</span> <span class="n">mockNetwork</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MockNetwork</span><span class="o">();</span>
+</span><span class='line'><span class="n">mockNetwork</span><span class="o">.</span><span class="na">setFakeResponseData</span><span class="o">(</span><span class="s">&quot;{\&quot;code\&quot;:200}&quot;</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>mockitoアリ</h1>
+
+<p>このメソッドが呼ばれたときにこれを返す、とするだけ。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Network</span> <span class="n">mockNetwork</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="n">Network</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span><span class='line'><span class="n">when</span><span class="o">(</span><span class="n">mockNetwork</span><span class="o">.</span><span class="na">performRequest</span><span class="o">(</span><span class="n">any</span><span class="o">(</span><span class="n">Request</span><span class="o">.</span><span class="na">class</span><span class="o">))).</span>
+</span><span class='line'>        <span class="n">thenReturn</span><span class="o">(</span><span class="k">new</span> <span class="n">NetworkResponse</span><span class="o">(</span><span class="s">&quot;{\&quot;code\&quot;:200}&quot;</span><span class="o">.</span><span class="na">getBytes</span><span class="o">()));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>インタフェースが統一されることによって、次にテストを書く人が「MockNetworkというクラスがあるらしい、ふむふむ、setFakeResponseDataに渡したbyte列がperformRequestで返ってくるのか」と調べる時間を省くことができる。</p>
+
+<p>特定のオブジェクトの一部のメソッドの振る舞いを変えるときもカンタン。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">doReturn</span><span class="o">(</span><span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span> <span class="o">{</span> <span class="n">put</span><span class="o">(</span><span class="s2">&quot;fake&quot;</span><span class="o">,</span> <span class="s2">&quot;foo&quot;</span><span class="o">);</span> <span class="o">}</span> <span class="o">}).</span><span class="na">when</span><span class="o">(</span><span class="n">spyRequest</span><span class="o">).</span><span class="na">getHeaders</span><span class="o">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ちなみにdependencyを解決できなかったので、jarを落として ./src/instrumentTest/libs/ に配置して以下のようにした。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">instrumentTestCompile</span> <span class="nf">fileTree</span><span class="o">(</span><span class="nl">dir:</span> <span class="s1">&#39;./src/instrumentTest/libs&#39;</span><span class="o">,</span> <span class="nl">include:</span> <span class="s1">&#39;*.jar&#39;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>モヒートにギョームでもプライベートでもお世話になってる。</p>
+
+<hr />
+
+<p>↑ここまでモヒートの話↑<br/>
+↓ここまで他のフレームワークの紹介↓</p>
+
+<h1><a href="http://square.github.io/fest-android/">Fest Android</a></h1>
+
+<p>安心と信頼の <a href="https://github.com/square">Square</a> 製テストフレームワーク。(Squareが公開してるライブラリは本当にどれもレベルが高い)<br/>
+元ネタは <a href="http://fest.easytesting.org/">Fixtures for Easy Software Testing</a> のAndroid拡張となっている。</p>
+
+<h3>REGULAR JUNIT</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">assertEquals</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">VISIBLE</span><span class="o">,</span> <span class="n">layout</span><span class="o">.</span><span class="na">getVisibility</span><span class="o">());</span>
+</span><span class='line'><span class="n">assertEquals</span><span class="o">(</span><span class="n">VERTICAL</span><span class="o">,</span> <span class="n">layout</span><span class="o">.</span><span class="na">getOrientation</span><span class="o">());</span>
+</span><span class='line'><span class="n">assertEquals</span><span class="o">(</span><span class="mi">4</span><span class="o">,</span> <span class="n">layout</span><span class="o">.</span><span class="na">getChildCount</span><span class="o">());</span>
+</span><span class='line'><span class="n">assertEquals</span><span class="o">(</span><span class="n">SHOW_DIVIDERS_MIDDLE</span><span class="o">,</span> <span class="n">layout</span><span class="o">.</span><span class="na">getShowDividers</span><span class="o">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>FEST ANDROID</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">assertThat</span><span class="o">(</span><span class="n">layout</span><span class="o">).</span><span class="na">isVisible</span><span class="o">()</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">isVertical</span><span class="o">()</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">hasChildCount</span><span class="o">(</span><span class="mi">4</span><span class="o">)</span>
+</span><span class='line'>    <span class="o">.</span><span class="na">hasShowDividers</span><span class="o">(</span><span class="n">SHOW_DIVIDERS_MIDDLE</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1><a href="https://github.com/mttkay/calculon">calculon</a></h1>
+
+<p><img src="https://raw.github.com/mttkay/calculon/master/assets/calculon.png" alt="" /></p>
+
+<p>こちらも便利メソッドを提供している。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">// direct assertion on current activity</span>
+</span><span class='line'><span class="n">assertThat</span><span class="o">().</span><span class="na">inPortraitMode</span><span class="o">();</span>
+</span><span class='line'><span class="n">assertThat</span><span class="o">().</span><span class="na">viewExists</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">launch_bar_button</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// assert specific condition on current activity</span>
+</span><span class='line'>    <span class="n">assertThat</span><span class="o">().</span><span class="na">satisfies</span><span class="o">(</span><span class="k">new</span> <span class="n">Predicate</span><span class="o">&lt;</span><span class="n">Activity</span><span class="o">&gt;()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">check</span><span class="o">(</span><span class="n">Activity</span> <span class="n">target</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">target</span><span class="o">.</span><span class="na">isTaskRoot</span><span class="o">();</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Fest Androidとの違いは、calculonはStoryTestを提供しており、画面遷移を伴うストーリーをテストとして実行することができる。</p>
+
+<h1>Robolectric + Spock</h1>
+
+<p>この動画で紹介されているGroovyの元祖PowerAssert系テストフレームワーク <a href="https://code.google.com/p/spock/">Spock</a> を頑張ってAndroidで動かすというもの。</p>
+
+<iframe width="420" height="315" src="http://takiguchi0817.github.com//www.youtube.com/embed/aDoQxqO_6rI" frameborder="0" allowfullscreen></iframe>
+
+
+<p>RobolectricはAndroidのテストをJVM上で実行するためのフレームワークで、AndroidのクラスをJavaのShadowクラスに変換して実行するしくみになっている。
+JVMでテストが実行できるようになるということは、Groovyでもテストが書けるということなので、Robolectricを導入すればSpockも使えるようになる。</p>
+
+<h3>Robolectric</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Test</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDialogContent</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="c1">// given</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">MainActivity</span> <span class="n">mainActivity</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MainActivity</span><span class="o">();</span>
+</span><span class='line'>    <span class="n">mainActivity</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// when</span>
+</span><span class='line'>    <span class="n">mainActivity</span><span class="o">.</span><span class="na">button</span><span class="o">.</span><span class="na">performClick</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// then</span>
+</span><span class='line'>    <span class="kd">final</span> <span class="n">ShadowAlertDialog</span> <span class="n">dialog</span> <span class="o">=</span> <span class="o">(</span><span class="n">ShadowAlertDialog</span><span class="o">)</span> <span class="n">Robolectric</span><span class="o">.</span><span class="na">shadowOf</span><span class="o">(</span><span class="n">ShadowDialog</span><span class="o">.</span><span class="na">getLatestDialog</span><span class="o">());</span>
+</span><span class='line'>    <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="s">&quot;title&quot;</span><span class="o">,</span> <span class="n">dialog</span><span class="o">.</span><span class="na">getTitle</span><span class="o">());</span>
+</span><span class='line'>    <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="s">&quot;Ok&quot;</span><span class="o">,</span> <span class="n">dialog</span><span class="o">.</span><span class="na">getButton</span><span class="o">(</span><span class="n">AlertDialog</span><span class="o">.</span><span class="na">BUTTON_POSITIVE</span><span class="o">).</span><span class="na">getText</span><span class="o">());</span>
+</span><span class='line'>    <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="s">&quot;Cancel&quot;</span><span class="o">,</span> <span class="n">dialog</span><span class="o">.</span><span class="na">getButton</span><span class="o">(</span><span class="n">AlertDialog</span><span class="o">.</span><span class="na">BUTTON_NEGATIVE</span><span class="o">).</span><span class="na">getText</span><span class="o">());</span>
+</span><span class='line'>    <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="s">&quot;Dismiss&quot;</span><span class="o">,</span> <span class="n">dialog</span><span class="o">.</span><span class="na">getButton</span><span class="o">(</span><span class="n">AlertDialog</span><span class="o">.</span><span class="na">BUTTON_NEUTRAL</span><span class="o">).</span><span class="na">getText</span><span class="o">());</span>
+</span><span class='line'>    <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="s">&quot;Dialog Content&quot;</span><span class="o">,</span> <span class="n">dialog</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Robolectric + Spock</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="kt">def</span> <span class="s2">&quot;should displayed dialog&#39;s button has good text&quot;</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nl">given:</span>
+</span><span class='line'>    <span class="kt">def</span> <span class="n">mainActivity</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MainActivity</span><span class="o">()</span>
+</span><span class='line'>    <span class="n">mainActivity</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="kc">null</span><span class="o">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nl">when:</span>
+</span><span class='line'>    <span class="n">mainActivity</span><span class="o">.</span><span class="na">button</span><span class="o">.</span><span class="na">performClick</span><span class="o">()</span>
+</span><span class='line'>    <span class="kt">def</span> <span class="n">dialog</span> <span class="o">=</span> <span class="o">(</span><span class="n">ShadowAlertDialog</span><span class="o">)</span> <span class="n">Robolectric</span><span class="o">.</span><span class="na">shadowOf</span><span class="o">(</span><span class="n">ShadowDialog</span><span class="o">.</span><span class="na">getLatestDialog</span><span class="o">());</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nl">then:</span>
+</span><span class='line'>    <span class="n">dialog</span><span class="o">.</span><span class="na">getButton</span><span class="o">(</span><span class="n">number</span><span class="o">).</span><span class="na">text</span> <span class="o">==</span> <span class="n">value</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nl">where:</span>
+</span><span class='line'>    <span class="n">number</span>                      <span class="o">|</span> <span class="n">value</span>
+</span><span class='line'>    <span class="n">AlertDialog</span><span class="o">.</span><span class="na">BUTTON_POSITIVE</span> <span class="o">|</span> <span class="s2">&quot;Ok&quot;</span>
+</span><span class='line'>    <span class="n">AlertDialog</span><span class="o">.</span><span class="na">BUTTON_NEGATIVE</span> <span class="o">|</span> <span class="s2">&quot;Cancel&quot;</span>
+</span><span class='line'>    <span class="n">AlertDialog</span><span class="o">.</span><span class="na">BUTTON_NEUTRAL</span>  <span class="o">|</span> <span class="s2">&quot;Dismiss&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>導入コスト、学習コスト、効果を鑑みつつ、引き続きテスティングフレームワークをテイスティングしていきます。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[デザインリサーチをするにあたって]]></title>
@@ -1490,226 +1757,6 @@ NamingPolicyやDeserializerの使い方を覚えれば、手でjsonのパーサ�
 
 <p>脆弱性のあるアプリを一度世に出してしまったら、いくらセキュリティパッチをあてたところで、ユーザにアップデートをしてもらえなければそれまでです。
 ちょっとした注意で防げるものもあるので、外部からの攻撃ならまだしも、こちら側で防げるものは確実に防いでおきたいですね。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[モヒートの飲み方]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/01/05/drink-mockito/"/>
-    <updated>2013-01-05T12:41:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/01/05/drink-mockito</id>
-    <content type="html"><![CDATA[<h1>mojito</h1>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201301/mojito.jpg" alt="" />
-モヒートは、キューバ・ハバナ発祥のカクテルの一つ。
-ラムをベースにソーダ、ライム、砂糖、ミントを加えたもの。
-ミントとソーダの清涼感が暑い夏にぴったりと、「夏と言えば」の定番カクテル。<br/>
-アーネスト・ヘミングウェイが好んで飲んでいた話は有名である。</p>
-
-<h1><a href="http://code.google.com/p/mockito/">mockito</a></h1>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201301/mockito.jpg" alt="" />
-Mockito is a mocking framework that tastes really good.</p>
-
-<p>ジャバのモックライブラリ。
-モックライブラリは他にもいろいろありますが<a href="http://code.google.com/p/mockito/wiki/MockitoVSEasyMock">EasyMockと比べても</a>、mockitoの方が簡潔に書けそう。
-というわけで、モヒートを飲んだあとのようにスカッとモックしたいので、どんなものか調べてみた。
-　<br/>
-　</p>
-
-<h2>導入</h2>
-
-<p>mockito本体と、Androidで動かすためにdexmakerとdexmaker-mockitoのjarをlibsに追加する。</p>
-
-<ul>
-<li><a href="http://code.google.com/p/mockito/downloads/list">mockitoのダウンロードはここから</a></li>
-<li><a href="http://code.google.com/p/dexmaker/downloads/list">dexmakerのダウンロードはここから</a></li>
-</ul>
-
-
-<p>またEclipseの設定に追加しておくとContent Assistが効くようになって良い。
-<img src="http://dl.dropbox.com/u/54255753/blog/201301/static_import.png" alt="" />
-　<br/>
-　</p>
-
-<h2>mockito使い方</h2>
-
-<ul>
-<li><a href="http://docs.mockito.googlecode.com/hg/org/mockito/Mockito.html">Mockito API</a></li>
-</ul>
-
-
-<p>良く使いそうなものだけをピックアップした。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">testDrinkMockito</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span><span class='line'>    <span class="c1">// mockでモックオブジェクトを作成する</span>
-</span><span class='line'>    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">mockedList</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="n">ArrayList</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// whenで引数ごとの返り値を決められる</span>
-</span><span class='line'>    <span class="n">when</span><span class="o">(</span><span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">)).</span><span class="na">thenReturn</span><span class="o">(</span><span class="s">&quot;first&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">when</span><span class="o">(</span><span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="na">thenThrow</span><span class="o">(</span><span class="k">new</span> <span class="n">RuntimeException</span><span class="o">());</span>
-</span><span class='line'>    <span class="n">assertEquals</span><span class="o">(</span><span class="s">&quot;first&quot;</span><span class="o">,</span> <span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span>
-</span><span class='line'>    <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">fail</span><span class="o">(</span><span class="s">&quot;RuntimeExceptionがthrowされていない&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">RuntimeException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// whenではanyInt()やanyString()やanyMap()のような指定の仕方もできる</span>
-</span><span class='line'>    <span class="n">when</span><span class="o">(</span><span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">anyInt</span><span class="o">())).</span><span class="na">thenReturn</span><span class="o">(</span><span class="s">&quot;element&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">assertEquals</span><span class="o">(</span><span class="s">&quot;element&quot;</span><span class="o">,</span> <span class="n">mockedList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">999</span><span class="o">));</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// verifyでモックオブジェクトが対象のメソッドを実行したか確認できる</span>
-</span><span class='line'>    <span class="n">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">).</span><span class="na">clear</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// verifyはメソッドの実行回数も確認することができる</span>
-</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;bar&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;bar&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="c1">// mockedList.add(&quot;bar&quot;)が2回呼ばれたことを確認する</span>
-</span><span class='line'>    <span class="n">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">,</span> <span class="n">times</span><span class="o">(</span><span class="mi">2</span><span class="o">)).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;bar&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="c1">// mockedList.add(&quot;bar&quot;)は1回も呼ばれなかったことを確認する</span>
-</span><span class='line'>    <span class="n">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">,</span> <span class="n">never</span><span class="o">()).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// verifyはメソッドの実行順序も確認することができる</span>
-</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">mockedList</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
-</span><span class='line'>    <span class="n">InOrder</span> <span class="n">inOrder</span> <span class="o">=</span> <span class="n">inOrder</span><span class="o">(</span><span class="n">mockedList</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">inOrder</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;baz&quot;</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">inOrder</span><span class="o">.</span><span class="na">verify</span><span class="o">(</span><span class="n">mockedList</span><span class="o">).</span><span class="na">clear</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// spyで部分的にメソッドを置き換えることもできる</span>
-</span><span class='line'>    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">spy</span> <span class="o">=</span> <span class="n">Mockito</span><span class="o">.</span><span class="na">spy</span><span class="o">(</span><span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;());</span>
-</span><span class='line'>    <span class="n">doReturn</span><span class="o">(</span><span class="mi">100</span><span class="o">).</span><span class="na">when</span><span class="o">(</span><span class="n">spy</span><span class="o">).</span><span class="na">size</span><span class="o">();</span>
-</span><span class='line'>    <span class="n">spy</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">&quot;foo&quot;</span><span class="o">);</span> <span class="c1">// 実際のオブジェクトのメソッド呼び出し</span>
-</span><span class='line'>    <span class="n">spy</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="c1">// =&gt; 100</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とりあえずmock、when、verify、spyだけ覚えておけば大丈夫そう。
-テスト対象のオブジェクトを継承してモックオブジェクトを作るのに比べてるとだいぶ楽だ。
-　<br/>
-　</p>
-
-<h2>Mockitoによるビヘイビア駆動開発</h2>
-
-<h3><a href="http://docs.mockito.googlecode.com/hg/org/mockito/BDDMockito.html">MockitoBDD API</a></h3>
-
-<p>さらにMockitoBDDというもあって、それを使えばビヘイビアを先に記述してから開発するスペックファーストな実装ができる。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Seller</span> <span class="o">{</span>
-</span><span class='line'>    <span class="c1">// should implement</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">Bread</span> <span class="nf">askForBread</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">class</span> <span class="nc">Shop</span> <span class="o">{</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="n">Seller</span> <span class="n">mSeller</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">Shop</span><span class="o">(</span><span class="n">Seller</span> <span class="n">seller</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">mSeller</span> <span class="o">=</span> <span class="n">seller</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// should implement</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="n">Goods</span> <span class="nf">buyBread</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">testShouldBuyBread</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span><span class='line'>    <span class="n">Seller</span> <span class="n">seller</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="n">Seller</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span><span class='line'>    <span class="n">Shop</span> <span class="n">shop</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Shop</span><span class="o">(</span><span class="n">seller</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">//given  </span>
-</span><span class='line'>    <span class="n">given</span><span class="o">(</span><span class="n">seller</span><span class="o">.</span><span class="na">askForBread</span><span class="o">()).</span><span class="na">willReturn</span><span class="o">(</span><span class="k">new</span> <span class="n">Bread</span><span class="o">());</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">//when</span>
-</span><span class='line'>    <span class="n">Goods</span> <span class="n">goods</span> <span class="o">=</span> <span class="n">shop</span><span class="o">.</span><span class="na">buyBread</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">//then</span>
-</span><span class='line'>    <span class="n">assertThat</span><span class="o">(</span><span class="n">goods</span><span class="o">,</span> <span class="n">containBread</span><span class="o">());</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
 ]]></content>
   </entry>
   
