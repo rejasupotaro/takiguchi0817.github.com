@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: KinMoza | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/kinmoza/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-09-26T01:24:20+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[きんモザのアリスのgif画像を取得するAPIを使ったAndroidアプリを作った]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/09/26/alice-api/"/>
+    <updated>2013-09-26T01:09:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/09/26/alice-api</id>
+    <content type="html"><![CDATA[<p><a href="https://github.com/takiguchi0817/KinMoza/tree/master">
+<img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/alice_github.png">
+</a></p>
+
+<p>See also</p>
+
+<ul>
+<li><a href="http://mogashi.hateblo.jp/entry/2013/09/24/000619">きんモザのアリスのgif画像を取得するAPIを作った</a></li>
+<li><a href="http://pastak.hatenablog.com/entry/2013/09/25/004437">きんモザのアリスのgif画像を取得するAPIを利用したGoogle Chrome拡張を作った</a></li>
+<li><a href="http://moroya.hatenablog.jp/entry/2013/09/25/224446">きんモザのアリスAPIを使って、好きなアリスを無限ループ視聴出来るWebアプリを作った</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -9,7 +9,12 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="SDカードに保存する画像を暗号化したい Androidの暗号化手法 Androidで使用出来る暗号化手法一覧：Security.getAlgorithms(&#8220;Cipher&#8221;) PBEWITHSHAAND192BITAES-CBC-BC &hellip;">
+  <meta name="description" content="内部ストレージ /data/data/package.name cache
+databases
+files
+lib
+shared_prefs cache getCacheDir() com.android.renderscript.cache
+勝手に作られる。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +80,111 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/09/appli-comparison/">アプリのデータはどこに保存されるの</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-09T22:02:00+09:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>内部ストレージ /data/data/package.name</h2>
+
+<ul>
+<li>cache</li>
+<li>databases</li>
+<li>files</li>
+<li>lib</li>
+<li>shared_prefs</li>
+</ul>
+
+
+<h3>cache</h3>
+
+<pre><code>getCacheDir()
+</code></pre>
+
+<ul>
+<li>com.android.renderscript.cache<br/>
+勝手に作られる。RenderScript使ったことないので良く知らない。</li>
+<li>webviewCacheChromium<br/>
+WebViewのキャッシュ</li>
+</ul>
+
+
+<h3>files</h3>
+
+<pre><code>openFileOutput()
+</code></pre>
+
+<p>アプリによって使ったり。</p>
+
+<h3>databases</h3>
+
+<pre><code>getWritableDatabase()
+</code></pre>
+
+<ul>
+<li>webview.db<br/>
+メタデータとか認証情報とかパスワードとか。</li>
+<li>webviewCookiesChromium.db<br/>
+メタデータとかクッキーとか。</li>
+</ul>
+
+
+<h3>lib</h3>
+
+<p>使ってたら入る。</p>
+
+<h3>shared_prefs</h3>
+
+<pre><code>getSharedPreferences()
+</code></pre>
+
+<p>databasesに入れるほどでもないけど、filesに置きたくないデータを入れてる。<br/>
+最後にアプリを開いた時間とか、データをリフレッシュした時間とか、タブレットかとか。</p>
+
+<h2>外部ストレージ /mnt/sdcard/Android/data/package.name</h2>
+
+<pre><code>getExternalFilesDir()
+</code></pre>
+
+<p>見えても良いデータを置いてる。<br/>
+画像とか動画とかのキャッシュにされてることが多い気がする。</p>
+
+<h2>その他</h2>
+
+<p>それ以外にもパス指定すればファイル作れる。<br/>
+各社、セキュアな情報はプリファレンスに入れてるか、暗号化してそこらに置いてる。<br/>
+プリファレンスの中は平文で保存されていることが多いけど、実際に端末を盗んでroot化しないの見れないので、良いと思う。<br/>
+アカウントマネージャを使っているアプリはSDカードに移動できないようにしている。再マウント時にアカウントを復帰させるのあんまりやらないのかな。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -519,6 +629,10 @@ bullshit?</p></blockquote>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/09/26/alice-api/">きんモザのアリスのgif画像を取得するAPIを使ったAndroidアプリを作った</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/09/22/yapcasia-2013/">YAPC::ASIA 2013 感想</a>
       </li>
     
@@ -532,10 +646,6 @@ bullshit?</p></blockquote>
     
       <li class="post">
         <a href="/blog/2013/09/06/genymotion/">Genymotion速かった</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/31/android-casual-talks-1/">Android Casual Talks #1</a>
       </li>
     
   </ul>

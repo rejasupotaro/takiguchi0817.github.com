@@ -9,10 +9,10 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="ステータスバー NotificationManagerを介してステータスバーに通知を出したり消したりする。
-NotificationManagerドキュメント 通知を出す・消す 1
-2
-NotificationManager notificationManager = ( &hellip;">
+  <meta name="description" content="DBとかモデルとかいじる MySQLのインストール $ sudo aptitude update
+$ aptitude install mysql-server
+$ aptitude install libmysqlclient-dev
+$ mysqladmin ping -u root -p &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,111 @@ NotificationManager notificationManager = ( &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/11/rails-days-2/">Rails Days 2</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-11T14:02:00+09:00" pubdate data-updated="true">Nov 11<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>DBとかモデルとかいじる</h2>
+
+<h3>MySQLのインストール</h3>
+
+<pre><code>$ sudo aptitude update
+$ aptitude install mysql-server
+$ aptitude install libmysqlclient-dev
+$ mysqladmin ping -u root -p
+Enter password: ****
+mysqld is alive
+</code></pre>
+
+<p>インストール中にrootのパスワード聞かれた。<br/>
+そのパスワードでpingして存命確認した。</p>
+
+<h3>ユーザーの作成</h3>
+
+<p>作成する。</p>
+
+<pre><code>$ mysql -u root -p
+mysql&gt; CREATE USER betterflow@localhost IDENTIFIED BY 'hogehoge';
+mysql&gt; GRAND ALL ON *.* TO betterflow@localhost;
+mysql&gt; FLUSH PRIVILEGES;
+</code></pre>
+
+<p>確認する。</p>
+
+<pre><code>mysql&gt; use mysql;
+mysql&gt; SELECT Host, User, Password, Select_priv, Insert_priv, Update_priv, Delete_priv FROM user;
+</code></pre>
+
+<h3>RailsでMySQLを使えるようにする</h3>
+
+<p>Gemfileで gem &#8216;sqlite3&#8217; を gem &#8216;mysql2&#8217; に変えた。</p>
+
+<pre><code>$ bundle install --path vender/bundle
+$ vim config/database.yml
+development:
+  adapter: mysql2
+  database: betterflow
+  username: betterflow
+  password: hogehoge
+  pool: 5
+  timeout: 5000
+$ rake db:create
+</code></pre>
+
+<p>DBにアクセスできるようにした。</p>
+
+<h3>モデルを作る</h3>
+
+<pre><code>$ rails generate model track track_name:string artist_name:string release_date:date preview_url:string jacket_image_url:string track_view_url:string
+$ rake db:migrate
+</code></pre>
+
+<h3>モデルの型の変更</h3>
+
+<p>release_dateをdate型にしたけどstring型の方が都合が良かった、変えたい。</p>
+
+<pre><code>$ rails generate migration change_release_date_type
+$ vim db/migrate/20121111051853_change_release_date_type.rb
+class ChangeReleaseDateType &lt; ActiveRecord::Migration
+  def change
+    change_column :tracks, :release_date, :string
+  end
+end
+$ rake db:migrate
+</code></pre>
+
+<p>すごい。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2186,111 +2291,6 @@ windowsでもadbが入ってれば動きます。<br/>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/09/appli-comparison/">アプリのデータはどこに保存されるの</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-09T22:02:00+09:00" pubdate data-updated="true">Oct 9<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>内部ストレージ /data/data/package.name</h2>
-
-<ul>
-<li>cache</li>
-<li>databases</li>
-<li>files</li>
-<li>lib</li>
-<li>shared_prefs</li>
-</ul>
-
-
-<h3>cache</h3>
-
-<pre><code>getCacheDir()
-</code></pre>
-
-<ul>
-<li>com.android.renderscript.cache<br/>
-勝手に作られる。RenderScript使ったことないので良く知らない。</li>
-<li>webviewCacheChromium<br/>
-WebViewのキャッシュ</li>
-</ul>
-
-
-<h3>files</h3>
-
-<pre><code>openFileOutput()
-</code></pre>
-
-<p>アプリによって使ったり。</p>
-
-<h3>databases</h3>
-
-<pre><code>getWritableDatabase()
-</code></pre>
-
-<ul>
-<li>webview.db<br/>
-メタデータとか認証情報とかパスワードとか。</li>
-<li>webviewCookiesChromium.db<br/>
-メタデータとかクッキーとか。</li>
-</ul>
-
-
-<h3>lib</h3>
-
-<p>使ってたら入る。</p>
-
-<h3>shared_prefs</h3>
-
-<pre><code>getSharedPreferences()
-</code></pre>
-
-<p>databasesに入れるほどでもないけど、filesに置きたくないデータを入れてる。<br/>
-最後にアプリを開いた時間とか、データをリフレッシュした時間とか、タブレットかとか。</p>
-
-<h2>外部ストレージ /mnt/sdcard/Android/data/package.name</h2>
-
-<pre><code>getExternalFilesDir()
-</code></pre>
-
-<p>見えても良いデータを置いてる。<br/>
-画像とか動画とかのキャッシュにされてることが多い気がする。</p>
-
-<h2>その他</h2>
-
-<p>それ以外にもパス指定すればファイル作れる。<br/>
-各社、セキュアな情報はプリファレンスに入れてるか、暗号化してそこらに置いてる。<br/>
-プリファレンスの中は平文で保存されていることが多いけど、実際に端末を盗んでroot化しないの見れないので、良いと思う。<br/>
-アカウントマネージャを使っているアプリはSDカードに移動できないようにしている。再マウント時にアカウントを復帰させるのあんまりやらないのかな。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -2308,6 +2308,10 @@ WebViewのキャッシュ</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/09/26/alice-api/">きんモザのアリスのgif画像を取得するAPIを使ったAndroidアプリを作った</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/09/22/yapcasia-2013/">YAPC::ASIA 2013 感想</a>
       </li>
     
@@ -2321,10 +2325,6 @@ WebViewのキャッシュ</li>
     
       <li class="post">
         <a href="/blog/2013/09/06/genymotion/">Genymotion速かった</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/31/android-casual-talks-1/">Android Casual Talks #1</a>
       </li>
     
   </ul>
