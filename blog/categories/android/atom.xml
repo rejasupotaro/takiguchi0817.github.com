@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-09-26T01:24:20+09:00</updated>
+  <updated>2013-09-28T01:05:15+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,81 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Android開発を始めたばかりの僕が読みたかった本]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/09/28/android-books/"/>
+    <updated>2013-09-28T00:42:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/09/28/android-books</id>
+    <content type="html"><![CDATA[<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/reading.png" alt="" /></p>
+
+<p>最近、スマートフォンアプリ開発をやる人増えてきてオススメの本ある？って聞かれること多いので、その人のバックグラウンドによるところも大きいなと思うので、自分がAndroidアプリ開発を始めたときに読んでて役だった、あるいは読んでおけば良かったなと思う本をいくつか挙げようと思います。</p>
+
+<h2>Effective Java</h2>
+
+<p>Java界隈では多くの人が読んでいると思いますが、AndroidからJavaに入った人だと読んだことがない人もいると思います。
+Javaを書く上でのエッセンスが詰め込まれているので、今でも十分に読む価値はあります。</p>
+
+<h2>JUnit実践入門</h2>
+
+<p>Androidだとテストが書かれないことが多いです。しかし、書いた方がデバッグの時間が短くなる上に保守もしやすくなりますし、テストを書きやすい構造を意識するようになって、上達が早くなりますし、設計も綺麗になります。(と思います)
+僕も最初はテストを書かなかったのですが、もっと早くからテストを書いていればなと思っています。</p>
+
+<h2>現場で使える[逆引き+実践]Androidプログラミングテクニック</h2>
+
+<p>逆引き系の本なのですが、それだけでなく <strong>SQLiteの処理を高速化したい</strong> であったり、<strong>OutMemoryErrorをなんとか回避したいとか</strong> や、<strong>複数のアクティビティで共通の処理を、Template Methodパターンで実装したい/移譲で実装したい/Strategyパターンで実装したい</strong> など、デザインパターンや実践的なノウハウが詰まっている良い本でした。</p>
+
+<h2>SMASHING Android UI</h2>
+
+<p><a href="http://www.androiduipatterns.com/">Android // UI PATTERNS</a> というブログを書いていることで(僕の中で)有名なJuhani Lehtimakiさんの本です。最近翻訳されて日本で発売されました。
+この本も、ただUIのコンポーネントの説明に終わるだけでなく、デザインとどう向き合うかや、ユーザーテストのやり方や、Androidプラットフォームの課題など、エンジニアにとっても大事なデザインのことが学べる数少ない良書だと思います。</p>
+
+<hr />
+
+<p>ここから先はAndroidの理解が進んだらというか、さらに高度なテクニックを知りたい人向けです。</p>
+
+<h2>Java言語で学ぶデザインパターン入門【マルチスレッド編】</h2>
+
+<p>通信などの非同期処理、並列処理を書くときに、パフォーマンスの悪いプログラムを書いてしまったり、最悪デッドロックを起こしてしまったりしてしまわないために、特にこれからライブラリを書く人はこの本を読んだ方がいいです。
+またライブラリを書かない人でもこの本を読んでおくと「ああ、あのパターンで実装されているのか！」となって、理解の助けになったりします。</p>
+
+<h2>サクサク動く！Androidアプリ高速化プログラミング</h2>
+
+<p>アプリの規模が大きくなってきたり、局所的にプログラムを速くしたいというときにはこの本がおすすめです。デバッグ手法やレイアウトの最適化の話もあり、アセンブラやメモリアクセスやGCの話もあるので、プラットフォームがどのように動いているか知ることで、さらに良いアプリが書けるようになると思います。</p>
+
+<hr />
+
+<p>その他、本以外に参考にしているもの</p>
+
+<h2><a href="https://twitter.com/androidniceties">@androidniceties</a></h2>
+
+<p>Android Nicetiesのtumblrの更新をツイートしてくれます。
+デザインを専門に学んでいなかった僕は、とにかく多くのパターンに触れなければと思っています。デザインは0から生まれるものではなく、過去の事例であったり、自然界に存在する美しいものの模倣から生まれるみたいな話がありますし、なにより実績のあるアプリのパターンは僕が考えだしたUIより質が高いです。</p>
+
+<h2><a href="http://www.androidviews.net/">ANDROIDVIEWS</a></h2>
+
+<p>あのアプリの実装オシャレだなとか思ったら、ここに載っていたりします。
+自分で実装するときの助けになったりとか、ライブラリを使うことで簡単に実装できたりします。見てるだけでも楽しいです。</p>
+
+<h2><a href="https://github.com/square">Square</a></h2>
+
+<p>決済サービスのあのスクエアのGitHubアカウントです。dagger、otto、picasso、fest-androidなど、これらの有名なライブラリも実はこのスクエア製で、インタフェースの素晴らしさも去ることながら、プログラムがとても綺麗で、ある意味書籍よりも勉強になると思います。</p>
+
+<hr />
+
+<h2>まとめ</h2>
+
+<p>こんなに一度に紹介されても読むのはたいへん…ですが、まずは調べてみて興味を持ったところから読んでみるといいと思います。
+スマートフォンエンジニアはデザインから低レイヤまで幅広い知識を要求されます(といってもエンジニアリングってどの分野もそうなのですが)が、まずは自分の好きを伸ばして、それからもっと良いアプリを作るために、足りないところを補っていくというやり方がいいのかなと思いました。</p>
+
+<p>このエントリをデプロイする前に読み返してみましたが、なんかすごい上から目線に見えますね。
+僕もこれらを理解してるかというと全然そんなことなくて何回も読みなおしたりしていますし、分からないこともたくさんあります。
+しかし、開発から得られた経験やノウハウはどんどん共有して、技術とAndroidコミュニティを成熟させていきたい、という姿勢でやっていこうと思います。</p>
+
+<p><blockquote class="twitter-tweet"><p>20数年間生きてきたけど、どこに行っても真面目だねって言われるし今日は「真面目で報われない感じがうちの弟と似ている…」と言われました(おわり)</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/383593487544754176">September 27, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[きんモザのアリスのgif画像を取得するAPIを使ったAndroidアプリを作った]]></title>
@@ -428,31 +503,6 @@ AlertDialog.BUTTON_NEUTRAL  | "Dismiss"
 次やるのなら交流をメインにしたいので、20分くらいのトークは2本にして、あとは5分のLTを募集してたくさんの人に発表してもらったあとに、さっき◯◯の話をしていたあの人と話そう、みたいにすると良いかなと思いました。</p>
 
 <p>Androidエンジニアに幸あれ。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[どうすると気持ち良く感じるのか]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/08/21/ui-animations/"/>
-    <updated>2013-08-21T21:56:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/08/21/ui-animations</id>
-    <content type="html"><![CDATA[<p><img src="http://i.imgur.com/t3u9Ucc.gif" alt="" /></p>
-
-<p><img src="http://i.imgur.com/IoWbato.gif" alt="" /></p>
-
-<p><img src="http://i.imgur.com/aUsHSCo.gif" alt="" /></p>
-
-<p><img src="http://i.imgur.com/mQp4sYq.gif" alt="" /></p>
-
-<p><img src="http://hyper-text.org/img/post/css_tumblr_mobile_app_ui_01.gif" alt="" /></p>
-
-<p>アプリにアニメーションを取り入れるのってどうだろう。
-って友人と話していたのだけど、過度なアニメーション？開発者がやりたくやったみたいなのは使う側からするとあんまり嬉しくなくて、
-でも気持ちいいアニメーションはついアクションをしたくなるし、それによってコミュニケーションが活発になったりするんじゃないかなってなった。</p>
-
-<p>アニメーションって結構意味が広いからむずかしいのだけど。</p>
-
-<p><a href="http://gihyo.jp/design/serial/01/ui-ux/0001">気持ち良さはどこからくるのか～身体に近づくUIへ</a></p>
 ]]></content>
   </entry>
   

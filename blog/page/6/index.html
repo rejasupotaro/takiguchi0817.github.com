@@ -9,12 +9,8 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="内部ストレージ /data/data/package.name cache
-databases
-files
-lib
-shared_prefs cache getCacheDir() com.android.renderscript.cache
-勝手に作られる。 &hellip;">
+  <meta name="description" content="おもにWindowsの方からつらいという声聞こえた スマートフォン向けのウェブサイトのデバッグ、console.log()を見る方法いくつかある。 Eclipseのlogcatを見る
+Android開発者ならまだしも、JavaScript書いてるのにEclipse立ち上げたくない。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +76,64 @@ shared_prefs cache getCacheDir() com.android.renderscript.cache
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/10/19/browsercat/">Androidでconsole.log()を見る</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-10-19T19:07:00+09:00" pubdate data-updated="true">Oct 19<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>おもにWindowsの方からつらいという声聞こえた</h2>
+
+<p>スマートフォン向けのウェブサイトのデバッグ、console.log()を見る方法いくつかある。</p>
+
+<ul>
+<li><p>Eclipseのlogcatを見る<br/>
+Android開発者ならまだしも、JavaScript書いてるのにEclipse立ち上げたくない。</p></li>
+<li><p>標準ブラウザでabout:debug<br/>
+対応してないバージョンもある。それにPCにエラーログ出た方が嬉しい。<br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201210/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-10-19%2019.29.40.png" alt="スクリーンショット" /></p></li>
+<li><p>adb logcat<br/>
+Linuxとかなら adb logcat | grep browser 出来るけど、windowsだとgrep出来なくて悲しい。</p></li>
+<li><p>busyboxを入れて端末側でgrepする<br/>
+ビルドが面倒とか、すべての検証端末に入れるのが面倒とか。</p></li>
+</ul>
+
+
+<h2>BrowserCatを作ったニャン</h2>
+
+<p><a href="https://github.com/takiguchi0817/BrowserCat">BrowserCat</a><br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201210/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-10-19%2020.22.30.png" alt="スクリーンショット" /><br/>
+windowsでもadbが入ってれば動きます。<br/>
+まだログが見れるくらいしか機能ないです。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -629,6 +683,10 @@ bullshit?</p></blockquote>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/09/28/android-books/">Android開発を始めたばかりの僕が読みたかった本</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/09/26/alice-api/">きんモザのアリスのgif画像を取得するAPIを使ったAndroidアプリを作った</a>
       </li>
     
@@ -642,10 +700,6 @@ bullshit?</p></blockquote>
     
       <li class="post">
         <a href="/blog/2013/09/17/interaction-design/">デザインリサーチをするにあたって</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/06/genymotion/">Genymotion速かった</a>
       </li>
     
   </ul>
