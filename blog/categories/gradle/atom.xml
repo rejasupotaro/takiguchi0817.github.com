@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Gradle | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/gradle/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-09-30T22:58:43+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[S3でmavenリポジトリをホストしてGradleでアップロードする]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/09/30/upload-to-s3/"/>
+    <updated>2013-09-30T22:52:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/09/30/upload-to-s3</id>
+    <content type="html"><![CDATA[<p>bucket, key, secretは外部ファイルに定義しておきます。</p>
+
+<p>```groovy
+configurations {</p>
+
+<pre><code>deployerJars
+</code></pre>
+
+<p>}
+repositories {</p>
+
+<pre><code>mavenCentral()
+</code></pre>
+
+<p>}
+dependencies {</p>
+
+<pre><code>deployerJars 'org.springframework.build.aws:org.springframework.build.aws.maven:3.0.0.RELEASE'
+</code></pre>
+
+<p>}</p>
+
+<p>uploadArchives {</p>
+
+<pre><code>repositories {
+    mavenDeployer {
+        configuration = configurations.deployerJars
+
+        repository(url: "s3://${project.s3Bucket}/release") {
+            authentication(userName: project.s3Key, passphrase: project.s3Secret)
+        }
+
+        pom.groupId = 'com.rejasupotaro'
+        pom.artifactId = 'mylibrary'
+        pom.version = '1.0.0'
+    }
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>これで gradle uploadArchives すればアップロードすることができます。</p>
+
+<p>ライブラリを使う側は以下のようにします。</p>
+
+<p>```groovy
+repositories {</p>
+
+<pre><code>maven {
+    url "https://${project.s3Bucket}.s3.amazonaws.com/release"
+    credentials {
+        username project.s3Key
+        password project.s3Secret
+    }
+}
+</code></pre>
+
+<p>}</p>
+
+<p>dependencies {</p>
+
+<pre><code>compile 'com.rejasupotaro:mylibrary:1.0.0'
+</code></pre>
+
+<p>}
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

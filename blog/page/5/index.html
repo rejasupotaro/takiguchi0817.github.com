@@ -9,8 +9,18 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="ライブに行った kosugeさんのサイトに感化された kosugeさんが作ったサイト、kksg.net 作った rejasupotaro.com Chromeのことしか考えずに作った。
-Firefox他ではコーデック対応してないっぽいので音鳴らない。 iTunes Search &hellip;">
+  <meta name="description" content="大規模JavaScript案件 僕はあまりJavaScript書かないけど、大規模JavaScript案件すると変数とかかぶって滅ぶらしい。
+Namespace.jsとかいうの使うとパッケージ的なもの作れるらしいと聞いた。 使い方 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+Namespace(& &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +86,222 @@ Firefox他ではコーデック対応してないっぽいので音鳴らない�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/16/into-brook/">JavaScriptの名前空間</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-16T01:28:00+09:00" pubdate data-updated="true">Nov 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>大規模JavaScript案件</h2>
+
+<p>僕はあまりJavaScript書かないけど、大規模JavaScript案件すると変数とかかぶって滅ぶらしい。<br/>
+<a href="https://github.com/hirokidaichi/namespace-js">Namespace.js</a>とかいうの使うとパッケージ的なもの作れるらしいと聞いた。</p>
+
+<h2>使い方</h2>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Namespace</span><span class="p">(</span><span class="s2">&quot;sample.widget&quot;</span><span class="p">)</span> <span class="c1">// 名前空間を定義</span>
+</span><span class='line'><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&quot;brook *&quot;</span><span class="p">)</span>            <span class="c1">// requireとかimport的ななにか</span>
+</span><span class='line'><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&quot;brook.model *&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&quot;brook.util *&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">.</span><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">ns</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// この中にメソッドとか書く</span>
+</span><span class='line'>  <span class="nx">ns</span><span class="p">.</span><span class="nx">provide</span><span class="p">({</span>
+</span><span class='line'>    <span class="c1">// オブジェクト入れる</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>はーよくわからん。</p>
+
+<h2><a href="https://github.com/hirokidaichi/namespace-js/blob/master/src/namespace.js">Namespace.js</a>読んでみた</h2>
+
+<h4>一番最初のmerge関数</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">merge</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">p</span> <span class="k">in</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">source</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">p</span><span class="p">))</span> <span class="nx">target</span><span class="p">[</span><span class="nx">p</span><span class="p">]</span> <span class="o">=</span> <span class="nx">source</span><span class="p">[</span><span class="nx">p</span><span class="p">];</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ターゲットにソースのプロパティが追加される。</p>
+
+<h4>次にProcedureの定義</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">Procedure</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_Private_Class_Of_Proc</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">merge</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">state</span><span class="o">:</span> <span class="p">{},</span>
+</span><span class='line'>    <span class="nx">steps</span><span class="o">:</span> <span class="p">[],</span>
+</span><span class='line'>    <span class="nx">_status</span><span class="o">:</span> <span class="s1">&#39;init&#39;</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>windowオブジェクト + state + steps みたいな感じだ。そのあとnext、isRunning、enqueue、dequeue、call、_invokeが追加されてる。<br/>
+処理的なものsteps配列に追加されて、実行状態が init -> running -> finished と変化するようだ。</p>
+
+<h4>次にNamespaceObjectの定義</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">NamespaceObject</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_Private_Class_Of_NamespaceObject</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">merge</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">stash</span><span class="o">:</span> <span class="p">{</span> <span class="nx">CURRENT_NAMESPACE</span><span class="o">:</span> <span class="nx">fqn</span> <span class="p">},</span>
+</span><span class='line'>    <span class="nx">fqn</span><span class="o">:</span> <span class="nx">fqn</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">proc</span><span class="o">:</span> <span class="nx">createProcedure</span><span class="p">()</span>
+</span><span class='line'>  <span class="p">})</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>windowオブジェクト + fqn + Procedure みたいな感じ。そのあとプロパティに色々追加されてる。</p>
+
+<h4>次、NamespaceObjectfactoryの定義</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">NamespaceObjectFactory</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">cache</span> <span class="o">=</span> <span class="p">{};</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">create</span> <span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">fqn</span><span class="p">){</span>
+</span><span class='line'>            <span class="nx">_assertValidFQN</span><span class="p">(</span><span class="nx">fqn</span><span class="p">);</span>
+</span><span class='line'>            <span class="k">return</span> <span class="p">(</span><span class="nx">cache</span><span class="p">[</span><span class="nx">fqn</span><span class="p">]</span> <span class="o">||</span> <span class="p">(</span><span class="nx">cache</span><span class="p">[</span><span class="nx">fqn</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NamespaceObject</span><span class="p">(</span><span class="nx">fqn</span><span class="p">)));</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">};</span>
+</span><span class='line'><span class="p">})();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>fqnを引数に取って、NamespaceObjectを生成してる。cacheがクロージャなので、同じfqnからは同じNamespaceObjectを返すようになってる。<br/>
+NamespaceObjectはファクトリーで生成するっぽい。</p>
+
+<h4>最後、NamespaceDefinition</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">NamespaceDefinition</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">_Private_Class_Of_NamespaceDefinition</span><span class="p">(</span><span class="nx">nsObj</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">merge</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">namespaceObject</span><span class="o">:</span> <span class="nx">nsObj</span><span class="p">,</span>
+</span><span class='line'>        <span class="nx">requires</span>       <span class="o">:</span> <span class="p">[],</span>
+</span><span class='line'>        <span class="nx">useList</span>        <span class="o">:</span> <span class="p">[],</span>
+</span><span class='line'>        <span class="nx">stash</span>          <span class="o">:</span> <span class="p">{},</span>
+</span><span class='line'>        <span class="nx">defineCallback</span> <span class="o">:</span> <span class="kc">undefined</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">_self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">nsObj</span><span class="p">.</span><span class="nx">enqueue</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$c</span><span class="p">){</span> <span class="nx">_self</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">$c</span><span class="p">);</span> <span class="p">});</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>なんというか、NamespaceObjectを渡してuse的な、require的な機能を追加している。useするとファクトリーが適切なNamespaceObjectを取得して、requiresに貯める感じだ。<br/>
+あとdefine、こいつに関数を渡してやると色々マージされたnsを引数にコールバックしてくれる。<br/>
+渡してやる関数の中でns.provideにオブジェクト渡すとNamespaceObjectにマージされて、いわゆるパブリック状態になるっぽい。</p>
+
+<h4>returnされるのは</h4>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">createNamespace</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fqn</span><span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">new</span> <span class="nx">NamespaceDefinition</span><span class="p">(</span>
+</span><span class='line'>        <span class="nx">NamespaceObjectFactory</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">fqn</span> <span class="o">||</span> <span class="s1">&#39;main&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">);</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="nx">merge</span><span class="p">(</span><span class="nx">createNamespace</span><span class="p">,</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s1">&#39;Object&#39;</span>  <span class="o">:</span> <span class="nx">NamespaceObjectFactory</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">Definition</span><span class="o">:</span> <span class="nx">NamespaceDefinition</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">Proc</span>      <span class="o">:</span> <span class="nx">createProcedure</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'><span class="k">return</span> <span class="nx">createNamespace</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>createNamespaceで、fqnを渡してやってNamespace受け取って、useしたりdefineしたりするみたい。</p>
+
+<p>眠たいので流し読みしたけど、なんとなく雰囲気だけわかった。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1179,1115 +1405,6 @@ amachanさんの<a href="http://d.hatena.ne.jp/amachang/20080124/1201199469">Y�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/10/21/sicp-4-dot-11/">SICP 4.11 - 4.15</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-10-21T07:24:00+09:00" pubdate data-updated="true">Oct 21<span>st</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
-<span class='line-number'>148</span>
-<span class='line-number'>149</span>
-<span class='line-number'>150</span>
-<span class='line-number'>151</span>
-<span class='line-number'>152</span>
-<span class='line-number'>153</span>
-<span class='line-number'>154</span>
-<span class='line-number'>155</span>
-<span class='line-number'>156</span>
-<span class='line-number'>157</span>
-<span class='line-number'>158</span>
-<span class='line-number'>159</span>
-<span class='line-number'>160</span>
-<span class='line-number'>161</span>
-<span class='line-number'>162</span>
-<span class='line-number'>163</span>
-<span class='line-number'>164</span>
-<span class='line-number'>165</span>
-<span class='line-number'>166</span>
-<span class='line-number'>167</span>
-<span class='line-number'>168</span>
-<span class='line-number'>169</span>
-<span class='line-number'>170</span>
-<span class='line-number'>171</span>
-<span class='line-number'>172</span>
-<span class='line-number'>173</span>
-<span class='line-number'>174</span>
-<span class='line-number'>175</span>
-<span class='line-number'>176</span>
-<span class='line-number'>177</span>
-<span class='line-number'>178</span>
-<span class='line-number'>179</span>
-<span class='line-number'>180</span>
-<span class='line-number'>181</span>
-<span class='line-number'>182</span>
-<span class='line-number'>183</span>
-<span class='line-number'>184</span>
-<span class='line-number'>185</span>
-<span class='line-number'>186</span>
-<span class='line-number'>187</span>
-<span class='line-number'>188</span>
-<span class='line-number'>189</span>
-<span class='line-number'>190</span>
-<span class='line-number'>191</span>
-<span class='line-number'>192</span>
-<span class='line-number'>193</span>
-<span class='line-number'>194</span>
-<span class='line-number'>195</span>
-<span class='line-number'>196</span>
-<span class='line-number'>197</span>
-<span class='line-number'>198</span>
-<span class='line-number'>199</span>
-<span class='line-number'>200</span>
-<span class='line-number'>201</span>
-<span class='line-number'>202</span>
-<span class='line-number'>203</span>
-<span class='line-number'>204</span>
-<span class='line-number'>205</span>
-<span class='line-number'>206</span>
-<span class='line-number'>207</span>
-<span class='line-number'>208</span>
-<span class='line-number'>209</span>
-<span class='line-number'>210</span>
-<span class='line-number'>211</span>
-<span class='line-number'>212</span>
-<span class='line-number'>213</span>
-<span class='line-number'>214</span>
-<span class='line-number'>215</span>
-<span class='line-number'>216</span>
-<span class='line-number'>217</span>
-<span class='line-number'>218</span>
-<span class='line-number'>219</span>
-<span class='line-number'>220</span>
-<span class='line-number'>221</span>
-<span class='line-number'>222</span>
-<span class='line-number'>223</span>
-<span class='line-number'>224</span>
-<span class='line-number'>225</span>
-<span class='line-number'>226</span>
-<span class='line-number'>227</span>
-<span class='line-number'>228</span>
-<span class='line-number'>229</span>
-<span class='line-number'>230</span>
-<span class='line-number'>231</span>
-<span class='line-number'>232</span>
-<span class='line-number'>233</span>
-<span class='line-number'>234</span>
-<span class='line-number'>235</span>
-<span class='line-number'>236</span>
-<span class='line-number'>237</span>
-<span class='line-number'>238</span>
-<span class='line-number'>239</span>
-<span class='line-number'>240</span>
-<span class='line-number'>241</span>
-<span class='line-number'>242</span>
-<span class='line-number'>243</span>
-<span class='line-number'>244</span>
-<span class='line-number'>245</span>
-<span class='line-number'>246</span>
-<span class='line-number'>247</span>
-<span class='line-number'>248</span>
-<span class='line-number'>249</span>
-<span class='line-number'>250</span>
-<span class='line-number'>251</span>
-<span class='line-number'>252</span>
-<span class='line-number'>253</span>
-<span class='line-number'>254</span>
-<span class='line-number'>255</span>
-<span class='line-number'>256</span>
-<span class='line-number'>257</span>
-<span class='line-number'>258</span>
-<span class='line-number'>259</span>
-<span class='line-number'>260</span>
-<span class='line-number'>261</span>
-<span class='line-number'>262</span>
-<span class='line-number'>263</span>
-<span class='line-number'>264</span>
-<span class='line-number'>265</span>
-<span class='line-number'>266</span>
-<span class='line-number'>267</span>
-<span class='line-number'>268</span>
-<span class='line-number'>269</span>
-<span class='line-number'>270</span>
-<span class='line-number'>271</span>
-<span class='line-number'>272</span>
-<span class='line-number'>273</span>
-<span class='line-number'>274</span>
-<span class='line-number'>275</span>
-<span class='line-number'>276</span>
-<span class='line-number'>277</span>
-<span class='line-number'>278</span>
-<span class='line-number'>279</span>
-<span class='line-number'>280</span>
-<span class='line-number'>281</span>
-<span class='line-number'>282</span>
-<span class='line-number'>283</span>
-<span class='line-number'>284</span>
-<span class='line-number'>285</span>
-<span class='line-number'>286</span>
-<span class='line-number'>287</span>
-<span class='line-number'>288</span>
-<span class='line-number'>289</span>
-<span class='line-number'>290</span>
-<span class='line-number'>291</span>
-<span class='line-number'>292</span>
-<span class='line-number'>293</span>
-<span class='line-number'>294</span>
-<span class='line-number'>295</span>
-<span class='line-number'>296</span>
-<span class='line-number'>297</span>
-<span class='line-number'>298</span>
-<span class='line-number'>299</span>
-<span class='line-number'>300</span>
-<span class='line-number'>301</span>
-<span class='line-number'>302</span>
-<span class='line-number'>303</span>
-<span class='line-number'>304</span>
-<span class='line-number'>305</span>
-<span class='line-number'>306</span>
-<span class='line-number'>307</span>
-<span class='line-number'>308</span>
-<span class='line-number'>309</span>
-<span class='line-number'>310</span>
-<span class='line-number'>311</span>
-<span class='line-number'>312</span>
-<span class='line-number'>313</span>
-<span class='line-number'>314</span>
-<span class='line-number'>315</span>
-<span class='line-number'>316</span>
-<span class='line-number'>317</span>
-<span class='line-number'>318</span>
-<span class='line-number'>319</span>
-<span class='line-number'>320</span>
-<span class='line-number'>321</span>
-<span class='line-number'>322</span>
-<span class='line-number'>323</span>
-<span class='line-number'>324</span>
-<span class='line-number'>325</span>
-<span class='line-number'>326</span>
-<span class='line-number'>327</span>
-<span class='line-number'>328</span>
-<span class='line-number'>329</span>
-<span class='line-number'>330</span>
-<span class='line-number'>331</span>
-<span class='line-number'>332</span>
-<span class='line-number'>333</span>
-<span class='line-number'>334</span>
-<span class='line-number'>335</span>
-<span class='line-number'>336</span>
-<span class='line-number'>337</span>
-<span class='line-number'>338</span>
-<span class='line-number'>339</span>
-<span class='line-number'>340</span>
-<span class='line-number'>341</span>
-<span class='line-number'>342</span>
-<span class='line-number'>343</span>
-<span class='line-number'>344</span>
-<span class='line-number'>345</span>
-<span class='line-number'>346</span>
-<span class='line-number'>347</span>
-<span class='line-number'>348</span>
-<span class='line-number'>349</span>
-<span class='line-number'>350</span>
-<span class='line-number'>351</span>
-<span class='line-number'>352</span>
-<span class='line-number'>353</span>
-<span class='line-number'>354</span>
-<span class='line-number'>355</span>
-<span class='line-number'>356</span>
-<span class='line-number'>357</span>
-<span class='line-number'>358</span>
-<span class='line-number'>359</span>
-<span class='line-number'>360</span>
-<span class='line-number'>361</span>
-<span class='line-number'>362</span>
-<span class='line-number'>363</span>
-<span class='line-number'>364</span>
-<span class='line-number'>365</span>
-<span class='line-number'>366</span>
-<span class='line-number'>367</span>
-<span class='line-number'>368</span>
-<span class='line-number'>369</span>
-<span class='line-number'>370</span>
-<span class='line-number'>371</span>
-<span class='line-number'>372</span>
-<span class='line-number'>373</span>
-<span class='line-number'>374</span>
-<span class='line-number'>375</span>
-<span class='line-number'>376</span>
-<span class='line-number'>377</span>
-<span class='line-number'>378</span>
-<span class='line-number'>379</span>
-<span class='line-number'>380</span>
-<span class='line-number'>381</span>
-<span class='line-number'>382</span>
-<span class='line-number'>383</span>
-<span class='line-number'>384</span>
-<span class='line-number'>385</span>
-<span class='line-number'>386</span>
-<span class='line-number'>387</span>
-<span class='line-number'>388</span>
-<span class='line-number'>389</span>
-<span class='line-number'>390</span>
-<span class='line-number'>391</span>
-<span class='line-number'>392</span>
-<span class='line-number'>393</span>
-<span class='line-number'>394</span>
-<span class='line-number'>395</span>
-<span class='line-number'>396</span>
-<span class='line-number'>397</span>
-<span class='line-number'>398</span>
-<span class='line-number'>399</span>
-<span class='line-number'>400</span>
-<span class='line-number'>401</span>
-<span class='line-number'>402</span>
-<span class='line-number'>403</span>
-<span class='line-number'>404</span>
-<span class='line-number'>405</span>
-<span class='line-number'>406</span>
-<span class='line-number'>407</span>
-<span class='line-number'>408</span>
-<span class='line-number'>409</span>
-<span class='line-number'>410</span>
-<span class='line-number'>411</span>
-<span class='line-number'>412</span>
-<span class='line-number'>413</span>
-<span class='line-number'>414</span>
-<span class='line-number'>415</span>
-<span class='line-number'>416</span>
-<span class='line-number'>417</span>
-<span class='line-number'>418</span>
-<span class='line-number'>419</span>
-<span class='line-number'>420</span>
-<span class='line-number'>421</span>
-<span class='line-number'>422</span>
-<span class='line-number'>423</span>
-<span class='line-number'>424</span>
-<span class='line-number'>425</span>
-<span class='line-number'>426</span>
-<span class='line-number'>427</span>
-<span class='line-number'>428</span>
-<span class='line-number'>429</span>
-<span class='line-number'>430</span>
-<span class='line-number'>431</span>
-<span class='line-number'>432</span>
-<span class='line-number'>433</span>
-<span class='line-number'>434</span>
-<span class='line-number'>435</span>
-<span class='line-number'>436</span>
-<span class='line-number'>437</span>
-<span class='line-number'>438</span>
-<span class='line-number'>439</span>
-<span class='line-number'>440</span>
-<span class='line-number'>441</span>
-<span class='line-number'>442</span>
-<span class='line-number'>443</span>
-<span class='line-number'>444</span>
-<span class='line-number'>445</span>
-<span class='line-number'>446</span>
-<span class='line-number'>447</span>
-<span class='line-number'>448</span>
-<span class='line-number'>449</span>
-<span class='line-number'>450</span>
-<span class='line-number'>451</span>
-<span class='line-number'>452</span>
-<span class='line-number'>453</span>
-<span class='line-number'>454</span>
-<span class='line-number'>455</span>
-<span class='line-number'>456</span>
-<span class='line-number'>457</span>
-<span class='line-number'>458</span>
-<span class='line-number'>459</span>
-<span class='line-number'>460</span>
-<span class='line-number'>461</span>
-<span class='line-number'>462</span>
-<span class='line-number'>463</span>
-<span class='line-number'>464</span>
-<span class='line-number'>465</span>
-<span class='line-number'>466</span>
-<span class='line-number'>467</span>
-<span class='line-number'>468</span>
-<span class='line-number'>469</span>
-<span class='line-number'>470</span>
-<span class='line-number'>471</span>
-<span class='line-number'>472</span>
-<span class='line-number'>473</span>
-<span class='line-number'>474</span>
-<span class='line-number'>475</span>
-<span class='line-number'>476</span>
-<span class='line-number'>477</span>
-<span class='line-number'>478</span>
-<span class='line-number'>479</span>
-<span class='line-number'>480</span>
-<span class='line-number'>481</span>
-<span class='line-number'>482</span>
-<span class='line-number'>483</span>
-<span class='line-number'>484</span>
-<span class='line-number'>485</span>
-<span class='line-number'>486</span>
-<span class='line-number'>487</span>
-<span class='line-number'>488</span>
-<span class='line-number'>489</span>
-<span class='line-number'>490</span>
-<span class='line-number'>491</span>
-<span class='line-number'>492</span>
-<span class='line-number'>493</span>
-<span class='line-number'>494</span>
-<span class='line-number'>495</span>
-<span class='line-number'>496</span>
-<span class='line-number'>497</span>
-<span class='line-number'>498</span>
-<span class='line-number'>499</span>
-<span class='line-number'>500</span>
-<span class='line-number'>501</span>
-<span class='line-number'>502</span>
-<span class='line-number'>503</span>
-<span class='line-number'>504</span>
-<span class='line-number'>505</span>
-<span class='line-number'>506</span>
-<span class='line-number'>507</span>
-<span class='line-number'>508</span>
-<span class='line-number'>509</span>
-<span class='line-number'>510</span>
-<span class='line-number'>511</span>
-<span class='line-number'>512</span>
-<span class='line-number'>513</span>
-<span class='line-number'>514</span>
-<span class='line-number'>515</span>
-<span class='line-number'>516</span>
-<span class='line-number'>517</span>
-<span class='line-number'>518</span>
-<span class='line-number'>519</span>
-<span class='line-number'>520</span>
-<span class='line-number'>521</span>
-<span class='line-number'>522</span>
-<span class='line-number'>523</span>
-<span class='line-number'>524</span>
-<span class='line-number'>525</span>
-<span class='line-number'>526</span>
-<span class='line-number'>527</span>
-<span class='line-number'>528</span>
-<span class='line-number'>529</span>
-<span class='line-number'>530</span>
-<span class='line-number'>531</span>
-<span class='line-number'>532</span>
-<span class='line-number'>533</span>
-<span class='line-number'>534</span>
-</pre></td><td class='code'><pre><code class='scheme'><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">apply-in-underlying-scheme</span> <span class="nv">apply</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; bool</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">true</span> <span class="no">#t</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">false</span> <span class="no">#f</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; apply</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">apply </span><span class="nv">procedure</span> <span class="nv">arguments</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nf">primitive-procedure?</span> <span class="nv">procedure</span><span class="p">)</span>
-</span><span class='line'>         <span class="p">(</span><span class="nf">apply-primitive-procedure</span> <span class="nv">procedure</span> <span class="nv">arguments</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">((</span><span class="nf">compound-procedure?</span> <span class="nv">procedure</span><span class="p">)</span>
-</span><span class='line'>         <span class="p">(</span><span class="nf">eval-sequence</span>
-</span><span class='line'>           <span class="p">(</span><span class="nf">procedure-body</span> <span class="nv">procedure</span><span class="p">)</span>
-</span><span class='line'>           <span class="p">(</span><span class="nf">extend-environment</span>
-</span><span class='line'>             <span class="p">(</span><span class="nf">procedure-parameters</span> <span class="nv">procedure</span><span class="p">)</span>
-</span><span class='line'>             <span class="nv">arguments</span>
-</span><span class='line'>             <span class="p">(</span><span class="nf">procedure-environment</span> <span class="nv">procedure</span><span class="p">))))</span>
-</span><span class='line'>        <span class="p">(</span><span class="nf">else</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">error</span>
-</span><span class='line'>            <span class="s">&quot;Unknown procedure type -- APPLY&quot;</span> <span class="nv">procedure</span><span class="p">))))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; eval</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">eval </span><span class="nv">exp</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nf">self-evaluating?</span> <span class="nv">exp</span><span class="p">)</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">((</span><span class="nf">variable?</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nf">lookup-variable-value</span> <span class="nv">exp</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">((</span><span class="nf">quoted?</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nf">text-of-quotation</span> <span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">((</span><span class="nf">assignment?</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nf">eval-assignment</span> <span class="nv">exp</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">((</span><span class="nf">definition?</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nf">eval-definition</span> <span class="nv">exp</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">((</span><span class="nf">if?</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nf">eval-if</span> <span class="nv">exp</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">((</span><span class="nf">lambda?</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>         <span class="p">(</span><span class="nf">make-procedure</span> <span class="p">(</span><span class="nf">lambda-parameters</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>                         <span class="p">(</span><span class="nf">lambda-body</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>                         <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">((</span><span class="nf">begin?</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>         <span class="p">(</span><span class="nf">eval-sequence</span> <span class="p">(</span><span class="nf">begin-actions</span> <span class="nv">exp</span><span class="p">)</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">((</span><span class="nf">cond?</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">eval </span><span class="p">(</span><span class="nf">cond-&gt;if</span> <span class="nv">exp</span><span class="p">)</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">((</span><span class="nf">application?</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>         <span class="p">(</span><span class="nb">apply </span><span class="p">(</span><span class="nb">eval </span><span class="p">(</span><span class="nf">operator</span> <span class="nv">exp</span><span class="p">)</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">(</span><span class="nf">list-of-values</span> <span class="p">(</span><span class="nf">operands</span> <span class="nv">exp</span><span class="p">)</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>        <span class="p">(</span><span class="nf">else</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Unknown expression type -- EVAL&quot;</span> <span class="nv">exp</span><span class="p">))))</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">list-of-values</span> <span class="nv">exps</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">no-operands?</span> <span class="nv">exps</span><span class="p">)</span>
-</span><span class='line'>      <span class="o">&#39;</span><span class="p">()</span>
-</span><span class='line'>      <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">eval </span><span class="p">(</span><span class="nf">first-operand</span> <span class="nv">exps</span><span class="p">)</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">(</span><span class="nf">list-of-values</span> <span class="p">(</span><span class="nf">rest-operands</span> <span class="nv">exps</span><span class="p">)</span> <span class="nv">env</span><span class="p">))))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; if</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">eval-if</span> <span class="nv">exp</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">true?</span> <span class="p">(</span><span class="nb">eval </span><span class="p">(</span><span class="nf">if-predicate</span> <span class="nv">exp</span><span class="p">)</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>      <span class="p">(</span><span class="nb">eval </span><span class="p">(</span><span class="nf">if-consequent</span> <span class="nv">exp</span><span class="p">)</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="nb">eval </span><span class="p">(</span><span class="nf">if-alternative</span> <span class="nv">exp</span><span class="p">)</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; begin</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">eval-sequence</span> <span class="nv">exps</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nf">last-exp?</span> <span class="nv">exps</span><span class="p">)</span> <span class="p">(</span><span class="nb">eval </span><span class="p">(</span><span class="nf">first-exp</span> <span class="nv">exps</span><span class="p">)</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nb">eval </span><span class="p">(</span><span class="nf">first-exp</span> <span class="nv">exps</span><span class="p">)</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>              <span class="p">(</span><span class="nf">eval-sequence</span> <span class="p">(</span><span class="nf">rest-exps</span> <span class="nv">exps</span><span class="p">)</span> <span class="nv">env</span><span class="p">))))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; assginment and definition</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">eval-assignment</span> <span class="nv">exp</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">set-variable-value!</span> <span class="p">(</span><span class="nf">assignment-variable</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>                       <span class="p">(</span><span class="nb">eval </span><span class="p">(</span><span class="nf">assignment-value</span> <span class="nv">exp</span><span class="p">)</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>                       <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="ss">&#39;ok</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">eval-definition</span> <span class="nv">exp</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">define-variable!</span> <span class="p">(</span><span class="nf">definition-variable</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>                    <span class="p">(</span><span class="nb">eval </span><span class="p">(</span><span class="nf">definition-value</span> <span class="nv">exp</span><span class="p">)</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>                    <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="ss">&#39;ok</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; number or string?</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">self-evaluating?</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">number? </span><span class="nv">exp</span><span class="p">)</span> <span class="nv">true</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">((</span><span class="nb">string? </span><span class="nv">exp</span><span class="p">)</span> <span class="nv">true</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="k">else </span><span class="nv">false</span><span class="p">)))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; symbol?</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">variable?</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">symbol? </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; quote?</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">quoted?</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">tagged-list?</span> <span class="nv">exp</span> <span class="ss">&#39;quote</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">text-of-quotation</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">cadr </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; cadr is tag?</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">tagged-list?</span> <span class="nv">exp</span> <span class="nv">tag</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">pair? </span><span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="nb">eq? </span><span class="p">(</span><span class="nb">car </span><span class="nv">exp</span><span class="p">)</span> <span class="nv">tag</span><span class="p">)</span>
-</span><span class='line'>      <span class="nv">false</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; assignment</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">assignment?</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">tagged-list?</span> <span class="nv">exp</span> <span class="ss">&#39;set!</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">assignment-variable</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">cadr </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">assignment-value</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">caddr </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; definition</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">definition?</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">tagged-list?</span> <span class="nv">exp</span> <span class="ss">&#39;define</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">definition-variable</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">symbol? </span><span class="p">(</span><span class="nb">cadr </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'>      <span class="p">(</span><span class="nb">cadr </span><span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="nb">caadr </span><span class="nv">exp</span><span class="p">)))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">definition-value</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">symbol? </span><span class="p">(</span><span class="nb">cadr </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'>      <span class="p">(</span><span class="nb">caddr </span><span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="nf">make-lambda</span> <span class="p">(</span><span class="nb">cdadr </span><span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>                   <span class="p">(</span><span class="nb">cddr </span><span class="nv">exp</span><span class="p">))))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; lambda</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lambda?</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nf">tagged-list?</span> <span class="nv">exp</span> <span class="ss">&#39;lambda</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lambda-parameters</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">cadr </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lambda-body</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">cddr </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-lambda</span> <span class="nv">parameters</span> <span class="nv">body</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">cons </span><span class="ss">&#39;lambda</span> <span class="p">(</span><span class="nb">cons </span><span class="nv">parameters</span> <span class="nv">body</span><span class="p">)))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; if</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">if?</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nf">tagged-list?</span> <span class="nv">exp</span> <span class="ss">&#39;if</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">if-predicate</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">cadr </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">if-consequent</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">caddr </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">if-alternative</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">not </span><span class="p">(</span><span class="nb">null? </span><span class="p">(</span><span class="nb">cdddr </span><span class="nv">exp</span><span class="p">)))</span>
-</span><span class='line'>      <span class="p">(</span><span class="nb">cadddr </span><span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>      <span class="nv">false</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-if</span> <span class="nv">predicate</span> <span class="nv">consequent</span> <span class="nv">alternative</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;if</span> <span class="nv">predicate</span> <span class="nv">consequent</span> <span class="nv">alternative</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; begin</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">begin?</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nf">tagged-list?</span> <span class="nv">exp</span> <span class="ss">&#39;begin</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">begin-actions</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">last-exp?</span> <span class="nv">seq</span><span class="p">)</span> <span class="p">(</span><span class="nb">null? </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">seq</span><span class="p">)))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">first-exp</span> <span class="nv">seq</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">seq</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">rest-exps</span> <span class="nv">seq</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">seq</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">sequence-&gt;exp</span> <span class="nv">seq</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">seq</span><span class="p">)</span> <span class="nv">seq</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">((</span><span class="nf">last-exp?</span> <span class="nv">seq</span><span class="p">)</span> <span class="p">(</span><span class="nf">first-exp</span> <span class="nv">seq</span><span class="p">))</span>
-</span><span class='line'>        <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">make-begin</span> <span class="nv">seq</span><span class="p">))))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-begin</span> <span class="nv">seq</span><span class="p">)</span> <span class="p">(</span><span class="nb">cons </span><span class="ss">&#39;begin</span> <span class="nv">seq</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; application</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">application?</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">pair? </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">operator</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">operands</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">no-operands?</span> <span class="nv">ops</span><span class="p">)</span> <span class="p">(</span><span class="nb">null? </span><span class="nv">ops</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">first-operand</span> <span class="nv">ops</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">ops</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">rest-operands</span> <span class="nv">ops</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">ops</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; cond</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">cond?</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nf">tagged-list?</span> <span class="nv">exp</span> <span class="ss">&#39;cond</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">cond-clauses</span> <span class="nv">exp</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">exp</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">cond-else-clause?</span> <span class="nv">clause</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">eq? </span><span class="p">(</span><span class="nf">cond-predicate</span> <span class="nv">clause</span><span class="p">)</span> <span class="ss">&#39;else</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">cond-predicate</span> <span class="nv">clause</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">clause</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">cond-actions</span> <span class="nv">clause</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">clause</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">cond-&gt;if</span> <span class="nv">exp</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">expand-clauses</span> <span class="p">(</span><span class="nf">cond-clauses</span> <span class="nv">exp</span><span class="p">)))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">expand-clauses</span> <span class="nv">clauses</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">clauses</span><span class="p">)</span>
-</span><span class='line'>      <span class="nv">false</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">first</span> <span class="p">(</span><span class="nb">car </span><span class="nv">clauses</span><span class="p">))</span>
-</span><span class='line'>            <span class="p">(</span><span class="nf">rest</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">clauses</span><span class="p">)))</span>
-</span><span class='line'>           <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">cond-else-clause?</span> <span class="nv">first</span><span class="p">)</span>
-</span><span class='line'>               <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">null? </span><span class="nv">rest</span><span class="p">)</span>
-</span><span class='line'>                   <span class="p">(</span><span class="nf">sequence-&gt;exp</span> <span class="p">(</span><span class="nf">cond-actions</span> <span class="nv">first</span><span class="p">))</span>
-</span><span class='line'>                   <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;ELSE clause isn&#39;t last -- COND-&gt;IF&quot;</span>
-</span><span class='line'>                          <span class="nv">clauses</span><span class="p">))</span>
-</span><span class='line'>               <span class="p">(</span><span class="nf">make-if</span> <span class="p">(</span><span class="nf">cond-predicate</span> <span class="nv">first</span><span class="p">)</span>
-</span><span class='line'>                        <span class="p">(</span><span class="nf">sequence-&gt;exp</span> <span class="p">(</span><span class="nf">cond-actions</span> <span class="nv">first</span><span class="p">))</span>
-</span><span class='line'>                        <span class="p">(</span><span class="nf">expand-clauses</span> <span class="nv">rest</span><span class="p">))))))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; test of predicate</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">true?</span> <span class="nv">x</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">not </span><span class="p">(</span><span class="nb">eq? </span><span class="nv">x</span> <span class="nv">false</span><span class="p">)))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">false?</span> <span class="nv">x</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">eq? </span><span class="nv">x</span> <span class="nv">false</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; procedure</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-procedure</span> <span class="nv">parameters</span> <span class="nv">body</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;procedure</span> <span class="nv">parameters</span> <span class="nv">body</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">compound-procedure?</span> <span class="nv">p</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">tagged-list?</span> <span class="nv">p</span> <span class="ss">&#39;procedure</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">procedure-parameters</span> <span class="nv">p</span><span class="p">)</span> <span class="p">(</span><span class="nb">cadr </span><span class="nv">p</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">procedure-body</span> <span class="nv">p</span><span class="p">)</span> <span class="p">(</span><span class="nb">caddr </span><span class="nv">p</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">procedure-environment</span> <span class="nv">p</span><span class="p">)</span> <span class="p">(</span><span class="nb">cadddr </span><span class="nv">p</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; env</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">enclosing-environment</span> <span class="nv">env</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">env</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">first-frame</span> <span class="nv">env</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">env</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">the-empty-environment</span> <span class="o">&#39;</span><span class="p">())</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; frame</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-frame</span> <span class="nv">variables</span> <span class="nv">values</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">cons </span><span class="nv">variables</span> <span class="nv">values</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">frame-variables</span> <span class="nv">frame</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">frame</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">frame-values</span> <span class="nv">frame</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">frame</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">add-binding-to-frame!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">set-car! </span><span class="nv">frame</span> <span class="p">(</span><span class="nb">cons </span><span class="nv">var</span> <span class="p">(</span><span class="nb">car </span><span class="nv">frame</span><span class="p">)))</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">set-cdr! </span><span class="nv">frame</span> <span class="p">(</span><span class="nb">cons </span><span class="nv">val</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">frame</span><span class="p">))))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">extend-environment</span> <span class="nv">vars</span> <span class="nv">vals</span> <span class="nv">base-env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">length </span><span class="nv">vars</span><span class="p">)</span> <span class="p">(</span><span class="nb">length </span><span class="nv">vals</span><span class="p">))</span>
-</span><span class='line'>      <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nf">make-frame</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">)</span> <span class="nv">base-env</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="p">(</span><span class="nb">length </span><span class="nv">vars</span><span class="p">)</span> <span class="p">(</span><span class="nb">length </span><span class="nv">vals</span><span class="p">))</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Too many arguments supplied&quot;</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">)</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Too few arguments supplied&quot;</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">))))</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lookup-variable-value</span> <span class="nv">var</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">env-loop</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">scan</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">vars</span><span class="p">)</span>
-</span><span class='line'>             <span class="p">(</span><span class="nf">env-loop</span> <span class="p">(</span><span class="nf">enclosing-environment</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>            <span class="p">((</span><span class="nb">eq? </span><span class="nv">var</span> <span class="p">(</span><span class="nb">car </span><span class="nv">vars</span><span class="p">))</span>
-</span><span class='line'>             <span class="p">(</span><span class="nb">car </span><span class="nv">vals</span><span class="p">))</span>
-</span><span class='line'>            <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vars</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vals</span><span class="p">)))))</span>
-</span><span class='line'>    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">eq? </span><span class="nv">env</span> <span class="nv">the-empty-environment</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Unbound variable&quot;</span> <span class="nv">var</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">frame</span> <span class="p">(</span><span class="nf">first-frame</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>             <span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nf">frame-variables</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>                   <span class="p">(</span><span class="nf">frame-values</span> <span class="nv">frame</span><span class="p">)))))</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">env-loop</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">set-variable-value!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">env-loop</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">scan</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">vars</span><span class="p">)</span>
-</span><span class='line'>             <span class="p">(</span><span class="nf">env-loop</span> <span class="p">(</span><span class="nf">enclosing-environment</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>            <span class="p">((</span><span class="nb">eq? </span><span class="nv">var</span> <span class="p">(</span><span class="nb">car </span><span class="nv">vars</span><span class="p">))</span>
-</span><span class='line'>             <span class="p">(</span><span class="nb">set-car! </span><span class="nv">vals</span> <span class="nv">val</span><span class="p">))</span>
-</span><span class='line'>            <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vars</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vals</span><span class="p">)))))</span>
-</span><span class='line'>    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">eq? </span><span class="nv">env</span> <span class="nv">the-empty-environment</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Unbound variable -- SET!&quot;</span> <span class="nv">var</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">frame</span> <span class="p">(</span><span class="nf">first-frame</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>             <span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nf">frame-variables</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>                   <span class="p">(</span><span class="nf">frame-values</span> <span class="nv">frame</span><span class="p">)))))</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">env-loop</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">define-variable!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">frame</span> <span class="p">(</span><span class="nf">first-frame</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>       <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">scan</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">)</span>
-</span><span class='line'>         <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">vars</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">(</span><span class="nf">add-binding-to-frame!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="nv">frame</span><span class="p">))</span>
-</span><span class='line'>               <span class="p">((</span><span class="nb">eq? </span><span class="nv">var</span> <span class="p">(</span><span class="nb">car </span><span class="nv">vars</span><span class="p">))</span>
-</span><span class='line'>                <span class="p">(</span><span class="nb">set-car! </span><span class="nv">vals</span> <span class="nv">val</span><span class="p">))</span>
-</span><span class='line'>               <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vars</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vals</span><span class="p">)))))</span>
-</span><span class='line'>       <span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nf">frame-variables</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>             <span class="p">(</span><span class="nf">frame-values</span> <span class="nv">frame</span><span class="p">))))</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; 問題4.11</span>
-</span><span class='line'><span class="c1">;; 各束縛が名前-値の対であるような束縛のリストで</span>
-</span><span class='line'><span class="c1">;; フレームを表現せよ</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">#</span><span class="nv">|</span>
-</span><span class='line'><span class="c1">; フレームをリストの対で表現</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-frame</span> <span class="nv">variables</span> <span class="nv">values</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">cons </span><span class="nv">variables</span> <span class="nv">values</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">frame-variables</span> <span class="nv">frame</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">frame</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">frame-values</span> <span class="nv">frame</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">frame</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">add-binding-to-frame!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>   <span class="p">(</span><span class="nb">set-car! </span><span class="nv">frame</span> <span class="p">(</span><span class="nb">cons </span><span class="nv">var</span> <span class="p">(</span><span class="nb">car </span><span class="nv">frame</span><span class="p">)))</span>
-</span><span class='line'>   <span class="p">(</span><span class="nb">set-cdr! </span><span class="nv">frame</span> <span class="p">(</span><span class="nb">cons </span><span class="nv">val</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">frame</span><span class="p">))))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">extend-environment</span> <span class="nv">vars</span> <span class="nv">vals</span> <span class="nv">base-env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="p">(</span><span class="nb">length </span><span class="nv">vars</span><span class="p">)</span> <span class="p">(</span><span class="nb">length </span><span class="nv">vals</span><span class="p">))</span>
-</span><span class='line'>      <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nf">make-frame</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">)</span> <span class="nv">base-env</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt; </span><span class="p">(</span><span class="nb">length </span><span class="nv">vars</span><span class="p">)</span> <span class="p">(</span><span class="nb">length </span><span class="nv">vals</span><span class="p">))</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Too many arguments supplied&quot;</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">)</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Too few arguments supplied&quot;</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">))))</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">frame</span> <span class="p">(</span><span class="nf">make-frame</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)))</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">add-binding-to-frame!</span> <span class="ss">&#39;d</span> <span class="mi">4</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'><span class="nv">|</span><span class="o">#</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">#</span><span class="nv">|</span>
-</span><span class='line'><span class="c1">; 名前-値の対のリストで表現</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">make-frame</span> <span class="nv">variables</span> <span class="nv">values</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">map </span><span class="nv">cons</span> <span class="nv">variables</span> <span class="nv">values</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">frame-variables</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">map </span><span class="nv">car</span> <span class="nv">frame</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">frame-values</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">map </span><span class="nv">cdr</span> <span class="nv">frame</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">add-binding-to-frame!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">set-cdr! </span><span class="nv">frame</span> <span class="p">(</span><span class="nb">cons </span><span class="p">(</span><span class="nb">cons </span><span class="nv">var</span> <span class="nv">val</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">frame</span><span class="p">))))</span>
-</span><span class='line'>  <span class="c1">;(set-cdr! frame (cons (cdr frame) (cons var val))))</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">frame</span> <span class="p">(</span><span class="nf">make-frame</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)))</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">add-binding-to-frame!</span> <span class="ss">&#39;d</span> <span class="mi">4</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'><span class="nv">|</span><span class="o">#</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; 問題4.12</span>
-</span><span class='line'><span class="c1">;; 抽象を使って三つの手続きを再定義せよ</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">#</span><span class="nv">|</span>
-</span><span class='line'><span class="c1">; frame-variablesを舐めてvarと一致したらvalをセットする</span>
-</span><span class='line'><span class="c1">; 一致しなかったらerrorを出す</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">set-variable-value!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">env-loop</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">scan</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">vars</span><span class="p">)</span>
-</span><span class='line'>             <span class="p">(</span><span class="nf">env-loop</span> <span class="p">(</span><span class="nf">enclosing-environment</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>            <span class="p">((</span><span class="nb">eq? </span><span class="nv">var</span> <span class="p">(</span><span class="nb">car </span><span class="nv">vars</span><span class="p">))</span>
-</span><span class='line'>             <span class="p">(</span><span class="nb">set-car! </span><span class="nv">vals</span> <span class="nv">val</span><span class="p">))</span>
-</span><span class='line'>            <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vars</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vals</span><span class="p">)))))</span>
-</span><span class='line'>    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">eq? </span><span class="nv">env</span> <span class="nv">the-empty-environment</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Unbound variable - SET!&quot;</span> <span class="nv">var</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">frame</span> <span class="p">(</span><span class="nf">first-frame</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nf">frame-variables</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">(</span><span class="nf">frame-values</span> <span class="nv">frame</span><span class="p">)))))</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">env-loop</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">; frame-variablesを舐めてvarと一致したらvalを上書きする</span>
-</span><span class='line'><span class="c1">; 一致しなかったら新しく加える</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">define-variable!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">frame</span> <span class="p">(</span><span class="nf">first-frame</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>    <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">scan</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">vars</span><span class="p">)</span>
-</span><span class='line'>             <span class="p">(</span><span class="nf">add-binding-to-frame!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="nv">frame</span><span class="p">))</span>
-</span><span class='line'>            <span class="p">((</span><span class="nb">eq? </span><span class="nv">var</span> <span class="p">(</span><span class="nb">car </span><span class="nv">vars</span><span class="p">))</span>
-</span><span class='line'>             <span class="p">(</span><span class="nb">set-car! </span><span class="nv">vals</span> <span class="nv">val</span><span class="p">))</span>
-</span><span class='line'>            <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vars</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vals</span><span class="p">)))))</span>
-</span><span class='line'>    <span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nf">frame-variables</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">frame-values</span> <span class="nv">frame</span><span class="p">))))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">; frame-variablesを舐めてvarと一致したらvalを返す</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lookup-variable-value</span> <span class="nv">var</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">env-loop</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">scan</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">vars</span><span class="p">)</span>
-</span><span class='line'>             <span class="p">(</span><span class="nf">env-loop</span> <span class="p">(</span><span class="nf">enclosing-environment</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>            <span class="p">((</span><span class="nb">eq? </span><span class="nv">var</span> <span class="p">(</span><span class="nb">car </span><span class="nv">vars</span><span class="p">))</span>
-</span><span class='line'>             <span class="p">(</span><span class="nb">car </span><span class="nv">vals</span><span class="p">))</span>
-</span><span class='line'>            <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vars</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vals</span><span class="p">)))))</span>
-</span><span class='line'>    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">eq? </span><span class="nv">env</span> <span class="nv">the-empty-environment</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Unbound variable&quot;</span> <span class="nv">var</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">frame</span> <span class="p">(</span><span class="nf">first-frame</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nf">frame-variables</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">(</span><span class="nf">frame-values</span> <span class="nv">frame</span><span class="p">)))))</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">env-loop</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="s">&quot;環境を作ってみる&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">frame1</span> <span class="p">(</span><span class="nf">make-frame</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">frame2</span> <span class="p">(</span><span class="nf">make-frame</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">d</span> <span class="nv">e</span> <span class="nv">f</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">env</span> <span class="p">(</span><span class="nb">list </span><span class="nv">frame1</span> <span class="nv">frame2</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="s">&quot;set-variable-value!でeに7をセットしてみる&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">set-variable-value!</span> <span class="ss">&#39;e</span> <span class="mi">7</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="c1">;(print &quot;set-variable-value!で定義されていない値をセットしてみる&quot;)</span>
-</span><span class='line'><span class="c1">;(set-variable-value! &#39;g 8 env)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="s">&quot;define-variable!でgを定義してみる&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">define-variable!</span> <span class="ss">&#39;g</span> <span class="mi">7</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="s">&quot;define-variable!ですでに定義されている変数を定義してみる&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">define-variable!</span> <span class="ss">&#39;a</span> <span class="mi">9</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="s">&quot;lookup-variable-valueでaの値を見てみる&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="p">(</span><span class="nf">lookup-variable-value</span> <span class="ss">&#39;a</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'><span class="nv">|</span><span class="o">#</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">; &quot;frame-variablesを舐めて&quot; &lt;- 抽象的に出来るのでは</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">#</span><span class="nv">|</span>
-</span><span class='line'><span class="c1">; 環境を渡る手続きを定義する</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">env-loop</span> <span class="nv">var</span> <span class="nv">found-proc</span> <span class="nv">not-found-proc</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">scan</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">vars</span><span class="p">)</span>
-</span><span class='line'>                   <span class="p">(</span><span class="nf">not-found-proc</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>                  <span class="p">((</span><span class="nb">eq? </span><span class="nv">var</span> <span class="p">(</span><span class="nb">car </span><span class="nv">vars</span><span class="p">))</span>
-</span><span class='line'>                   <span class="p">(</span><span class="nf">found-proc</span> <span class="nv">vals</span><span class="p">))</span>
-</span><span class='line'>                  <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vars</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vals</span><span class="p">)))))</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">eq? </span><span class="nv">env</span> <span class="nv">the-empty-environment</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Unbound variable&quot;</span> <span class="nv">var</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">frame</span> <span class="p">(</span><span class="nf">first-frame</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nf">frame-variables</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>                      <span class="p">(</span><span class="nf">frame-values</span> <span class="nv">frame</span><span class="p">)))))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">; env-loopを切り出した</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">set-variable-value!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">env-loop</span>
-</span><span class='line'>      <span class="nv">var</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">values</span><span class="p">)</span>
-</span><span class='line'>          <span class="p">(</span><span class="nb">set-car! </span><span class="nv">values</span> <span class="nv">val</span><span class="p">))</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">env</span><span class="p">)</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">set-variable-value!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="p">(</span><span class="nf">enclosing-environment</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>      <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">; env-loopを切り出した</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">define-variable!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">env-loop</span>
-</span><span class='line'>      <span class="nv">var</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">values</span><span class="p">)</span> <span class="p">(</span><span class="nb">set-car! </span><span class="nv">values</span> <span class="nv">val</span><span class="p">))</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">env</span><span class="p">)</span> <span class="p">(</span><span class="nf">add-binding-to-frame!</span> <span class="nv">var</span> <span class="nv">val</span> <span class="p">(</span><span class="nf">enclosing-environment</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>      <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">; env-loopを切り出した</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">lookup-variable-value</span> <span class="nv">var</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">env-loop</span>
-</span><span class='line'>      <span class="nv">var</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">values</span><span class="p">)</span> <span class="p">(</span><span class="nb">car </span><span class="nv">values</span><span class="p">))</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">env</span><span class="p">)</span> <span class="p">(</span><span class="nf">lookup-variable-value</span> <span class="nv">var</span> <span class="p">(</span><span class="nf">enclosing-environment</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>      <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="s">&quot;環境を作ってみる&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">frame1</span> <span class="p">(</span><span class="nf">make-frame</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">frame2</span> <span class="p">(</span><span class="nf">make-frame</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">d</span> <span class="nv">e</span> <span class="nv">f</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">env</span> <span class="p">(</span><span class="nb">list </span><span class="nv">frame1</span> <span class="nv">frame2</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="s">&quot;set-variable-value!でeに7をセットしてみる&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">set-variable-value!</span> <span class="ss">&#39;e</span> <span class="mi">7</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="c1">;(print &quot;set-variable-value!で定義されていない値をセットしてみる&quot;)</span>
-</span><span class='line'><span class="c1">;(set-variable-value! &#39;g 8 env)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="s">&quot;define-variable!でgを定義してみる&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">define-variable!</span> <span class="ss">&#39;g</span> <span class="mi">7</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="s">&quot;define-variable!ですでに定義されている変数を定義してみる&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">define-variable!</span> <span class="ss">&#39;a</span> <span class="mi">9</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="s">&quot;lookup-variable-valueでaの値を見てみる&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="p">(</span><span class="nf">lookup-variable-value</span> <span class="ss">&#39;a</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'><span class="nv">|</span><span class="o">#</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; 問題4.13</span>
-</span><span class='line'><span class="c1">;; 変数の束縛を除去するunbind!を実装せよ</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">#</span><span class="nv">|</span>
-</span><span class='line'><span class="c1">; frame-variablesを舐めてvarと一致したらvalを返す</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">unbind!</span> <span class="nv">var</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">env-loop</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">scan</span> <span class="nv">vars</span> <span class="nv">vals</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">null? </span><span class="nv">vars</span><span class="p">)</span>
-</span><span class='line'>             <span class="p">(</span><span class="nf">env-loop</span> <span class="p">(</span><span class="nf">enclosing-environment</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>            <span class="p">((</span><span class="nb">eq? </span><span class="nv">var</span> <span class="p">(</span><span class="nb">car </span><span class="nv">vars</span><span class="p">))</span>
-</span><span class='line'>             <span class="p">(</span><span class="nb">set-car! </span><span class="nv">vars</span> <span class="o">&#39;</span><span class="p">())</span>
-</span><span class='line'>             <span class="p">(</span><span class="nb">set-car! </span><span class="nv">vals</span> <span class="o">&#39;</span><span class="p">())</span>
-</span><span class='line'>                       <span class="p">)</span>
-</span><span class='line'>            <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vars</span><span class="p">)</span> <span class="p">(</span><span class="nb">cdr </span><span class="nv">vals</span><span class="p">)))))</span>
-</span><span class='line'>    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">eq? </span><span class="nv">env</span> <span class="nv">the-empty-environment</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="nf">error</span> <span class="s">&quot;Unbound variable&quot;</span> <span class="nv">var</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">frame</span> <span class="p">(</span><span class="nf">first-frame</span> <span class="nv">env</span><span class="p">)))</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">scan</span> <span class="p">(</span><span class="nf">frame-variables</span> <span class="nv">frame</span><span class="p">)</span>
-</span><span class='line'>                <span class="p">(</span><span class="nf">frame-values</span> <span class="nv">frame</span><span class="p">)))))</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">env-loop</span> <span class="nv">env</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="s">&quot;環境を作ってみる&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">frame1</span> <span class="p">(</span><span class="nf">make-frame</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">a</span> <span class="nv">b</span> <span class="nv">c</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">)))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">frame2</span> <span class="p">(</span><span class="nf">make-frame</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">d</span> <span class="nv">e</span> <span class="nv">f</span><span class="p">)</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">env</span> <span class="p">(</span><span class="nb">list </span><span class="nv">frame1</span> <span class="nv">frame2</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="s">&quot;unbind!でeの束縛を除去してみる&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">unbind!</span> <span class="ss">&#39;e</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="nf">print</span> <span class="nv">env</span><span class="p">)</span>
-</span><span class='line'><span class="nv">|</span><span class="o">#</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">primitive-procedures</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">list </span><span class="p">(</span><span class="nb">list </span><span class="ss">&#39;car</span> <span class="nv">car</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;cdr</span> <span class="nv">cdr</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;cons</span> <span class="nv">cons</span><span class="p">)</span>
-</span><span class='line'>        <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;null?</span> <span class="nv">null?</span><span class="p">)</span>
-</span><span class='line'>              <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;+</span> <span class="nv">+</span><span class="p">)</span>
-</span><span class='line'>              <span class="c1">;(list &#39;map map)</span>
-</span><span class='line'>        <span class="c1">; more primitives</span>
-</span><span class='line'>        <span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">primitive-procedure-names</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">map </span><span class="nv">car</span>
-</span><span class='line'>       <span class="nv">primitive-procedures</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">primitive-procedure-objects</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nb">map </span><span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">proc</span><span class="p">)</span> <span class="p">(</span><span class="nb">list </span><span class="ss">&#39;primitive</span> <span class="p">(</span><span class="nb">cadr </span><span class="nv">proc</span><span class="p">)))</span>
-</span><span class='line'>       <span class="nv">primitive-procedures</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">setup-environment</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">initial-env</span>
-</span><span class='line'>          <span class="p">(</span><span class="nf">extend-environment</span> <span class="p">(</span><span class="nf">primitive-procedure-names</span><span class="p">)</span>
-</span><span class='line'>                              <span class="p">(</span><span class="nf">primitive-procedure-objects</span><span class="p">)</span>
-</span><span class='line'>                              <span class="nv">the-empty-environment</span><span class="p">)))</span>
-</span><span class='line'>       <span class="p">(</span><span class="nf">define-variable!</span> <span class="ss">&#39;true</span> <span class="nv">true</span> <span class="nv">initial-env</span><span class="p">)</span>
-</span><span class='line'>       <span class="p">(</span><span class="nf">define-variable!</span> <span class="ss">&#39;false</span> <span class="nv">false</span> <span class="nv">initial-env</span><span class="p">)</span>
-</span><span class='line'>       <span class="nv">initial-env</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">the-global-environment</span> <span class="p">(</span><span class="nf">setup-environment</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">primitive-procedure?</span> <span class="nv">proc</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">tagged-list?</span> <span class="nv">proc</span> <span class="ss">&#39;primitive</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">primitive-implementation</span> <span class="nv">proc</span><span class="p">)</span> <span class="p">(</span><span class="nb">cadr </span><span class="nv">proc</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">apply-primitive-procedure</span> <span class="nv">proc</span> <span class="nv">args</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">apply-in-underlying-scheme</span>
-</span><span class='line'>    <span class="p">(</span><span class="nf">primitive-implementation</span> <span class="nv">proc</span><span class="p">)</span> <span class="nv">args</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; util</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">input-prompt</span> <span class="s">&quot;;;; M-Eval input:&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">output-prompt</span> <span class="s">&quot;;;; M-Eval value:&quot;</span><span class="p">)</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">driver-loop</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">prompt-for-input</span> <span class="nv">input-prompt</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">input</span> <span class="p">(</span><span class="nf">read</span><span class="p">)))</span>
-</span><span class='line'>       <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">output</span> <span class="p">(</span><span class="nb">eval </span><span class="nv">input</span> <span class="nv">the-global-environment</span><span class="p">)))</span>
-</span><span class='line'>            <span class="p">(</span><span class="nf">announce-output</span> <span class="nv">output-prompt</span><span class="p">)</span>
-</span><span class='line'>            <span class="p">(</span><span class="nf">user-print</span> <span class="nv">output</span><span class="p">)))</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">driver-loop</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">prompt-for-input</span> <span class="nv">string</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">newline</span><span class="p">)</span> <span class="p">(</span><span class="nf">newline</span><span class="p">)</span> <span class="p">(</span><span class="nb">display </span><span class="nv">string</span><span class="p">)</span> <span class="p">(</span><span class="nf">newline</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">announce-output</span> <span class="nv">string</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="nf">newline</span><span class="p">)</span> <span class="p">(</span><span class="nb">display </span><span class="nv">string</span><span class="p">)</span> <span class="p">(</span><span class="nf">newline</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">user-print</span> <span class="nv">object</span><span class="p">)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">compound-procedure?</span> <span class="nv">object</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="nb">display </span><span class="p">(</span><span class="nb">list </span><span class="ss">&#39;compound-procedure</span>
-</span><span class='line'>                     <span class="p">(</span><span class="nf">procedure-parameters</span> <span class="nv">object</span><span class="p">)</span>
-</span><span class='line'>                     <span class="p">(</span><span class="nf">procedure-body</span> <span class="nv">object</span><span class="p">)</span>
-</span><span class='line'>                     <span class="ss">&#39;&lt;procedure-env&gt;</span><span class="p">))</span>
-</span><span class='line'>      <span class="p">(</span><span class="nb">display </span><span class="nv">object</span><span class="p">)))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; 問題4.14</span>
-</span><span class='line'><span class="c1">;; mapを定義するのとprimitive-proceduresに登録したとに動作の違い</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">; それぞれの動作を比べてみる</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">#</span><span class="nv">|</span>
-</span><span class='line'><span class="c1">;; 対話する</span>
-</span><span class='line'><span class="p">(</span><span class="k">define </span><span class="nv">the-global-environment</span> <span class="p">(</span><span class="nf">setup-environment</span><span class="p">))</span>
-</span><span class='line'><span class="p">(</span><span class="nf">driver-loop</span><span class="p">)</span>
-</span><span class='line'><span class="nv">|</span><span class="o">#</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;(define (map p lst) (if (null? lst) &#39;() (cons (p (car lst)) (map p (cdr lst)))))</span>
-</span><span class='line'><span class="c1">;(map (lambda (x) (+ 1 x)) &#39;(1 2 3 4 5))</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="c1">;; 問題4.15</span>
-</span><span class='line'><span class="c1">;; (try try)の評価が矛盾していることを示せ</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">#</span><span class="c1">;(define (run-forever) (run-forever))</span>
-</span><span class='line'><span class="o">#</span><span class="c1">;(define (try p)</span>
-</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">halts?</span> <span class="nv">p</span> <span class="nv">p</span><span class="p">)</span>
-</span><span class='line'>      <span class="p">(</span><span class="nf">run-forever</span><span class="p">)</span>
-</span><span class='line'>      <span class="ss">&#39;halted</span><span class="p">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -2305,6 +1422,10 @@ amachanさんの<a href="http://d.hatena.ne.jp/amachang/20080124/1201199469">Y�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/09/30/upload-to-s3/">S3でmavenリポジトリをホストしてGradleでアップロードする</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/09/28/android-books/">Android開発を始めたばかりの僕が読みたかった本</a>
       </li>
     
@@ -2318,10 +1439,6 @@ amachanさんの<a href="http://d.hatena.ne.jp/amachang/20080124/1201199469">Y�
     
       <li class="post">
         <a href="/blog/2013/09/19/android-test/">モヒートはモッキングフレームワークで味はとても美味しい</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/17/interaction-design/">デザインリサーチをするにあたって</a>
       </li>
     
   </ul>

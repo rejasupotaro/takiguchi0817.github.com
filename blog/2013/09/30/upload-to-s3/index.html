@@ -5,14 +5,38 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>まさかこのままプッシュする気じゃないよね？ - Just posted a blog</title>
+  <title>S3でmavenリポジトリをホストしてGradleでアップロードする - Just posted a blog</title>
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="自分のコード綺麗って思ってんの？ - ✘╹◡╹✘ r7kamura.hatenablog.com/entry/2012/11/…&mdash; 人月さん (@r7kamura) 12月 2, 2012 　
-　
-　
-綺麗かどうかどころか、デバッグコードとかそのままプッシュしてしまって、 &hellip;">
+  <meta name="description" content="bucket, key, secretは外部ファイルに定義しておきます。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+configurations { deployerJars
+}
+repositories &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +45,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://takiguchi0817.github.com/blog/2012/12/02/guideline">
+  <link rel="canonical" href="http://takiguchi0817.github.com/blog/2013/09/30/upload-to-s3">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
@@ -81,7 +105,7 @@
   
   <header>
     
-      <h1 class="entry-title">まさかこのままプッシュする気じゃないよね？</h1>
+      <h1 class="entry-title">S3でmavenリポジトリをホストしてGradleでアップロードする</h1>
     
     
       <p class="meta">
@@ -97,25 +121,16 @@
   
 
 
-<time datetime="2012-12-02T16:17:00+09:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2012</time>
+<time datetime="2013-09-30T22:52:00+09:00" pubdate data-updated="true">Sep 30<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><blockquote class="twitter-tweet" lang="ja"><p>自分のコード綺麗って思ってんの？ - ✘╹◡╹✘ <a href="http://t.co/AeZFbpL9" title="http://r7kamura.hatenablog.com/entry/2012/11/30/223412">r7kamura.hatenablog.com/entry/2012/11/…</a></p>&mdash; 人月さん (@r7kamura) <a href="https://twitter.com/r7kamura/status/275064946759454720" data-datetime="2012-12-02T02:32:48+00:00">12月 2, 2012</a></blockquote>
+<div class="entry-content"><p>bucket, key, secretは外部ファイルに定義しておきます。</p>
 
-
-<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<p>　<br/>
-　<br/>
-　<br/>
-綺麗かどうかどころか、デバッグコードとかそのままプッシュしてしまって、後でレビューツールでdiff見ててアッてなるので書いた。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -133,30 +148,46 @@
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#!/bin/sh</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">configurations</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">deployerJars</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">repositories</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">mavenCentral</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">deployerJars</span> <span class="s1">&#39;org.springframework.build.aws:org.springframework.build.aws.maven:3.0.0.RELEASE&#39;</span>
+</span><span class='line'><span class="o">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="nb">readonly </span><span class="nv">MESSAGE</span><span class="o">=</span><span class="s2">&quot;まさかこのままプッシュする気じゃないよね？&quot;</span>
+</span><span class='line'><span class="n">uploadArchives</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">repositories</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">mavenDeployer</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">configuration</span> <span class="o">=</span> <span class="n">configurations</span><span class="o">.</span><span class="na">deployerJars</span>
 </span><span class='line'>
-</span><span class='line'><span class="nv">has_ax_code</span><span class="o">=</span><span class="nb">false</span>
-</span><span class='line'><span class="nv">file_list</span><span class="o">=</span><span class="k">$(</span>find . -name *.java<span class="k">)</span>
-</span><span class='line'><span class="k">for </span>file in <span class="k">${</span><span class="nv">file_list</span><span class="p">[@]</span><span class="k">}</span>; <span class="k">do</span>
-</span><span class='line'><span class="k">  </span><span class="nv">ax_code</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$file</span> | grep -n -e TODO -e FIXME -e XXX -e DEBUG<span class="k">)</span>
-</span><span class='line'>  <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;$ax_code&quot;</span> <span class="o">]</span>; <span class="k">then</span>
-</span><span class='line'><span class="k">    </span><span class="nb">echo</span> <span class="nv">$file</span>
-</span><span class='line'>    <span class="nb">echo</span> <span class="s2">&quot;$ax_code&quot;</span>
-</span><span class='line'>    <span class="nv">has_ax_code</span><span class="o">=</span><span class="nb">true</span>
-</span><span class='line'><span class="nb">  </span><span class="k">fi</span>
-</span><span class='line'><span class="k">done</span>
+</span><span class='line'>            <span class="n">repository</span><span class="o">(</span><span class="nl">url:</span> <span class="s2">&quot;s3://${project.s3Bucket}/release&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">authentication</span><span class="o">(</span><span class="nl">userName:</span> <span class="n">project</span><span class="o">.</span><span class="na">s3Key</span><span class="o">,</span> <span class="nl">passphrase:</span> <span class="n">project</span><span class="o">.</span><span class="na">s3Secret</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">}</span>
 </span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="o">[</span> <span class="nv">$has_ax_code</span> <span class="o">]</span>; <span class="k">then</span>
-</span><span class='line'><span class="k">  </span><span class="nb">echo</span> <span class="nv">$MESSAGE</span>
-</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>            <span class="n">pom</span><span class="o">.</span><span class="na">groupId</span> <span class="o">=</span> <span class="s1">&#39;com.rejasupotaro&#39;</span>
+</span><span class='line'>            <span class="n">pom</span><span class="o">.</span><span class="na">artifactId</span> <span class="o">=</span> <span class="s1">&#39;mylibrary&#39;</span>
+</span><span class='line'>            <span class="n">pom</span><span class="o">.</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>コミットする。</p>
+<p>これで gradle uploadArchives すればアップロードすることができます。</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>ライブラリを使う側は以下のようにします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -164,18 +195,26 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">(</span> *´ω｀*<span class="o">)</span>  ~/develop/projects/Betterflow <span class="nv">$ </span>git commit
-</span><span class='line'>548:        // TODO: この名前はおかしいので後で変える
-</span><span class='line'>572:        // FIXME: 読み込む前にリサイズしないと余裕でOOMする
-</span><span class='line'>752:        // XXX: よくわからないけど動いてる
-</span><span class='line'>まさかこのままプッシュする気じゃないよね？
-</span><span class='line'><span class="o">[</span>master 98c0487<span class="o">]</span> コメント書いた
-</span><span class='line'> 2 files changed, 3 insertions<span class="o">(</span>+<span class="o">)</span>
-</span><span class='line'><span class="o">(</span> *´ω｀*<span class="o">)</span>  ~/develop/projects/Betterflow <span class="err">$</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">repositories</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">maven</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">url</span> <span class="s2">&quot;https://${project.s3Bucket}.s3.amazonaws.com/release&quot;</span>
+</span><span class='line'>        <span class="n">credentials</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">username</span> <span class="n">project</span><span class="o">.</span><span class="na">s3Key</span>
+</span><span class='line'>            <span class="n">password</span> <span class="n">project</span><span class="o">.</span><span class="na">s3Secret</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">compile</span> <span class="s1">&#39;com.rejasupotaro:mylibrary:1.0.0&#39;</span>
+</span><span class='line'><span class="o">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
-
-<p>でも人間は許せる生き物だから。</p>
 </div>
 
 
@@ -198,12 +237,12 @@
   
 
 
-<time datetime="2012-12-02T16:17:00+09:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2012</time>
+<time datetime="2013-09-30T22:52:00+09:00" pubdate data-updated="true">Sep 30<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/git/'>Git</a>
+    <a class='category' href='/blog/categories/android/'>Android</a>, <a class='category' href='/blog/categories/gradle/'>Gradle</a>
   
 </span>
 
@@ -219,10 +258,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/12/02/whenever/" title="Previous Post: Railsでcronを設定するときに良いやつ">&laquo; Railsでcronを設定するときに良いやつ</a>
+        <a class="basic-alignment left" href="/blog/2013/09/28/android-books/" title="Previous Post: Android開発を始めたばかりの僕が読みたかった本">&laquo; Android開発を始めたばかりの僕が読みたかった本</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/12/10/android-ci/" title="Next Post: JenkinsでAndroidをCIしたかった">JenkinsでAndroidをCIしたかった &raquo;</a>
       
     </p>
   </footer>

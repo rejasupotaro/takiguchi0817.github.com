@@ -9,7 +9,34 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="最近、スマートフォンアプリ開発をやる人増えてきてオススメの本ある？って聞かれること多くなってきたのですが、その人のバックグラウンドによるところも大きいと思うので、自分がAndroidアプリ開発を始めたときに読んでて役に立った、あるいは読んでおきたかったという目線で、 &hellip;">
+  <meta name="description" content="bucket, key, secretは外部ファイルに定義しておきます。 1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+configurations { deployerJars
+}
+repositories &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +101,126 @@
   <div id="main">
     <div id="content">
       
+
+
+    <article class="post">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/30/upload-to-s3/">S3でmavenリポジトリをホストしてGradleでアップロードする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-30T22:52:00+09:00" pubdate data-updated="true">Sep 30<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>bucket, key, secretは外部ファイルに定義しておきます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">configurations</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">deployerJars</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">repositories</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">mavenCentral</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">deployerJars</span> <span class="s1">&#39;org.springframework.build.aws:org.springframework.build.aws.maven:3.0.0.RELEASE&#39;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">uploadArchives</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">repositories</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">mavenDeployer</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">configuration</span> <span class="o">=</span> <span class="n">configurations</span><span class="o">.</span><span class="na">deployerJars</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">repository</span><span class="o">(</span><span class="nl">url:</span> <span class="s2">&quot;s3://${project.s3Bucket}/release&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">authentication</span><span class="o">(</span><span class="nl">userName:</span> <span class="n">project</span><span class="o">.</span><span class="na">s3Key</span><span class="o">,</span> <span class="nl">passphrase:</span> <span class="n">project</span><span class="o">.</span><span class="na">s3Secret</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">pom</span><span class="o">.</span><span class="na">groupId</span> <span class="o">=</span> <span class="s1">&#39;com.rejasupotaro&#39;</span>
+</span><span class='line'>            <span class="n">pom</span><span class="o">.</span><span class="na">artifactId</span> <span class="o">=</span> <span class="s1">&#39;mylibrary&#39;</span>
+</span><span class='line'>            <span class="n">pom</span><span class="o">.</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これで gradle uploadArchives すればアップロードすることができます。</p>
+
+<p>ライブラリを使う側は以下のようにします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">repositories</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">maven</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">url</span> <span class="s2">&quot;https://${project.s3Bucket}.s3.amazonaws.com/release&quot;</span>
+</span><span class='line'>        <span class="n">credentials</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">username</span> <span class="n">project</span><span class="o">.</span><span class="na">s3Key</span>
+</span><span class='line'>            <span class="n">password</span> <span class="n">project</span><span class="o">.</span><span class="na">s3Secret</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">compile</span> <span class="s1">&#39;com.rejasupotaro:mylibrary:1.0.0&#39;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+</article>
 
 
     <article class="post">
@@ -1272,92 +1419,6 @@ JVMでテストが実行できるようになるということは、Groovyで�
 </span><span class='line'>    compile 'com.rejasupotaro:rejasupo-commons:0.0.1'
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-</div>
-  
-  
-
-</article>
-
-
-    <article class="post">
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/26/modern-android-design/">Modern Android Design?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-26T00:37:00+09:00" pubdate data-updated="true">Jul 26<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1>What&#8217;s Modern Android Design?</h1>
-
-<h3>GitHub</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/github.png" alt="" /></p>
-
-<h3>Ted</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/ted.png" alt="" /></p>
-
-<h3>Twitter</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/twitter.png" alt="" /></p>
-
-<h3>Evernote Food</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/evernotefood.png" alt="" /></p>
-
-<h3>Flipboard</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/flipboard.png" alt="" /></p>
-
-<h3>Gmail</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gmail.png" alt="" /></p>
-
-<h3>Google Music</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/googlemusic.png" alt="" /></p>
-
-<h3>Google+</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/googleplus.png" alt="" /></p>
-
-<h3>pixiv</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/pixiv.png" alt="" /></p>
-
-<h3>recipes</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/recipes.png" alt="" /></p>
-
-<h3>Trulia</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/trulia.png" alt="" /></p>
-
-<h3>umano</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/umano.png" alt="" /></p>
-
-<h3>YouTube</h3>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/youtube.png" alt="" /></p>
 </div>
   
   

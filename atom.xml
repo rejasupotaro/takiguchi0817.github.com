@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-09-28T09:14:01+09:00</updated>
+  <updated>2013-09-30T22:58:43+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,101 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[S3でmavenリポジトリをホストしてGradleでアップロードする]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/09/30/upload-to-s3/"/>
+    <updated>2013-09-30T22:52:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/09/30/upload-to-s3</id>
+    <content type="html"><![CDATA[<p>bucket, key, secretは外部ファイルに定義しておきます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">configurations</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">deployerJars</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">repositories</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">mavenCentral</span><span class="o">()</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">deployerJars</span> <span class="s1">&#39;org.springframework.build.aws:org.springframework.build.aws.maven:3.0.0.RELEASE&#39;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">uploadArchives</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">repositories</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">mavenDeployer</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">configuration</span> <span class="o">=</span> <span class="n">configurations</span><span class="o">.</span><span class="na">deployerJars</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">repository</span><span class="o">(</span><span class="nl">url:</span> <span class="s2">&quot;s3://${project.s3Bucket}/release&quot;</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>                <span class="n">authentication</span><span class="o">(</span><span class="nl">userName:</span> <span class="n">project</span><span class="o">.</span><span class="na">s3Key</span><span class="o">,</span> <span class="nl">passphrase:</span> <span class="n">project</span><span class="o">.</span><span class="na">s3Secret</span><span class="o">)</span>
+</span><span class='line'>            <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>            <span class="n">pom</span><span class="o">.</span><span class="na">groupId</span> <span class="o">=</span> <span class="s1">&#39;com.rejasupotaro&#39;</span>
+</span><span class='line'>            <span class="n">pom</span><span class="o">.</span><span class="na">artifactId</span> <span class="o">=</span> <span class="s1">&#39;mylibrary&#39;</span>
+</span><span class='line'>            <span class="n">pom</span><span class="o">.</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これで gradle uploadArchives すればアップロードすることができます。</p>
+
+<p>ライブラリを使う側は以下のようにします。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='groovy'><span class='line'><span class="n">repositories</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">maven</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">url</span> <span class="s2">&quot;https://${project.s3Bucket}.s3.amazonaws.com/release&quot;</span>
+</span><span class='line'>        <span class="n">credentials</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">username</span> <span class="n">project</span><span class="o">.</span><span class="na">s3Key</span>
+</span><span class='line'>            <span class="n">password</span> <span class="n">project</span><span class="o">.</span><span class="na">s3Secret</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">compile</span> <span class="s1">&#39;com.rejasupotaro:mylibrary:1.0.0&#39;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Android開発を始めたばかりの僕が読みたかった本]]></title>
@@ -1746,90 +1841,6 @@ Androidアプリ開発どう？みたいな話をして、あまりリソース�
 次はPerlでもLISPでもない会社に行く予定です。</p>
 
 <p>顧客に価値を届け続けるために、これからもより一層の努力をしていきたい所存です。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2013年 Androidアプリ開発で使いたいライブラリ]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/03/10/android-libraries/"/>
-    <updated>2013-03-10T22:35:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/03/10/android-libraries</id>
-    <content type="html"><![CDATA[<p>30億のデバイスのみなさん、こんにちは、ジャバです。</p>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201303/javamonster.gif" alt="迫り来るジャバモンスター" /></p>
-
-<p>何の前触れもなく、2013年 Androidアプリ開発で使いたいライブラリを発表します。</p>
-
-<h2>JsonConverter => <a href="https://code.google.com/p/google-gson/">gson</a></h2>
-
-<p>JSONRPCでサーバーサイドと通信を行うときに、毎回パーサーを書くのは面倒なので、JsonConverterを使いたくなります。
-そこで開発ではgoogleが開発しているgsonを使っていました。
-NamingPolicyやDeserializerの使い方を覚えれば、手でjsonのパーサーを書くより圧倒的に楽で、</p>
-
-<pre><code>Person person = gson.fromJson(json, Person.class);
-</code></pre>
-
-<p>このように一行でjsonからオブジェクトに変換できるようになり、</p>
-
-<pre><code>String json = gson.toJson(person);
-</code></pre>
-
-<p>一行でオブジェクトからStringに変換することも出来ます。
-なので、preferenceに保存 => 復旧もすごく便利になります。もうSerializableはやめましょう！</p>
-
-<p>ただ、gsonは各々の型の変換のためにTypeAdapterを保持しているというのと、変換にはリフレクションを使っているので、パフォーマンスはあまり良くないです。
-また、レスポンスのjsonの構造がクラスになってしまうので、変換したクラスをそのままモデルとして使おうとすると柔軟性が下がってしまいます。なので、使うのであれば</p>
-
-<pre><code>json =&gt; api entity =&gt; model
-</code></pre>
-
-<p>ってしたい感じです。</p>
-
-<h2>ORM => <a href="https://www.activeandroid.com/">ActiveAndroid</a> or <a href="http://greendao-orm.com/">greenDAO</a></h2>
-
-<p>SQL文をHelperに記述してるときは人間らしい心を失いそうになります。そして、人間はtypoする生き物なのでDBのバージョンアップで死んだりすることもあります。<br/>
-そこでORMということになるのですが、AndroidのORMでは、RailsのAndroid版であるActiveAndroidというのがあります。
-ただし、Active Recordパターンの欠点もそのままなので、&#8221;構築が容易であり理解もしやすい&#8221;代償としてそのままでは複雑なロジックを扱いづらくなります。
-ドメイン層とパーシステンス層が一緒になったのがActive Recordパターンなので、Rubyみたいにmixinができる言語は良いけど、ジャバだとテストが書きづらくなるので、あまりオススメしない、って某氏が言ってました。
-データアクセスに関しては <a href="http://www.oracle.com/technetwork/jp/articles/index-087873-ja.html">データアクセスことはじめ</a> が勉強になりました。</p>
-
-<p>あまり規模が大きくないならActiveAndroidは記述量が減るし読みやすいしで、良い選択肢だと思います。
-それ以上なら、ORMLiteを高速化したgreenDAOを使うのが良いかもしれません。</p>
-
-<iframe src="http://www.slideshare.net/slideshow/embed_code/12321475" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
-
-
-<p> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/droidcon/green-dao" title="Green dao" target="_blank">Green dao</a> </strong> from <strong><a href="http://www.slideshare.net/droidcon" target="_blank">Droidcon Berlin</a></strong> </div></p>
-
-<h2>DI => <a href="https://github.com/roboguice/roboguice">RoboGuice</a> or <a href="https://github.com/hnakagawa/proton">Proton</a> or <a href="http://square.github.com/dagger/">Dagger</a></h2>
-
-<p>Fragmentのイベントを別のFragmentで作用させたいときに、interfaceを定義してActivity経由でlistenerを登録とかするとすぐにlistener地獄になってしまってつらいです。
-そういうときにContextSingletonなヘルパーをインジェクトして使うとめちゃ便利で、コードの見通しが良くなって仕様変更に強くなって心が豊かになってモテ始めたりすると思います。
-他にもテスト実行時にインジェクトするオブジェクトを切り替えられるとか、記述が楽になる以外にもメリットはたくさんあると思います。</p>
-
-<p>有名なのはRoboGuiceです。これはサーバーサイドのDIフレームワークのGuiceを、Androidでも使えるようにラップしたものです。
-サーバーサイドを想定して作られたものなので、無駄が多かったりするのですが、それなりにドキュメントがあって実績もあります。</p>
-
-<p>そんなRoboGuiceを見て後述のTriainaフレームワークの開発者の人が、
-「RoboGuice無駄に大きしTypeListenerとかいらんし、もっと早くて軽いのをフルスクラッチで書く」
-と言って作られたのがProtonです。いらない機能を削ってAndroidに最適化した結果、サイズもメモリ使用量も圧倒的に少なくなったとのことです。
-ただドキュメントがないので使うならRoboGuiceの知識が必須で、ソースコードを読みながらになると思います。</p>
-
-<p>RoboActivityとかProtonActivityとか継承したくない、かつコンテキストシングルトンとかいらない！というケースであれば、単純にインジェクトだけが出来るDagger良いです。</p>
-
-<h1>おわりに</h1>
-
-<p>もうちょっと書こうと思ったのですが意外と書くのがたいへんだったので突然ブログは終わります。他にも、</p>
-
-<ul>
-<li>event busの<a href="http://square.github.com/otto/">Otto</a></li>
-<li>WebView Bridgeの<a href="https://github.com/mixi-inc/triaina">Triaina</a></li>
-<li>Code Dietが出来る<a href="http://androidannotations.org/">AndroidAnnotations</a></li>
-<li>jQueryのAndroid版の<a href="https://code.google.com/p/android-query/">android-query</a></li>
-</ul>
-
-
-<p>とかあるので、また検証をしたら個別に記事を書こうと思います。</p>
 ]]></content>
   </entry>
   

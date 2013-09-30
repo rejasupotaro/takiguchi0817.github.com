@@ -9,7 +9,7 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="三四郎がちゃらい感じになってる件。 #sicphansei&mdash; Hitoshi ASAIさん (@hito_asa) 2013年3月7日 チャラいとは&#8230; #sicphansei&mdash; ねこはるさん (@halcat0x15a) 2013年3月7日 どきどきする。 # &hellip;">
+  <meta name="description" content="30億のデバイスのみなさん、こんにちは、ジャバです。 何の前触れもなく、2013年 Androidアプリ開発で使いたいライブラリを発表します。 JsonConverter => gson JSONRPCでサーバーサイドと通信を行うときに、毎回パーサーを書くのは面倒なので、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +75,117 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/10/android-libraries/">2013年 Androidアプリ開発で使いたいライブラリ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-10T22:35:00+09:00" pubdate data-updated="true">Mar 10<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>30億のデバイスのみなさん、こんにちは、ジャバです。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201303/javamonster.gif" alt="迫り来るジャバモンスター" /></p>
+
+<p>何の前触れもなく、2013年 Androidアプリ開発で使いたいライブラリを発表します。</p>
+
+<h2>JsonConverter => <a href="https://code.google.com/p/google-gson/">gson</a></h2>
+
+<p>JSONRPCでサーバーサイドと通信を行うときに、毎回パーサーを書くのは面倒なので、JsonConverterを使いたくなります。
+そこで開発ではgoogleが開発しているgsonを使っていました。
+NamingPolicyやDeserializerの使い方を覚えれば、手でjsonのパーサーを書くより圧倒的に楽で、</p>
+
+<pre><code>Person person = gson.fromJson(json, Person.class);
+</code></pre>
+
+<p>このように一行でjsonからオブジェクトに変換できるようになり、</p>
+
+<pre><code>String json = gson.toJson(person);
+</code></pre>
+
+<p>一行でオブジェクトからStringに変換することも出来ます。
+なので、preferenceに保存 => 復旧もすごく便利になります。もうSerializableはやめましょう！</p>
+
+<p>ただ、gsonは各々の型の変換のためにTypeAdapterを保持しているというのと、変換にはリフレクションを使っているので、パフォーマンスはあまり良くないです。
+また、レスポンスのjsonの構造がクラスになってしまうので、変換したクラスをそのままモデルとして使おうとすると柔軟性が下がってしまいます。なので、使うのであれば</p>
+
+<pre><code>json =&gt; api entity =&gt; model
+</code></pre>
+
+<p>ってしたい感じです。</p>
+
+<h2>ORM => <a href="https://www.activeandroid.com/">ActiveAndroid</a> or <a href="http://greendao-orm.com/">greenDAO</a></h2>
+
+<p>SQL文をHelperに記述してるときは人間らしい心を失いそうになります。そして、人間はtypoする生き物なのでDBのバージョンアップで死んだりすることもあります。<br/>
+そこでORMということになるのですが、AndroidのORMでは、RailsのAndroid版であるActiveAndroidというのがあります。
+ただし、Active Recordパターンの欠点もそのままなので、&#8221;構築が容易であり理解もしやすい&#8221;代償としてそのままでは複雑なロジックを扱いづらくなります。
+ドメイン層とパーシステンス層が一緒になったのがActive Recordパターンなので、Rubyみたいにmixinができる言語は良いけど、ジャバだとテストが書きづらくなるので、あまりオススメしない、って某氏が言ってました。
+データアクセスに関しては <a href="http://www.oracle.com/technetwork/jp/articles/index-087873-ja.html">データアクセスことはじめ</a> が勉強になりました。</p>
+
+<p>あまり規模が大きくないならActiveAndroidは記述量が減るし読みやすいしで、良い選択肢だと思います。
+それ以上なら、ORMLiteを高速化したgreenDAOを使うのが良いかもしれません。</p>
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/12321475" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
+
+
+<p> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/droidcon/green-dao" title="Green dao" target="_blank">Green dao</a> </strong> from <strong><a href="http://www.slideshare.net/droidcon" target="_blank">Droidcon Berlin</a></strong> </div></p>
+
+<h2>DI => <a href="https://github.com/roboguice/roboguice">RoboGuice</a> or <a href="https://github.com/hnakagawa/proton">Proton</a> or <a href="http://square.github.com/dagger/">Dagger</a></h2>
+
+<p>Fragmentのイベントを別のFragmentで作用させたいときに、interfaceを定義してActivity経由でlistenerを登録とかするとすぐにlistener地獄になってしまってつらいです。
+そういうときにContextSingletonなヘルパーをインジェクトして使うとめちゃ便利で、コードの見通しが良くなって仕様変更に強くなって心が豊かになってモテ始めたりすると思います。
+他にもテスト実行時にインジェクトするオブジェクトを切り替えられるとか、記述が楽になる以外にもメリットはたくさんあると思います。</p>
+
+<p>有名なのはRoboGuiceです。これはサーバーサイドのDIフレームワークのGuiceを、Androidでも使えるようにラップしたものです。
+サーバーサイドを想定して作られたものなので、無駄が多かったりするのですが、それなりにドキュメントがあって実績もあります。</p>
+
+<p>そんなRoboGuiceを見て後述のTriainaフレームワークの開発者の人が、
+「RoboGuice無駄に大きしTypeListenerとかいらんし、もっと早くて軽いのをフルスクラッチで書く」
+と言って作られたのがProtonです。いらない機能を削ってAndroidに最適化した結果、サイズもメモリ使用量も圧倒的に少なくなったとのことです。
+ただドキュメントがないので使うならRoboGuiceの知識が必須で、ソースコードを読みながらになると思います。</p>
+
+<p>RoboActivityとかProtonActivityとか継承したくない、かつコンテキストシングルトンとかいらない！というケースであれば、単純にインジェクトだけが出来るDagger良いです。</p>
+
+<h1>おわりに</h1>
+
+<p>もうちょっと書こうと思ったのですが意外と書くのがたいへんだったので突然ブログは終わります。他にも、</p>
+
+<ul>
+<li>event busの<a href="http://square.github.com/otto/">Otto</a></li>
+<li>WebView Bridgeの<a href="https://github.com/mixi-inc/triaina">Triaina</a></li>
+<li>Code Dietが出来る<a href="http://androidannotations.org/">AndroidAnnotations</a></li>
+<li>jQueryのAndroid版の<a href="https://code.google.com/p/android-query/">android-query</a></li>
+</ul>
+
+
+<p>とかあるので、また検証をしたら個別に記事を書こうと思います。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1726,199 +1837,6 @@ JavaScript側からJSON形式で値が渡せば、自動的に値がエンティ
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/10/android-ci/">JenkinsでAndroidをCIしたかった</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-10T00:46:00+09:00" pubdate data-updated="true">Dec 10<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://dl.dropbox.com/u/54255753/blog/201212/jenktocat.jpg" alt="jenktocat" />
-GitHubにあるAndroidプロジェクトにプッシュしたらJenkinsがビルドしてテストするというのを実現したかった。</p>
-
-<h2>手順</h2>
-
-<ul>
-<li>Jenkinsをインストールする</li>
-<li>Androidをantでビルドする</li>
-<li>JenkinsでAndroidをビルドする</li>
-<li>GitHubにプッシュしたらビルドを行う</li>
-</ul>
-
-
-<p>ってする。</p>
-
-<h3>Jenkinsをインストールする</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
-</span><span class='line'>$ sudo sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
-</span><span class='line'>$ sudo aptitude update
-</span><span class='line'>$ sudo aptitude install jenkins
-</span><span class='line'>$ sudo service jenkins start</span></code></pre></td></tr></table></div></figure>
-
-
-<p>http://yourhost:8080にアクセスするとJenkinsさん動いてるの確認できる。<br/>
-新規ジョブ作って定期実行するだけで、</p>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/success.png" alt="Hello rejasupotaro" /></p>
-
-<p>1分毎にハローって言うかわいい。<br/>
-これだけでもカンタンにcronの管理が出来そうな感じ。</p>
-
-<h4>Jenkinsにプラグインを入れる</h4>
-
-<p>Jenkinsの管理 -> プラグインの管理 -> 利用可能のタブから</p>
-
-<ul>
-<li>Android Emulator Plugin</li>
-<li>GitHub Plugin</li>
-</ul>
-
-
-<p>入れる。</p>
-
-<h3>Androidをantでビルドする</h3>
-
-<p>まずant入れる。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo aptitude install ant</span></code></pre></td></tr></table></div></figure>
-
-
-<p>bashrcに追記した。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ANDROID_HOME=/var/lib/jenkins/tools/android-sdk
-</span><span class='line'>PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools</span></code></pre></td></tr></table></div></figure>
-
-
-<p>この時点でAndroidのリストを見てみる。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ android list target
-</span><span class='line'>id: 1 or "android-9"↲
-</span><span class='line'>     Name: Android 2.3.1
-</span><span class='line'>     Type: Platform
-</span><span class='line'>     API level: 9
-</span><span class='line'>     Revision: 2
-</span><span class='line'>     Skins: WVGA854, WQVGA400, HVGA, QVGA, WQVGA432, WVGA800 (default)
-</span><span class='line'>     ABIs : armeabi</span></code></pre></td></tr></table></div></figure>
-
-
-<p>はい。<br/>
-プロジェクトはルートのディレクトリがあって、その下にアプリのプロジェクトとテストプロジェクトがあるっていう感じ。なので、</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ android update project -p ./MyAppTest --target android-9
-</span><span class='line'>$ android update test-project -p MyAppTest/ -m ~/develop/projects/MyProjet/MyApp</span></code></pre></td></tr></table></div></figure>
-
-
-<p>設定ファイルとかが作られる。<br/>
-ant clean debugとかしてみて、モジュールが足りなかったりしたらlddとかしながら頑張って入れる。<br/>
-モジュールが足りないとadb: No such file or directoryとかなる。</p>
-
-<p><a href="http://source.android.com/source/initializing.html">Initializing a Build Environment</a><br/>
-ここを見ればだいたい解決する(はず)。</p>
-
-<h3>JenkinsでAndroidをビルドする</h3>
-
-<p>Jenkinsで新規ジョブを作成して実行する。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>emulator: ERROR: Could not load OpenGLES emulation library: libX11.so.6 #=> 試しにビルドしたらコケる
-</span><span class='line'>
-</span><span class='line'>$ sudo aptitude install libx11-6:i386 #=> 試しに入れてみる
-</span><span class='line'>
-</span><span class='line'>Could not load OpenGLES emulation library #=>コケる
-</span><span class='line'>Failed to load libEGL_translator.so #=> なんか読めてない</span></code></pre></td></tr></table></div></figure>
-
-
-<p>でlibEGLを入れるとまたlibX11.soがないと言われ、libX11.soを入れると（ryの無限ループになった。</p>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/failed.png" alt="failed..." /></p>
-
-<p>うーん。わからん。</p>
-
-<h3>GitHubにプッシュしたらビルドを行う</h3>
-
-<p>GitHubに鍵を登録する。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo -u jenkins -H git config --global user.emal "jenkins@rejasupotaro.com"
-</span><span class='line'>$ sudo -u jenkins -H git config --global user.name "jenkins"
-</span><span class='line'>$ sudo -u jenkins -H ssh-keygen -t rsa -C jenkins@rejasupotaro.com
-</span><span class='line'>[sudo] password for rejasupotaro:
-</span><span class='line'>Generating public/private rsa key pair.
-</span><span class='line'>Enter file in which to save the key (/var/lib/jenkins/.ssh/id_rsa):
-</span><span class='line'>Created directory '/var/lib/jenkins/.ssh'.
-</span><span class='line'>Enter passphrase (empty for no passphrase):
-</span><span class='line'>Enter same passphrase again:
-</span><span class='line'>Your identification has been saved in /var/lib/jenkins/.ssh/id_rsa.
-</span><span class='line'>Your public key has been saved in /var/lib/jenkins/.ssh/id_rsa.pub.</span></code></pre></td></tr></table></div></figure>
-
-
-<p>鍵をcatしてコピペしてGitHubに貼る。<br/>
-　<br/>
-　<br/>
-　<br/>
-エミュレーターが動くようになったらHooksに登録してビルドするようにしたい。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -1936,6 +1854,10 @@ ant clean debugとかしてみて、モジュールが足りなかったりし�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/09/30/upload-to-s3/">S3でmavenリポジトリをホストしてGradleでアップロードする</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/09/28/android-books/">Android開発を始めたばかりの僕が読みたかった本</a>
       </li>
     
@@ -1949,10 +1871,6 @@ ant clean debugとかしてみて、モジュールが足りなかったりし�
     
       <li class="post">
         <a href="/blog/2013/09/19/android-test/">モヒートはモッキングフレームワークで味はとても美味しい</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/17/interaction-design/">デザインリサーチをするにあたって</a>
       </li>
     
   </ul>
