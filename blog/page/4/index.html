@@ -9,10 +9,7 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="GitHubにあるAndroidプロジェクトにプッシュしたらJenkinsがビルドしてテストするというのを実現したかった。 手順 Jenkinsをインストールする
-Androidをantでビルドする
-JenkinsでAndroidをビルドする
-GitHubにプッシュしたらビルドを行う ってする &hellip;">
+  <meta name="description" content="ブログのデザインを可愛くしました。 ついでにGitHubへのpushをhookにしてブログを自動デプロイするようにして、選挙に行った。 戻ってきたらJenkinsがfetchしてgenerateしてdeployという一連の流れをひたすら反復してて、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +75,52 @@ GitHubにプッシュしたらビルドを行う ってする &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/16/vote/">無限デプロイ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-16T13:05:00+09:00" pubdate data-updated="true">Dec 16<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ブログのデザインを可愛くしました。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/top.png" alt="TOP" /></p>
+
+<p>ついでにGitHubへのpushをhookにしてブログを自動デプロイするようにして、選挙に行った。</p>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/sampo.gif" alt="近所" /></p>
+
+<p>戻ってきたらJenkinsがfetchしてgenerateしてdeployという一連の流れをひたすら反復してて、そのさまを見てひとしきり笑ったあと真顔でローカルのコミットにhookするように修正した。<br/>
+　<br/>
+何が起こったかというと、Octopressはページを生成したあと成果物をGitHubにプッシュする(じゃないとブログ反映されないし)ので、そうするとそれをhookしてJenkinsがまたリポジトリを見に行ってしてページを生成してしてプッシュして…を繰り返してた。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1798,81 +1841,6 @@ outFilePathはどこでもいいんだけど、</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/17/beautiful-gifs/">Beautiful GIFs</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-17T09:08:00+09:00" pubdate data-updated="true">Nov 17<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="http://dl.dropbox.com/u/54255753/blog/201211/boy.gif" alt="GIFは動く" /></p>
-
-<p><a href="http://www.buzzfeed.com/thegeshow/the-60-most-beautiful-cinemagraph-gifs">The 60 Most Beautiful Cinemagraph GIFs</a></p>
-
-<h3>GIFサービス</h3>
-
-<ul>
-<li><a href="http://jp.techcrunch.com/archives/20120209cinemagram-turns-iphone-photos-into-animated-gifs-in-secondsgrcc33333z98/">Cinemagram</a></li>
-<li><a href="http://appllio.com/android-tool-app/20120216-1625-gifboom-animation-camera">GIFBoom</a></li>
-<li><a href="http://www.gifsoup.com/">gifsoup</a></li>
-</ul>
-
-
-<h3>お役立ちサイト</h3>
-
-<p><img src="http://24.media.tumblr.com/tumblr_mbtisnNTzE1rvaveio1_400.gif" alt="サイケデリックGIFアニメーション入門" /></p>
-
-<p><a href="http://diary.mirakui.com/post/33481148217">わくわくパンダさん日記</a></p>
-
-<h3>convertコマンド</h3>
-
-<pre><code>$ convert [ options ... ] input output
-</code></pre>
-
-<p>よく使いそうなオプション</p>
-
-<pre><code>-resize  =&gt; リサイズ
--delay   =&gt; 静止画の切り替え感覚
--unsharp =&gt; シャープネスする
--font    =&gt; 文字入れる
-</code></pre>
-
-<p>And More&#8230; <a href="http://www5a.biglobe.ne.jp/~nkgwtty/njaLinuxImageMagick.html">ImageMagick convert option</a></p>
-
-<h3>AndroidネイティブでGIF再生</h3>
-
-<p><a href="http://d.hatena.ne.jp/tomorrowkey/20100426/1272267480">AndroidでGIFアニメーションが動いたんだもんね</a></p>
-
-<p>GifView作った人がいた。<br/>
-ふつうにWebViewに表示させてもいい気がする。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -1890,6 +1858,10 @@ outFilePathはどこでもいいんだけど、</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/10/06/feed-ui-patterns/">Feed UI Patterns</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/09/30/upload-to-s3/">S3でmavenリポジトリをホストしてGradleでアップロードする</a>
       </li>
     
@@ -1903,10 +1875,6 @@ outFilePathはどこでもいいんだけど、</p>
     
       <li class="post">
         <a href="/blog/2013/09/22/yapcasia-2013/">YAPC::ASIA 2013 感想</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/19/android-test/">モヒートはモッキングフレームワークで味はとても美味しい</a>
       </li>
     
   </ul>

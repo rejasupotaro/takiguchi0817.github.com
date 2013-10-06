@@ -9,7 +9,8 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="What&#8217;s Modern Android Design? GitHub Ted Twitter Evernote Food Flipboard Gmail Google Music Google+ pixiv recipes Trulia umano YouTube ">
+  <meta name="description" content="Android StudioでLibrary Projectを参照するのにソースコードを修正するたびにjarで固めてlibsにポンしてもいいいのですが、
+面倒だしバージョン管理もしたいので調べてたらGitHubをmavenrepoにしてbuild. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,147 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/27/aar-dependency/">Aar Dependency</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-27T15:47:00+09:00" pubdate data-updated="true">Jul 27<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Android StudioでLibrary Projectを参照するのにソースコードを修正するたびにjarで固めてlibsにポンしてもいいいのですが、
+面倒だしバージョン管理もしたいので調べてたらGitHubをmavenrepoにしてbuild.gradleにdependencyを書いてaarを読み込めることが分かった。</p>
+
+<p><a href="http://u1aryz.blogspot.jp/2013/06/githubmavenandroidaar.html">githubをMavenリポジトリとしてAndroidライブラリプロジェクト(aar)をデプロイして使用する</a></p>
+
+<p>Library Projectの対象moduleのbuild.gradleを以下のように変更。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>buildscript {
+</span><span class='line'>    repositories {
+</span><span class='line'>        mavenCentral()
+</span><span class='line'>    }
+</span><span class='line'>    dependencies {
+</span><span class='line'>        classpath 'com.android.tools.build:gradle:0.5.+'
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>apply plugin: 'android-library'
+</span><span class='line'>
+</span><span class='line'>repositories {
+</span><span class='line'>    mavenCentral()
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>dependencies {
+</span><span class='line'>    compile 'com.android.support:support-v4:13.0.+'
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>android {
+</span><span class='line'>    compileSdkVersion 17
+</span><span class='line'>    buildToolsVersion "17.0.0"
+</span><span class='line'>
+</span><span class='line'>    defaultConfig {
+</span><span class='line'>        minSdkVersion 9
+</span><span class='line'>        targetSdkVersion 16
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>apply plugin: 'maven'
+</span><span class='line'>
+</span><span class='line'>uploadArchives {
+</span><span class='line'>    repositories {
+</span><span class='line'>        mavenDeployer {
+</span><span class='line'>            repository url: "file://${projectDir}/repository"
+</span><span class='line'>            pom.groupId = 'com.rejasupotaro'
+</span><span class='line'>            pom.artifactId = 'rejasupo-commons'
+</span><span class='line'>            pom.version = '0.0.1'
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>参照するプロジェクトのbuild.gradleにdependencyを追加。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>repositories {
+</span><span class='line'>    maven { url 'https://raw.github.com/takiguchi0817/rejasupo-commons/master/rejasupo-commons/repository' }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>dependencies {
+</span><span class='line'>    compile 'com.rejasupotaro:rejasupo-commons:0.0.1'
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1059,51 +1201,6 @@ Androidアプリ開発どう？みたいな話をして、あまりリソース�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/16/taisyoku/">退職しました</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-16T22:53:00+09:00" pubdate data-updated="true">Mar 16<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>インターンの頃から一年半ほどお世話になった会社を退職しました。</p>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201303/seibo.gif" alt="" /></p>
-
-<p>餞に聖母(3.5kg)とアランの幸福論という本を貰いました。</p>
-
-<p>湿っぽい話はよそでしてきたので、ここではご報告だけ。
-次はPerlでもLISPでもない会社に行く予定です。</p>
-
-<p>顧客に価値を届け続けるために、これからもより一層の努力をしていきたい所存です。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1121,6 +1218,10 @@ Androidアプリ開発どう？みたいな話をして、あまりリソース�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/10/06/feed-ui-patterns/">Feed UI Patterns</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/09/30/upload-to-s3/">S3でmavenリポジトリをホストしてGradleでアップロードする</a>
       </li>
     
@@ -1134,10 +1235,6 @@ Androidアプリ開発どう？みたいな話をして、あまりリソース�
     
       <li class="post">
         <a href="/blog/2013/09/22/yapcasia-2013/">YAPC::ASIA 2013 感想</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/19/android-test/">モヒートはモッキングフレームワークで味はとても美味しい</a>
       </li>
     
   </ul>

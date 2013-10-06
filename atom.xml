@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-09-30T22:58:43+09:00</updated>
+  <updated>2013-10-06T18:06:30+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,48 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Feed UI Patterns]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/10/06/feed-ui-patterns/"/>
+    <updated>2013-10-06T17:50:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/10/06/feed-ui-patterns</id>
+    <content type="html"><![CDATA[<p>タイムラインとかフィードを見る系でいい感じのアプリない？と聞かれたのでアプリのUIを眺めていました。</p>
+
+<h3>Feedly</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201310/feedly.png" width="300px"></p>
+
+<h3>foursquare</h3>
+
+<p><img src="http://img1.mobile-patterns.com/img/full/1363118152348-2013-03-03%2020.23.25.png" width="300px"></p>
+
+<h3>YouTube</h3>
+
+<p><img src="http://img3.mobile-patterns.com/img/full/1363118191519-2013-03-03%2022.46.46.png" width="300px"></p>
+
+<h3>SocialCam</h3>
+
+<p><img src="http://25.media.tumblr.com/tumblr_lyr31slYLr1r750h1o1_500.png" width="300px"></p>
+
+<h3>Path</h3>
+
+<p><img src="http://31.media.tumblr.com/tumblr_lvifhic1MU1r750h1o1_500.jpg" width="300px"></p>
+
+<h3>Pinterest</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201310/pinterest.png" width="300px"></p>
+
+<h3>Gunosy</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201310/gunosy.png" width="300px"></p>
+
+<p>メールアプリとか、RSSリーダーとか、そういう系のサービスでは未読が何件っていうのがあるけど、それ以外ではコンテンツに対するフィードバックか、外部サービスへの共有が一覧にあります。</p>
+
+<p>誰が投稿したか、誰が投稿に対して反応したか、何時に投稿されたか、とか、何を最初に知らせたいのか、とか、写真を良く見せたいとか、そのサービスにとって何が重要なのかによって見せ方が変わると感じました。
+いい感じとは一体どんな感じなのか詳しく聞いてみないと分からないですが、そんな感じでした。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[S3でmavenリポジトリをホストしてGradleでアップロードする]]></title>
@@ -1823,24 +1865,6 @@ Androidアプリ開発どう？みたいな話をして、あまりリソース�
 <li><a href="https://github.com/rspec/rspec-expectations">rails-expectations</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[退職しました]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/03/16/taisyoku/"/>
-    <updated>2013-03-16T22:53:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/03/16/taisyoku</id>
-    <content type="html"><![CDATA[<p>インターンの頃から一年半ほどお世話になった会社を退職しました。</p>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201303/seibo.gif" alt="" /></p>
-
-<p>餞に聖母(3.5kg)とアランの幸福論という本を貰いました。</p>
-
-<p>湿っぽい話はよそでしてきたので、ここではご報告だけ。
-次はPerlでもLISPでもない会社に行く予定です。</p>
-
-<p>顧客に価値を届け続けるために、これからもより一層の努力をしていきたい所存です。</p>
 ]]></content>
   </entry>
   
