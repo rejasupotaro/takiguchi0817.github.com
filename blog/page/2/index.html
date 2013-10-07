@@ -9,8 +9,9 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="Android StudioでLibrary Projectを参照するのにソースコードを修正するたびにjarで固めてlibsにポンしてもいいいのですが、
-面倒だしバージョン管理もしたいので調べてたらGitHubをmavenrepoにしてbuild. &hellip;">
+  <meta name="description" content="アプリにアニメーションを取り入れるのってどうだろう。
+って友人と話していたのだけど、過度なアニメーション？開発者がやりたくやったみたいなのは使う側からするとあんまり嬉しくなくて、
+でも気持ちいいアニメーションはついアクションをしたくなるし、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/08/21/ui-animations/">どうすると気持ち良く感じるのか</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-21T21:56:00+09:00" pubdate data-updated="true">Aug 21<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img src="http://i.imgur.com/t3u9Ucc.gif" alt="" /></p>
+
+<p><img src="http://i.imgur.com/IoWbato.gif" alt="" /></p>
+
+<p><img src="http://i.imgur.com/aUsHSCo.gif" alt="" /></p>
+
+<p><img src="http://i.imgur.com/mQp4sYq.gif" alt="" /></p>
+
+<p><img src="http://hyper-text.org/img/post/css_tumblr_mobile_app_ui_01.gif" alt="" /></p>
+
+<p>アプリにアニメーションを取り入れるのってどうだろう。
+って友人と話していたのだけど、過度なアニメーション？開発者がやりたくやったみたいなのは使う側からするとあんまり嬉しくなくて、
+でも気持ちいいアニメーションはついアクションをしたくなるし、それによってコミュニケーションが活発になったりするんじゃないかなってなった。</p>
+
+<p>アニメーションって結構意味が広いからむずかしいのだけど。</p>
+
+<p><a href="http://gihyo.jp/design/serial/01/ui-ux/0001">気持ち良さはどこからくるのか～身体に近づくUIへ</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -986,221 +1039,6 @@ Androidアプリ開発どう？みたいな話をして、あまりリソース�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/28/rspec-on-rails/">はじめてのRspec on Rails(コントローラ編)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-28T22:23:00+09:00" pubdate data-updated="true">Mar 28<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>はじめてのRspec on Rails</p>
-
-<h2>セットアップ</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ gem install rspec-rails
-</span><span class='line'>
-</span><span class='line'>$ rails g rspec:controller "テスト対象のコントローラ名"
-</span><span class='line'>      create  spec/controllers/foo_controller_spec.rb
-</span><span class='line'>
-</span><span class='line'>$ rake spec</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Railsのコントローラやモデルをテストするためにrspec-railsを入れて、rake specするまで。
-この時点では何も起こりません。</p>
-
-<p>続いてDBの設定をします。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ vim config/database.yml
-</span><span class='line'>
-</span><span class='line'>test:
-</span><span class='line'>  adapter: mysql2
-</span><span class='line'>  encoding: utf8
-</span><span class='line'>  reconnect: false
-</span><span class='line'>  database: app_database_test
-</span><span class='line'>  pool: 5
-</span><span class='line'>  username: username
-</span><span class='line'>  password: password
-</span><span class='line'>  host: localhost
-</span><span class='line'>
-</span><span class='line'>$ rake db:create RAILS_ENV=test</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>コントローラのテスト</h2>
-
-<p>あまり良い例じゃありませんが</p>
-
-<figure class='code'><figcaption><span>spec/controllers/images_controller_spec.rb </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;spec_helper&#39;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">describe</span> <span class="no">ImagesController</span> <span class="k">do</span>
-</span><span class='line'>  <span class="n">fixtures</span> <span class="ss">:images</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">describe</span> <span class="s1">&#39;GET #index&#39;</span> <span class="k">do</span>
-</span><span class='line'>    <span class="n">context</span> <span class="s1">&#39;when access to route&#39;</span> <span class="k">do</span>
-</span><span class='line'>      <span class="n">before</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">get</span> <span class="ss">:index</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>      <span class="n">it</span> <span class="s1">&#39;responds successfully with an HTTP 200 status code&#39;</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_success</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>      <span class="n">it</span> <span class="s1">&#39;renders the index template&#39;</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>      <span class="n">it</span> <span class="s1">&#39;loads all of the images into @image_list&#39;</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">image1</span><span class="p">,</span> <span class="n">image2</span> <span class="o">=</span> <span class="no">Image</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="ss">:all</span><span class="p">)</span>
-</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">assigns</span><span class="p">(</span><span class="ss">:image_list</span><span class="p">))</span><span class="o">.</span><span class="n">to</span> <span class="n">match_array</span><span class="p">(</span><span class="o">[</span><span class="n">image1</span><span class="p">,</span> <span class="n">image2</span><span class="o">]</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="n">describe</span> <span class="s1">&#39;GET #show&#39;</span> <span class="k">do</span>
-</span><span class='line'>    <span class="n">context</span> <span class="s1">&#39;when access to exsting image id&#39;</span> <span class="k">do</span>
-</span><span class='line'>      <span class="n">before</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">1</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>      <span class="n">it</span> <span class="s2">&quot;responds successfully with an HTTP 200 status code&quot;</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be_success</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>      <span class="n">it</span> <span class="s2">&quot;renders the show templage&quot;</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;show&quot;</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">context</span> <span class="s2">&quot;when access to not exsting image id&quot;</span> <span class="k">do</span>
-</span><span class='line'>      <span class="n">before</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">get</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:id</span> <span class="o">=&gt;</span> <span class="mi">9999</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>      <span class="n">it</span> <span class="s2">&quot;renders the notfound template&quot;</span> <span class="k">do</span>
-</span><span class='line'>        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">)</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;notfound&quot;</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">end</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>とりあえず expect(object).to あるいは not_to に</p>
-
-<ul>
-<li>be_success</li>
-<li>eq</li>
-<li>match_array</li>
-<li>be_a_new</li>
-<li>render_template</li>
-<li>redirect_to</li>
-<li>route_to</li>
-<li>be_routable</li>
-<li>have_selector</li>
-<li>include</li>
-<li>match</li>
-</ul>
-
-
-<p>などなど、期待する値を書いていく感じですね。
-(ちなみにshouldはdeprecatedになったとのことです)</p>
-
-<h2>link</h2>
-
-<ul>
-<li><a href="https://github.com/rspec/rspec-rails">rspec-rails</a></li>
-<li><a href="https://github.com/rspec/rspec-expectations">rails-expectations</a></li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1218,6 +1056,10 @@ Androidアプリ開発どう？みたいな話をして、あまりリソース�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/10/07/native-ui/">Narive UI</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/10/06/feed-ui-patterns/">Feed UI Patterns</a>
       </li>
     
@@ -1231,10 +1073,6 @@ Androidアプリ開発どう？みたいな話をして、あまりリソース�
     
       <li class="post">
         <a href="/blog/2013/09/26/alice-api/">きんモザのアリスのgif画像を取得するAPIを使ったAndroidアプリを作った</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/22/yapcasia-2013/">YAPC::ASIA 2013 感想</a>
       </li>
     
   </ul>

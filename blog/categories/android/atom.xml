@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-06T18:06:30+09:00</updated>
+  <updated>2013-10-08T00:02:06+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,45 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Narive UI]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/10/07/native-ui/"/>
+    <updated>2013-10-07T23:55:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/10/07/native-ui</id>
+    <content type="html"><![CDATA[<p>人は何を見てアプリっぽいと感じるのだろうか。</p>
+
+<div>
+<img src="http://gifzo.net/jTEl4YmZqD.gif" style="float:left">
+<img src="http://gifzo.net/BHFQmyIfFHF.gif" style="float:left">
+</div>
+
+
+
+
+<div style="clear:both">
+<img src="http://gifzo.net/BWvNCrQFYfF.gif" style="float:left">
+<img src="http://gifzo.net/BGth4C1Ok64.gif" style="float:left">
+</div>
+
+
+
+
+<div style="clear:both">
+<img src="http://gifzo.net/lSwyh4fg6P.gif" style="float:left">
+<img src="http://gifzo.net/68NrYQW2tB.gif" style="float:left">
+</div>
+
+
+
+
+<div style="clear:both">
+<img src="http://gifzo.net/OKyqq1D9yD.gif" style="float:left">
+<img src="http://gifzo.net/mtHN4UIAMZ.gif" style="float:left">
+</div>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Feed UI Patterns]]></title>
@@ -215,214 +254,6 @@ Javaを書く上でのエッセンスが詰め込まれているので、まだ�
 <li><a href="http://moroya.hatenablog.jp/entry/2013/09/25/224446">きんモザのアリスAPIを使って、好きなアリスを無限ループ視聴出来るWebアプリを作った</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[モヒートはモッキングフレームワークで味はとても美味しい]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/09/19/android-test/"/>
-    <updated>2013-09-19T22:40:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/09/19/android-test</id>
-    <content type="html"><![CDATA[<h1>mojito (モヒート)</h1>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201301/mojito.jpg" alt="" /></p>
-
-<p>モヒートは、キューバ・ハバナ発祥のカクテルの一つ。<br/>
-由来は、新大陸として注目されていたアメリカ諸国から得られる富をコントロールする名目で、英国女王エリザベス1世が、スペイン領の都市を略奪する海賊達の手助けをしていた16世紀後半、海賊フランシス・ドレイクの部下であるリチャード・ドレイクが、1586年にモヒートの前身となる飲み物「ドラケ(draque)」をキューバの人々へ伝えた、という説が有力。<br/>
-ラムをベースにソーダ、ライム、砂糖、ミントを加えたもの。ミントとソーダの清涼感が暑い夏にぴったりな「夏と言えば」の定番カクテル。</p>
-
-<p>アーネスト・ヘミングウェイが好んで飲んでいた話は有名である。</p>
-
-<h1><a href="http://code.google.com/p/mockito/">mockito</a> (モヒート)</h1>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201301/mockito.jpg" alt="" /></p>
-
-<p>モヒートは、Javaのモックライブラリ。<br/>
-モックライブラリは他にもいろいろあるけど <a href="http://code.google.com/p/mockito/wiki/MockitoVSEasyMock">EasyMockと比べても</a> mockitoの方が簡潔に書ける。<br/>
-導入するとモヒートを飲んだあとのようにスカッとする。</p>
-
-<p><strong>"Mockito is a mocking framework that tastes really good!"</strong> とのこと。(公式)</p>
-
-<h1>mockitoナシ</h1>
-
-<p>今までのやり方。まずモッククラスを定義して、</p>
-
-<p>```java
-import com.android.volley.Network;
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.VolleyError;</p>
-
-<p>public class MockNetwork implements Network {</p>
-
-<pre><code>private byte[] mFakeResponseData = null;
-
-public void setFakeResponseData(byte[] data) {
-    mFakeResponseData = data;
-}
-
-@Override
-public NetworkResponse performRequest(Request&lt;?&gt; request) throws VolleyError {
-    return new NetworkResponse(mFakeResponseData);
-}
-</code></pre>
-
-<p>}
-```</p>
-
-<p>テストするときに返したいデータをセットする。</p>
-
-<p><code>java
-MockNetwork mockNetwork = new MockNetwork();
-mockNetwork.setFakeResponseData("{\"code\":200}".getBytes());
-</code></p>
-
-<h1>mockitoアリ</h1>
-
-<p>このメソッドが呼ばれたときにこれを返す、とするだけ。</p>
-
-<p>```java
-Network mockNetwork = mock(Network.class);
-when(mockNetwork.performRequest(any(Request.class))).</p>
-
-<pre><code>    thenReturn(new NetworkResponse("{\"code\":200}".getBytes()));
-</code></pre>
-
-<p>```</p>
-
-<p>インタフェースが統一されることによって、次にテストを書く人が「MockNetworkというクラスがあるらしい、ふむふむ、setFakeResponseDataに渡したbyte列がperformRequestで返ってくるのか」と調べる時間を省くことができる。</p>
-
-<p>特定のオブジェクトの一部のメソッドの振る舞いを変えるときもカンタン。</p>
-
-<p><code>groovy
-doReturn(new HashMap&lt;String, String&gt;() { { put("fake", "foo"); } }).when(spyRequest).getHeaders();
-</code></p>
-
-<p>ちなみにdependencyを解決できなかったので、jarを落として ./src/instrumentTest/libs/ に配置して以下のようにした。</p>
-
-<p><code>groovy
-instrumentTestCompile fileTree(dir: './src/instrumentTest/libs', include: '*.jar')
-</code></p>
-
-<p>モヒートにギョームでもプライベートでもお世話になってる。</p>
-
-<hr />
-
-<p>↑ここまでモヒートの話↑<br/>
-↓ここまで他のフレームワークの紹介↓</p>
-
-<h1><a href="http://square.github.io/fest-android/">Fest Android</a></h1>
-
-<p>安心と信頼の <a href="https://github.com/square">Square</a> 製テストフレームワーク。(Squareが公開してるライブラリは本当にどれもレベルが高い)<br/>
-元ネタは <a href="http://fest.easytesting.org/">Fixtures for Easy Software Testing</a> のAndroid拡張となっている。</p>
-
-<h3>REGULAR JUNIT</h3>
-
-<p><code>java
-assertEquals(View.VISIBLE, layout.getVisibility());
-assertEquals(VERTICAL, layout.getOrientation());
-assertEquals(4, layout.getChildCount());
-assertEquals(SHOW_DIVIDERS_MIDDLE, layout.getShowDividers());
-</code></p>
-
-<h3>FEST ANDROID</h3>
-
-<p>```java
-assertThat(layout).isVisible()</p>
-
-<pre><code>.isVertical()
-.hasChildCount(4)
-.hasShowDividers(SHOW_DIVIDERS_MIDDLE);
-</code></pre>
-
-<p>```</p>
-
-<h1><a href="https://github.com/mttkay/calculon">calculon</a></h1>
-
-<p><img src="https://raw.github.com/mttkay/calculon/master/assets/calculon.png" alt="" /></p>
-
-<p>こちらも便利メソッドを提供している。</p>
-
-<p>```java
-// direct assertion on current activity
-assertThat().inPortraitMode();
-assertThat().viewExists(R.id.launch_bar_button);</p>
-
-<p>// assert specific condition on current activity</p>
-
-<pre><code>assertThat().satisfies(new Predicate&lt;Activity&gt;() {
-public boolean check(Activity target) {
-    return target.isTaskRoot();
-}
-</code></pre>
-
-<p>});
-```</p>
-
-<p>Fest Androidとの違いは、calculonはStoryTestを提供しており、画面遷移を伴うストーリーをテストとして実行することができる。</p>
-
-<h1>Robolectric + Spock</h1>
-
-<p>この動画で紹介されているGroovyの元祖PowerAssert系テストフレームワーク <a href="https://code.google.com/p/spock/">Spock</a> を頑張ってAndroidで動かすというもの。</p>
-
-<iframe width="420" height="315" src="http://takiguchi0817.github.com//www.youtube.com/embed/aDoQxqO_6rI" frameborder="0" allowfullscreen></iframe>
-
-
-<p>RobolectricはAndroidのテストをJVM上で実行するためのフレームワークで、AndroidのクラスをJavaのShadowクラスに変換して実行するしくみになっている。
-JVMでテストが実行できるようになるということは、Groovyでもテストが書けるということなので、Robolectricを導入すればSpockも使えるようになる。</p>
-
-<h3>Robolectric</h3>
-
-<p>```java
-@Test
-public void testDialogContent() {</p>
-
-<pre><code>// given
-final MainActivity mainActivity = new MainActivity();
-mainActivity.onCreate(null);
-
-// when
-mainActivity.button.performClick();
-
-// then
-final ShadowAlertDialog dialog = (ShadowAlertDialog) Robolectric.shadowOf(ShadowDialog.getLatestDialog());
-Assert.assertEquals("title", dialog.getTitle());
-Assert.assertEquals("Ok", dialog.getButton(AlertDialog.BUTTON_POSITIVE).getText());
-Assert.assertEquals("Cancel", dialog.getButton(AlertDialog.BUTTON_NEGATIVE).getText());
-Assert.assertEquals("Dismiss", dialog.getButton(AlertDialog.BUTTON_NEUTRAL).getText());
-Assert.assertEquals("Dialog Content", dialog.getMessage());
-</code></pre>
-
-<p>}
-```</p>
-
-<h3>Robolectric + Spock</h3>
-
-<p>```groovy
-def "should displayed dialog's button has good text"() {</p>
-
-<pre><code>given:
-def mainActivity = new MainActivity()
-mainActivity.onCreate(null)
-
-when:
-mainActivity.button.performClick()
-def dialog = (ShadowAlertDialog) Robolectric.shadowOf(ShadowDialog.getLatestDialog());
-
-then:
-dialog.getButton(number).text == value
-
-where:
-number                      | value
-AlertDialog.BUTTON_POSITIVE | "Ok"
-AlertDialog.BUTTON_NEGATIVE | "Cancel"
-AlertDialog.BUTTON_NEUTRAL  | "Dismiss"
-</code></pre>
-
-<p>}
-```</p>
-
-<p>導入コスト、学習コスト、効果を鑑みつつ、引き続きテスティングフレームワークをテイスティングしていきます。</p>
 ]]></content>
   </entry>
   

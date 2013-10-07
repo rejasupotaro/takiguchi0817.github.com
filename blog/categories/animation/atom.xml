@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Animation | Just posted a blog]]></title>
+  <link href="http://takiguchi0817.github.com/blog/categories/animation/atom.xml" rel="self"/>
+  <link href="http://takiguchi0817.github.com/"/>
+  <updated>2013-10-08T00:02:06+09:00</updated>
+  <id>http://takiguchi0817.github.com/</id>
+  <author>
+    <name><![CDATA[rejasupotaro]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Narive UI]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/10/07/native-ui/"/>
+    <updated>2013-10-07T23:55:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/10/07/native-ui</id>
+    <content type="html"><![CDATA[<p>人は何を見てアプリっぽいと感じるのだろうか。</p>
+
+<div>
+<img src="http://gifzo.net/jTEl4YmZqD.gif" style="float:left">
+<img src="http://gifzo.net/BHFQmyIfFHF.gif" style="float:left">
+</div>
+
+
+
+
+<div style="clear:both">
+<img src="http://gifzo.net/BWvNCrQFYfF.gif" style="float:left">
+<img src="http://gifzo.net/BGth4C1Ok64.gif" style="float:left">
+</div>
+
+
+
+
+<div style="clear:both">
+<img src="http://gifzo.net/lSwyh4fg6P.gif" style="float:left">
+<img src="http://gifzo.net/68NrYQW2tB.gif" style="float:left">
+</div>
+
+
+
+
+<div style="clear:both">
+<img src="http://gifzo.net/OKyqq1D9yD.gif" style="float:left">
+<img src="http://gifzo.net/mtHN4UIAMZ.gif" style="float:left">
+</div>
+
+]]></content>
+  </entry>
+  
+</feed>
