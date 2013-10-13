@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-08T00:16:32+09:00</updated>
+  <updated>2013-10-13T23:33:45+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,175 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Androidのデータ保存パターン]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/10/13/saving-data/"/>
+    <updated>2013-10-13T22:36:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/10/13/saving-data</id>
+    <content type="html"><![CDATA[<p>新しくアプリを作るときにAndroid内でのデータの持ち方や、アクセスの仕方、モデルの扱い方には色々あってどうしようってなると思うので、僕の少ない経験から考えたことをまとめます。</p>
+
+<h1>ファイルに保存</h1>
+
+<p>DBは注意して使わないとデータがアップデートしたら全部消えましたとか、あるカラムだけデータが入ってませんでしたとかあるので、データの簡易保存、たとえばレスポンスのjsonをそのままキャッシュするとか、検索する必要がなかったりあまり更新しないモデルをシリアライズして保存するときにはファイル保存が向いていると思います。</p>
+
+<p>なお、JavaのSerializableは柔軟性が低く、バージョンアップでデータを壊してアプリが落ちるということが分かっていてもハンドリングできなくて防ぐのが難しかったりするので、シリアライズするときはgsonとかmessagepackを使うことをオススメします。</p>
+
+<p>ただこのやり方でもキャッシュを管理するためのFileManager的なクラスは必要になってくると思うので、あまり複雑なことをやるのであればDBを使った方が楽になってくると思います。
+独自のFileManagerクラスを作り込んでしまうと新しく入ってきた人がつらいですしね。</p>
+
+<h1>DBに保存(素SQL)</h1>
+
+<p>手でSQLを書くのはつらいです。人間はミスをするのでORMを使った方がいいと思います。</p>
+
+<h1>ORM(ActiveAndroid)を利用してDBに保存</h1>
+
+<p><a href="http://d.hatena.ne.jp/nattou_curry_2/20090102/1230903865">ActiveRecordパターン</a>のORMです。</p>
+
+<h2>モデル定義</h2>
+
+<p>```java
+@Table(name = "Items")
+public class Item extends Model {
+  @Column(name = "Name", notNull = true, unique = true) // カラム名と制約を付けることができる　
+  public String name; // ModelのFieldはpublicにしなければならない</p>
+
+<p>  @Column(name = "Category") // リレーションが持てる
+  public Category category;
+}</p>
+
+<p>@Table(name = "Categories")
+public class Category extends Model {
+  @Column(name = "Name")
+  public String name;</p>
+
+<p>  public List<Item> items() {</p>
+
+<pre><code>return getMany(Item.class, "Category");
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<h3>補足</h3>
+
+<p>MedelのFieldに<a href="https://github.com/pardom/ActiveAndroid/blob/91bca4983a7da882b6585f124288f1aac7b299ef/src/com/activeandroid/Model.java#LC40">Idが定義</a>されていて、テーブルを作るときに<a href="https://github.com/pardom/ActiveAndroid/blob/91bca4983a7da882b6585f124288f1aac7b299ef/src/com/activeandroid/util/SQLiteUtils.java#LC161">Primary Keyになります。</a>
+とはいえ内部的なIdだけでなく、サーバーからのレスポンスにIdも入っていると思うので、</p>
+
+<p>```java
+@Table(name = "Items")
+public class Item extends Model {</p>
+
+<pre><code>@Column(name = "ItemId")
+public String id;
+
+@Column(name = "Name", notNull = true, unique = true) // カラム名と制約を付けることができる　
+public String name; // ModelのFieldはpublicにしなければならない
+
+@Column(name = "Category") // リレーションが持てる
+public Category category;
+</code></pre>
+
+<p>}
+```</p>
+
+<p>このように親クラスのIdとカラム名が被らないように定義して <code>item.id</code> でアクセスするのはどうだろうかと考えています。ここでうっかり <code>item.getId()</code> とすると思っていたのと違う値が返ってくるとかあるので注意が必要です。</p>
+
+<p>リリース後にモデルのフィールドを変更した際にはmigrationをする必要があります。詳しくはmigrationのところで書きますが、モデルの変更は注意が必要です。</p>
+
+<h2>Query</h2>
+
+<h3>Save</h3>
+
+<p><code>java
+item = new Item();
+item.category = restaurants;
+item.name = "Red Robin";
+item.save();
+</code></p>
+
+<h3>Delete</h3>
+
+<p><code>java
+Item item = Item.load(Item.class, 1);
+item.delete();
+// or
+new Delete().from(Item.class).where("Id = ?", 1).execute();
+</code></p>
+
+<h3>Bulk insert</h3>
+
+<p>```java
+ActiveAndroid.beginTransaction();
+try {</p>
+
+<pre><code>    for (int i = 0; i &lt; 100; i++) {
+        Item item = new Item();
+        item.name = "Example " + i;
+        item.save();
+    }
+    ActiveAndroid.setTransactionSuccessful();
+</code></pre>
+
+<p>}
+finally {</p>
+
+<pre><code>    ActiveAndroid.endTransaction();
+</code></pre>
+
+<p>}
+```</p>
+
+<p>トランザクションでラップすると40msで、使わないと4secかかるとのことです。</p>
+
+<h3>補足</h3>
+
+<p><a href="https://github.com/pardom/ActiveAndroid/blob/91bca4983a7da882b6585f124288f1aac7b299ef/src/com/activeandroid/query/From.java#LC54">join、leftJoin、outerJoin、innerJoin、crossJoinもできます。</a></p>
+
+<h2>Migration</h2>
+
+<p><code>/assets/migraions/2.sql</code> のようにsqlを置いておくとonUpgradeで実行されます。
+カラムを追加するだけなら以下の書けます。</p>
+
+<p><code>sql
+ALTER TABLE Items ADD COLUMN price INTEGER;
+</code></p>
+
+<p>migrationはバージョンアップ後にユーザーの手元で<a href="https://github.com/pardom/ActiveAndroid/blob/791652b3fbf130448a5b152d12764a451e421b47/src/com/activeandroid/DatabaseHelper.java#LC137">順番に実行される</a>ので、アプリをインストールしてからしばらく期間をおいてからそのユーザーがアプリのバージョンアップをしたとすると、空いた期間分のマイグレーションが走って初回起動にやや時間がかかるかと思います。(そこまで大きな影響があるとは思いませんが)
+起動時間より、migrationファイルを作り忘れたとかそっちの方がこわいので、モデルを変更するとき・レビューするときには気をつけて見たほうがよさそうです。</p>
+
+<h2>その他ORMとの比較</h2>
+
+<p>```java
+// GreenDAO
+List<Todo> ended = daoSession.getTodoDao().queryBuilder()</p>
+
+<pre><code>    .where(new StringCondition(
+        TodoDao.Properties.Status.columnName + "=?",
+        Integer.toString(TodoDaoHelper.STATUS_END))).list();
+</code></pre>
+
+<p>// ActiveAndroid
+new Select().from(Todo.class).where("Status=?", STATUS_END).execute();
+```</p>
+
+<p>greenDAOも見てみたのですが、daoSessionを引き回さないといけないのと、全体的に冗長だなという印象です。その分DAOの方がバグが入りにくそうなので、用途によって選択すればいいと思います。</p>
+
+<p>See also:</p>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/13680954/green-dao-vs-orm-lite-vs-active-android">Green DAO vs ORM lite vs Active Android</a></li>
+<li><a href="http://software-workshop.eu/content/comparing-android-orm-libraries-greendao-vs-ormlite">Comparing android ORM libraries - GreenDAO vs Ormlite</a></li>
+</ul>
+
+
+<h1>まとめ</h1>
+
+<p>キャッシュはファイルに保存して、モデルは要件に応じてORMを使ってDBに保存するのがいいと思います。
+もしActiveAndroidを使うならAPIレスポンスをgsonとかで直接モデルに変換するとカオスになるのでentityを作るのがいいです、みたいにデータ保存はアプリの全体設計に関わってくるので、もし新しくアプリを作る場合はなるべく早い段階から検討をするといいと思います。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Narive UI]]></title>
@@ -246,26 +415,6 @@ Javaを書く上でのエッセンスが詰め込まれているので、まだ�
 
 <p>こんなに一度に紹介されても読むのはたいへん…ですが、まずは調べてみて興味を持ったところから読んでみるといいと思います。
 スマートフォンエンジニアはデザインから低レイヤまで幅広い知識を要求されます(といってもエンジニアリングってどの分野もそうなのですが)が、まずは自分の好きを伸ばして、それからもっと良いアプリを作るために、足りないところを補っていくというやり方がいいのかなと思いました。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[きんモザのアリスのgif画像を取得するAPIを使ったAndroidアプリを作った]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/09/26/alice-api/"/>
-    <updated>2013-09-26T01:09:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/09/26/alice-api</id>
-    <content type="html"><![CDATA[<p><a href="https://github.com/takiguchi0817/KinMoza/tree/master">
-<img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/alice_github.png">
-</a></p>
-
-<p>See also</p>
-
-<ul>
-<li><a href="http://mogashi.hateblo.jp/entry/2013/09/24/000619">きんモザのアリスのgif画像を取得するAPIを作った</a></li>
-<li><a href="http://pastak.hatenablog.com/entry/2013/09/25/004437">きんモザのアリスのgif画像を取得するAPIを利用したGoogle Chrome拡張を作った</a></li>
-<li><a href="http://moroya.hatenablog.jp/entry/2013/09/25/224446">きんモザのアリスAPIを使って、好きなアリスを無限ループ視聴出来るWebアプリを作った</a></li>
-</ul>
-
 ]]></content>
   </entry>
   

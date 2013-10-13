@@ -4,7 +4,7 @@
   <title><![CDATA[Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-08T00:16:32+09:00</updated>
+  <updated>2013-10-13T23:33:45+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -12,6 +12,219 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Androidのデータ保存パターン]]></title>
+    <link href="http://takiguchi0817.github.com/blog/2013/10/13/saving-data/"/>
+    <updated>2013-10-13T22:36:00+09:00</updated>
+    <id>http://takiguchi0817.github.com/blog/2013/10/13/saving-data</id>
+    <content type="html"><![CDATA[<p>新しくアプリを作るときにAndroid内でのデータの持ち方や、アクセスの仕方、モデルの扱い方には色々あってどうしようってなると思うので、僕の少ない経験から考えたことをまとめます。</p>
+
+<h1>ファイルに保存</h1>
+
+<p>DBは注意して使わないとデータがアップデートしたら全部消えましたとか、あるカラムだけデータが入ってませんでしたとかあるので、データの簡易保存、たとえばレスポンスのjsonをそのままキャッシュするとか、検索する必要がなかったりあまり更新しないモデルをシリアライズして保存するときにはファイル保存が向いていると思います。</p>
+
+<p>なお、JavaのSerializableは柔軟性が低く、バージョンアップでデータを壊してアプリが落ちるということが分かっていてもハンドリングできなくて防ぐのが難しかったりするので、シリアライズするときはgsonとかmessagepackを使うことをオススメします。</p>
+
+<p>ただこのやり方でもキャッシュを管理するためのFileManager的なクラスは必要になってくると思うので、あまり複雑なことをやるのであればDBを使った方が楽になってくると思います。
+独自のFileManagerクラスを作り込んでしまうと新しく入ってきた人がつらいですしね。</p>
+
+<h1>DBに保存(素SQL)</h1>
+
+<p>手でSQLを書くのはつらいです。人間はミスをするのでORMを使った方がいいと思います。</p>
+
+<h1>ORM(ActiveAndroid)を利用してDBに保存</h1>
+
+<p><a href="http://d.hatena.ne.jp/nattou_curry_2/20090102/1230903865">ActiveRecordパターン</a>のORMです。</p>
+
+<h2>モデル定義</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Items&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Item</span> <span class="kd">extends</span> <span class="n">Model</span> <span class="o">{</span>
+</span><span class='line'>  <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Name&quot;</span><span class="o">,</span> <span class="n">notNull</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span> <span class="c1">// カラム名と制約を付けることができる　</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span> <span class="c1">// ModelのFieldはpublicにしなければならない</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="o">)</span> <span class="c1">// リレーションが持てる</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">Category</span> <span class="n">category</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Categories&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Category</span> <span class="kd">extends</span> <span class="n">Model</span> <span class="o">{</span>
+</span><span class='line'>  <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Name&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="nf">items</span><span class="o">()</span> <span class="o">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nf">getMany</span><span class="o">(</span><span class="n">Item</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="s">&quot;Category&quot;</span><span class="o">);</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>補足</h3>
+
+<p>MedelのFieldに<a href="https://github.com/pardom/ActiveAndroid/blob/91bca4983a7da882b6585f124288f1aac7b299ef/src/com/activeandroid/Model.java#LC40">Idが定義</a>されていて、テーブルを作るときに<a href="https://github.com/pardom/ActiveAndroid/blob/91bca4983a7da882b6585f124288f1aac7b299ef/src/com/activeandroid/util/SQLiteUtils.java#LC161">Primary Keyになります。</a>
+とはいえ内部的なIdだけでなく、サーバーからのレスポンスにIdも入っていると思うので、</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Items&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Item</span> <span class="kd">extends</span> <span class="n">Model</span> <span class="o">{</span>
+</span><span class='line'>    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;ItemId&quot;</span><span class="o">)</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="n">id</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Name&quot;</span><span class="o">,</span> <span class="n">notNull</span> <span class="o">=</span> <span class="kc">true</span><span class="o">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span> <span class="c1">// カラム名と制約を付けることができる　</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span> <span class="c1">// ModelのFieldはpublicにしなければならない</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nd">@Column</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;Category&quot;</span><span class="o">)</span> <span class="c1">// リレーションが持てる</span>
+</span><span class='line'>    <span class="kd">public</span> <span class="n">Category</span> <span class="n">category</span><span class="o">;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>このように親クラスのIdとカラム名が被らないように定義して <code>item.id</code> でアクセスするのはどうだろうかと考えています。ここでうっかり <code>item.getId()</code> とすると思っていたのと違う値が返ってくるとかあるので注意が必要です。</p>
+
+<p>リリース後にモデルのフィールドを変更した際にはmigrationをする必要があります。詳しくはmigrationのところで書きますが、モデルの変更は注意が必要です。</p>
+
+<h2>Query</h2>
+
+<h3>Save</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">item</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Item</span><span class="o">();</span>
+</span><span class='line'><span class="n">item</span><span class="o">.</span><span class="na">category</span> <span class="o">=</span> <span class="n">restaurants</span><span class="o">;</span>
+</span><span class='line'><span class="n">item</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">&quot;Red Robin&quot;</span><span class="o">;</span>
+</span><span class='line'><span class="n">item</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Delete</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">Item</span> <span class="n">item</span> <span class="o">=</span> <span class="n">Item</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">Item</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+</span><span class='line'><span class="n">item</span><span class="o">.</span><span class="na">delete</span><span class="o">();</span>
+</span><span class='line'><span class="c1">// or</span>
+</span><span class='line'><span class="k">new</span> <span class="nf">Delete</span><span class="o">().</span><span class="na">from</span><span class="o">(</span><span class="n">Item</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">where</span><span class="o">(</span><span class="s">&quot;Id = ?&quot;</span><span class="o">,</span> <span class="mi">1</span><span class="o">).</span><span class="na">execute</span><span class="o">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Bulk insert</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">ActiveAndroid</span><span class="o">.</span><span class="na">beginTransaction</span><span class="o">();</span>
+</span><span class='line'><span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span><span class='line'>            <span class="n">Item</span> <span class="n">item</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Item</span><span class="o">();</span>
+</span><span class='line'>            <span class="n">item</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">&quot;Example &quot;</span> <span class="o">+</span> <span class="n">i</span><span class="o">;</span>
+</span><span class='line'>            <span class="n">item</span><span class="o">.</span><span class="na">save</span><span class="o">();</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>        <span class="n">ActiveAndroid</span><span class="o">.</span><span class="na">setTransactionSuccessful</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="k">finally</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">ActiveAndroid</span><span class="o">.</span><span class="na">endTransaction</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>トランザクションでラップすると40msで、使わないと4secかかるとのことです。</p>
+
+<h3>補足</h3>
+
+<p><a href="https://github.com/pardom/ActiveAndroid/blob/91bca4983a7da882b6585f124288f1aac7b299ef/src/com/activeandroid/query/From.java#LC54">join、leftJoin、outerJoin、innerJoin、crossJoinもできます。</a></p>
+
+<h2>Migration</h2>
+
+<p><code>/assets/migraions/2.sql</code> のようにsqlを置いておくとonUpgradeで実行されます。
+カラムを追加するだけなら以下の書けます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">Items</span> <span class="k">ADD</span> <span class="k">COLUMN</span> <span class="n">price</span> <span class="nb">INTEGER</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>migrationはバージョンアップ後にユーザーの手元で<a href="https://github.com/pardom/ActiveAndroid/blob/791652b3fbf130448a5b152d12764a451e421b47/src/com/activeandroid/DatabaseHelper.java#LC137">順番に実行される</a>ので、アプリをインストールしてからしばらく期間をおいてからそのユーザーがアプリのバージョンアップをしたとすると、空いた期間分のマイグレーションが走って初回起動にやや時間がかかるかと思います。(そこまで大きな影響があるとは思いませんが)
+起動時間より、migrationファイルを作り忘れたとかそっちの方がこわいので、モデルを変更するとき・レビューするときには気をつけて見たほうがよさそうです。</p>
+
+<h2>その他ORMとの比較</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="c1">// GreenDAO</span>
+</span><span class='line'><span class="n">List</span><span class="o">&lt;</span><span class="n">Todo</span><span class="o">&gt;</span> <span class="n">ended</span> <span class="o">=</span> <span class="n">daoSession</span><span class="o">.</span><span class="na">getTodoDao</span><span class="o">().</span><span class="na">queryBuilder</span><span class="o">()</span>
+</span><span class='line'>        <span class="o">.</span><span class="na">where</span><span class="o">(</span><span class="k">new</span> <span class="n">StringCondition</span><span class="o">(</span>
+</span><span class='line'>            <span class="n">TodoDao</span><span class="o">.</span><span class="na">Properties</span><span class="o">.</span><span class="na">Status</span><span class="o">.</span><span class="na">columnName</span> <span class="o">+</span> <span class="s">&quot;=?&quot;</span><span class="o">,</span>
+</span><span class='line'>            <span class="n">Integer</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">TodoDaoHelper</span><span class="o">.</span><span class="na">STATUS_END</span><span class="o">))).</span><span class="na">list</span><span class="o">();</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// ActiveAndroid</span>
+</span><span class='line'><span class="k">new</span> <span class="nf">Select</span><span class="o">().</span><span class="na">from</span><span class="o">(</span><span class="n">Todo</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">where</span><span class="o">(</span><span class="s">&quot;Status=?&quot;</span><span class="o">,</span> <span class="n">STATUS_END</span><span class="o">).</span><span class="na">execute</span><span class="o">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>greenDAOも見てみたのですが、daoSessionを引き回さないといけないのと、全体的に冗長だなという印象です。その分DAOの方がバグが入りにくそうなので、用途によって選択すればいいと思います。</p>
+
+<p>See also:</p>
+
+<ul>
+<li><a href="http://stackoverflow.com/questions/13680954/green-dao-vs-orm-lite-vs-active-android">Green DAO vs ORM lite vs Active Android</a></li>
+<li><a href="http://software-workshop.eu/content/comparing-android-orm-libraries-greendao-vs-ormlite">Comparing android ORM libraries - GreenDAO vs Ormlite</a></li>
+</ul>
+
+
+<h1>まとめ</h1>
+
+<p>キャッシュはファイルに保存して、モデルは要件に応じてORMを使ってDBに保存するのがいいと思います。
+もしActiveAndroidを使うならAPIレスポンスをgsonとかで直接モデルに変換するとカオスになるのでentityを作るのがいいです、みたいにデータ保存はアプリの全体設計に関わってくるので、もし新しくアプリを作る場合はなるべく早い段階から検討をするといいと思います。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Narive UI]]></title>
@@ -1679,55 +1892,6 @@ ThreadEnforcer.ANYを指定しています。</p>
 
 <script async src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[クックパッド株式会社に入社しました]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/04/02/nyusya-entry/"/>
-    <updated>2013-04-02T01:50:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/04/02/nyusya-entry</id>
-    <content type="html"><![CDATA[<h3>はじめまして</h3>
-
-<blockquote class="twitter-tweet" lang="ja"><p>新卒です</p>&mdash; レジャスポ太郎さん (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/status/318505403476488193">2013年3月31日</a></blockquote>
-
-
-<script async src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<p>新卒としてクックパッド株式会社に入社しました。
-僕は今日初めて同期と顔を合わせたのですが、新卒入社なのに社歴がすでに4年目という人や、博士後期課程までがっつり研究をして「新卒ですがもうすぐ30です」という人がいたり、「前職では〜」「転職のきっかけは〜」と始まる自己紹介をする人(僕もですが)もいて、
-新卒のみなさんとてもフレッシュで戦々恐々としていました。</p>
-
-<p>全社員が集まる場での自己紹介で「なぜクックパッドに入ったか」と「クックパッドで実現したいこと」の二点について、話してくださいと言われたので話しました。</p>
-
-<h4>なぜクックパッドに入ったか</h4>
-
-<p>思い返すと、年末にコードが綺麗な<a href="http://r7kamura.hatenablog.com/entry/2012/11/30/223412">中村クン</a>と話したことがきっかけだったのかなと思います。
-Androidアプリ開発どう？みたいな話をして、あまりリソースが割けていないという話を聞きました。良いサービスなのにもったいないと思ったのがとても記憶に残っています。
-(気になってその日はうちに帰ってapkを逆コンパイルしてた気がします)</p>
-
-<h4>クックパッドで実現したいこと</h4>
-
-<p>「マーケットのレーティングで星4つ以上を目指します」と言いました。
-スマートフォンアプリというのは単純に「PCのページのデザインを崩れないように表示できるようにしたもの」にとどまらず、そもそも使われるシーンが違う(たとえば献立を考えるときにはPCで検索して、買い物をするときにはスマートフォンでレシピの材料を見て、実際に料理をするときにはタブレットで閲覧するみたいな)ので、シーンに応じた求められる機能とは何か、最適な見せ方とは何かを突き詰めていきたいです。</p>
-
-<p>という話をしました。</p>
-
-<h3>その他</h3>
-
-<p>クックパッドは2008年(2007年だったかも)というかなり早い時期からHadoopを導入したり、同じく2008年にColdFusionで書かれたサービスをRailsでフルリニューアルしたりして、導入後は最新のバージョンに追随するようにしてきました。
-なぜ最新にこだわっているかというと、新しいバージョンでしか使えないものが使えないなんてディスアドバンテージを背負いたくないというのと、実は常にバージョンアップしていくのが一番コストが低いからだと言っていました。</p>
-
-<p>そういう姿勢がクックパッドをテクノロジーカンパニーとして世間に認知させ、多くのエンジニアを引き寄せ、今のようなレールズモヒカンの巣窟の形成に至ったのだと思います。</p>
-
-<p>僕はそれと同じことをスマートフォンでもやりたい、
-クックパッドをレールズ以外にもスマートフォンアプリ開発も凄いって言われるようにしたいと思っています。</p>
-
-<p>もちろんすべてはユーザーの問題解決のため。
-新鮮な野菜とジャバと顧客に届け続けるオアダイという言葉を胸に頑張ります。</p>
-
-<p>これからどうぞよろしくお願いします。</p>
 ]]></content>
   </entry>
   

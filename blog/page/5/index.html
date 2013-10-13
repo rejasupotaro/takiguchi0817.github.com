@@ -9,21 +9,8 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="Androidで送る 事情があって一回のリクエストで複数画像を送りたかった。 UriからStringの変換 画像のパスが必要になるので、ContentResolverに問い合わせてパスもらう。 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-private String &hellip;">
+  <meta name="description" content="デプロイしておーエラー出なかったーって思ってブラウザで開いたら文字化けしてた。 mysql&gt; STATUS アーMacBookはutf8だったけどサーバーはlatin1のままだった。
+文字コード変えるためにmysql止めようとしたら、いつの間にか/etc/init.d/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +76,64 @@ private String &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/23/mysql-character-set/">MySQL、文字化けた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-23T19:21:00+09:00" pubdate data-updated="true">Nov 23<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>デプロイしておーエラー出なかったーって思ってブラウザで開いたら文字化けしてた。</p>
+
+<pre><code>mysql&gt; STATUS
+</code></pre>
+
+<p>アーMacBookはutf8だったけどサーバーはlatin1のままだった。<br/>
+文字コード変えるためにmysql止めようとしたら、いつの間にか/etc/init.d/mysqlを使うんじゃなくてservice mysqlを使うことになってた。</p>
+
+<p>まあ、それはそれで、/etc/mysql/conf.d/charset.confに</p>
+
+<pre><code>[client]
+default-character-set=utf8
+
+[mysqld]
+character-set-server=utf8
+skip-character-set-client-handshake
+
+[mysqldump]
+default-character-set=utf8
+</code></pre>
+
+<p>って書いてオルターテーブルしたら文字化け直った、良かった。<br/>
+mysql5.5でmysqldのdefault-character-setなくなってたの知らなくてちょっと困ったりした。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1412,102 +1457,6 @@ config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/03/y-combinators/">文化の日</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-03T14:15:00+09:00" pubdate data-updated="true">Nov 3<span>rd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>わかりやすかった</h2>
-
-<p><a href="http://d.hatena.ne.jp/r-west/20090417/1239972722">おとうさんにもわかるYコンビネータ！(絵解き解説編)</a></p>
-
-<h2>かわいみコート買った</h2>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/1351951130405-1.jpg" alt="かわいみコート買った" /></p>
-
-<h2>Yコンビネータみたいなの書いてた</h2>
-
-<h3>case of ruby</h3>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">puts</span> <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">y</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">y</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
-</span><span class='line'>    <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span>
-</span><span class='line'>      <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="o">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">})</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</span><span class='line'><span class="p">}</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
-</span><span class='line'>  <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">g</span><span class="o">|</span>
-</span><span class='line'>    <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
-</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="p">))</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">}</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">g</span><span class="o">|</span>
-</span><span class='line'>    <span class="nb">lambda</span> <span class="p">{</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
-</span><span class='line'>      <span class="n">f</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">g</span><span class="p">))</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-</span><span class='line'>    <span class="p">}</span>
-</span><span class='line'>  <span class="p">})</span>
-</span><span class='line'><span class="p">})</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>case of coffeescript</h3>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="p">(</span><span class="nf">(Y) -&gt;</span> <span class="nx">Y</span><span class="p">(</span><span class="nf">(f) -&gt;</span> <span class="nf">(n) -&gt;</span> <span class="k">if</span> <span class="p">(</span><span class="nx">n</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">)</span> <span class="k">then</span> <span class="mi">1</span> <span class="k">else</span> <span class="nx">f</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">f</span><span class="p">(</span><span class="nx">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
-</span><span class='line'><span class="p">)(</span><span class="mi">10</span><span class="p">))</span> <span class="nf">(f) -&gt;</span> <span class="p">(</span><span class="nf">(g) -&gt;</span> <span class="nf">(m) -&gt;</span> <span class="nx">f</span><span class="p">(</span><span class="nx">g</span> <span class="nx">g</span><span class="p">)</span> <span class="nx">m</span><span class="p">)</span> <span class="nf">(g) -&gt;</span> <span class="nf">(m) -&gt;</span> <span class="nx">f</span><span class="p">(</span><span class="nx">g</span> <span class="nx">g</span><span class="p">)</span> <span class="nx">m</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>夕食</h2>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201211/1351934736127.jpg" alt="鶏肉焼いてパスタ茹でた" /></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -1525,6 +1474,10 @@ config.autoload_paths += Dir["#{config.root}/lib/**/"]
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/10/13/saving-data/">Androidのデータ保存パターン</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/10/07/native-ui/">Narive UI</a>
       </li>
     
@@ -1538,10 +1491,6 @@ config.autoload_paths += Dir["#{config.root}/lib/**/"]
     
       <li class="post">
         <a href="/blog/2013/09/28/android-books/">Android開発を始めたばかりの僕が読みたかった本</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/26/alice-api/">きんモザのアリスのgif画像を取得するAPIを使ったAndroidアプリを作った</a>
       </li>
     
   </ul>
