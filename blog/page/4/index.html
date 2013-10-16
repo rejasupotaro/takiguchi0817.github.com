@@ -9,7 +9,8 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="年の瀬とディペンデンシーインジェクション 穏便に2012年の仕事を終わらせたかったけど、ディペンデンシーフレームワークで殴り合いになった。 本体のコードはインジェクトで書いてるのに、テストではモックをインジェクトで書けるようにしてなかったので // for test &hellip;">
+  <meta name="description" content="今年やったこと 仕事のことは書いていいのかよく分からないので、プライベートでやってたことを書きます。 分散フレームワーク作った 対宇宙人用フレームワーク from rejasupotaro Node + WebSocket + WebWorkersで作ってた。
+結論としては、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -75,6 +76,133 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/30/look-back-2012/">今年やったこと・やらなかったこと</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-30T22:28:00+09:00" pubdate data-updated="true">Dec 30<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>今年やったこと</h2>
+
+<p>仕事のことは書いていいのかよく分からないので、プライベートでやってたことを書きます。</p>
+
+<h3>分散フレームワーク作った</h3>
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/15800939" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe>
+
+
+<p> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/rejasupotaro/ss-15800939" title="対宇宙人用フレームワーク" target="_blank">対宇宙人用フレームワーク</a> </strong> from <strong><a href="http://www.slideshare.net/rejasupotaro" target="_blank">rejasupotaro</a></strong> </div></p>
+
+<p>Node + WebSocket + WebWorkersで作ってた。
+結論としては、宇宙人は捕まえられなかった。というかそこまでいかなかった。
+今やってることとかけ離れてるのでまったくメンテとかはしてないけど、ユニークな経験ができて良かったとは思う。
+　<br/>
+　</p>
+
+<h3>git-助けてにプルリク送った</h3>
+
+<p>とりあえずプルリクを送ってみたくなって、git-助けてに「git-このコード書いたの誰？」を追加した。
+社内のコード読んでて分からないところがあったときに、即座に誰に聞いたらいいかを教えてくれるような、そんなコマンドを作りたかった。
+　<br/>
+　</p>
+
+<h3>今ドコ？というアプリ作った</h3>
+
+<p>社内ハッカソンで待ち合わせに特化したアプリを作った。
+iOSチームの人と組んで、僕はサーバーサイドを担当してRackhub + Node + Redisで組んだ。
+残念ながらアプリのスクリーンショットなどはありませんが、優勝できたのは良かった。<br/>
+<img src="http://dl.dropbox.com/u/54255753/blog/201212/goyu.jpg" alt="" />
+優勝賞金で豪遊しました。
+　<br/>
+　</p>
+
+<h3>ブログの移行</h3>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/design.png" alt="" /><br/>
+前ははてなブログを使っていたけど、</p>
+
+<h5>もっと自由にカスタマイズしたい + ターミナルで日記を書きたい</h5>
+
+<p>って思うようになって、GitHubページで運用できてコマンドでデプロイするOctopressに移行した。
+テーマを変えたりプラグインを入れたり、またOctopress自体がRubyで書かれてるので、ブログを書くだけじゃなくて自分で拡張したりするのも楽しめてお得感あります。
+　<br/>
+　</p>
+
+<h3>サーバの運用</h3>
+
+<p>ちょっとしたものはGAEとかHerokuとかRackhubに置いてたけど、自分で管理したくてさくらのVPSを使うようになった。
+ムームードメイン + Dozens + Nginxって感じにしてます。
+　<br/>
+　</p>
+
+<h3>Jenkins</h3>
+
+<p>僕たちはただ顧客に価値を届ければいいんじゃない、顧客に&#8221;継続的&#8221;に価値を届けなければならないんだ！ということに気がついてプライベートでもJenkinsを入れた。
+サービスを置いてるさくらのVPSで動かしてたので、のちに自宅マシンにJenkinsさんを引っ越しさせることになった。
+でも正直まだそんなに有効活用されてない気がするのでもっと勉強したい。
+　<br/>
+　</p>
+
+<h3><a href="http://rejasupotaro.com">Betterflow</a></h3>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/betterflow.png" alt="" /></p>
+
+<h5>インターネットに自分の居場所が欲しい + 家でプログラム書いてるときに適当に音楽流してほしい</h5>
+
+<p>という欲求から生まれた。結構気に入ってて部屋でよく流してる。<br/>
+　<br/>
+　</p>
+
+<h3><a href="http://rejamotion.com">DailyMotion</a></h3>
+
+<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/dailymotion.png" alt="" />
+今年はGIFは流行ったような気がするけど、自分もGIFアニメーションで生きた証を残したいなと思って作った。
+ハイブリッドアプリとして作ったけど、HTMLはPCのブラウザから見ても見れるようにした。
+作ってみたら案外おもしろかったし、画像フィルタの実装したりとかして機能どんどん追加してきたいっていうモチベーションもあります。
+　<br/>
+　<br/>
+　<br/>
+ほかにもハッカソンとかツールとか、使い捨てなコードを書いたりもしたけど、主にこんな感じです。</p>
+
+<h2>今年やらなかったこと</h2>
+
+<p>振り返ってみると、今年は自分のためにコードを書いていたなあと思った。
+来年はもっと作ったツール公開するとかオープンソースにコミットするとか、外向きな活動を増やしていきたい。<br/>
+それと美しい設計とかコードが書けるようになりたいので、もっとフレームワークのソースを読むというのと、自分のコードのメトリクスを計測できるような状態にしたいです。<br/>
+あと早く若手状態を脱したいです。
+　<br/>
+　<br/>
+　<br/>
+来年はもっと尖っていきたい。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1857,163 +1985,6 @@ JSからジャバのすべてが見えるし、プライベートもあったも
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/11/24/save-dailymotion/">GifがBoomだったので</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-24T22:48:00+09:00" pubdate data-updated="true">Nov 24<span>th</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1><img src="http://dl.dropbox.com/u/54255753/blog/201211/live.jpg" alt="ライブに行きました！" /></h1>
-
-<p>　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h3>and&#8230;</h3>
-
-<p>　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h1><img src="http://dl.dropbox.com/u/54255753/blog/201211/live.gif" alt="!!!!ライブに行きました!!!!" /></h1>
-
-<p>　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h3>How do you feel?</h3>
-
-<p>　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h3>日常が動く　イズ　エキサイティング</h3>
-
-<p>　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h1>日常をアニメーションにするAndroidアプリ</h1>
-
-<h1>&#8220;DailyMotion&#8221; を作りました</h1>
-
-<p>某動画サイトと名前がかぶりましたが一切関係ありません。<br/>
-　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h1>2012.11.28 待望のDailyMotion Android版 配信開始(しません)！</h1>
-
-<h1>ダウンロードは<a href="http://rejasupotaro.com:3000">どちら</a>から？</h1>
-
-<p>　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h1>操作はカンタン</h1>
-
-<h3><img src="http://dl.dropbox.com/u/54255753/blog/201211/gallery.png" alt="ギャラリーから選んで共有" /></h3>
-
-<p>　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h3><img src="http://dl.dropbox.com/u/54255753/blog/201211/edit.png" alt="速度の調整とタイトルの入力" /></h3>
-
-<p>　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h3><img src="http://dl.dropbox.com/u/54255753/blog/201211/gif_sample.gif" alt="アニメーションになって投稿されます" /></h3>
-
-<p>　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h3><img src="http://dl.dropbox.com/u/54255753/blog/201211/gif_demo.gif" alt="Very Cool" /></h3>
-
-<p>　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h1>あなたの日常を、アニメーションに</h1>
-
-<h3><img src="http://dl.dropbox.com/u/54255753/blog/201211/google_play.png" alt="今すぐ、DailyMotionを無料でダウンロード" /></h3>
-
-<p>　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h3><img src="http://dl.dropbox.com/u/54255753/blog/201211/gifboom1.gif" alt="イイネ！" /></h3>
-
-<p>　<br/>
-　<br/>
-　<br/>
-　<br/>
-　</p>
-
-<h1>あとがき</h1>
-
-<p>発端: <a href="http://r7kamura.hatenablog.com/entry/2012/10/22/232524">近況 - ✘╹◡╹✘</a></p>
-
-<p>経過: <a href="http://takiguchi0817.github.com/blog/categories/gif/">Category: GIF</a></p>
-
-<p>最近GIFにはまってる。ちょうどいいタイミングでハッカソンがあったので作った。<br/>
-今流行りの<a href="http://takiguchi0817.github.com/blog/2012/11/29/about-android-webview/">ハイブリッドな感じ</a>にした。
-そこそこウケたので良かった。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -2031,6 +2002,10 @@ JSからジャバのすべてが見えるし、プライベートもあったも
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/10/17/create-intent/">Intentの生成パターン</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/10/13/saving-data/">Androidのデータ保存パターン</a>
       </li>
     
@@ -2044,10 +2019,6 @@ JSからジャバのすべてが見えるし、プライベートもあったも
     
       <li class="post">
         <a href="/blog/2013/09/30/upload-to-s3/">S3でmavenリポジトリをホストしてGradleでアップロードする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/28/android-books/">Android開発を始めたばかりの僕が読みたかった本</a>
       </li>
     
   </ul>

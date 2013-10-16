@@ -9,7 +9,7 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="新しくアプリを作るときにAndroid内でのデータの持ち方や、アクセスの仕方、モデルの扱い方には色々あってどうしようってなると思うので、僕の少ない経験から考えたことをまとめます。 ファイルに保存 DBは注意して使わないとデータがアップデートしたら全部消えましたとか、 &hellip;">
+  <meta name="description" content="Androidの設計思想上、Activityはどこからも呼び出されるものなので、Intentを呼び出し元で生成してExtraを付けるっていうのは、どこでgetExtraされるかとか、そもそもどんなパラメータが必要かが分かりにくくて、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +74,124 @@
   <div id="main">
     <div id="content">
       
+
+
+    <article class="post">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/10/17/create-intent/">Intentの生成パターン</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-17T00:02:00+09:00" pubdate data-updated="true">Oct 17<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Androidの設計思想上、Activityはどこからも呼び出されるものなので、Intentを呼び出し元で生成してExtraを付けるっていうのは、どこでgetExtraされるかとか、そもそもどんなパラメータが必要かが分かりにくくて、後から追加されたActivityでExtraが足りなくて落ちるということが起こりうると思っていました。</p>
+
+<h2>僕のパターン</h2>
+
+<p>そこで僕は、IntentHubというクラスを作って、画面の呼び出しなどのIntent処理をまとめてそこに書くようにしています。</p>
+
+<h3>例.</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="nd">@InjectView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button</span><span class="o">)</span> <span class="n">Button</span> <span class="n">mButton</span><span class="o">;</span>
+</span><span class='line'><span class="nd">@Inject</span> <span class="n">IntentHub</span> <span class="n">mIntentHub</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nd">@Override</span>
+</span><span class='line'><span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">mButton</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">((</span><span class="n">view</span><span class="o">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>            <span class="n">mIntentHub</span><span class="o">.</span><span class="na">openCommentViewActivity</span><span class="o">(</span><span class="n">commentId</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">});</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>GitHubのパターン</h2>
+
+<p>他のアプリはどうしてるのかなと思ってGitHubのAndroidアプリを見てみたら、IntentsというIntentを作るためのヘルパークラスがいて、BuilderでIntentを作って、IntentFilterで対象の画面の呼び出しをしていました。つまり…コードを見た方が早いと思います。</p>
+
+<h3>呼び出し先(CommitViewActivity)</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">createIntent</span><span class="o">(</span><span class="kd">final</span> <span class="n">Repository</span> <span class="n">repository</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kd">final</span> <span class="n">String</span><span class="o">...</span> <span class="n">ids</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">Builder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Builder</span><span class="o">(</span><span class="s">&quot;commits.VIEW&quot;</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">builder</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">EXTRA_POSITION</span><span class="o">,</span> <span class="n">position</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">builder</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">EXTRA_BASES</span><span class="o">,</span> <span class="n">ids</span><span class="o">);</span>
+</span><span class='line'>    <span class="n">builder</span><span class="o">.</span><span class="na">repo</span><span class="o">(</span><span class="n">repository</span><span class="o">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">builder</span><span class="o">.</span><span class="na">toIntent</span><span class="o">();</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>呼び出し元Activity(NewsFragment)</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">startActivity</span><span class="o">(</span><span class="n">CommitViewActivity</span><span class="o">.</span><span class="na">createIntent</span><span class="o">(</span><span class="n">repo</span><span class="o">,</span> <span class="n">sha</span><span class="o">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>IntentFilterの定義(AndroidManifest)</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="nt">&lt;activity</span>
+</span><span class='line'>    <span class="na">android:name=</span><span class="s">&quot;.ui.commit.CommitViewActivity&quot;</span>
+</span><span class='line'>    <span class="na">android:configChanges=</span><span class="s">&quot;orientation|keyboardHidden|screenSize&quot;</span> <span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;intent-filter&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;action</span> <span class="na">android:name=</span><span class="s">&quot;com.github.mobile.commits.VIEW&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nt">&lt;category</span> <span class="na">android:name=</span><span class="s">&quot;android.intent.category.DEFAULT&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/intent-filter&gt;</span>
+</span><span class='line'><span class="nt">&lt;/activity&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>いずれにせよ、呼び出し元のActivityで直接Intentを生成するのは良くなさそうという話でした。</p>
+</div>
+  
+  
+
+</article>
 
 
     <article class="post">
@@ -1344,61 +1462,6 @@ JVMでテストが実行できるようになるということは、Groovyで�
 
 <p>具体的にインタラクションデザインをする際には他にもペルソナ、シナリオ、スケッチとモデル、タスク分析、タスクフロー、ユースケース、ムードボード、ワイヤーフレーム、プロトタイプ、テストなどありますが、あまり一度に詰め込んでも覚えられる気がしないので、一旦これくらいにします。
 何事もやってみるのが大切だと思うので、とりあえずインタビュりますが一回やってみて、良かったこと、良くなかったことなどを考えようと思います。</p>
-</div>
-  
-  
-
-</article>
-
-
-    <article class="post">
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/09/06/genymotion/">Genymotion速かった</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-09-06T23:31:00+09:00" pubdate data-updated="true">Sep 6<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>AndroVMがいつの間にかGenymotionに名前変わってました。</p>
-
-<h3><a href="http://www.genymotion.com/">Genymotion</a> - BOOST YOUR APP TESTING! Simple, practical and effective.</h3>
-
-<p><img src="http://www.genymotion.com/assets/genymotion-fits-in-your-developping-environment-.png" alt="" /></p>
-
-<p>「x86エミュレータとそんなに変わらないんでしょ」と思っていましたが、これを機にインストールして動かしてみたらサックサクのヌルヌルで驚きました。<br/>
-もしかして、実機より速いのでは？と思って2、3000行の比較的小規模なライブラリでconnectedInstrumentTestを実行して、その実行時間を比較してみました。
-結果は環境によって結構変わると思うので、あくまで目安で。</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/genybench.png" alt="" /></p>
-
-<h3>実機よりも速かった</h3>
-
-<p>しかもエミュレータだとGoogle Playのアプリが落とせなかったりするのですが、Googleアカウントを登録して同期することもできるし、アプリを落として実機より軽快な環境で遊ぶこともできます。</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/download.png" alt="" /></p>
-
-<p>ポチポチ押すだけで5分くらいあればインストールできるので、面倒くさがりな僕でもインストールできました。</p>
-
-<p>今回のケースだとそんなにですが、1回のテストで20分かかる環境だとテストが速く終わると相当嬉しみがあるので、
-しばらく使ってみて良さそうだったら、本番環境のJenkinsのAndroidエミュレータをGenymotionに置き換えるかもしれません。</p>
 </div>
   
   

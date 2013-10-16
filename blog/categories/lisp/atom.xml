@@ -4,7 +4,7 @@
   <title><![CDATA[Category: LISP | Just posted a blog]]></title>
   <link href="http://takiguchi0817.github.com/blog/categories/lisp/atom.xml" rel="self"/>
   <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-13T23:34:23+09:00</updated>
+  <updated>2013-10-17T00:12:13+09:00</updated>
   <id>http://takiguchi0817.github.com/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
@@ -18,12 +18,18 @@
     <link href="http://takiguchi0817.github.com/blog/2013/03/07/sicp-hanseikai/"/>
     <updated>2013-03-07T22:53:00+09:00</updated>
     <id>http://takiguchi0817.github.com/blog/2013/03/07/sicp-hanseikai</id>
-    <content type="html"><![CDATA[<p>{% oembed https://twitter.com/hito_asa/status/309606049814560769 %}
-{% oembed https://twitter.com/halcat0x15a/status/309606266827862018 %}
-{% oembed https://twitter.com/konnyakmannan/status/309606337178898432 %}
-{% oembed https://twitter.com/ainame/status/309607801758560256 %}
-{% oembed https://twitter.com/rejasupotaro/status/309606522273558529 %}
-{% oembed https://twitter.com/choplin/status/309613209743130624 %}</p>
+    <content type="html"><![CDATA[<p><blockquote class="twitter-tweet" lang="ja"><p>三四郎がちゃらい感じになってる件。 <a href="https://twitter.com/search/%23sicphansei">#sicphansei</a></p>&mdash; Hitoshi ASAIさん (@hito_asa) <a href="https://twitter.com/hito_asa/status/309606049814560769">2013年3月7日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" lang="ja"><p>チャラいとは... <a href="https://twitter.com/search/%23sicphansei">#sicphansei</a></p>&mdash; ねこはるさん (@halcat0x15a) <a href="https://twitter.com/halcat0x15a/status/309606266827862018">2013年3月7日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" lang="ja"><p>どきどきする。 <a href="https://twitter.com/search/%23sicphansei">#sicphansei</a></p>&mdash; Kanda Taikiさん (@konnyakmannan) <a href="https://twitter.com/konnyakmannan/status/309606337178898432">2013年3月7日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" lang="ja"><p>これまでの人生の全てを反省します <a href="https://twitter.com/search/%23sicphansei">#sicphansei</a></p>&mdash; ıɐɯɐu ıɥsoʇɐsさん (@ainame) <a href="https://twitter.com/ainame/status/309607801758560256">2013年3月7日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" lang="ja"><p>厳かな雰囲気で怖い <a href="https://twitter.com/search/%23sicphansei">#sicphansei</a></p>&mdash; レジャスポ太郎さん (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/status/309606522273558529">2013年3月7日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" lang="ja"><p>SICPを読むと年収が上がるらしい <a href="https://twitter.com/search/%23sicphansei">#sicphansei</a></p>&mdash; Akihiro Okunoさん (@choplin) <a href="https://twitter.com/choplin/status/309613209743130624">2013年3月7日</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
 
 <p><a href="http://www.zusaar.com/event/535003">SICP読書会大反省会</a>でした。</p>
 

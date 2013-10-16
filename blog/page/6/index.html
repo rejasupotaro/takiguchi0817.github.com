@@ -9,24 +9,8 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="わかりやすかった おとうさんにもわかるYコンビネータ！(絵解き解説編) かわいみコート買った Yコンビネータみたいなの書いてた case of ruby 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-puts lambda { |y| y.call( &hellip;">
+  <meta name="description" content="Railsを始めるまで さくらのVPSのOS再インストール カスタムインストール(Ubuntu) VNCコンソールはかなり厄介。
+Macを10.8.02にしたらJava Preferencesがなくなってた＆Ubuntuだとよく分からないけど動かなかった。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -92,6 +76,168 @@ puts lambda { |y| y.call( &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/11/04/rails-days-1/">Rails Days 1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-04T19:49:00+09:00" pubdate data-updated="true">Nov 4<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Railsを始めるまで</h1>
+
+<h2>さくらのVPSのOS再インストール</h2>
+
+<h3>カスタムインストール(Ubuntu)</h3>
+
+<p>VNCコンソールはかなり厄介。<br/>
+Macを10.8.02にしたらJava Preferencesがなくなってた＆Ubuntuだとよく分からないけど動かなかった。<br/>
+しかたなくWindowsを持ってきてなんとか起動した。Windowsがなかったら詰んでた。</p>
+
+<p>VNCコンソールさえ起動できれば問題なくインストールできた。</p>
+
+<h2>サーバーの設定</h2>
+
+<h3>rootのパスワードの設定</h3>
+
+<pre><code>$ sudo passwd root
+</code></pre>
+
+<h3>必要なパッケージ集める</h3>
+
+<pre><code>$ aptitude install gcc
+$ aptitude install build-essential g++
+$ aptitude install make
+$ aptitude install vim
+$ aptitude install git
+$ aptitude install curl
+</code></pre>
+
+<h2>Rails関連のインストール</h2>
+
+<h3>RVM</h3>
+
+<pre><code>$ curl -L https://get.rvm.io | bash -s stable --ruby --trace
+$ source .bashrc
+</code></pre>
+
+<h3>Bundler</h3>
+
+<pre><code>$ gem install bundler --pre
+</code></pre>
+
+<h3>Rails</h3>
+
+<pre><code>$ gem install rails↲
+</code></pre>
+
+<h2>Railsをちょっとやる</h2>
+
+<h3>プロジェクトの作成</h3>
+
+<pre><code>$ rails new MyProject
+</code></pre>
+
+<h3>gemのインストール</h3>
+
+<pre><code>$ bundle install --path vendor/bundle
+</code></pre>
+
+<h3>ControllerとActionとViewの作成</h3>
+
+<pre><code>$ rails generate controller info index
+</code></pre>
+
+<p>rails generate controller コントローラー名 アクション名<br/>
+コントローラーを作成するとビューもできる。</p>
+
+<h3>ルーティングの設定</h3>
+
+<p>rootをindexに向ける。</p>
+
+<pre><code>$ vim config/routes.rb
+MyProject::Application.routes.draw do
+  root :to =&gt; "info#index"
+  get "info/index""
+end
+</code></pre>
+
+<h3>ルーティングの確認</h3>
+
+<pre><code>$ rake routes
+  info_index GET /info/index(.:format)         info#index
+  root           /                             info#index
+</code></pre>
+
+<h3>サーバー起動時に何か処理をさせる</h3>
+
+<pre><code>$ vim lib/init.rb
+module Initializer
+  def init
+    puts 'Now Initializing...'
+  end
+end
+
+$ vim config/boot.rb
+require 'rubygems'
+
+# Set up gems listed in the Gemfile.
+ENV['BUNDLE_GEMFILE'] ||= FILE.expand_path('../../Gemfile', __FILE__)
+
+require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
+
+require File.expand_path('../../lib/init', __FILE__)
+include Initializer
+init()
+</code></pre>
+
+<h3>autoloadを有効にする</h3>
+
+<p>config/application.rbに、</p>
+
+<pre><code># Custom directories with classes and modules you want to be autoloadable.
+# config.autoload_paths += %W(#{config.root}/extras)
+</code></pre>
+
+<p>って書いてあったので、</p>
+
+<pre><code>config.autoload_paths += %W(#{config.root}/lib)
+config.autoload_paths += Dir["#{config.root}/lib/**/"]
+</code></pre>
+
+<p>追加した。</p>
+
+<h3>サーバーの起動</h3>
+
+<pre><code>$ rails s
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -2013,65 +2159,6 @@ $ adb install ~/Downloads/HelloGooglePlay.apk
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/22/the-problem-with-pingdom/">The Problem With Pingdom</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-22T19:13:00+09:00" pubdate data-updated="true">Jul 22<span>nd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content">
-
-<figure class='code'><figcaption><span>Time to be Awesome - awesome.rb </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">puts</span> <span class="s2">&quot;Awesome!&quot;</span> <span class="k">unless</span> <span class="n">lame</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><a href="http://www.pingdom.com%20Pingdom">The problem with pingdom.</a></p>
-
-<p>My money&#8217;s in that office, right? If she start giving me some bullshit about it ain&#8217;t there, and we got to go someplace else and get it, I&#8217;m gonna shoot you in the head then and there. Then I&#8217;m gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I&#8217;m talking to you, motherfucker. You listen: we go in there, and that nigga Winston or anybody else is in there, you the first motherfucker to get shot. You understand?</p>
-
-<blockquote><p>Blockquote is what goes
-inside this block here
-would you believe that
-bullshit?</p></blockquote>
-
-<p>Well, the way they make shows is, they make one show. That show&#8217;s called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they&#8217;re going to make more shows. Some pilots get picked and become television programs. Some don&#8217;t, become nothing. She starred in one of the ones that became nothing.</p>
-
-<p>The path of the righteous man is beset on all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of darkness, for he is truly his brother&#8217;s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who would attempt to poison and destroy My brothers. And you will know My name is the Lord when I lay My vengeance upon thee.</p>
-
-<p>Your bones don&#8217;t break, mine do. That&#8217;s clear. Your cells react to bacteria and viruses differently than mine. You don&#8217;t get sick, I do. That&#8217;s also clear. But for some reason, you and I react the exact same way to water. We swallow it too fast, we choke. We get some in our lungs, we drown. However unreal it may seem, we are connected, you and I. We&#8217;re on the same curve, just on opposite ends.</p>
-
-<p>Do you see any Teletubbies in here? Do you see a slender plastic tag clipped to my shirt with my name printed on it? Do you see a little Asian child with a blank expression on his face sitting outside on a mechanical helicopter that shakes when you put quarters in it? No? Well, that&#8217;s what you see at a toy store. And you must think you&#8217;re in a toy store, because you&#8217;re here shopping for an infant named Jeb.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/7/">&larr; Older</a>
@@ -2089,6 +2176,10 @@ bullshit?</p></blockquote>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/10/17/create-intent/">Intentの生成パターン</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/10/13/saving-data/">Androidのデータ保存パターン</a>
       </li>
     
@@ -2102,10 +2193,6 @@ bullshit?</p></blockquote>
     
       <li class="post">
         <a href="/blog/2013/09/30/upload-to-s3/">S3でmavenリポジトリをホストしてGradleでアップロードする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/28/android-books/">Android開発を始めたばかりの僕が読みたかった本</a>
       </li>
     
   </ul>

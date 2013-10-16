@@ -9,10 +9,7 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="はじめに Androidの開発をしていて、 WebとiOSとAndroidで足並み揃えるのどうするんだろう
-プラットフォーム間のUIの統一についてはどう考えたらいいんだろう
-他のアプリではA/Bテストとかやってるのかな
-PCからスマホウェブでは全機能を移植するけど、 &hellip;">
+  <meta name="description" content="AndroVMがいつの間にかGenymotionに名前変わってました。 Genymotion - BOOST YOUR APP TESTING! Simple, practical and effective. 「x86エミュレータとそんなに変わらないんでしょ」と思っていましたが、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +75,63 @@ PCからスマホウェブでは全機能を移植するけど、 &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/09/06/genymotion/">Genymotion速かった</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-06T23:31:00+09:00" pubdate data-updated="true">Sep 6<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>AndroVMがいつの間にかGenymotionに名前変わってました。</p>
+
+<h3><a href="http://www.genymotion.com/">Genymotion</a> - BOOST YOUR APP TESTING! Simple, practical and effective.</h3>
+
+<p><img src="http://www.genymotion.com/assets/genymotion-fits-in-your-developping-environment-.png" alt="" /></p>
+
+<p>「x86エミュレータとそんなに変わらないんでしょ」と思っていましたが、これを機にインストールして動かしてみたらサックサクのヌルヌルで驚きました。<br/>
+もしかして、実機より速いのでは？と思って2、3000行の比較的小規模なライブラリでconnectedInstrumentTestを実行して、その実行時間を比較してみました。
+結果は環境によって結構変わると思うので、あくまで目安で。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/genybench.png" alt="" /></p>
+
+<h3>実機よりも速かった</h3>
+
+<p>しかもエミュレータだとGoogle Playのアプリが落とせなかったりするのですが、Googleアカウントを登録して同期することもできるし、アプリを落として実機より軽快な環境で遊ぶこともできます。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/download.png" alt="" /></p>
+
+<p>ポチポチ押すだけで5分くらいあればインストールできるので、面倒くさがりな僕でもインストールできました。</p>
+
+<p>今回のケースだとそんなにですが、1回のテストで20分かかる環境だとテストが速く終わると相当嬉しみがあるので、
+しばらく使ってみて良さそうだったら、本番環境のJenkinsのAndroidエミュレータをGenymotionに置き換えるかもしれません。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -942,215 +996,6 @@ RouteActivityに認証の確認の処理や、初期化処理などを置いて�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/15/using-otto/">Otto 使ってみた</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-15T21:25:00+09:00" pubdate data-updated="true">Apr 15<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h1><a href="http://square.github.io/otto/">Otto - An event bus by Square</a></h1>
-
-<p>画像のアップロード処理が終わったらActivityに通知するとか、
-DBからデータを消したらViewに反映させるとかしたくなることってよくあると思います。</p>
-
-<p>Interfaceでなんとかしようとするとコードが汚くなってやだなと思ってたので、前から気になってたevent busのライブラリ、Ottoを使ってみました。</p>
-
-<h2>バッググラウンドで画像のアップロードが終わったらトーストを出す</h2>
-
-<p>Busですが、インスタンスごとにregisterとunregisterが出来るのですが、通常はSingletonで良いでしょう。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">BusProvider</span> <span class="o">{</span>
-</span><span class='line'>  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Bus</span> <span class="n">BUS</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Bus</span><span class="o">(</span><span class="n">ThreadEnforcer</span><span class="o">.</span><span class="na">ANY</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">Bus</span> <span class="nf">getInstance</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">BUS</span><span class="o">;</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="kd">private</span> <span class="nf">BusProvider</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>    <span class="c1">// No instances.</span>
-</span><span class='line'>  <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Busのインスタンスの生成のときに実行するスレッドのチェックが出来るのですが、
-event busを使うときってバックグラウンドスレッドからメインスレッドに通知するパターンが多そうなので、
-ThreadEnforcer.ANYを指定しています。</p>
-
-<p>イベントの発火。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ImageUploaderService</span> <span class="kd">extends</span> <span class="n">ProtonIntentService</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">ImageUploaderService</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">();</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EXTRA_UPLOAD_ENTITY</span> <span class="o">=</span> <span class="s">&quot;extra_animation_entity&quot;</span><span class="o">;</span>
-</span><span class='line'>    <span class="nd">@Inject</span> <span class="n">MyNotificationManager</span> <span class="n">mNotificationManager</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">ImageUploaderService</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">super</span><span class="o">(</span><span class="n">TAG</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="nf">ImageUploaderService</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onHandleIntent</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">mNotificationManager</span><span class="o">.</span><span class="na">sendNotification</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">UploadEntity</span> <span class="n">uploadEntity</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getParcelableExtra</span><span class="o">(</span><span class="n">EXTRA_UPLOAD_ENTITY</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">MyApiClient</span> <span class="n">apiClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyApiClient</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">uploadEntity</span><span class="o">);</span>
-</span><span class='line'>        <span class="kt">boolean</span> <span class="n">result</span> <span class="o">=</span> <span class="n">apiClient</span><span class="o">.</span><span class="na">execute</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;upload result: &quot;</span> <span class="o">+</span> <span class="n">result</span><span class="o">);</span>
-</span><span class='line'>        <span class="n">mNotificationManager</span><span class="o">.</span><span class="na">cancelNotification</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">BusProvider</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">post</span><span class="o">(</span><span class="k">new</span> <span class="n">UploadFinishedEvent</span><span class="o">());</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>bus#postに定義したイベントのインスタンスを渡します。</p>
-
-<p>イベントはなんでもいいです。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UploadFinishedEvent</span> <span class="o">{</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>今回は特になにも渡すものがないので空です。</p>
-
-<p>メソッドに@Subscribeを付けて定義したイベントを引数にすると受け取ることが出来ます。</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="o">...</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onResume</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">super</span><span class="o">.</span><span class="na">onResume</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">BusProvider</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">register</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Override</span>
-</span><span class='line'>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPause</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>        <span class="kd">super</span><span class="o">.</span><span class="na">onPause</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">BusProvider</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">unregister</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nd">@Subscribe</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onUploadFinished</span><span class="o">(</span><span class="n">UploadFinishedEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">mHandler</span><span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>            <span class="nd">@Override</span>
-</span><span class='line'>            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-</span><span class='line'>                <span class="n">ToastUtils</span><span class="o">.</span><span class="na">show</span><span class="o">(</span><span class="n">AnimationComposeActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">string</span><span class="o">.</span><span class="na">upload_finished</span><span class="o">);</span>
-</span><span class='line'>            <span class="o">}</span>
-</span><span class='line'>        <span class="o">});</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ActivityではonResumeとonPauseでそれぞれregisterとunregisterをしてやる必要があります。</p>
-
-<p>これだけでイベント通知のしくみが使えてとても便利。</p>
-
-<blockquote class="twitter-tweet" lang="ja"><p>Otto、シンプルだしコード綺麗だしパフォーマンスを考慮してtraverseしないのもいい / An enhanced Guava-based event bus with emphasis on Android support. <a href="http://t.co/2yHWQkejEd" title="http://square.github.io/otto/">square.github.io/otto/</a></p>&mdash; レジャスポ太郎さん (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/status/323451917235789824">2013年4月14日</a></blockquote>
-
-
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1168,6 +1013,10 @@ ThreadEnforcer.ANYを指定しています。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/10/17/create-intent/">Intentの生成パターン</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/10/13/saving-data/">Androidのデータ保存パターン</a>
       </li>
     
@@ -1181,10 +1030,6 @@ ThreadEnforcer.ANYを指定しています。</p>
     
       <li class="post">
         <a href="/blog/2013/09/30/upload-to-s3/">S3でmavenリポジトリをホストしてGradleでアップロードする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/28/android-books/">Android開発を始めたばかりの僕が読みたかった本</a>
       </li>
     
   </ul>
