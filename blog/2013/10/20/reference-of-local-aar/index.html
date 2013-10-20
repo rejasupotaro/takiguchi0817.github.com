@@ -5,11 +5,15 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Genymotion速かった - Just posted a blog</title>
+  <title>ローカルのaarの参照を参照する - Just posted a blog</title>
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="AndroVMがいつの間にかGenymotionに名前変わってました。 Genymotion - BOOST YOUR APP TESTING! Simple, practical and effective. 「x86エミュレータとそんなに変わらないんでしょ」と思っていましたが、 &hellip;">
+  <meta name="description" content="ローカルのaarはjarのように参照することはできない。 1
+2
+3
+4
+dependencies { compile fileTree(dir: &#39;libs&#39;, include: &#39;*.jar&#39;) compile fileTree(dir: &#39;libs&# &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://takiguchi0817.github.com/blog/2013/09/06/genymotion">
+  <link rel="canonical" href="http://takiguchi0817.github.com/blog/2013/10/20/reference-of-local-aar">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Just posted a blog" type="application/atom+xml">
@@ -78,7 +82,7 @@
   
   <header>
     
-      <h1 class="entry-title">Genymotion速かった</h1>
+      <h1 class="entry-title">ローカルのaarの参照を参照する</h1>
     
     
       <p class="meta">
@@ -94,35 +98,50 @@
   
 
 
-<time datetime="2013-09-06T23:31:00+09:00" pubdate data-updated="true">Sep 6<span>th</span>, 2013</time>
+<time datetime="2013-10-20T21:59:00+09:00" pubdate data-updated="true">Oct 20<span>th</span>, 2013</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>AndroVMがいつの間にかGenymotionに名前変わってました。</p>
+<div class="entry-content"><p>ローカルのaarはjarのように参照することはできない。</p>
 
-<h3><a href="http://www.genymotion.com/">Genymotion</a> - BOOST YOUR APP TESTING! Simple, practical and effective.</h3>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">compile</span> <span class="nf">fileTree</span><span class="o">(</span><span class="nl">dir:</span> <span class="err">&#39;</span><span class="n">libs</span><span class="err">&#39;</span><span class="o">,</span> <span class="nl">include:</span> <span class="err">&#39;</span><span class="o">*.</span><span class="na">jar</span><span class="err">&#39;</span><span class="o">)</span>
+</span><span class='line'>    <span class="n">compile</span> <span class="nf">fileTree</span><span class="o">(</span><span class="nl">dir:</span> <span class="err">&#39;</span><span class="n">libs</span><span class="err">&#39;</span><span class="o">,</span> <span class="nl">include:</span> <span class="err">&#39;</span><span class="o">*.</span><span class="na">aar</span><span class="err">&#39;</span><span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p><img src="http://www.genymotion.com/assets/genymotion-fits-in-your-developping-environment-.png" alt="" /></p>
 
-<p>「x86エミュレータとそんなに変わらないんでしょ」と思っていましたが、これを機にインストールして動かしてみたらサックサクのヌルヌルで驚きました。<br/>
-もしかして、実機より速いのでは？と思って2、3000行の比較的小規模なライブラリでconnectedInstrumentTestを実行して、その実行時間を比較してみました。
-結果は環境によって結構変わると思うので、あくまで目安で。</p>
+<p>ので、リポジトリにローカルのlibsディレクトリを登録する。</p>
 
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/genybench.png" alt="" /></p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="n">repositories</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">mavenCentral</span><span class="o">()</span>
+</span><span class='line'>    <span class="n">flatDir</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">dirs</span> <span class="err">&#39;</span><span class="n">libs</span><span class="err">&#39;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'><span class="n">dependencies</span> <span class="o">{</span>
+</span><span class='line'>    <span class="n">compile</span> <span class="err">&#39;</span><span class="n">com</span><span class="o">.</span><span class="na">rejasupotaro</span><span class="o">:</span><span class="nl">mylibrary:</span><span class="mf">0.0</span><span class="o">.</span><span class="mi">1</span><span class="nd">@aar</span><span class="err">&#39;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h3>実機よりも速かった</h3>
-
-<p>しかもエミュレータだとGoogle Playのアプリが落とせなかったりするのですが、Googleアカウントを登録して同期することもできるし、アプリを落として実機より軽快な環境で遊ぶこともできます。</p>
-
-<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/download.png" alt="" /></p>
-
-<p>ポチポチ押すだけで5分くらいあればインストールできるので、面倒くさがりな僕でもインストールできました。</p>
-
-<p>今回のケースだとそんなにですが、1回のテストで20分かかる環境だとテストが速く終わると相当嬉しみがあるので、
-しばらく使ってみて良さそうだったら、本番環境のJenkinsのAndroidエミュレータをGenymotionに置き換えるかもしれません。</p>
 </div>
 
 
@@ -145,7 +164,7 @@
   
 
 
-<time datetime="2013-09-06T23:31:00+09:00" pubdate data-updated="true">Sep 6<span>th</span>, 2013</time>
+<time datetime="2013-10-20T21:59:00+09:00" pubdate data-updated="true">Oct 20<span>th</span>, 2013</time>
       
 
 <span class="categories">
@@ -166,10 +185,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/08/31/android-casual-talks-1/" title="Previous Post: Android Casual Talks #1">&laquo; Android Casual Talks #1</a>
+        <a class="basic-alignment left" href="/blog/2013/10/17/create-intent/" title="Previous Post: Intentの生成パターン">&laquo; Intentの生成パターン</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/09/17/interaction-design/" title="Next Post: デザインリサーチをするにあたって">デザインリサーチをするにあたって &raquo;</a>
       
     </p>
   </footer>

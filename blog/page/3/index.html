@@ -9,8 +9,7 @@
   <meta name="author" content="rejasupotaro">
 
   
-  <meta name="description" content="Otto - An event bus by Square 画像のアップロード処理が終わったらActivityに通知するとか、
-DBからデータを消したらViewに反映させるとかしたくなることってよくあると思います。 Interfaceでなんとかしようとするとコードが汚くなってやだなと思ってたので、 &hellip;">
+  <meta name="description" content="Android Katanuki A template application that includes tons of great open source tools and frameworks. 経緯 この前、AndroidKickstartRというプロジェクトを見つけました。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +75,122 @@ DBからデータを消したらViewに反映させるとかしたくなるこ�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/28/android-katanuki/">テンプレートアプリ &#8220;Katanuki&#8221; を作った</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-28T16:47:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1><a href="https://github.com/takiguchi0817/katanuki">Android Katanuki</a></h1>
+
+<p>A template application that includes tons of great open source tools and frameworks.</p>
+
+<p><img src="https://raw.github.com/takiguchi0817/katanuki/master/katanuki.png" width="640" height="480"></p>
+
+<h1>経緯</h1>
+
+<p>この前、<a href="http://androidkickstartr.com/">AndroidKickstartR</a>というプロジェクトを見つけました。</p>
+
+<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201304/androidkickstartr.png" width="640" height="480"></p>
+
+<p>これは自分が使いたいライブラリを選んでポチポチ選んで &#8220;Download it!&#8221; を押したらAndroidアプリのテンプレートが落とせるというものです。
+ハッカソンとかで便利そう。
+雛形を提供するプロジェクトは他にも
+<a href="android%20katanuk://github.com/donnfelker/android-bootstrap">Android Bootstrap</a>
+などもあります。</p>
+
+<p>で、各々がサポートしているライブラリが以下になります。</p>
+
+<h3>AndroidKickstartR</h3>
+
+<ul>
+<li>android-maven-plugin</li>
+<li>AndroidAnnotations</li>
+<li>ActionBarSherlock</li>
+<li>Spring RESTTemplate</li>
+<li>Android support v4</li>
+<li>NineOldAndroid</li>
+<li>ACRA</li>
+<li>RoboGuice</li>
+</ul>
+
+
+<h3>Android Bootstrap</h3>
+
+<ul>
+<li>ActionBarSherlock</li>
+<li>Dagger</li>
+<li>Butterknife</li>
+<li>Otto</li>
+<li>Robotium</li>
+<li>android-maven-plugin</li>
+<li>http-request</li>
+<li>google-gson</li>
+</ul>
+
+
+<p>新しいアプリを作るときのセットアップってほぼ作業だし、
+毎回同じことをしてる気がしたので、自分用のアプリのテンプレートを作りました。
+作ったというより設定を書いた、の方が近いですが。
+（なぜわざわざ作ったかというと自分の使いたいライブラリや書き方が、上のテンプレートと微妙に合わなかったからです。）</p>
+
+<h1>katanukiについて</h1>
+
+<p>このテンプレートは、プロトタイプ作成や一日でアプリを組むハッカソンを想定して作りました。
+今から数時間でそれっぽいアプリを作るぞ！と思ったときに、何をすれば良いか考えて、</p>
+
+<ol>
+<li>APIを叩く</li>
+<li>データを保存する</li>
+<li>かっこいいUIを作る</li>
+</ol>
+
+
+<p>と作業を分解して、APIを叩くのにhttp-request、レスポンスのjsonをオブジェクトに変換するのにgson、それらをAsyncTaskLoaderで呼び出すようにしました。</p>
+
+<p>次にデータの保存はActiveAndroidを使いました。エンタープライズでは使わないと思いますが、面倒なDB周りのコードを書く時間をバッサリカットできるので便利です。</p>
+
+<p>UIについては、入れようか迷ったのですが、中のロジックは一緒でも見せ方はケースバイケースかなと思ったので入れませんでした。
+プロジェクトには含めてませんが、このあたりが便利そうです。</p>
+
+<ul>
+<li><a href="https://github.com/JakeWharton/ActionBarSherlock">ActionBarSherlock</a> : ActionBarのcompatibility library</li>
+<li><a href="https://github.com/chrisbanes/Android-PullToRefresh">PullToRefresh</a> : 引っ張り更新</li>
+<li><a href="https://github.com/Prototik/HoloEverywhere">HoloEverywhere</a> : Holoを2系でも使えるようにする</li>
+<li><a href="https://github.com/SimonVT/android-menudrawer">MenuDrawer</a> : 横から出るメニューの実装</li>
+</ul>
+
+
+<p>OpenSource便利。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1212,483 +1327,6 @@ Mockito is a mocking framework that tastes really good.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/31/java-aes/">続・Androidの画像の暗号化</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-31T23:30:00+09:00" pubdate data-updated="true">Dec 31<span>st</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>前にベンチ取ったときは遅くて使えないって思ったけど、「いやそんなに遅くないでしょう」と言われたので、一からやり直しました。</p>
-
-<h2>AES暗号とは</h2>
-
-<p>AES暗号はアメリカ合衆国の新暗号規格 (Advanced Encryption Standard) として規格化された共通鍵暗号方式である。1977年に発行された暗号規格DESの安全性が技術進歩により低下したため、新たな暗号方式の公募を行い、2001年3月に FIPS PUB 197 として公表され、米軍主導のネットワーク秘匿化オープンソースプロジェクトであるTorなどに採用された。 〜wikipediaより〜</p>
-
-<p>とりあえずAESは、「ブロック暗号」で「ブロック長が128ビット」で「鍵長が128・192・256ビットの3つが利用できる」ということみたいです。</p>
-
-<h2>AESによる暗号化・復号化</h2>
-
-<p><a href="http://www.ne.jp/asahi/hishidama/home/tech/java/aes.html">AESによる暗号化・復号化</a><br/>
-今回はAndroidで画像をストレージに保存する際の暗号化について考えます。</p>
-
-<h4>コード</h4>
-
-<p>ENCRYPT_ALGORYTHM_MODE が &#8220;AES/CTR/PKCS5Padding&#8221; となっていますが、
-これはAESをCTRモードで<a href="http://pentan.info/doc/block_cipher.html#anc_padding">PKCS#5</a>というパディング方式で暗号化するということです。</p>
-
-<p><img src="http://upload.wikimedia.org/wikipedia/commons/d/d3/Cbc_encryption.png" alt="CBC Encryption" /></p>
-
-<ul>
-<li>encrypt: 保存先のファイルと画像を引数にして、画像を暗号化して保存する</li>
-<li>decrypt: ファイル名を引数にして、復号した画像を返す</li>
-</ul>
-
-
-<p>※追記：このコードはそのまま使えません！パスワードの生成については一番最後をお読みください。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-<span class='line-number'>43</span>
-<span class='line-number'>44</span>
-<span class='line-number'>45</span>
-<span class='line-number'>46</span>
-<span class='line-number'>47</span>
-<span class='line-number'>48</span>
-<span class='line-number'>49</span>
-<span class='line-number'>50</span>
-<span class='line-number'>51</span>
-<span class='line-number'>52</span>
-<span class='line-number'>53</span>
-<span class='line-number'>54</span>
-<span class='line-number'>55</span>
-<span class='line-number'>56</span>
-<span class='line-number'>57</span>
-<span class='line-number'>58</span>
-<span class='line-number'>59</span>
-<span class='line-number'>60</span>
-<span class='line-number'>61</span>
-<span class='line-number'>62</span>
-<span class='line-number'>63</span>
-<span class='line-number'>64</span>
-<span class='line-number'>65</span>
-<span class='line-number'>66</span>
-<span class='line-number'>67</span>
-<span class='line-number'>68</span>
-<span class='line-number'>69</span>
-<span class='line-number'>70</span>
-<span class='line-number'>71</span>
-<span class='line-number'>72</span>
-<span class='line-number'>73</span>
-<span class='line-number'>74</span>
-<span class='line-number'>75</span>
-<span class='line-number'>76</span>
-<span class='line-number'>77</span>
-<span class='line-number'>78</span>
-<span class='line-number'>79</span>
-<span class='line-number'>80</span>
-<span class='line-number'>81</span>
-<span class='line-number'>82</span>
-<span class='line-number'>83</span>
-<span class='line-number'>84</span>
-<span class='line-number'>85</span>
-<span class='line-number'>86</span>
-<span class='line-number'>87</span>
-<span class='line-number'>88</span>
-<span class='line-number'>89</span>
-<span class='line-number'>90</span>
-<span class='line-number'>91</span>
-<span class='line-number'>92</span>
-<span class='line-number'>93</span>
-<span class='line-number'>94</span>
-<span class='line-number'>95</span>
-<span class='line-number'>96</span>
-<span class='line-number'>97</span>
-<span class='line-number'>98</span>
-<span class='line-number'>99</span>
-<span class='line-number'>100</span>
-<span class='line-number'>101</span>
-<span class='line-number'>102</span>
-<span class='line-number'>103</span>
-<span class='line-number'>104</span>
-<span class='line-number'>105</span>
-<span class='line-number'>106</span>
-<span class='line-number'>107</span>
-<span class='line-number'>108</span>
-<span class='line-number'>109</span>
-<span class='line-number'>110</span>
-<span class='line-number'>111</span>
-<span class='line-number'>112</span>
-<span class='line-number'>113</span>
-<span class='line-number'>114</span>
-<span class='line-number'>115</span>
-<span class='line-number'>116</span>
-<span class='line-number'>117</span>
-<span class='line-number'>118</span>
-<span class='line-number'>119</span>
-<span class='line-number'>120</span>
-<span class='line-number'>121</span>
-<span class='line-number'>122</span>
-<span class='line-number'>123</span>
-<span class='line-number'>124</span>
-<span class='line-number'>125</span>
-<span class='line-number'>126</span>
-<span class='line-number'>127</span>
-<span class='line-number'>128</span>
-<span class='line-number'>129</span>
-<span class='line-number'>130</span>
-<span class='line-number'>131</span>
-<span class='line-number'>132</span>
-<span class='line-number'>133</span>
-<span class='line-number'>134</span>
-<span class='line-number'>135</span>
-<span class='line-number'>136</span>
-<span class='line-number'>137</span>
-<span class='line-number'>138</span>
-<span class='line-number'>139</span>
-<span class='line-number'>140</span>
-<span class='line-number'>141</span>
-<span class='line-number'>142</span>
-<span class='line-number'>143</span>
-<span class='line-number'>144</span>
-<span class='line-number'>145</span>
-<span class='line-number'>146</span>
-<span class='line-number'>147</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">rejasupotaro</span><span class="o">.</span><span class="na">sampleapp</span><span class="o">.</span><span class="na">encrypt</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.ByteArrayOutputStream</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.FileInputStream</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.FileNotFoundException</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.FileOutputStream</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.security.InvalidAlgorithmParameterException</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.security.InvalidKeyException</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.security.Key</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">java.security.NoSuchAlgorithmException</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">javax.crypto.Cipher</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">javax.crypto.CipherInputStream</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">javax.crypto.CipherOutputStream</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">javax.crypto.NoSuchPaddingException</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">javax.crypto.spec.IvParameterSpec</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">javax.crypto.spec.SecretKeySpec</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.content.Context</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.content.pm.PackageInfo</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.content.pm.PackageManager</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.content.pm.PackageManager.NameNotFoundException</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.graphics.Bitmap</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.graphics.Bitmap.CompressFormat</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.graphics.BitmapFactory</span><span class="o">;</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">android.util.Log</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kn">import</span> <span class="nn">com.rejasupotaro.sampleapp.utils.CloseableUtils</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ImageEncryptor</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TAG</span> <span class="o">=</span> <span class="n">ImageEncryptor</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">();</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">ENCRYPT_ALGORYTHM</span> <span class="o">=</span> <span class="s">&quot;AES&quot;</span><span class="o">;</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">ENCRYPT_ALGORYTHM_MODE</span> <span class="o">=</span> <span class="n">ENCRYPT_ALGORYTHM</span> <span class="o">+</span> <span class="s">&quot;/CTR/PKCS5Padding&quot;</span><span class="o">;</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">DEFAULT_KEY_LENGTH</span> <span class="o">=</span> <span class="mi">16</span><span class="o">;</span>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">mPassword</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="c1">// アプリ固有の情報ということでアプリをインストールした時間をもとに、</span>
-</span><span class='line'>    <span class="c1">// getByte()したときにデフォルトの鍵長の128ビットになるStringを返す</span>
-</span><span class='line'>    <span class="c1">// !!!!このやり方には問題があります。追記を参照!!!!</span>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getPassword</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">if</span> <span class="o">(</span><span class="n">mPassword</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="k">return</span> <span class="n">mPassword</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">PackageInfo</span> <span class="n">packageInfo</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">packageInfo</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getPackageManager</span><span class="o">()</span>
-</span><span class='line'>                    <span class="o">.</span><span class="na">getPackageInfo</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getApplicationInfo</span><span class="o">().</span><span class="na">packageName</span><span class="o">,</span> <span class="n">PackageManager</span><span class="o">.</span><span class="na">GET_META_DATA</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NameNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="kt">long</span> <span class="n">installTime</span> <span class="o">=</span> <span class="n">packageInfo</span><span class="o">.</span><span class="na">firstInstallTime</span><span class="o">;</span>
-</span><span class='line'>        <span class="n">mPassword</span> <span class="o">=</span> <span class="n">formatValidPassword</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">installTime</span><span class="o">));</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">mPassword</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">formatValidPassword</span><span class="o">(</span><span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">while</span> <span class="o">(</span><span class="n">password</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&lt;</span> <span class="n">DEFAULT_KEY_LENGTH</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">password</span> <span class="o">=</span> <span class="s">&quot;0&quot;</span> <span class="o">+</span> <span class="n">password</span><span class="o">;</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>        <span class="k">return</span> <span class="n">password</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">encrypt</span><span class="o">(</span><span class="n">String</span> <span class="n">filePath</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">)</span>
-</span><span class='line'>            <span class="kd">throws</span> <span class="n">FileNotFoundException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">encrypt</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">filePath</span><span class="o">),</span> <span class="n">bitmap</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">encrypt</span><span class="o">(</span><span class="n">File</span> <span class="n">file</span><span class="o">,</span> <span class="n">Bitmap</span> <span class="n">bitmap</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">iv</span><span class="o">)</span>
-</span><span class='line'>            <span class="kd">throws</span> <span class="n">FileNotFoundException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">ByteArrayOutputStream</span> <span class="n">baos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
-</span><span class='line'>        <span class="n">bitmap</span><span class="o">.</span><span class="na">compress</span><span class="o">(</span><span class="n">CompressFormat</span><span class="o">.</span><span class="na">JPEG</span><span class="o">,</span> <span class="mi">100</span><span class="o">,</span> <span class="n">baos</span><span class="o">);</span>
-</span><span class='line'>        <span class="kt">byte</span><span class="o">[]</span> <span class="n">bin</span> <span class="o">=</span> <span class="n">baos</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">();</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">encrypt</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="n">bin</span><span class="o">,</span> <span class="n">password</span><span class="o">,</span> <span class="n">iv</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">encrypt</span><span class="o">(</span><span class="n">String</span> <span class="n">filePath</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">content</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">iv</span><span class="o">)</span>
-</span><span class='line'>            <span class="kd">throws</span> <span class="n">FileNotFoundException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">encrypt</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">filePath</span><span class="o">),</span> <span class="n">content</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">encrypt</span><span class="o">(</span><span class="n">File</span> <span class="n">file</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">content</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">iv</span><span class="o">)</span>
-</span><span class='line'>            <span class="kd">throws</span> <span class="n">FileNotFoundException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Cipher</span> <span class="n">cipher</span> <span class="o">=</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">ENCRYPT_ALGORYTHM</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">cipher</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">Cipher</span><span class="o">.</span><span class="na">ENCRYPT_MODE</span><span class="o">,</span> <span class="n">getKey</span><span class="o">(</span><span class="n">password</span><span class="o">),</span> <span class="k">new</span> <span class="n">IvParameterSpec</span><span class="o">(</span><span class="n">iv</span><span class="o">));</span>
-</span><span class='line'>            <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">fos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">cipher</span><span class="o">.</span><span class="na">doFinal</span><span class="o">(</span><span class="n">content</span><span class="o">));</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchAlgorithmException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchPaddingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InvalidKeyException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InvalidAlgorithmParameterException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IllegalBlockSizeException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">BadPaddingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">fos</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Bitmap</span> <span class="nf">decrypt</span><span class="o">(</span><span class="n">String</span> <span class="n">filePath</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">iv</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="n">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>        <span class="n">CipherInputStream</span> <span class="n">cis</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>        <span class="n">Bitmap</span> <span class="n">bitmap</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">filePath</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">Cipher</span> <span class="n">cipher</span> <span class="o">=</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">ENCRYPT_ALGORYTHM_MODE</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">IvParameterSpec</span> <span class="n">ivspec</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IvParameterSpec</span><span class="o">(</span><span class="n">initialVector</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">cipher</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">Cipher</span><span class="o">.</span><span class="na">DECRYPT_MODE</span><span class="o">,</span> <span class="n">getKey</span><span class="o">(</span><span class="n">password</span><span class="o">),</span> <span class="n">ivspec</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">cis</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CipherInputStream</span><span class="o">(</span><span class="n">fis</span><span class="o">,</span> <span class="n">cipher</span><span class="o">);</span>
-</span><span class='line'>
-</span><span class='line'>            <span class="n">bitmap</span> <span class="o">=</span> <span class="n">BitmapFactory</span><span class="o">.</span><span class="na">decodeStream</span><span class="o">(</span><span class="n">cis</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">FileNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchAlgorithmException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NoSuchPaddingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InvalidKeyException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InvalidAlgorithmParameterException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-</span><span class='line'>        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
-</span><span class='line'>            <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">fis</span><span class="o">);</span>
-</span><span class='line'>            <span class="n">CloseableUtils</span><span class="o">.</span><span class="na">close</span><span class="o">(</span><span class="n">cis</span><span class="o">);</span>
-</span><span class='line'>        <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>        <span class="k">return</span> <span class="n">bitmap</span><span class="o">;</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Key</span> <span class="nf">getKey</span><span class="o">(</span><span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
-</span><span class='line'>        <span class="k">return</span> <span class="k">new</span> <span class="nf">SecretKeySpec</span><span class="o">(</span><span class="n">password</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(),</span> <span class="n">ENCRYPT_ALGORYTHM</span><span class="o">);</span>
-</span><span class='line'>    <span class="o">}</span>
-</span><span class='line'><span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>_</p>
-
-<p>動作モードについて補足すると、</p>
-
-<ul>
-<li>ECB(Electronic CodeBook)電子符号表モード
-
-<ul>
-<li>単純にブロックごとに暗号化する。安全でなく使うべきでない。</li>
-</ul>
-</li>
-<li>CTR(Counter)カウンターモード
-
-<ul>
-<li>各ブロックを初期値から1ずつ増加するカウンタの暗号化との排他的論理和で暗号化する。各ブロックを並列に処理できる。</li>
-</ul>
-</li>
-<li>CBC(Cipher Block Chaining)暗号ブロック連鎖モード
-
-<ul>
-<li>ブロックを前ブロックの暗号化結果と排他的論理和を取ってから暗号化する。最初のブロックは初期ベクタという乱数と排他的論理和を取る。</li>
-</ul>
-</li>
-<li>CFB(Cipher Feed Back)暗号フィードバックモード
-
-<ul>
-<li>前ブロックを暗号化してブロックとの排他的論理和をとって暗号文とする。最初のブロックは初期ベクタの暗号化との排他的論理和で暗号化する。</li>
-</ul>
-</li>
-<li>OFB(Output Feed Back)出力フィードバックモード
-
-<ul>
-<li>初期ベクタに繰り返し暗号化処理して乱数ストリームを作り、これと平文との排他的論理和を暗号文とする。</li>
-</ul>
-</li>
-</ul>
-
-
-<p>ということらしいです。詳しくは<a href="http://akademeia.info/index.php?%A5%D6%A5%ED%A5%C3%A5%AF%B0%C5%B9%E6%A4%CE%CD%F8%CD%D1%A5%E2%A1%BC%A5%C9#pdc05fdd">こちら</a></p>
-
-<h2>ベンチマーク</h2>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/madoka.jpg" alt="" />
-うちに届いた年賀状の画像の暗号化にどれくらい時間がかかるのか計測してみました。</p>
-
-<ul>
-<li>サイズ: 864px * 480px</li>
-<li>端末スペック: Xperia arc
-
-<ul>
-<li>OS  Google Android 2.3</li>
-<li>CPU: Snapdragon 1GHz(MSM8255)</li>
-<li>RAM: 512MB</li>
-</ul>
-</li>
-</ul>
-
-
-<figure class='code'><figcaption><span>検証コード  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
-</span><span class='line'><span class="n">ImageEncryptor</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="n">filePath</span><span class="o">,</span> <span class="n">bitmap</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
-</span><span class='line'><span class="n">ImageEncryptor</span><span class="o">.</span><span class="na">decrypt</span><span class="o">(</span><span class="n">filePath</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
-</span><span class='line'><span class="kt">long</span> <span class="n">stop</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
-</span><span class='line'><span class="n">Log</span><span class="o">.</span><span class="na">d</span><span class="o">(</span><span class="s">&quot;DEBUG&quot;</span><span class="o">,</span> <span class="s">&quot;実行にかかった時間は &quot;</span> <span class="o">+</span> <span class="o">(</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="o">)</span> <span class="o">+</span> <span class="s">&quot; ミリ秒です。&quot;</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>結果  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">14</span><span class="o">:</span><span class="mi">41</span><span class="o">:</span><span class="mf">02.026</span><span class="o">:</span> <span class="n">D</span><span class="o">/</span><span class="n">DEBUG</span><span class="o">(</span><span class="mi">26043</span><span class="o">):</span> <span class="err">実行にかかった時間は</span> <span class="mi">1177</span> <span class="err">ミリ秒です。</span>
-</span><span class='line'><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">14</span><span class="o">:</span><span class="mi">40</span><span class="o">:</span><span class="mf">17.496</span><span class="o">:</span> <span class="n">D</span><span class="o">/</span><span class="n">DEBUG</span><span class="o">(</span><span class="mi">26043</span><span class="o">):</span> <span class="err">実行にかかった時間は</span> <span class="mi">1149</span> <span class="err">ミリ秒です。</span>
-</span><span class='line'><span class="mi">01</span><span class="o">-</span><span class="mi">02</span> <span class="mi">14</span><span class="o">:</span><span class="mi">40</span><span class="o">:</span><span class="mf">38.406</span><span class="o">:</span> <span class="n">D</span><span class="o">/</span><span class="n">DEBUG</span><span class="o">(</span><span class="mi">26043</span><span class="o">):</span> <span class="err">実行にかかった時間は</span> <span class="mi">1233</span> <span class="err">ミリ秒です。</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>traceviewでも確認</p>
-
-<p><img src="http://dl.dropbox.com/u/54255753/blog/201212/trace.png" alt="" /></p>
-
-<p>AESFastEngine.encryptBlockが7割、AESFastEngine.decryptBlockが3割くらいですね。</p>
-
-<h2>まとめ</h2>
-
-<p>暗号化にどれくらい時間かかるのかなと思ったけど、あまりサイズが大きくなければわりと実用的っぽい！</p>
-
-<h2>追記</h2>
-
-<p>パスワードの生成でアプリのインストール時間を見ていましたが、firstInstallTimeがAPI level 9からだったので、Androidバージョン2.1と2.2で使えませんでした。
-なので別の方法を考えようと思っていたら、<a href="http://d.hatena.ne.jp/ockeghem/20120213/p1">書籍「Android Security」の暗号鍵生成方法には課題がある</a> という記事を見つけました。
-というわけでランダムなbyte列を16個生成して128bitにすることにした。</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">16</span><span class="o">];</span>
-</span><span class='line'><span class="n">SecureRandom</span> <span class="n">rand</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SecureRandom</span><span class="o">();</span>
-</span><span class='line'><span class="n">rand</span><span class="o">.</span><span class="na">nextBytes</span><span class="o">(</span><span class="n">bytes</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>_</p>
-
-<p>このようにパスワードを生成します。
-RandomじゃなくてSecureRandomを使った方が良いです。
-またパスワードはStringで持つのではなくbyte[]で持っていた方が良いです。
-SQLiteに保存するならBLOBで、SharedPreferenceならbase64にエンコードして書き込むようにします。</p>
-
-<p><link href="http://fonts.googleapis.com/css?family=Cantarell" rel="stylesheet" type="text/css"></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -1706,6 +1344,10 @@ SQLiteに保存するならBLOBで、SharedPreferenceならbase64にエンコー
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/10/20/reference-of-local-aar/">ローカルのaarの参照を参照する</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/10/17/create-intent/">Intentの生成パターン</a>
       </li>
     
@@ -1719,10 +1361,6 @@ SQLiteに保存するならBLOBで、SharedPreferenceならbase64にエンコー
     
       <li class="post">
         <a href="/blog/2013/10/06/feed-ui-patterns/">Feed UI Patterns</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/09/30/upload-to-s3/">S3でmavenリポジトリをホストしてGradleでアップロードする</a>
       </li>
     
   </ul>
