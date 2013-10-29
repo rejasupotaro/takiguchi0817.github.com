@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Android | Just posted a blog]]></title>
-  <link href="http://takiguchi0817.github.com/blog/categories/android/atom.xml" rel="self"/>
-  <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-29T23:14:37+09:00</updated>
-  <id>http://takiguchi0817.github.com/</id>
+  <link href="http://rejasupotaro.github.io/blog/categories/android/atom.xml" rel="self"/>
+  <link href="http://rejasupotaro.github.io/"/>
+  <updated>2013-10-29T23:19:52+09:00</updated>
+  <id>http://rejasupotaro.github.io/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[ローカルのaarの参照を参照する]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/10/20/reference-of-local-aar/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/10/20/reference-of-local-aar/"/>
     <updated>2013-10-20T21:59:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/10/20/reference-of-local-aar</id>
+    <id>http://rejasupotaro.github.io/blog/2013/10/20/reference-of-local-aar</id>
     <content type="html"><![CDATA[<p>ローカルのaarはjarのように参照することはできない。</p>
 
 <p>```java
@@ -55,9 +55,9 @@ dependencies {</p>
   
   <entry>
     <title type="html"><![CDATA[Intentの生成パターン]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/10/17/create-intent/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/10/17/create-intent/"/>
     <updated>2013-10-17T00:02:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/10/17/create-intent</id>
+    <id>http://rejasupotaro.github.io/blog/2013/10/17/create-intent</id>
     <content type="html"><![CDATA[<p>Androidの設計思想上、Activityはどこからも呼び出されるものなので、Intentを呼び出し元で生成してExtraを付けるっていうのは、どこでgetExtraされるかとか、そもそもどんなパラメータが必要かが分かりにくくて、後から追加されたActivityでExtraが足りなくて落ちるということが起こりうると思っていました。</p>
 
 <h2>僕のパターン</h2>
@@ -130,9 +130,9 @@ android:configChanges="orientation|keyboardHidden|screenSize" &gt;
   
   <entry>
     <title type="html"><![CDATA[Androidのデータ保存パターン]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/10/13/saving-data/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/10/13/saving-data/"/>
     <updated>2013-10-13T22:36:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/10/13/saving-data</id>
+    <id>http://rejasupotaro.github.io/blog/2013/10/13/saving-data</id>
     <content type="html"><![CDATA[<p>新しくアプリを作るときにAndroid内でのデータの持ち方や、アクセスの仕方、モデルの扱い方には色々あってどうしようってなると思うので、僕の少ない経験から考えたことをまとめます。</p>
 
 <h1>ファイルに保存</h1>
@@ -299,9 +299,9 @@ new Select().from(Todo.class).where("Status=?", STATUS_END).execute();
   
   <entry>
     <title type="html"><![CDATA[Narive UI]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/10/07/native-ui/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/10/07/native-ui/"/>
     <updated>2013-10-07T23:55:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/10/07/native-ui</id>
+    <id>http://rejasupotaro.github.io/blog/2013/10/07/native-ui</id>
     <content type="html"><![CDATA[<p>人は何を見てアプリっぽいと感じるのだろうか。</p>
 
 <div>
@@ -338,9 +338,9 @@ new Select().from(Todo.class).where("Status=?", STATUS_END).execute();
   
   <entry>
     <title type="html"><![CDATA[Feed UI Patterns]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/10/06/feed-ui-patterns/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/10/06/feed-ui-patterns/"/>
     <updated>2013-10-06T17:50:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/10/06/feed-ui-patterns</id>
+    <id>http://rejasupotaro.github.io/blog/2013/10/06/feed-ui-patterns</id>
     <content type="html"><![CDATA[<p>タイムラインとかフィードを見る系でいい感じのアプリない？と聞かれたのでアプリのUIを眺めていました。</p>
 
 <h3>Feedly</h3>

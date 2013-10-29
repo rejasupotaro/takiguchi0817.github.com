@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Isucon | Just posted a blog]]></title>
-  <link href="http://takiguchi0817.github.com/blog/categories/isucon/atom.xml" rel="self"/>
-  <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-29T23:14:37+09:00</updated>
-  <id>http://takiguchi0817.github.com/</id>
+  <link href="http://rejasupotaro.github.io/blog/categories/isucon/atom.xml" rel="self"/>
+  <link href="http://rejasupotaro.github.io/"/>
+  <updated>2013-10-29T23:19:52+09:00</updated>
+  <id>http://rejasupotaro.github.io/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[イスコン各位のパフォーマンスチューニング]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/11/06/isucon2/"/>
+    <link href="http://rejasupotaro.github.io/blog/2012/11/06/isucon2/"/>
     <updated>2012-11-06T23:59:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/11/06/isucon2</id>
+    <id>http://rejasupotaro.github.io/blog/2012/11/06/isucon2</id>
     <content type="html"><![CDATA[<p><a href="http://blog.livedoor.jp/techblog/archives/67726806.html">#isucon2</a>、周りでも結構話題になった。<br/>
 「同期でもやりたいねー。」みたいな話になって、僕はパフォーマンスチューニングとかよくわからなかったので、各チームが何をしたのか調べた。</p>
 

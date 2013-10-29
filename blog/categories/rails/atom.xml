@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Rails | Just posted a blog]]></title>
-  <link href="http://takiguchi0817.github.com/blog/categories/rails/atom.xml" rel="self"/>
-  <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-29T23:14:37+09:00</updated>
-  <id>http://takiguchi0817.github.com/</id>
+  <link href="http://rejasupotaro.github.io/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://rejasupotaro.github.io/"/>
+  <updated>2013-10-29T23:19:52+09:00</updated>
+  <id>http://rejasupotaro.github.io/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Railsでcronを設定するときに良いやつ]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/12/02/whenever/"/>
+    <link href="http://rejasupotaro.github.io/blog/2012/12/02/whenever/"/>
     <updated>2012-12-02T10:59:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/12/02/whenever</id>
+    <id>http://rejasupotaro.github.io/blog/2012/12/02/whenever</id>
     <content type="html"><![CDATA[<p>Railsアプリで定期的にDBの情報を更新したかった。なにか良い方法ないか調べたらwheneverというもの見つけた。</p>
 
 <p>"<a href="https://github.com/javan/whenever">Whenever</a> is a Ruby gem that provides a clear syntax for writing and deploying cron jobs."</p>
@@ -268,9 +268,9 @@ autoload、書いてなかったらconfig/application.rbに</p>
   
   <entry>
     <title type="html"><![CDATA[Rails Days 2]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/11/11/rails-days-2/"/>
+    <link href="http://rejasupotaro.github.io/blog/2012/11/11/rails-days-2/"/>
     <updated>2012-11-11T14:02:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/11/11/rails-days-2</id>
+    <id>http://rejasupotaro.github.io/blog/2012/11/11/rails-days-2</id>
     <content type="html"><![CDATA[<h2>DBとかモデルとかいじる</h2>
 
 <h3>MySQLのインストール</h3>
@@ -346,9 +346,9 @@ $ rake db:migrate
   
   <entry>
     <title type="html"><![CDATA[Rails Days 1]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/11/04/rails-days-1/"/>
+    <link href="http://rejasupotaro.github.io/blog/2012/11/04/rails-days-1/"/>
     <updated>2012-11-04T19:49:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/11/04/rails-days-1</id>
+    <id>http://rejasupotaro.github.io/blog/2012/11/04/rails-days-1</id>
     <content type="html"><![CDATA[<h1>Railsを始めるまで</h1>
 
 <h2>さくらのVPSのOS再インストール</h2>

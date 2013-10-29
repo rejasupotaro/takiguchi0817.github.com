@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: CoffeeScript | Just posted a blog]]></title>
-  <link href="http://takiguchi0817.github.com/blog/categories/coffeescript/atom.xml" rel="self"/>
-  <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-29T23:14:37+09:00</updated>
-  <id>http://takiguchi0817.github.com/</id>
+  <link href="http://rejasupotaro.github.io/blog/categories/coffeescript/atom.xml" rel="self"/>
+  <link href="http://rejasupotaro.github.io/"/>
+  <updated>2013-10-29T23:19:52+09:00</updated>
+  <id>http://rejasupotaro.github.io/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[文化の日]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/11/03/y-combinators/"/>
+    <link href="http://rejasupotaro.github.io/blog/2012/11/03/y-combinators/"/>
     <updated>2012-11-03T14:15:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/11/03/y-combinators</id>
+    <id>http://rejasupotaro.github.io/blog/2012/11/03/y-combinators</id>
     <content type="html"><![CDATA[<h2>わかりやすかった</h2>
 
 <p><a href="http://d.hatena.ne.jp/r-west/20090417/1239972722">おとうさんにもわかるYコンビネータ！(絵解き解説編)</a></p>

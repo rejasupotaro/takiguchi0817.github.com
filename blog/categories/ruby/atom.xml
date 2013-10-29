@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Ruby | Just posted a blog]]></title>
-  <link href="http://takiguchi0817.github.com/blog/categories/ruby/atom.xml" rel="self"/>
-  <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-29T23:14:37+09:00</updated>
-  <id>http://takiguchi0817.github.com/</id>
+  <link href="http://rejasupotaro.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://rejasupotaro.github.io/"/>
+  <updated>2013-10-29T23:19:52+09:00</updated>
+  <id>http://rejasupotaro.github.io/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[altria-connected_instrument_test]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/07/11/altria-connected-instrument-test/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/07/11/altria-connected-instrument-test/"/>
     <updated>2013-07-11T22:03:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/07/11/altria-connected-instrument-test</id>
+    <id>http://rejasupotaro.github.io/blog/2013/07/11/altria-connected-instrument-test</id>
     <content type="html"><![CDATA[<p><blockquote class="twitter-tweet"><p>何も作ってないけどLLでJenkins cloneつくってYAPCとかで発表したい</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/340815292131311619">June 1, 2013</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 <blockquote class="twitter-tweet"><p>Jenkins clone実験中に暴走して凍結とかが良い</p>&mdash; 片s (@hotchemi) <a href="https://twitter.com/hotchemi/statuses/346598875328557059">June 17, 2013</a></blockquote>
@@ -42,9 +42,9 @@
   
   <entry>
     <title type="html"><![CDATA[Railsでcronを設定するときに良いやつ]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/12/02/whenever/"/>
+    <link href="http://rejasupotaro.github.io/blog/2012/12/02/whenever/"/>
     <updated>2012-12-02T10:59:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/12/02/whenever</id>
+    <id>http://rejasupotaro.github.io/blog/2012/12/02/whenever</id>
     <content type="html"><![CDATA[<p>Railsアプリで定期的にDBの情報を更新したかった。なにか良い方法ないか調べたらwheneverというもの見つけた。</p>
 
 <p>"<a href="https://github.com/javan/whenever">Whenever</a> is a Ruby gem that provides a clear syntax for writing and deploying cron jobs."</p>
@@ -295,9 +295,9 @@ autoload、書いてなかったらconfig/application.rbに</p>
   
   <entry>
     <title type="html"><![CDATA[GifがBoomだったので]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/11/24/save-dailymotion/"/>
+    <link href="http://rejasupotaro.github.io/blog/2012/11/24/save-dailymotion/"/>
     <updated>2012-11-24T22:48:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/11/24/save-dailymotion</id>
+    <id>http://rejasupotaro.github.io/blog/2012/11/24/save-dailymotion</id>
     <content type="html"><![CDATA[<h1><img src="http://dl.dropbox.com/u/54255753/blog/201211/live.jpg" alt="ライブに行きました！" /></h1>
 
 <p>　<br/>
@@ -425,9 +425,9 @@ autoload、書いてなかったらconfig/application.rbに</p>
   
   <entry>
     <title type="html"><![CDATA[Androidで複数画像をzipにしてmultipart/form-dataで送ってRubyで受け取る]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/11/19/zip-upload/"/>
+    <link href="http://rejasupotaro.github.io/blog/2012/11/19/zip-upload/"/>
     <updated>2012-11-19T01:08:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/11/19/zip-upload</id>
+    <id>http://rejasupotaro.github.io/blog/2012/11/19/zip-upload</id>
     <content type="html"><![CDATA[<h2>Androidで送る</h2>
 
 <p>事情があって一回のリクエストで複数画像を送りたかった。</p>
@@ -732,9 +732,9 @@ outFilePathはどこでもいいんだけど、</p>
   
   <entry>
     <title type="html"><![CDATA[ライブに行った。感化された。]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/11/11/betterflow/"/>
+    <link href="http://rejasupotaro.github.io/blog/2012/11/11/betterflow/"/>
     <updated>2012-11-11T18:10:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/11/11/betterflow</id>
+    <id>http://rejasupotaro.github.io/blog/2012/11/11/betterflow</id>
     <content type="html"><![CDATA[<h2>ライブに行った</h2>
 
 <p><img src="http://dl.dropbox.com/u/54255753/blog/201211/live1.jpg" alt="さいたまスーパーアリーナ付近" /><br/>

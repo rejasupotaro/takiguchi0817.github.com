@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Test | Just posted a blog]]></title>
-  <link href="http://takiguchi0817.github.com/blog/categories/test/atom.xml" rel="self"/>
-  <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-29T23:14:37+09:00</updated>
-  <id>http://takiguchi0817.github.com/</id>
+  <link href="http://rejasupotaro.github.io/blog/categories/test/atom.xml" rel="self"/>
+  <link href="http://rejasupotaro.github.io/"/>
+  <updated>2013-10-29T23:19:52+09:00</updated>
+  <id>http://rejasupotaro.github.io/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[モヒートはモッキングフレームワークで味はとても美味しい]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/09/19/android-test/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/09/19/android-test/"/>
     <updated>2013-09-19T22:40:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/09/19/android-test</id>
+    <id>http://rejasupotaro.github.io/blog/2013/09/19/android-test</id>
     <content type="html"><![CDATA[<h1>mojito (モヒート)</h1>
 
 <p><img src="http://dl.dropbox.com/u/54255753/blog/201301/mojito.jpg" alt="" /></p>
@@ -160,7 +160,7 @@ public boolean check(Activity target) {
 
 <p>この動画で紹介されているGroovyの元祖PowerAssert系テストフレームワーク <a href="https://code.google.com/p/spock/">Spock</a> を頑張ってAndroidで動かすというもの。</p>
 
-<iframe width="420" height="315" src="http://takiguchi0817.github.com//www.youtube.com/embed/aDoQxqO_6rI" frameborder="0" allowfullscreen></iframe>
+<iframe width="420" height="315" src="http://rejasupotaro.github.io//www.youtube.com/embed/aDoQxqO_6rI" frameborder="0" allowfullscreen></iframe>
 
 
 <p>RobolectricはAndroidのテストをJVM上で実行するためのフレームワークで、AndroidのクラスをJavaのShadowクラスに変換して実行するしくみになっている。

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Namespace.js | Just posted a blog]]></title>
-  <link href="http://takiguchi0817.github.com/blog/categories/namespace-dot-js/atom.xml" rel="self"/>
-  <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-29T23:14:37+09:00</updated>
-  <id>http://takiguchi0817.github.com/</id>
+  <link href="http://rejasupotaro.github.io/blog/categories/namespace-dot-js/atom.xml" rel="self"/>
+  <link href="http://rejasupotaro.github.io/"/>
+  <updated>2013-10-29T23:19:52+09:00</updated>
+  <id>http://rejasupotaro.github.io/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[JavaScriptの名前空間]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2012/11/16/into-brook/"/>
+    <link href="http://rejasupotaro.github.io/blog/2012/11/16/into-brook/"/>
     <updated>2012-11-16T01:28:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2012/11/16/into-brook</id>
+    <id>http://rejasupotaro.github.io/blog/2012/11/16/into-brook</id>
     <content type="html"><![CDATA[<h2>大規模JavaScript案件</h2>
 
 <p>僕はあまりJavaScript書かないけど、大規模JavaScript案件すると変数とかかぶって滅ぶらしい。<br/>

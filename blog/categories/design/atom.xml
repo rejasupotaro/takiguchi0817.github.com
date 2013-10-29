@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Design | Just posted a blog]]></title>
-  <link href="http://takiguchi0817.github.com/blog/categories/design/atom.xml" rel="self"/>
-  <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-29T23:14:37+09:00</updated>
-  <id>http://takiguchi0817.github.com/</id>
+  <link href="http://rejasupotaro.github.io/blog/categories/design/atom.xml" rel="self"/>
+  <link href="http://rejasupotaro.github.io/"/>
+  <updated>2013-10-29T23:19:52+09:00</updated>
+  <id>http://rejasupotaro.github.io/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Feed UI Patterns]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/10/06/feed-ui-patterns/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/10/06/feed-ui-patterns/"/>
     <updated>2013-10-06T17:50:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/10/06/feed-ui-patterns</id>
+    <id>http://rejasupotaro.github.io/blog/2013/10/06/feed-ui-patterns</id>
     <content type="html"><![CDATA[<p>タイムラインとかフィードを見る系でいい感じのアプリない？と聞かれたのでアプリのUIを眺めていました。</p>
 
 <h3>Feedly</h3>
@@ -69,9 +69,9 @@
   
   <entry>
     <title type="html"><![CDATA[Android開発を始めたばかりの僕が読みたかった本]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/09/28/android-books/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/09/28/android-books/"/>
     <updated>2013-09-28T00:42:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/09/28/android-books</id>
+    <id>http://rejasupotaro.github.io/blog/2013/09/28/android-books</id>
     <content type="html"><![CDATA[<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/reading.png" alt="" /></p>
 
 <p>最近、スマートフォンアプリ開発をやる人増えてきてオススメの本ある？って聞かれること多くなってきたのですが、その人のバックグラウンドによるところも大きいと思うので、自分がAndroidアプリ開発を始めたときに読んでて役に立った、あるいは読んでおきたかったという目線で、良かった本をいくつか挙げようと思います。</p>
@@ -137,9 +137,9 @@ Javaを書く上でのエッセンスが詰め込まれているので、まだ�
   
   <entry>
     <title type="html"><![CDATA[デザインリサーチをするにあたって]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/09/17/interaction-design/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/09/17/interaction-design/"/>
     <updated>2013-09-17T23:52:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/09/17/interaction-design</id>
+    <id>http://rejasupotaro.github.io/blog/2013/09/17/interaction-design</id>
     <content type="html"><![CDATA[<p>今まではいかに綺麗なプログラムを書くかっていうことに時間に割いてきたのだけど、最近デザインの重要性をひしひしと感じるようになり、本当にユーザーが求めるものって何なのか知りたくて、デザインリサーチをすることになりました。
 そこで、本を読むなどして調べたことをまとめました。</p>
 
@@ -295,9 +295,9 @@ Javaを書く上でのエッセンスが詰め込まれているので、まだ�
   
   <entry>
     <title type="html"><![CDATA[Modern Android Design?]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/07/26/modern-android-design/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/07/26/modern-android-design/"/>
     <updated>2013-07-26T00:37:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/07/26/modern-android-design</id>
+    <id>http://rejasupotaro.github.io/blog/2013/07/26/modern-android-design</id>
     <content type="html"><![CDATA[<h1>What's Modern Android Design?</h1>
 
 <h3>GitHub</h3>

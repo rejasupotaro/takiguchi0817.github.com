@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Just posted a blog]]></title>
-  <link href="http://takiguchi0817.github.com/atom.xml" rel="self"/>
-  <link href="http://takiguchi0817.github.com/"/>
-  <updated>2013-10-29T23:14:37+09:00</updated>
-  <id>http://takiguchi0817.github.com/</id>
+  <link href="http://rejasupotaro.github.io/atom.xml" rel="self"/>
+  <link href="http://rejasupotaro.github.io/"/>
+  <updated>2013-10-29T23:19:52+09:00</updated>
+  <id>http://rejasupotaro.github.io/</id>
   <author>
     <name><![CDATA[rejasupotaro]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[ローカルのaarの参照を参照する]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/10/20/reference-of-local-aar/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/10/20/reference-of-local-aar/"/>
     <updated>2013-10-20T21:59:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/10/20/reference-of-local-aar</id>
+    <id>http://rejasupotaro.github.io/blog/2013/10/20/reference-of-local-aar</id>
     <content type="html"><![CDATA[<p>ローカルのaarはjarのように参照することはできない。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -60,9 +60,9 @@
   
   <entry>
     <title type="html"><![CDATA[Intentの生成パターン]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/10/17/create-intent/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/10/17/create-intent/"/>
     <updated>2013-10-17T00:02:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/10/17/create-intent</id>
+    <id>http://rejasupotaro.github.io/blog/2013/10/17/create-intent</id>
     <content type="html"><![CDATA[<p>Androidの設計思想上、Activityはどこからも呼び出されるものなので、Intentを呼び出し元で生成してExtraを付けるっていうのは、どこでgetExtraされるかとか、そもそもどんなパラメータが必要かが分かりにくくて、後から追加されたActivityでExtraが足りなくて落ちるということが起こりうると思っていました。</p>
 
 <h2>僕のパターン</h2>
@@ -153,9 +153,9 @@
   
   <entry>
     <title type="html"><![CDATA[Androidのデータ保存パターン]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/10/13/saving-data/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/10/13/saving-data/"/>
     <updated>2013-10-13T22:36:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/10/13/saving-data</id>
+    <id>http://rejasupotaro.github.io/blog/2013/10/13/saving-data</id>
     <content type="html"><![CDATA[<p>新しくアプリを作るときにAndroid内でのデータの持ち方や、アクセスの仕方、モデルの扱い方には色々あってどうしようってなると思うので、僕の少ない経験から考えたことをまとめます。</p>
 
 <h1>ファイルに保存</h1>
@@ -366,9 +366,9 @@
   
   <entry>
     <title type="html"><![CDATA[Narive UI]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/10/07/native-ui/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/10/07/native-ui/"/>
     <updated>2013-10-07T23:55:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/10/07/native-ui</id>
+    <id>http://rejasupotaro.github.io/blog/2013/10/07/native-ui</id>
     <content type="html"><![CDATA[<p>人は何を見てアプリっぽいと感じるのだろうか。</p>
 
 <div>
@@ -405,9 +405,9 @@
   
   <entry>
     <title type="html"><![CDATA[Feed UI Patterns]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/10/06/feed-ui-patterns/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/10/06/feed-ui-patterns/"/>
     <updated>2013-10-06T17:50:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/10/06/feed-ui-patterns</id>
+    <id>http://rejasupotaro.github.io/blog/2013/10/06/feed-ui-patterns</id>
     <content type="html"><![CDATA[<p>タイムラインとかフィードを見る系でいい感じのアプリない？と聞かれたのでアプリのUIを眺めていました。</p>
 
 <h3>Feedly</h3>
@@ -459,9 +459,9 @@
   
   <entry>
     <title type="html"><![CDATA[S3でmavenリポジトリをホストしてGradleでアップロードする]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/09/30/upload-to-s3/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/09/30/upload-to-s3/"/>
     <updated>2013-09-30T22:52:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/09/30/upload-to-s3</id>
+    <id>http://rejasupotaro.github.io/blog/2013/09/30/upload-to-s3</id>
     <content type="html"><![CDATA[<p>bucket, key, secretは外部ファイルに定義しておきます。</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -554,9 +554,9 @@
   
   <entry>
     <title type="html"><![CDATA[Android開発を始めたばかりの僕が読みたかった本]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/09/28/android-books/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/09/28/android-books/"/>
     <updated>2013-09-28T00:42:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/09/28/android-books</id>
+    <id>http://rejasupotaro.github.io/blog/2013/09/28/android-books</id>
     <content type="html"><![CDATA[<p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/reading.png" alt="" /></p>
 
 <p>最近、スマートフォンアプリ開発をやる人増えてきてオススメの本ある？って聞かれること多くなってきたのですが、その人のバックグラウンドによるところも大きいと思うので、自分がAndroidアプリ開発を始めたときに読んでて役に立った、あるいは読んでおきたかったという目線で、良かった本をいくつか挙げようと思います。</p>
@@ -622,9 +622,9 @@ Javaを書く上でのエッセンスが詰め込まれているので、まだ�
   
   <entry>
     <title type="html"><![CDATA[きんモザのアリスのgif画像を取得するAPIを使ったAndroidアプリを作った]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/09/26/alice-api/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/09/26/alice-api/"/>
     <updated>2013-09-26T01:09:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/09/26/alice-api</id>
+    <id>http://rejasupotaro.github.io/blog/2013/09/26/alice-api</id>
     <content type="html"><![CDATA[<p><a href="https://github.com/takiguchi0817/KinMoza/tree/master">
 <img src="https://dl.dropboxusercontent.com/u/54255753/blog/201309/alice_github.png">
 </a></p>
@@ -642,9 +642,9 @@ Javaを書く上でのエッセンスが詰め込まれているので、まだ�
   
   <entry>
     <title type="html"><![CDATA[YAPC::ASIA 2013 感想]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/09/22/yapcasia-2013/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/09/22/yapcasia-2013/"/>
     <updated>2013-09-22T11:14:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/09/22/yapcasia-2013</id>
+    <id>http://rejasupotaro.github.io/blog/2013/09/22/yapcasia-2013</id>
     <content type="html"><![CDATA[<p>感想を書こうと思ったけどスライドを並べたらかなり長くなってしまったので別のところで書きます。</p>
 
 <h1>まとめ</h1>
@@ -666,7 +666,7 @@ Javaを書く上でのエッセンスが詰め込まれているので、まだ�
 <p><a href="http://songmu.github.io/slides/yapc-asia2013/">今時のカジュアルなデータベース関連開発</a></p>
 
 <div style="width: 60%">
-<script async class="speakerdeck-embed" data-id="552f7d1003e60131954556f7ac4f018a" data-ratio="1.2994923857868" src="http://takiguchi0817.github.com//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="552f7d1003e60131954556f7ac4f018a" data-ratio="1.2994923857868" src="http://rejasupotaro.github.io//speakerdeck.com/assets/embed.js"></script>
 </div>
 
 
@@ -710,28 +710,28 @@ Javaを書く上でのエッセンスが詰め込まれているので、まだ�
 <p> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/DQNEO/git-yapcasia2013" title="やさしいGitの内部構造 - yapcasia2013" target="_blank">やさしいGitの内部構造 - yapcasia2013</a> </strong> from <strong><a href="http://www.slideshare.net/DQNEO" target="_blank">DQNEO</a></strong> </div></p>
 
 <div style="width: 60%">
-<script async class="speakerdeck-embed" data-id="192c25d003f30131e2af62034c419aee" data-ratio="1.33333333333333" src="http://takiguchi0817.github.com//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="192c25d003f30131e2af62034c419aee" data-ratio="1.33333333333333" src="http://rejasupotaro.github.io//speakerdeck.com/assets/embed.js"></script>
 </div>
 
 
 
 
 <div style="width: 60%">
-<script async class="speakerdeck-embed" data-id="fe0568a0047501310e2442095ef5c3d5" data-ratio="1.77777777777778" src="http://takiguchi0817.github.com//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="fe0568a0047501310e2442095ef5c3d5" data-ratio="1.77777777777778" src="http://rejasupotaro.github.io//speakerdeck.com/assets/embed.js"></script>
 </div>
 
 
 
 
 <div style="width: 60%">
-<script async class="speakerdeck-embed" data-id="512b43d0044201319a7e5a401ba27687" data-ratio="1.33333333333333" src="http://takiguchi0817.github.com//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="512b43d0044201319a7e5a401ba27687" data-ratio="1.33333333333333" src="http://rejasupotaro.github.io//speakerdeck.com/assets/embed.js"></script>
 </div>
 
 
 <h1>二日目</h1>
 
 <div style="width: 60%">
-<script async class="speakerdeck-embed" data-id="51b4379004a301319a7f5a401ba27687" data-ratio="1.33333333333333" src="http://takiguchi0817.github.com//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="51b4379004a301319a7f5a401ba27687" data-ratio="1.33333333333333" src="http://rejasupotaro.github.io//speakerdeck.com/assets/embed.js"></script>
 </div>
 
 
@@ -762,13 +762,13 @@ Javaを書く上でのエッセンスが詰め込まれているので、まだ�
 <blockquote class="twitter-tweet"><p>Perlのカンファレンスの様子です <a href="http://t.co/okpblHNgLO">pic.twitter.com/okpblHNgLO</a></p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/381277626326728704">September 21, 2013</a></blockquote>
 
 
-<script async src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="http://rejasupotaro.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 
 
 <div style="width: 60%">
-<script async class="speakerdeck-embed" data-id="b1ccfdd004eb0131dc105aad22485907" data-ratio="1.2896725440806" src="http://takiguchi0817.github.com//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="b1ccfdd004eb0131dc105aad22485907" data-ratio="1.2896725440806" src="http://rejasupotaro.github.io//speakerdeck.com/assets/embed.js"></script>
 </div>
 
 
@@ -778,9 +778,9 @@ Javaを書く上でのエッセンスが詰め込まれているので、まだ�
   
   <entry>
     <title type="html"><![CDATA[モヒートはモッキングフレームワークで味はとても美味しい]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/09/19/android-test/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/09/19/android-test/"/>
     <updated>2013-09-19T22:40:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/09/19/android-test</id>
+    <id>http://rejasupotaro.github.io/blog/2013/09/19/android-test</id>
     <content type="html"><![CDATA[<h1>mojito (モヒート)</h1>
 
 <p><img src="http://dl.dropbox.com/u/54255753/blog/201301/mojito.jpg" alt="" /></p>
@@ -953,7 +953,7 @@ Javaを書く上でのエッセンスが詰め込まれているので、まだ�
 
 <p>この動画で紹介されているGroovyの元祖PowerAssert系テストフレームワーク <a href="https://code.google.com/p/spock/">Spock</a> を頑張ってAndroidで動かすというもの。</p>
 
-<iframe width="420" height="315" src="http://takiguchi0817.github.com//www.youtube.com/embed/aDoQxqO_6rI" frameborder="0" allowfullscreen></iframe>
+<iframe width="420" height="315" src="http://rejasupotaro.github.io//www.youtube.com/embed/aDoQxqO_6rI" frameborder="0" allowfullscreen></iframe>
 
 
 <p>RobolectricはAndroidのテストをJVM上で実行するためのフレームワークで、AndroidのクラスをJavaのShadowクラスに変換して実行するしくみになっている。
@@ -1045,9 +1045,9 @@ JVMでテストが実行できるようになるということは、Groovyで�
   
   <entry>
     <title type="html"><![CDATA[デザインリサーチをするにあたって]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/09/17/interaction-design/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/09/17/interaction-design/"/>
     <updated>2013-09-17T23:52:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/09/17/interaction-design</id>
+    <id>http://rejasupotaro.github.io/blog/2013/09/17/interaction-design</id>
     <content type="html"><![CDATA[<p>今まではいかに綺麗なプログラムを書くかっていうことに時間に割いてきたのだけど、最近デザインの重要性をひしひしと感じるようになり、本当にユーザーが求めるものって何なのか知りたくて、デザインリサーチをすることになりました。
 そこで、本を読むなどして調べたことをまとめました。</p>
 
@@ -1203,9 +1203,9 @@ JVMでテストが実行できるようになるということは、Groovyで�
   
   <entry>
     <title type="html"><![CDATA[Genymotion速かった]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/09/06/genymotion/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/09/06/genymotion/"/>
     <updated>2013-09-06T23:31:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/09/06/genymotion</id>
+    <id>http://rejasupotaro.github.io/blog/2013/09/06/genymotion</id>
     <content type="html"><![CDATA[<p>AndroVMがいつの間にかGenymotionに名前変わってました。</p>
 
 <h3><a href="http://www.genymotion.com/">Genymotion</a> - BOOST YOUR APP TESTING! Simple, practical and effective.</h3>
@@ -1233,9 +1233,9 @@ JVMでテストが実行できるようになるということは、Groovyで�
   
   <entry>
     <title type="html"><![CDATA[Android Casual Talks #1]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/08/31/android-casual-talks-1/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/08/31/android-casual-talks-1/"/>
     <updated>2013-08-31T17:44:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/08/31/android-casual-talks-1</id>
+    <id>http://rejasupotaro.github.io/blog/2013/08/31/android-casual-talks-1</id>
     <content type="html"><![CDATA[<h1>はじめに</h1>
 
 <p>Androidの開発をしていて、</p>
@@ -1387,9 +1387,9 @@ JVMでテストが実行できるようになるということは、Groovyで�
   
   <entry>
     <title type="html"><![CDATA[どうすると気持ち良く感じるのか]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/08/21/ui-animations/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/08/21/ui-animations/"/>
     <updated>2013-08-21T21:56:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/08/21/ui-animations</id>
+    <id>http://rejasupotaro.github.io/blog/2013/08/21/ui-animations</id>
     <content type="html"><![CDATA[<p><img src="http://i.imgur.com/t3u9Ucc.gif" alt="" /></p>
 
 <p><img src="http://i.imgur.com/IoWbato.gif" alt="" /></p>
@@ -1412,9 +1412,9 @@ JVMでテストが実行できるようになるということは、Groovyで�
   
   <entry>
     <title type="html"><![CDATA[aar dependency]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/07/27/aar-dependency/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/07/27/aar-dependency/"/>
     <updated>2013-07-27T15:47:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/07/27/aar-dependency</id>
+    <id>http://rejasupotaro.github.io/blog/2013/07/27/aar-dependency</id>
     <content type="html"><![CDATA[<p>Android StudioでLibrary Projectを参照するのにソースコードを修正するたびにjarで固めてlibsにポンしてもいいいのですが、
 面倒だしバージョン管理もしたいので調べてたらGitHubをmavenrepoにしてbuild.gradleにdependencyを書いてaarを読み込めることが分かった。</p>
 
@@ -1526,9 +1526,9 @@ JVMでテストが実行できるようになるということは、Groovyで�
   
   <entry>
     <title type="html"><![CDATA[Modern Android Design?]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/07/26/modern-android-design/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/07/26/modern-android-design/"/>
     <updated>2013-07-26T00:37:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/07/26/modern-android-design</id>
+    <id>http://rejasupotaro.github.io/blog/2013/07/26/modern-android-design</id>
     <content type="html"><![CDATA[<h1>What&#8217;s Modern Android Design?</h1>
 
 <h3>GitHub</h3>
@@ -1587,9 +1587,9 @@ JVMでテストが実行できるようになるということは、Groovyで�
   
   <entry>
     <title type="html"><![CDATA[Android Casual Talksやります]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/07/22/android-casual-talks/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/07/22/android-casual-talks/"/>
     <updated>2013-07-22T21:18:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/07/22/android-casual-talks</id>
+    <id>http://rejasupotaro.github.io/blog/2013/07/22/android-casual-talks</id>
     <content type="html"><![CDATA[<p>ワイワイしているルビーストの様子です。</p>
 
 <p><img src="http://d3lrup5e12lrut.cloudfront.net/media/BAhbCVsHOgZmSSIzMjAxMy8wNi8xNi8wOS8wMy8xNC82MjUvaGlnaHJlc18yNDgyMjkzMTIuanBlZwY6BkVUWwg6BnA6DGNvbnZlcnRJIhEtYXV0by1vcmllbnQGOwZUWwg7BzoKdGh1bWJJIg04MjB4NDAwIwY7BlRbCDoGZToIanBnSSIXLXN0cmlwIC1xdWFsaXR5IDgwBjsGVA.jpg" alt="" />
@@ -1606,7 +1606,7 @@ JVMでテストが実行できるようになるということは、Groovyで�
 <blockquote class="twitter-tweet"><p>「さすがの包丁さばきだね！ジャバ書いてるもんね！エンタープライズだもんね！」ってmrknさんに煽られていた</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/358065012734050307">July 19, 2013</a></blockquote>
 
 
-<script async src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="http://rejasupotaro.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 <p>なのでイベントを立てました -> <a href="http://atnd.org/events/41600">Android Casual Talks</a></p>
@@ -1621,9 +1621,9 @@ JVMでテストが実行できるようになるということは、Groovyで�
   
   <entry>
     <title type="html"><![CDATA[Modern Android Design]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/07/18/google-mobile-sessions/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/07/18/google-mobile-sessions/"/>
     <updated>2013-07-18T23:01:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/07/18/google-mobile-sessions</id>
+    <id>http://rejasupotaro.github.io/blog/2013/07/18/google-mobile-sessions</id>
     <content type="html"><![CDATA[<p>Google Mobile Sessionsにいってきた。</p>
 
 <p><img src="https://dl.dropboxusercontent.com/u/54255753/blog/201307/gms1.jpg" alt="" /></p>
@@ -1684,37 +1684,37 @@ Androidのガイドラインに従うことでデベロッパーは時間と努�
   
   <entry>
     <title type="html"><![CDATA[altria-connected_instrument_test]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/07/11/altria-connected-instrument-test/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/07/11/altria-connected-instrument-test/"/>
     <updated>2013-07-11T22:03:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/07/11/altria-connected-instrument-test</id>
+    <id>http://rejasupotaro.github.io/blog/2013/07/11/altria-connected-instrument-test</id>
     <content type="html"><![CDATA[<blockquote class="twitter-tweet"><p>何も作ってないけどLLでJenkins cloneつくってYAPCとかで発表したい</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/340815292131311619">June 1, 2013</a></blockquote>
 
 
-<script async src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="http://rejasupotaro.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 <blockquote class="twitter-tweet"><p>Jenkins clone実験中に暴走して凍結とかが良い</p>&mdash; 片s (@hotchemi) <a href="https://twitter.com/hotchemi/statuses/346598875328557059">June 17, 2013</a></blockquote>
 
 
-<script async src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="http://rejasupotaro.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 <blockquote class="twitter-tweet"><p>Jenkins clone、最終的には独立して一人暮らしとか始めたらいい</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/347316439113400320">June 19, 2013</a></blockquote>
 
 
-<script async src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="http://rejasupotaro.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 <blockquote class="twitter-tweet"><p>Jenkins cloneの名前どうするかという話してて、それより上の抽象概念を考えられないからプロダクトにクラス名のような名前を付けてしまう、初音ミクのような個の概念を与えよ、Jenkins同士が会話してるの見ておっさんがLike付けるという結論になりました</p>&mdash; 中村氏 (@r7kamura) <a href="https://twitter.com/r7kamura/statuses/347336070427451394">June 19, 2013</a></blockquote>
 
 
-<script async src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="http://rejasupotaro.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 <blockquote class="twitter-tweet"><p>Jenkins clone clone作って中村氏のaltriaと聖杯戦争したい</p>&mdash; レジャスポ太郎 (@rejasupotaro) <a href="https://twitter.com/rejasupotaro/statuses/352936007068422144">July 4, 2013</a></blockquote>
 
 
-<script async src="http://takiguchi0817.github.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="http://rejasupotaro.github.io//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 <p>ということで手始めに中村氏のAltriaことJenkins Cloneのプラグインを書きました。</p>
@@ -1730,9 +1730,9 @@ Androidのガイドラインに従うことでデベロッパーは時間と努�
   
   <entry>
     <title type="html"><![CDATA[RouteActivityを作ろう]]></title>
-    <link href="http://takiguchi0817.github.com/blog/2013/06/18/route-activity/"/>
+    <link href="http://rejasupotaro.github.io/blog/2013/06/18/route-activity/"/>
     <updated>2013-06-18T22:16:00+09:00</updated>
-    <id>http://takiguchi0817.github.com/blog/2013/06/18/route-activity</id>
+    <id>http://rejasupotaro.github.io/blog/2013/06/18/route-activity</id>
     <content type="html"><![CDATA[<h2>理由1. LauncherのActivityは太りやすい</h2>
 
 <p>Androidのプロジェクトを作ると最初にMainActivityが作られます。
